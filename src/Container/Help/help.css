@@ -1,4 +1,4 @@
-.htext1{
+/* .htext1 {
     position: absolute;
     width: 4.9vw;
     height: 49px;
@@ -12,145 +12,160 @@
     line-height: 49px;
     color: #1C1F37;
 }
-.htext2{
-    position: absolute;
-width: 21.7vw;
-height: 5.5vh;
-left: 25.4vw;
-top: 20vh;
-z-index: 2;
-font-family: 'IBM Plex Sans Devanagari';
-font-style: normal;
-font-weight: 300;
-font-size: 3vh;
-color: #000000;
-}
-.htext3{
-    position: absolute;
-width: 990.54px;
-height: 5.5vh;
-left: 25.4vw;
-top: 35vh;
-font-family: 'IBM Plex Sans Devanagari';
-font-style: normal;
-font-weight: 300;
-font-size: 3vh;
-z-index: 2;
-color: #000000;
-}
-.htext4{
-    position: absolute;
-width: 990.54px;
-height: 5.5vh;
-left: 25.4vw;
-top: 50.4vh;
-font-family: 'IBM Plex Sans Devanagari';
-font-style: normal;
-font-weight: 300;
-font-size: 3vh;
-line-height: 46px;
-z-index: 2;
-color: #000000;
 
-}
-.htext5{
+.htext2 {
     position: absolute;
-width: 936.2.4vh;
-height: 5.5vh;
-left: 25.4vw;
-top: 65.8vh;
-font-family: 'IBM Plex Sans Devanagari';
-font-style: normal;
-font-weight: 300;
-font-size: 3vh;
-line-height: 46px;
-z-index: 2;
-color: #000000;
-}
-.htext6{
-    position: absolute;
-width: 21.7vw;
-height: 56.92px;
-left: 369.33px;
-top: 81vh;
-font-family: 'IBM Plex Sans Devanagari';
-font-style: normal;
-font-weight: 300;
-font-size: 3vh;
-line-height: 46px;
-z-index: 2;
-color: #000000;
+    width: 21.7vw;
+    height: 5.5vh;
+    left: 25.4vw;
+    top: 20vh;
+    z-index: 2;
+    font-family: 'IBM Plex Sans Devanagari';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 3vh;
+    color: #000000;
 }
 
-.hrect1{
-
+.htext3 {
     position: absolute;
-    width:75.2vw;
+    width: 990.54px;
+    height: 5.5vh;
+    left: 25.4vw;
+    top: 35vh;
+    font-family: 'IBM Plex Sans Devanagari';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 3vh;
+    z-index: 2;
+    color: #000000;
+}
+
+.htext4 {
+    position: absolute;
+    width: 990.54px;
+    height: 5.5vh;
+    left: 25.4vw;
+    top: 50.4vh;
+    font-family: 'IBM Plex Sans Devanagari';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 3vh;
+    line-height: 46px;
+    z-index: 2;
+    color: #000000;
+
+}
+
+.htext5 {
+    position: absolute;
+    width: 936.2.4vh;
+    height: 5.5vh;
+    left: 25.4vw;
+    top: 65.8vh;
+    font-family: 'IBM Plex Sans Devanagari';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 3vh;
+    line-height: 46px;
+    z-index: 2;
+    color: #000000;
+}
+
+.htext6 {
+    position: absolute;
+    width: 21.7vw;
+    height: 56.92px;
+    left: 369.33px;
+    top: 81vh;
+    font-family: 'IBM Plex Sans Devanagari';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 3vh;
+    line-height: 46px;
+    z-index: 2;
+    color: #000000;
+}
+
+.hrect1 {
+    position: absolute;
+    width: 75.2vw;
     height: 7.8vh;
     left: 21vw;
     top: 18.2vh;
     border: none;
     background: #FFFFFF;
     border-radius: 8px;
-}
-.hrect2{
+} */
+
+/* .universal {
+    margin: '60px 30px 0px 280px'; font-size: '28px'; background-color: 'white'; border-radius: '10px';text-align: 'center'; padding: '5px';cursor:'pointer'
+} */
+
+
+
+/* .hrect2 {
     position: absolute;
-width:75.2vw;
-height: 7.8vh;
-left: 21vw;
-top: 33.6vh;
-border: none;
+    width: 75.2vw;
+    height: 7.8vh;
+    left: 21vw;
+    top: 33.6vh;
+    border: none;
 
-background: #FFFFFF;
-border-radius: 8px;
+    background: #FFFFFF;
+    border-radius: 8px;
 }
-.hrect3{
-    
-position: absolute;
-width:75.2vw;
-height: 7.8vh;
-left: 21vw;
-top: 49vh;
-border: none;
 
-background: #FFFFFF;
-border-radius: 8px;
-}
-.hrect4{
-    
-position: absolute;
-width:75.2vw;
-height: 7.8vh;
-left: 21vw;
-top: 64.3vh;
-border: none;
+.hrect3 {
 
-background: #FFFFFF;
-border-radius: 8px;
-}
-.hrect5{
     position: absolute;
-width:75.2vw;
-height: 7.8vh;
-left: 21vw;
-top: 79.6vh;
-border: none;
+    width: 75.2vw;
+    height: 7.8vh;
+    left: 21vw;
+    top: 49vh;
+    border: none;
 
-background: #FFFFFF;
-border-radius: 8px;
+    background: #FFFFFF;
+    border-radius: 8px;
 }
-.hrect6{
+
+.hrect4 {
+
     position: absolute;
-left: 20.1vw;
-right: 4.1vw;
-top: 11.7vh;
-bottom: 9vh;
-width:77.7vw;
-border: none;
+    width: 75.2vw;
+    height: 7.8vh;
+    left: 21vw;
+    top: 64.3vh;
+    border: none;
 
-height:79vhx;
-z-index: -1;
-background: #DDE2EA;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 10px;
+    background: #FFFFFF;
+    border-radius: 8px;
 }
+
+.hrect5 {
+    position: absolute;
+    width: 75.2vw;
+    height: 7.8vh;
+    left: 21vw;
+    top: 79.6vh;
+    border: none;
+
+    background: #FFFFFF;
+    border-radius: 8px;
+}
+
+.hrect6 {
+    position: absolute;
+    left: 20.1vw;
+    right: 4.1vw;
+    top: 11.7vh;
+    bottom: 9vh;
+    width: 77.7vw;
+    border: none;
+
+    height: 79vhx;
+    z-index: -1;
+    background: #DDE2EA;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+} */
