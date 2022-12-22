@@ -4,6 +4,7 @@ import './wallet.css';
 export default function Wallet() {
   return (
     <div>
+      
       <Sidebar />
       <div className='wr1'></div>
       <div className='wr2'></div>

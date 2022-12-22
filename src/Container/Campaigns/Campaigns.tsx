@@ -1,6 +1,7 @@
 import React from 'react'
 import './campaigns.css'
 import Sidebar from '../../components/sidebar/Sidebar';
+import CampaignForm from './CampaignForm/CampaignForm'
 
 
 export default function Campaigns() {
@@ -22,7 +23,7 @@ export default function Campaigns() {
         <div className='c8'>Time</div>
         <div className='c9'>No Ads Generated yet</div>
 
-        <button className='cbtn1'> + Create</button>
+        <button className='cbtn1'> <CampaignForm /></button>
         <button className='cbtn2'>Create Ad</button>
     </div>
   )

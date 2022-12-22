@@ -8,6 +8,8 @@ import Profile from './Container/Profile/Profile';
 import Wallet from './Container/Wallet/Wallet';
 import Settings from './Container/Settings/Settings';
 import Campaigns from './Container/Campaigns/Campaigns';
+import Ads from './Container/Ads/Ads';
+
 
 function App() {
   return (
@@ -20,7 +22,8 @@ function App() {
           <Route path='/help' element={<Help/>}/>
           <Route path='/learnmore' element={<LearnMore/>}/>
           <Route path='/settings' element={<Settings/>}/>
-          <Route path='/campaigns' element={<Campaigns/>}/>        
+          <Route path='/campaigns' element={<Campaigns/>}/>     
+          <Route path='/ads' element={<Ads/>}/>
         </Routes>
       </Router>
     </div>

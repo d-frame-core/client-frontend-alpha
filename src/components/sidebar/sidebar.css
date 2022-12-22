@@ -71,7 +71,7 @@ font-family: 'Alata';
 font-style: normal;
 font-weight: 400;
 font-size: 2vh;
-line-height: 25px;
+line-height: 2.4vh;
 z-index: 1;
 color: #FFFFFF;
 }
@@ -83,7 +83,6 @@ color: #FFFFFF;
     top: 28vh;
     left: 2vw;
 }
-
 .w1{
     position: absolute;
 width: 12.7vw;
@@ -95,7 +94,7 @@ font-family: 'Alata';
 font-style: normal;
 font-weight: 400;
 font-size: 2vh;
-line-height: 25px;
+line-height: 2.4vh;
 z-index: 1;
 color: #FFFFFF;
 
@@ -117,7 +116,7 @@ top: 33.5vh;
     font-style: normal;
     font-weight: 400;
     font-size: 2vh;
-    line-height: 25px;
+    line-height: 2.4vh;
     z-index: 1;
     color: #FFFFFF;
     
@@ -143,7 +142,7 @@ top: 33.5vh;
     font-style: normal;
     font-weight: 400;
     font-size: 2vh;
-    line-height: 25px;
+    line-height: 2.4vh;
     
     color: #FFFFFF;
 }
@@ -166,7 +165,7 @@ top: 33.5vh;
     font-style: normal;
     font-weight: 400;
     font-size: 2vh;
-    line-height: 25px;
+    line-height: 2.4vh;
   z-index: 1;
     color: #FFFFFF;
 }
@@ -187,7 +186,7 @@ font-family: 'Alata';
 font-style: normal;
 font-weight: 400;
 font-size: 2vh;
-line-height: 25px;
+line-height: 2.4vh;
 z-index: 1;
 color: #FFFFFF;
 
@@ -240,7 +239,7 @@ font-family: 'Alata';
 font-style: normal;
 font-weight: 400;
 font-size: 1.8vh;
-line-height: 25px;
+line-height: 2.4vh;
 
 color: #FFFFFF;
 

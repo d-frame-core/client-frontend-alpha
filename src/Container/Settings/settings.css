@@ -1,41 +1,39 @@
 
 .stext0{
     position: absolute;
-width: 222px;
-height: 49px;
-left: 287px;
-top: 22px;
+width: 15.4vw;
+height: 4.7vh;
+left: 20vw;
+top: 2.1vh;
 font-family: 'IBM Plex Sans Devanagari';
 font-style: normal;
 font-weight: 700;
-font-size: 32px;
-line-height: 49px;
+font-size: 4vh;
 color: #1C1F37;
 }
 .srect1{
     position: absolute;
-left: 330px;
-right: 600px;
-top: 120px;
-bottom: 93px;
-width:1050px;
-height: 811px;
+left: 23vw;
+right: 41.6vw;
+top: 11.7vh;
+bottom: 9vh;
+width:73vw;
+height: 79vh;
 background: #DDE2EA;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 border-radius: 10px;
 }
 .stext1{
     position: absolute;
-width: 286.55px;
-height: 53.25px;
-left: 376.79px;
-top: 189.66px;
-
+width: 20vw;
+height: 5.4vh;
+left: 30vw;
+top: 18vh;
+z-index: 1;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 400;
-font-size: 30px;
-line-height: 36px;
+font-size: 3vh;
 display: flex;
 align-items: center;
 text-align: center;
@@ -44,14 +42,14 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 }
 .stext2{
     position: absolute;
-width: 326.22px;
-height: 62.85px;
-left: 340.39px;
-top: 276.13px;
+width: 22.6vw;
+height: 5.6vh;
+left: 28.8vw;
+top: 28.5vh;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 400;
-font-size: 30px;
+font-size: 3vh;
 line-height: 36px;
 display: flex;
 align-items: center;
@@ -61,14 +59,14 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 }
 .stext3{
     position: absolute;
-width: 167.34px;
-height: 45.19px;
-left: 474.48px;
-top: 388.26px;
+width: 11.5vw;
+height: 4vh;
+left: 34.2vw;
+top: 39vh;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 400;
-font-size: 30px;
+font-size: 3vh;
 line-height: 36px;
 display: flex;
 align-items: center;
@@ -78,15 +76,14 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 }
 .stext4{
     position: absolute;
-width: 251.69px;
-height: 63.69px;
-left: 390.36px;
-top: 473.5px;
+width: 17.4vw;
+height: 5.4vh;
+left: 28.5vw;
+top: 47vh;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 400;
-font-size: 30px;
-line-height: 36px;
+font-size: 3vh;
 display: flex;
 align-items: center;
 text-align: center;
@@ -95,15 +92,14 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 }
 .stext5{
     position: absolute;
-width: 264.25px;
-height: 48.43px;
-left: 402.4px;
-top: 574.19px;
+width: 264.2.4vh;
+height: 4vh;
+left: 31.5vw;
+top: 57.5vh;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 400;
-font-size: 30px;
-line-height: 36px;
+font-size: 3vh;
 display: flex;
 align-items: center;
 text-align: center;
@@ -112,10 +108,10 @@ transform: matrix(1, 0, 0, 1, 0, 0);
 }
 .sinput1{
     position: absolute;
-width: 500px;
-height: 63.84px;
-left: 660px;
-top: 180.86px;
+width: 34.7vw;
+height: 6vh;
+left: 45.8vw;
+top: 17.5vh;
 border: none;
 font-style: normal;
 font-size: 26px;
@@ -126,10 +122,10 @@ border-radius: 10px;
 }
 .sinput2{
     position: absolute;
-width: 500px;
-height: 63.84px;
-left: 660px;
-top: 276.19px;
+    width: 34.7vw;
+    height: 6vh;
+    left: 45.8vw;
+top: 28vh;
 border:none;
 font-style: normal;
 font-size: 26px;
@@ -140,33 +136,27 @@ border-radius: 10px;
 }
 .sbtn1{
 position: absolute;
-top: 394px;
-left: 660px;
+top: 38.4vh;
+left: 45.8vw;
 z-index: 1;
 }
 .sbtn2{
     position: absolute;
-    top: 580px;
-    left: 660px;
+    top: 56.6vh;
+    left: 45.8vw;
     z-index: 1;
     }
 .sbtn3{
     
 position: absolute;
-width: 280px;
-height: 44px;
-left: 660px;
-top: 483px;
-font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 25px;
-line-height: 30px;
-display: flex;
-align-items: center;
-text-align: center;
+width: 14vw;
+height: 4.2vh;
+left: 45.8vw;
+top: 47vh;
+font-weight: 100;
+font-size: 2vh;
 color: #FFFFFF;
 background: #FF4747;
 border-radius: 8px;
-border: none;
+border: none; 
 }
