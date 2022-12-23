@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import "./sidebar.css";
+import { Box, Button, Container, Stack } from "@mui/material";
 import df from "../../assets/dframe.png";
 import Header from "../../components/header/Header";
 import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
@@ -11,13 +12,21 @@ import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import QuestionMarkOutlinedIcon from "@mui/icons-material/QuestionMarkOutlined";
-
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+import InboxIcon from "@mui/icons-material/Inbox";
+import DraftsIcon from "@mui/icons-material/Drafts";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import Typography from "@mui/material/Typography";
 export default function Sidebar() {
   return (
     <div>
-      <Header />
-      <div className="re1"></div>
-      <img src={df} className="dframe" alt="dframe" />
+      {/* 
       <div className="t1">D Frame</div>
       <div className="t2"></div>
       <div className="re2"></div>
@@ -80,7 +89,73 @@ export default function Sidebar() {
         </NavLink>
         <div className="n5"></div>
         <div className="n6"></div>
-      </div>
+      </div> */}
+      <Box className="sidebar" flex={2}>
+        <div>
+          <img
+            src={df}
+            alt="title"
+            style={{ padding: 0, width: 200, height: 200 }}
+          />
+          <Typography variant="h3" component="h3" ml={5}>
+            D Frame
+          </Typography>
+        </div>
+        <List
+          style={{ backgroundColor: "#1B2B65", color: "#FFFFFF", padding: 15 }}
+        >
+          <ListItem disablePadding>
+            <ListItemIcon>
+              <AccountBoxIcon style={{ color: "white" }} />
+            </ListItemIcon>
+            <ListItemButton>
+              <Link to="/Profile" style={{ textDecoration: "none" }}>
+                <ListItemText primary="Profile" className="itemTitle" />
+              </Link>
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemIcon>
+              <AccountBalanceWalletIcon style={{ color: "white" }} />
+            </ListItemIcon>
+            <ListItemButton>
+              <Link to="/Wallet" style={{ textDecoration: "none" }}>
+                <ListItemText primary="Wallet" className="itemTitle" />
+              </Link>
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemIcon>
+              <CalendarMonthOutlinedIcon style={{ color: "white" }} />
+            </ListItemIcon>
+            <ListItemButton>
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <ListItemText primary="Data Pool" className="itemTitle" />
+              </Link>
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding style={{}}>
+            <ListItemIcon>
+              <SearchTwoToneIcon style={{ color: "white" }} />
+            </ListItemIcon>
+            <ListItemButton>
+              <Link to="/Campaigns" style={{ textDecoration: "none" }}>
+                <ListItemText primary="Campaigns" className="itemTitle" />
+              </Link>
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding style={{}}>
+            <ListItemIcon>
+              <SettingsOutlinedIcon style={{ color: "white" }} />
+            </ListItemIcon>
+            <ListItemButton>
+              <Link to="/Settings" style={{ textDecoration: "none" }}>
+                <ListItemText primary="Settings" className="itemTitle" />
+              </Link>
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Box>
     </div>
   );
 }

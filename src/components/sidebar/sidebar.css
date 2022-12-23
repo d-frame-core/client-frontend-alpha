@@ -1,4 +1,5 @@
-.re1{
+@import url("https://fonts.googleapis.com/css2?family=Alata&display=swap");
+/* .re1{
     position: absolute;
 left: 0px;
 top: 0px;
@@ -281,4 +282,24 @@ transform: matrix(1, 0, 0,01, 0, 0);
     left: 7.8vw;
     top: 79vh;
     z-index: 3;
+} */
+.sidebar {
+  background: linear-gradient(
+    180deg,
+    rgba(61, 6, 218, 0.76) 0%,
+    rgba(16, 122, 225, 0.575307) 60.27%,
+    rgba(7, 147, 227, 0.536563) 72.92%,
+    rgba(2, 203, 216, 0.52) 100%
+  );
+  border-radius: 0px;
+  height: 100vh;
+  width: 20vw;
+}
+.itemTitle {
+  font-family: "Alata", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  color: white;
+  text-decoration: none;
+  text-transform: none;
 }

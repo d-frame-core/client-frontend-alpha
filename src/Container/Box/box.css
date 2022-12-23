@@ -3,8 +3,9 @@
 .profileTitle {
   font-family: "IBM Plex Sans Devanagari", sans-serif;
 }
+/* 
 .box {
-  position: absolute;
+  position: relative;
   top: 13vh;
   left: 28vw;
   height: 15vh;
@@ -12,13 +13,14 @@
   z-index: 1;
 }
 .outerBox {
-  position: absolute;
+  position: relative;
   left: 15vw;
   right: 2vw;
   top: 15vh;
   bottom: 4vh;
   background: #dde2ea;
-  border-radius: 20px;
+  
+  width: 70vw;
 }
 
 .profileImg {
@@ -96,4 +98,39 @@
   font-style: normal;
   font-weight: 400;
   font-size: large;
+} */
+.profileImg {
+  top: 0;
+  left: 0;
+  margin: 3vh 3vw;
+  width: 112px;
+  height: 120px;
+  border: 2px solid black;
+  border-radius: 138px;
+}
+.colon {
+  line-height: 1.8;
+  font-size: larger;
+  font-weight: 700;
+}
+.detailsTitle {
+  font-family: "Inter", sans-serif;
+  font-size: large;
+}
+.detailInfo {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+
+  color: #1b2b65;
+}
+.inputField {
+  background-color: #dde2ea;
+  outline: none;
+  border-style: none;
+  height: 30px;
+  border-radius: 4px;
+  color: black;
+  padding: 2px;
 }
