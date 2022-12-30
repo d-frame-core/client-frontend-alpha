@@ -1,254 +1,209 @@
-.wr1{
-    position: absolute;
-left: 20.8vw;
+.head {
+  padding: 2vh;
+  position: absolute;
+  left: 2vw;
+  font-weight: 700;
+  font-size: 4vh;
+}
+.Wallet {
+  position: absolute;
+  height: 80vh;
+  width: 70vw;
+  top: 15vh;
+  left: 24vw;
+  background: #dde2ea;
+  text-align: left;
+  border-radius: 1vh;
+}
+.transactions {
+  position: absolute;
+  top: 10vh;
+  bottom: 7vh;
+  text-align: center;
+  left: 7vw;
+  font-size: 3vh;
+  width: 25vw;
+  background-color: white;
+  border-radius: 2vh;
+  overflow-y: hidden;
+  border: 4px solid white;
+  font-family: "IBM Plex Sans Devanagari";
+}
+.transactionHeader {
+  padding: 2vh;
+  font-weight: 400;
+  font-size: larger;
+  text-decoration: underline;
+}
 
-top: 14.6vh;
-bottom: 6.25vh;
-height:79vh;
-width:77vw;
-background: #DDE2EA;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+.transactionList {
+  position: relative;
+  left: 10%;
+  border-radius: 1vh;
+  top: 2vh;
+  margin-bottom: 2vh;
+  font-size: 2vh;
+  height: 10vh;
+  width: 20vw;
+  background-color: #dde2ea;
+  overflow: hidden;
 }
-.wr2{
-    position: absolute;
-width: 31.4vw;
-height: 23vh;
-left: 23.6vw;
-top: 17.5vh;
-z-index: 1;
-background: #FFFFFF;
-border-radius: 15px;
-transform: matrix(1, 0, 0, 1, 0, 0);
+.userWallet {
+  position: absolute;
+  top: 9vh;
+  height: 15vh;
+  width: 25vw;
+  background-color: white;
+  left: 37vw;
+  text-align: center;
+  border-radius: 2vh;
+  border: 2px solid white;
+  font-size: 3vh;
 }
-.wr3{
-    position: absolute;
-width: 31.4vw;
-height: 44vh;
-left: 23.6vw;
-top: 46vh;
-z-index: 1;
-background: #FFFFFF;
-border-radius: 15px;
-transform: matrix(1, 0, 0, 1, 0, 0);
+.transactionBox {
+  height: 55vh;
+  width: 25vw;
+  overflow-y: scroll;
+  z-index: 2;
+  padding-bottom: 20px;
 }
-.wr4{
-    position: absolute;
-width: 37.4vw;
-height: 49.7vh;
-left: 57.6vw;
-top: 17.5vh;
-z-index: 1;
-background: #FFFFFF;
-border-radius: 15px;
-transform: matrix(1, 0, 0, 1, 0, 0);
+.transactionBox::-webkit-scrollbar {
+  border-radius: 2vh;
+  right: 1px;
 }
-.wtext8{
-    position: absolute;
-width: 15.4vw;
-height: 4.7vh;
-left: 20vw;
-top: 2.1vh;
-font-family: 'IBM Plex Sans Devanagari';
-font-style: normal;
-font-weight: 700;
-font-size: 3vh;
-line-height: 49px;
-color: #1C1F37;
+.transactionBox::-webkit-scrollbar-thumb {
+  background-color: #dde2ea;
+  border-radius: 2vh;
+  border: 0.25em solid white;
 }
-.wtext1{
-    position: absolute;
-width: 14.8vw;
-height: 3.5vh;
-left: 31vw;
-top: 22.4vh;
-z-index: 1;
-font-family: 'Inter';
-font-style: normal;
-font-weight: 600;
-font-size: 3vh;
-display: flex;
-align-items: center;
-text-align: center;
-color: #000000;
-transform: matrix(1, 0, 0, 1, 0, 0);
+.to {
+  position: absolute;
+  margin-top: 1vh;
+  margin-left: 1vw;
 }
-.wtext2{
-    position: absolute;
-width: 12.5vw;
-height: 4.1vh;
-left: 33vw;
-top: 29.5vh;
-z-index: 1;
-font-family: 'Inter';
-font-style: normal;
-font-weight: 500;
-font-size: 3vh;
-display: flex;
-align-items: center;
-color: #000000;
-transform: matrix(1, 0, 0, 1, 0, 0);
+.add {
+  position: absolute;
+  margin-top: 1vh;
+  margin-left: 3vw;
+  width: 7vw;
+  overflow: hidden;
+  font-weight: lighter;
+  height: 3vh;
+  color: #1b2b65;
 }
-.wtext3{
-    position: absolute;
-width: 23.3vw;
-height: 7.3vh;
-left: 28.6vw;
-top: 50.7vh;
-z-index: 1;
-font-family: 'Inter';
-font-style: normal;
-font-weight: 600;
-font-size: 3vh;
-display: flex;
-align-items: center;
-color: #000000;
-transform: matrix(1, 0, 0, 1, 0, 0);
+.date {
+  position: absolute;
+  margin-top: 1vh;
+  margin-left: 11vw;
+  font-size: 2vh;
 }
-.wtext4{
-    position: absolute;
-width: 28.4vw;
-height: 5.8vh;
-left: 65vw;
-top: 25.7vh;
-z-index: 1;
-font-family: 'Inter';
-font-style: normal;
-font-weight: 600;
-font-size: 3vh;
-display: flex;
-align-items: center;
-color: #000000;
-transform: matrix(1, 0, 0, 1, 0, 0);
+.dft {
+  position: absolute;
+  margin-top: 6vh;
+  margin-left: 1.5vw;
+  font-weight: 700;
+  font-size: 2.5vh;
+  color: #1b2b65;
 }
-.wtext5{
-    
-position: absolute;
-width: 9.7vw;
-height: 5vh;
-left: 63vw;
-top: 34vh;
-z-index: 1;
-font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 3vh;
-display: flex;
-align-items: center;
-color: #000000;
-transform: matrix(1, 0, 0, 1, 0, 0);
+.time {
+  position: absolute;
+  margin-top: 6.5vh;
+  margin-left: 7.5vw;
+  font-size: 90%;
 }
-.wtext6{
-    position: absolute;
-width: 21.2vw;
-height: 5vh;
-left: 77.7vw;
-top: 34vh;
-z-index: 1;
-font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 3vh;
-display: flex;
-align-items: center;
-color: #000000;
-transform: matrix(1, 0, 0, 1, 0, 0);
+.status {
+  position: absolute;
+  margin-top: 6vh;
+  margin-left: 12vw;
+  width: 7vw;
+  font-weight: 300;
+  font-size: 2.5vh;
+  color: #098c2e;
+  font-family: "IBM Plex Sans Devanagari";
 }
-.wtext7{
-    position: absolute;
-width: 31.25vw;
-height: 11.7vh;
-left: 63.8vw;
-top: 48vh;
-z-index: 1;
-font-family: 'Inter';
-font-style: normal;
-font-weight: 500;
-font-size: 3vh;
-display: flex;
-align-items: center;
-text-align: center;
-color: #000000;
-transform: matrix(1, 0, 0, 1, 0, 0);
+.sent {
+  position: absolute;
+  margin-top: 5.7vh;
+  margin-left: 12vw;
+  width: 7vw;
+  font-weight: 300;
+  font-size: 2.5vh;
+  color: #f43434;
+  font-family: "IBM Plex Sans Devanagari";
 }
-.winput1{
-    position: absolute;
-width: 24.7vw;
-height: 5vh;
-left: 26.3vw;
-top: 58.5vh;
-z-index: 1;
-font-style: normal;
-font-size: 2.4vh;
-background: #FFFFFF;
-border-radius: 10px;
-text-align: center;
+.transfertoken {
+  position: absolute;
+  top: 28vh;
+  left: 37vw;
+  height: 45vh;
+  width: 25vw;
+  border-radius: 2vh;
+  background-color: white;
+  text-align: center;
 }
-.winput2{
-    position: absolute;
-    width: 8.3vw;
-    height: 5vh;
-    left: 61.8vw;
-    top: 39vh;
-    z-index: 1;
-    font-style: normal;
-    font-size: 2.4vh;
-    background: #FFFFFF;
-    border-radius: 10px;
-    text-align: center;
+.walletAddressInput {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1vh;
+  top: 3vh;
+  position: relative;
+  height: 10vh;
+  width: 15vw;
+  left: 5vw;
+  align-items: center;
 }
-.winput4{
-    position: absolute;
-    width: 20.8vw;
-    height: 5vh;
-    left: 73vw;
-    top: 39vh;
-    z-index: 1;
-    font-style: normal;
-    font-size: 2.4vh;
-    background: #FFFFFF;
-    border-radius: 10px;
-    text-align: center;
+.transferTokenHeading {
+  padding: 2vh;
+  font-size: 4vh;
+  font-weight: 400;
 }
-.winput3{
-    position: absolute;
-width: 24.7vw;
-height: 5vh;
-left: 63vw;
-top: 58.5vh;
-z-index: 1;
-font-style: normal;
-font-size: 2.4vh;
-background: #FFFFFF;
-border-radius: 10px;
-text-align: center;
+.inputForm {
+  border: none;
+  width: 16vw;
+  height: 4vh;
+  border-radius: 1vh;
+  background-color: #dde2ea;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-.wbutton1{
-    position: absolute;
-    width: 31.25vw;
-    height: 6.8vh;
-    left: 23.6vw;
-    top: 78vh;
-    z-index: 1;
-    font-family: 'IBM Plex Sans Devanagari';
-font-style: normal;
-font-weight: 500;
-font-size: 3vh;
-    background: linear-gradient(90deg, rgba(66, 0, 255, 0.4428) 0%, rgba(5, 195, 218, 0.427083) 75.52%, rgba(2, 203, 216, 0.4264) 100%);
-    border-radius: 10px;
-    border: none;
+.sendButton {
+  position: relative;
+  top: 4vh;
+  height: 6vh;
+  width: 6vw;
+  color: white;
+  background-color: #47b5ff;
+  border: none;
+  border-radius: 1vh;
+  cursor: pointer;
 }
-.wbutton2{
-    position: absolute;
-width: 31.25vw;
-height: 6.8vh;
-left: 60vw;
-top: 78vh;
-z-index: 1;
-font-family: 'IBM Plex Sans Devanagari';
-font-style: bold;
-font-weight: 500;
-font-size: 3vh;
-background: linear-gradient(90deg, rgba(66, 0, 255, 0.4428) 0%, rgba(5, 195, 218, 0.427083) 75.52%, rgba(2, 203, 216, 0.4264) 100%);
-border-radius: 10px;
-border:none;
+.userAddress {
+  position: absolute;
+  font-size: 2vh;
+  text-align: left;
+  width: 18vw;
+  top: 8vh;
+  left: 2vw;
+  font-weight: 400;
+  overflow: hidden;
+}
+.copyIcon {
+  position: absolute;
+  top: 9.5vh;
+  left: 19vw;
+  color: #dde2ea;
+  cursor: pointer;
+}
+.walletpage {
+  position: absolute;
+  left: 20vw;
+  font-family: "IBM Plex Sans Devanagari";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 3.1vh;
+  color: #1c1f37;
+  top: 3vh;
+}
+.extraSpace {
+  position: relative;
+  margin-top: 5vh;
 }

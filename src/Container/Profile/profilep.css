@@ -1,99 +1,57 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@400;500;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 .profileTitle {
-  font-family: "IBM Plex Sans Devanagari", sans-serif;
+  font-family: "IBM Plex Sans Devanagari";
 }
-.box {
+.profileText {
   position: absolute;
-  top: 13vh;
-  left: 28vw;
-  height: 15vh;
-  width: 7vw;
-  z-index: 1;
-}
-.outerBox {
-  position: absolute;
-  left: 15vw;
-  right: 2vw;
-  top: 15vh;
-  bottom: 4vh;
-  background: #dde2ea;
-  border-radius: 20px;
-}
+  width: 15.4vw;
+  height: 4.7vh;
+  left: 20vw;
+  top: 2.1vh;
 
+  font-style: normal;
+  font-weight: 700;
+  font-size: 4vh;
+  color: #1c1f37;
+}
 .profileImg {
-  position: relative;
+  top: 0;
+  left: 0;
+  margin: 3vh 3vw;
   width: 112px;
   height: 120px;
-  left: 5vw;
-  top: 5vh;
   border: 2px solid black;
   border-radius: 138px;
 }
-.cname {
-  position: relative;
-  width: 13vw;
-  height: 7vh;
-  left: 10vw;
-  margin: 1px;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  display: flex;
-  align-items: center;
-
-  color: #000000;
+.colon {
+  line-height: 1.8;
+  font-size: larger;
+  font-weight: 700;
 }
-.cdetails {
-  position: relative;
-  width: 20vw;
-  height: 7vh;
-  left: 9.2vw;
-  margin: 1px;
-
+.detailsTitle {
+  font-family: "Inter", sans-serif;
+  font-size: large;
+}
+.detailInfo {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
-  line-height: 29px;
-  display: flex;
-  align-items: center;
+  font-size: 17px;
 
   color: #1b2b65;
-  margin-right: 3px;
 }
-
-.detailsDisplay {
-  display: flex;
-  margin-right: 20px;
-  padding-right: 20px;
+.inputField {
+  background-color: #dde2ea;
+  outline: none;
+  border-style: none;
+  height: 30px;
+  border-radius: 4px;
+  color: black;
+  padding: 2px;
 }
-.editButton {
-  background-color: #47b5ff;
-  position: relative;
-  left: 10vw;
-  color: white;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  border-radius: 8px;
-  border-color: #47b5ff;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
-.details {
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-.buttonText {
-  padding-left: 55px;
-  padding-right: 55px;
-  margin-top: 2px;
-  margin-bottom: 2px;
-  font-weight: 500;
-  font-family: "Inter", sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: large;
+.uploadButton {
+  position: absolute;
+  left: 5.5vw;
+  top: 21vh;
 }

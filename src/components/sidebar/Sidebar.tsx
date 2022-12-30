@@ -1,161 +1,87 @@
 import React, { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./sidebar.css";
-import { Box, Button, Container, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import df from "../../assets/dframe.png";
 import Header from "../../components/header/Header";
-import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
-import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
-import AccountBalanceWalletTwoToneIcon from "@mui/icons-material/AccountBalanceWalletTwoTone";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import QuestionMarkOutlinedIcon from "@mui/icons-material/QuestionMarkOutlined";
+
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
-import InboxIcon from "@mui/icons-material/Inbox";
-import DraftsIcon from "@mui/icons-material/Drafts";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import Typography from "@mui/material/Typography";
+import SettingsIcon from "@mui/icons-material/Settings";
+// import Header from '../Header/Header';
+import PortraitIcon from "@mui/icons-material/Portrait";
+
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+
+import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
+
 export default function Sidebar() {
+  const [actvieState, setActiveState] = useState(1);
+  const handleButtonClick = (index: any) => {
+    setActiveState(index);
+  };
   return (
-    <div>
-      {/* 
-      <div className="t1">D Frame</div>
-      <div className="t2"></div>
-      <div className="re2"></div>
-      <div className="el1"></div>
-
-      <div className="i4">
-        <CalendarMonthOutlinedIcon />
-      </div>
-      <div className="i5">
-        <AssessmentOutlinedIcon />
-      </div>
-      <div className="i6">
-        <SettingsOutlinedIcon />
-      </div>
-      <div className="i7">
-        <QuestionMarkOutlinedIcon />
-      </div>
+    <>
       <div>
-        <NavLink to="/Profile">
-          <div className="p1">Profile</div>
-          <div className="i2">
-            <AccountBoxOutlinedIcon />
-          </div>
-        </NavLink>
-        <NavLink to="/Wallet">
-          <div className="w1">Wallet</div>
-          <div className="i3">
-            <AccountBalanceWalletOutlinedIcon />
-          </div>
-        </NavLink>
+        <Header />
+        <img src={df} className="dframe" alt="dframe profile" />
+        <div className="dftext">DFrame</div>
 
-        <NavLink to="/Datapool">
-          <div className="d1">Data Pool</div>
-        </NavLink>
-        <NavLink to="/Campaigns">
-          <div className="r1">Campaigns</div>
-          <div className="ie1">
-            <SearchTwoToneIcon />
+        <Box className="sidebar">
+          <div className="item">
+            <NavLink to="/profile" style={{ textDecoration: "none" }}>
+              <div className={actvieState === 5 ? "active" : "notActive"}>
+                <PortraitIcon className="ic" />
+                Profile
+              </div>
+            </NavLink>
+            <NavLink to="/Wallet" style={{ textDecoration: "none" }}>
+              <div className={actvieState === 2 ? "active" : "notActive"}>
+                <AccountBalanceWalletIcon className="ic" />
+                Wallet
+              </div>
+            </NavLink>
+            <NavLink to="/Campaigns" style={{ textDecoration: "none" }}>
+              <div className={actvieState === 3 ? "active" : "notActive"}>
+                <SearchOutlinedIcon className="ic" />
+                Campaigns
+              </div>
+            </NavLink>
+            <NavLink to="/data-pool" style={{ textDecoration: "none" }}>
+              <div className={actvieState === 4 ? "active" : "notActive"}>
+                <CalendarMonthOutlinedIcon className="ic" />
+                Data Pool
+              </div>
+            </NavLink>
+            <NavLink to="/ads-history" style={{ textDecoration: "none" }}>
+              <div className={actvieState === 5 ? "active" : "notActive"}>
+                <AssessmentOutlinedIcon className="ic" />
+                Ads History
+              </div>
+            </NavLink>
+            <NavLink to="/settings" style={{ textDecoration: "none" }}>
+              <div className={actvieState === 6 ? "active" : "notActive"}>
+                <SettingsIcon className="ic" />
+                Settings
+              </div>
+            </NavLink>
           </div>
-        </NavLink>
-        <NavLink to="/Ads">
-          <div className="a1">Ads History</div>
-        </NavLink>
-        <NavLink to="/Settings">
-          <div className="pe1">Settings</div>
-          <div className="i6">
-            <SettingsOutlinedIcon />
-          </div>
-        </NavLink>
-        <div className="n1">Need Help with D Frame?</div>
-        <NavLink to="/Help">
-          <div>
-            <div className="n2">Go to help center</div>
-            <div className="re3"></div>
-          </div>
-        </NavLink>
-        <NavLink to="/LearnMore">
-          <div className="n3">Learn More</div>
-          <div className="n4"></div>
-        </NavLink>
-        <div className="n5"></div>
-        <div className="n6"></div>
-      </div> */}
-      <Box className="sidebar" flex={2}>
-        <div>
-          <img
-            src={df}
-            alt="title"
-            style={{ padding: 0, width: 200, height: 200 }}
-          />
-          <Typography variant="h3" component="h3" ml={5}>
-            D Frame
-          </Typography>
+        </Box>
+        <div className="rectangle">
+          <img src="" alt="" />
+          <div className="help">Need help with Dframe?</div>
+          <NavLink to="/help">
+            {" "}
+            <button className="helpButton">Go to Help</button>{" "}
+          </NavLink>
         </div>
-        <List
-          style={{ backgroundColor: "#1B2B65", color: "#FFFFFF", padding: 15 }}
-        >
-          <ListItem disablePadding>
-            <ListItemIcon>
-              <AccountBoxIcon style={{ color: "white" }} />
-            </ListItemIcon>
-            <ListItemButton>
-              <Link to="/Profile" style={{ textDecoration: "none" }}>
-                <ListItemText primary="Profile" className="itemTitle" />
-              </Link>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemIcon>
-              <AccountBalanceWalletIcon style={{ color: "white" }} />
-            </ListItemIcon>
-            <ListItemButton>
-              <Link to="/Wallet" style={{ textDecoration: "none" }}>
-                <ListItemText primary="Wallet" className="itemTitle" />
-              </Link>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemIcon>
-              <CalendarMonthOutlinedIcon style={{ color: "white" }} />
-            </ListItemIcon>
-            <ListItemButton>
-              <Link to="/" style={{ textDecoration: "none" }}>
-                <ListItemText primary="Data Pool" className="itemTitle" />
-              </Link>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding style={{}}>
-            <ListItemIcon>
-              <SearchTwoToneIcon style={{ color: "white" }} />
-            </ListItemIcon>
-            <ListItemButton>
-              <Link to="/Campaigns" style={{ textDecoration: "none" }}>
-                <ListItemText primary="Campaigns" className="itemTitle" />
-              </Link>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding style={{}}>
-            <ListItemIcon>
-              <SettingsOutlinedIcon style={{ color: "white" }} />
-            </ListItemIcon>
-            <ListItemButton>
-              <Link to="/Settings" style={{ textDecoration: "none" }}>
-                <ListItemText primary="Settings" className="itemTitle" />
-              </Link>
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </Box>
-    </div>
+
+        <NavLink to="/learnmore" className="">
+          <div className="learnMore">Learn More</div>
+        </NavLink>
+      </div>
+    </>
   );
 }
