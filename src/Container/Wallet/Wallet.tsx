@@ -1,11 +1,10 @@
-import { Box, Container, Divider } from "@mui/material";
+import { Box, Divider } from "@mui/material";
 import React, { useState } from "react";
 
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./wallet.css";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import data from "./data.json";
-import { useNavigate } from "react-router-dom";
 export default function Wallet() {
   const [walletdata, setwalletdata] = useState(data);
 
