@@ -207,3 +207,7 @@
   position: relative;
   margin-top: 5vh;
 }
+input[type="text"] {
+  padding: 5px;
+  padding-left: 15px;
+}

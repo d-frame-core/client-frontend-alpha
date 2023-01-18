@@ -18,12 +18,10 @@
 } */
 .settingsBox {
   position: absolute;
-  left: 23vw;
-  right: 41.6vw;
-  top: 11.7vh;
-  bottom: 9vh;
-  width: 73vw;
-  height: 79vh;
+  height: 80vh;
+  width: 70vw;
+  top: 15vh;
+  left: 24vw;
   background: #dde2ea;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-family: "IBM Plex Sans Devanagari";
@@ -31,10 +29,10 @@
 }
 .settingsTitle {
   position: relative;
-  font-size: 4vh;
-  font-weight: 400;
+  font-size: 5vh;
+  font-weight: 600;
   left: 3vw;
-  top: -2vh;
+  top: -3vh;
   color: #1c1f37;
 }
 .settingsDetails {
@@ -59,14 +57,21 @@
 .emailInput {
   position: absolute;
   border: none;
-  top: -2vh;
   font: 400 3vh "IBM Plex Sans Devanagari";
   left: 18vw;
   height: 5vh;
-  width: 45vw;
-  top: 2vh;
+  width: 44vw;
+  top: 1.5vh;
   border-radius: 10px;
   outline: none;
+}
+input[type="email"] {
+  padding: 5px;
+  padding-left: 15px;
+}
+input[type="text"] {
+  padding: 5px;
+  padding-left: 15px;
 }
 .updateNum {
   position: absolute;
@@ -84,12 +89,11 @@
 .numInput {
   position: absolute;
   border: none;
-  top: 7vh;
   font: 400 3vh "IBM Plex Sans Devanagari";
   left: 18vw;
   height: 5vh;
-  width: 45vw;
-  top: 11vh;
+  width: 44vw;
+  top: 10vh;
   padding: 1px;
   border-radius: 10px;
   outline: none;

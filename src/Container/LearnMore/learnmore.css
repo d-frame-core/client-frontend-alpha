@@ -1,150 +1,96 @@
-.ltext1{
-    position: absolute;
-    width: 14.9vw;
-    height: 49px;
-    left: 19vw;
-    top: 2px;
-    z-index: 1;
-    font-family: 'IBM Plex Sans Devanagari';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 4vh;
-    line-height: 49px;
-    color: #1C1F37;
+.learnBox {
+  position: absolute;
+  height: 80vh;
+  width: 70vw;
+  top: 15vh;
+  left: 24vw;
+  text-align: left;
+  border-radius: 1vh;
+  background: #dde2ea;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "IBM Plex Sans Devanagari";
+  border-radius: 10px;
 }
-.ltext2{
-    position: absolute;
-width: 21.7vw;
-height: 5.5vh;
-left: 25.4vw;
-top: 20vh;
-z-index: 2;
-font-family: 'IBM Plex Sans Devanagari';
-font-style: normal;
-font-weight: 300;
-font-size: 3vh;
-color: #000000;
+.learnTitle {
+  position: relative;
+  left: 3vw;
+  top: 2vh;
+  font-size: 4vh;
+  font-weight: 600;
+  color: #1c1f37;
+  margin-bottom: 2vh;
 }
-.ltext3{
-    position: absolute;
-width: 990.54px;
-height: 5.5vh;
-left: 25.4vw;
-top: 35vh;
-font-family: 'IBM Plex Sans Devanagari';
-font-style: normal;
-font-weight: 300;
-font-size: 3vh;
-z-index: 2;
-color: #000000;
+.learnItemContent {
+  font-size: 3vh;
+  padding: 2vh;
+  background-color: white;
+  margin: 3vh 2vw;
+  width: 90%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 1vh;
+  cursor: pointer;
 }
-.ltext4{
-    position: absolute;
-width: 990.54px;
-height: 5.5vh;
-left: 25.4vw;
-top: 50.4vh;
-font-family: 'IBM Plex Sans Devanagari';
-font-style: normal;
-font-weight: 300;
-font-size: 3vh;
-line-height: 46px;
-z-index: 2;
-color: #000000;
-
+.learnContent {
+  padding-top: 1vh;
+  padding-left: 2vw;
 }
-.ltext5{
-    position: absolute;
-width: 936.2.4vh;
-height: 5.5vh;
-left: 25.4vw;
-top: 65.8vh;
-font-family: 'IBM Plex Sans Devanagari';
-font-style: normal;
-font-weight: 300;
-font-size: 3vh;
-line-height: 46px;
-z-index: 2;
-color: #000000;
+.learnItemContent:hover {
+  background-color: rgb(140, 60, 238);
+  color: white;
 }
-.ltext6{
-    position: absolute;
-width: 21.7vw;
-height: 56.92px;
-left: 369.33px;
-top: 81vh;
-font-family: 'IBM Plex Sans Devanagari';
-font-style: normal;
-font-weight: 300;
-font-size: 3vh;
-line-height: 46px;
-z-index: 2;
-color: #000000;
+.modalContainer {
+  position: fixed;
+  top: 50;
+  left: 50;
+  width: 30%;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
-
-.lrect1{
-
-    position: absolute;
-    width:75.2vw;
-    height: 7.8vh;
-    left: 21vw;
-    top: 18.2vh;
-    
-    background: #FFFFFF;
-    border-radius: 8px;
+.modalTitle {
+  font-size: 3vh;
+  font-weight: 600;
+  color: #1c1f37;
+  margin-bottom: 2vh;
 }
-.lrect2{
-    position: absolute;
-width:75.2vw;
-height: 7.8vh;
-left: 21vw;
-top: 33.6vh;
-
-background: #FFFFFF;
-border-radius: 8px;
+hr {
+  border: 1px solid #1c1f37;
+  width: 100%;
+  margin: 0;
 }
-.lrect3{
-    
-position: absolute;
-width:75.2vw;
-height: 7.8vh;
-left: 21vw;
-top: 49vh;
-
-background: #FFFFFF;
-border-radius: 8px;
+.modalText {
+  font-size: 2vh;
+  font-weight: 400;
+  color: #1c1f37;
+  margin-top: 2vh;
 }
-.lrect4{
-    
-position: absolute;
-width:75.2vw;
-height: 7.8vh;
-left: 21vw;
-top: 64.3vh;
-
-background: #FFFFFF;
-border-radius: 8px;
+.modalClose {
+  box-shadow: "0 2px 12px 0 rgba(0 0 0 / 0.2)";
+  border-radius: 50%;
 }
-.lrect5{
-    position: absolute;
-width:75.2vw;
-height: 7.8vh;
-left: 21vw;
-top: 79.6vh;
-
-background: #FFFFFF;
-border-radius: 8px;
+.modalContainerFAQ {
+  position: fixed;
+  width: 40%;
+  z-index: 100;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 60%;
 }
-.lrect6{
-    position: absolute;
-left: 20.1vw;
-right: 4.1vw;
-top: 11.7vh;
-bottom: 9vh;
-width:77.7vw;
-height:79vhx;
-z-index: -1;
-background: #DDE2EA;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 10px;
+.modalSubHeading {
+  font-size: 2.5vh;
+  font-weight: 600;
+  color: #1c1f37;
+  margin-top: 2vh;
+}
+.modalTextFAQ {
+  font-size: 2vh;
+  font-weight: 400;
+  color: #1c1f37;
+  margin: 1vh 0;
 }

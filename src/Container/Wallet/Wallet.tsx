@@ -53,7 +53,6 @@ export default function Wallet() {
   return (
     <div>
       <>{Sidebar()}</>
-      <div className="walletpage">Wallet Details</div>
       <div className="Wallet">
         <Box>
           <div className="head">Wallet</div>
@@ -103,6 +102,7 @@ export default function Wallet() {
                   className="inputForm"
                   value={senderAddress}
                   onChange={(e) => setSenderAddress(e.target.value)}
+                  type="text"
                 />
               </div>
               <div className="walletAddressInput">
@@ -111,6 +111,7 @@ export default function Wallet() {
                   className="inputForm"
                   value={dftAmount}
                   onChange={(e) => setDftAmount(e.target.value)}
+                  type="text"
                 />
               </div>
               <button className="sendButton" onClick={handleSend}>

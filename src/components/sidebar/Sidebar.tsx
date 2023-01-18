@@ -55,7 +55,7 @@ export default function Sidebar() {
                 Data Pool
               </div>
             </NavLink>
-            <NavLink to="/ads-history" style={{ textDecoration: "none" }}>
+            <NavLink to="/ads" style={{ textDecoration: "none" }}>
               <div className={actvieState === 5 ? "active" : "notActive"}>
                 <AssessmentOutlinedIcon className="ic" />
                 Ads History
@@ -73,8 +73,7 @@ export default function Sidebar() {
           <img src="" alt="" />
           <div className="help">Need help with Dframe?</div>
           <NavLink to="/help">
-            {" "}
-            <button className="helpButton">Go to Help</button>{" "}
+            <button className="helpButton">Go to Help</button>
           </NavLink>
         </div>
 

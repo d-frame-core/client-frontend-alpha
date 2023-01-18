@@ -1,0 +1,20 @@
+[
+  {
+    "sno": 1,
+    "campaignName": "Campaign Name",
+    "tick": true,
+    "campaignType": "Campaign Type",
+    "adType": "Ad Type",
+    "adBudget": "Ad Budget/Day",
+    "timePeriod": "Time Period"
+  },
+  {
+    "sno": 2,
+    "campaignName": "Adidas Shoes",
+    "tick": false,
+    "campaignType": "Brand Awareness",
+    "adType": "Video",
+    "adBudget": "22 DFT",
+    "timePeriod": "3 Weeks"
+  }
+]

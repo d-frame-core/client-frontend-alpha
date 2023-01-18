@@ -1,156 +1,43 @@
-.htext1{
-    position: absolute;
-    width: 4.9vw;
-    height: 49px;
-    left: 19vw;
-    top: 2px;
-    z-index: 1;
-    font-family: 'IBM Plex Sans Devanagari';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 4vh;
-    line-height: 49px;
-    color: #1C1F37;
+.helpBox {
+  position: absolute;
+  height: 80vh;
+  width: 70vw;
+  top: 15vh;
+  left: 24vw;
+  text-align: left;
+  border-radius: 1vh;
+  background: #dde2ea;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "IBM Plex Sans Devanagari";
+  border-radius: 10px;
 }
-.htext2{
-    position: absolute;
-width: 21.7vw;
-height: 5.5vh;
-left: 25.4vw;
-top: 20vh;
-z-index: 2;
-font-family: 'IBM Plex Sans Devanagari';
-font-style: normal;
-font-weight: 300;
-font-size: 3vh;
-color: #000000;
+.helpTitle {
+  position: relative;
+  left: 3vw;
+  top: 2vh;
+  font-size: 4vh;
+  font-weight: 600;
+  color: #1c1f37;
+  margin-bottom: 2vh;
 }
-.htext3{
-    position: absolute;
-width: 990.54px;
-height: 5.5vh;
-left: 25.4vw;
-top: 35vh;
-font-family: 'IBM Plex Sans Devanagari';
-font-style: normal;
-font-weight: 300;
-font-size: 3vh;
-z-index: 2;
-color: #000000;
+.helpItem {
+  background-color: white;
+  margin: 2vh 2vw;
+  width: 90%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 1vh;
+  cursor: pointer;
 }
-.htext4{
-    position: absolute;
-width: 990.54px;
-height: 5.5vh;
-left: 25.4vw;
-top: 50.4vh;
-font-family: 'IBM Plex Sans Devanagari';
-font-style: normal;
-font-weight: 300;
-font-size: 3vh;
-line-height: 46px;
-z-index: 2;
-color: #000000;
-
+.helpItemContent {
+  font-size: 3vh;
+  padding: 2vh;
+  margin-left: 4vw;
 }
-.htext5{
-    position: absolute;
-width: 936.2.4vh;
-height: 5.5vh;
-left: 25.4vw;
-top: 65.8vh;
-font-family: 'IBM Plex Sans Devanagari';
-font-style: normal;
-font-weight: 300;
-font-size: 3vh;
-line-height: 46px;
-z-index: 2;
-color: #000000;
+.helpContent {
+  padding-top: 1vh;
+  padding-left: 2vw;
 }
-.htext6{
-    position: absolute;
-width: 21.7vw;
-height: 56.92px;
-left: 369.33px;
-top: 81vh;
-font-family: 'IBM Plex Sans Devanagari';
-font-style: normal;
-font-weight: 300;
-font-size: 3vh;
-line-height: 46px;
-z-index: 2;
-color: #000000;
-}
-
-.hrect1{
-
-    position: absolute;
-    width:75.2vw;
-    height: 7.8vh;
-    left: 21vw;
-    top: 18.2vh;
-    border: none;
-    background: #FFFFFF;
-    border-radius: 8px;
-}
-.hrect2{
-    position: absolute;
-width:75.2vw;
-height: 7.8vh;
-left: 21vw;
-top: 33.6vh;
-border: none;
-
-background: #FFFFFF;
-border-radius: 8px;
-}
-.hrect3{
-    
-position: absolute;
-width:75.2vw;
-height: 7.8vh;
-left: 21vw;
-top: 49vh;
-border: none;
-
-background: #FFFFFF;
-border-radius: 8px;
-}
-.hrect4{
-    
-position: absolute;
-width:75.2vw;
-height: 7.8vh;
-left: 21vw;
-top: 64.3vh;
-border: none;
-
-background: #FFFFFF;
-border-radius: 8px;
-}
-.hrect5{
-    position: absolute;
-width:75.2vw;
-height: 7.8vh;
-left: 21vw;
-top: 79.6vh;
-border: none;
-
-background: #FFFFFF;
-border-radius: 8px;
-}
-.hrect6{
-    position: absolute;
-left: 20.1vw;
-right: 4.1vw;
-top: 11.7vh;
-bottom: 9vh;
-width:77.7vw;
-border: none;
-
-height:79vhx;
-z-index: -1;
-background: #DDE2EA;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 10px;
+.helpContent :hover {
+  background-color: rgb(140, 60, 238);
+  color: white;
 }

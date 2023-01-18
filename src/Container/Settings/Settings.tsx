@@ -62,10 +62,7 @@ export default function Settings() {
   }
   return (
     <div>
-      <>
-        <Sidebar />
-      </>
-      <div className="stext0">Settings</div>
+      <>{Sidebar()}</>
       <div>
         <Box className="settingsBox">
           <div>
