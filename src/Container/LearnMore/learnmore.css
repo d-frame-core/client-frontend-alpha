@@ -34,10 +34,6 @@
   padding-top: 1vh;
   padding-left: 2vw;
 }
-.learnItemContent:hover {
-  background-color: rgb(140, 60, 238);
-  color: white;
-}
 .modalContainer {
   position: fixed;
   top: 50;

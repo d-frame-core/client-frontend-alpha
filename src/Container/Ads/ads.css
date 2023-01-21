@@ -8,7 +8,7 @@
   text-align: left;
   border-radius: 1vh;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  font-family: "IBM Plex Sans Devanagari";
+  font-family: "inter";
   border-radius: 10px;
 }
 .adsTitle {
@@ -24,7 +24,7 @@
   font-size: 3vh;
   font-weight: 400;
   right: -55vw;
-  top: -5vh;
+  top: -4vh;
   color: white;
   background-color: #47b5ff;
   outline: none;
@@ -38,7 +38,7 @@
   color: red;
   position: absolute;
   right: 5.5vw;
-  top: 2.5vh;
+  top: 2vh;
   font-size: 6vh;
   cursor: pointer;
 }
@@ -59,160 +59,169 @@
   border-radius: 10px 10px 0 0;
   display: flex;
   color: #ffffff;
-  font-size: 3vh;
+  font-size: 110%;
   align-items: center;
 }
 .sno {
   position: relative;
-  font-size: 3vh;
-  border-top: 2px solid blue;
-  border-bottom: 2px solid blue;
-  border-left: 2px solid blue;
-  border-right: 1px solid blue;
-  height: 6vh;
+  border-top: 1px solid blue;
+  border-bottom: 1px solid blue;
+  border-left: 1px solid blue;
+  border-right: 0.5px solid blue;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 5vw;
+  width: 8%;
   border-radius: 10px 0 0 0;
+  font-weight: 500;
 }
 .campaignName {
   position: relative;
-  font-size: 3vh;
-  border-top: 2px solid blue;
-  border-bottom: 2px solid blue;
-  border-left: 1px solid blue;
-  border-right: 1px solid blue;
-  height: 6vh;
+  border-top: 1px solid blue;
+  border-bottom: 1px solid blue;
+  border-left: 0.5px solid blue;
+  border-right: 0.5px solid blue;
+  height: 100%;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 14vw;
+  width: 25%;
 }
 .tick {
   position: relative;
-  font-size: 3vh;
-  border-top: 2px solid blue;
-  border-bottom: 2px solid blue;
-  border-left: 1px solid blue;
-  border-right: 1px solid blue;
-  height: 6vh;
+  border-top: 1px solid blue;
+  border-bottom: 1px solid blue;
+  border-left: 0.5px solid blue;
+  border-right: 0.5px solid blue;
+  height: 100%;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3vw;
+  width: 5%;
 }
 .campaignType {
   position: relative;
-  font-size: 3vh;
-  border-top: 2px solid blue;
-  border-bottom: 2px solid blue;
-  border-left: 1px solid blue;
-  border-right: 1px solid blue;
-  height: 6vh;
+
+  border-top: 1px solid blue;
+  border-bottom: 1px solid blue;
+  border-left: 0.5px solid blue;
+  border-right: 0.5px solid blue;
+  height: 100%;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 14vw;
+  width: 25%;
 }
 .adType {
   position: relative;
-  font-size: 3vh;
-  border-top: 2px solid blue;
-  border-bottom: 2px solid blue;
-  border-left: 1px solid blue;
-  border-right: 1px solid blue;
-  height: 6vh;
+  border-top: 1px solid blue;
+  border-bottom: 1px solid blue;
+  border-left: 0.5px solid blue;
+  border-right: 0.5px solid blue;
+  height: 100%;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 8vw;
+  width: 14%;
 }
 .adBudget {
   position: relative;
-  font-size: 3vh;
-  border-top: 2px solid blue;
-  border-bottom: 2px solid blue;
-  border-left: 1px solid blue;
-  border-right: 1px solid blue;
-  height: 6vh;
+  border-top: 1px solid blue;
+  border-bottom: 1px solid blue;
+  border-left: 0.5px solid blue;
+  border-right: 0.5px solid blue;
+  height: 100%;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 13vw;
+  width: 17%;
 }
 .timePeriod {
   position: relative;
-  font-size: 3vh;
-  border-top: 2px solid blue;
-  border-bottom: 2px solid blue;
-  border-left: 1px solid blue;
-  border-right: 2px solid blue;
-  height: 6vh;
+  border-top: 1px solid blue;
+  border-bottom: 1px solid blue;
+  border-left: 0.5px solid blue;
+  border-right: 0.5px solid blue;
+  height: 100%;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 11vw;
+  width: 15%;
   border-radius: 0 10px 0 0;
 }
 .adsContentData {
-  font-size: 2.5vh;
+  font-size: 100%;
   display: flex;
   align-items: center;
-  height: 5vh;
+  height: 10%;
   border-top: 0.5px solid #1c1f37;
   border-left: 1px solid #1c1f37;
   border-bottom: 0.5px solid #1c1f37;
   border-right: 1px solid #1c1f37;
+  font-weight: 500;
 }
 .snoData {
   justify-content: center;
   align-items: center;
   display: flex;
-  width: 5vw;
+  width: 8%;
+  /* border: 0.4px solid red; */
 }
 .campaignNameData {
   justify-content: center;
   align-items: center;
   display: flex;
-  width: 12vw;
+  width: 25%;
+  /* border: 0.4px solid red; */
 }
 .tickData {
   justify-content: center;
   align-items: center;
   display: flex;
   color: white;
-  font-weight: 600;
-  width: 4vw;
+  width: 5%;
+  /* border: 0.4px solid red; */
 }
 .tickDataIcon {
   background-color: #47b5ff;
-  width: 2vw;
   text-align: center;
   cursor: pointer;
-  height: 4vh;
+  width: 90%;
+  height: 3vh;
+  /* border: 0.4px solid red; */
 }
 .campaignTypeData {
   justify-content: center;
   align-items: center;
   display: flex;
-  width: 12vw;
+  width: 25%;
+  /* border: 0.4px solid red; */
 }
 .adTypeData {
   justify-content: center;
   align-items: center;
   display: flex;
-  width: 8vw;
+  width: 17%;
+  /* border: 0.4px solid red; */
 }
 .adBudgetData {
   justify-content: center;
   align-items: center;
   display: flex;
-  width: 11vw;
+  width: 15%;
+  /* border: 0.4px solid red; */
 }
 .timePeriodData {
   justify-content: center;
   align-items: center;
   display: flex;
-  width: 11vw;
+  width: 15%;
+  /* border: 0.4px solid red; */
 }

@@ -1,21 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@400;500;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
-.stext0 {
-  position: absolute;
-  width: 15.4vw;
-  height: 4.7vh;
-  left: 20vw;
-  top: 2.1vh;
-  font-family: "IBM Plex Sans Devanagari";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 4vh;
-  color: #1c1f37;
-}
-/* .dark-mode {
-  background-color: black;
-  color: white;
-} */
+
 .settingsBox {
   position: absolute;
   height: 80vh;
@@ -45,7 +30,7 @@
 .updateEmail {
   position: absolute;
   top: -0.5vh;
-  font: 400 3vh "IBM Plex Sans Devanagari";
+  font: 500 3vh "IBM Plex Sans Devanagari";
   left: 2vw;
 }
 .emailColon {
@@ -66,17 +51,17 @@
   outline: none;
 }
 input[type="email"] {
-  padding: 5px;
+  padding: 4px;
   padding-left: 15px;
 }
 input[type="text"] {
-  padding: 5px;
+  padding: 4px;
   padding-left: 15px;
 }
 .updateNum {
   position: absolute;
   top: 8vh;
-  font: 400 3vh "IBM Plex Sans Devanagari";
+  font: 500 3vh "IBM Plex Sans Devanagari";
   left: 2vw;
 }
 .numColon {
@@ -101,7 +86,7 @@ input[type="text"] {
 .updateTheme {
   position: absolute;
   top: 18vh;
-  font: 400 3vh "IBM Plex Sans Devanagari";
+  font: 500 3vh "IBM Plex Sans Devanagari";
   left: 2vw;
 }
 .themeColon {
@@ -122,7 +107,7 @@ input[type="text"] {
 .updateAds {
   position: absolute;
   top: 27.2vh;
-  font: 400 3vh "IBM Plex Sans Devanagari";
+  font: 500 3vh "IBM Plex Sans Devanagari";
   left: 2vw;
 }
 .adsColon {
@@ -149,7 +134,7 @@ input[type="text"] {
 .updateNotifications {
   position: absolute;
   top: 37vh;
-  font: 400 3vh "IBM Plex Sans Devanagari";
+  font: 500 3vh "IBM Plex Sans Devanagari";
   left: 2vw;
 }
 .notificationsColon {
@@ -170,7 +155,7 @@ input[type="text"] {
 .saveButton {
   position: absolute;
   left: 5vw;
-  height: 5vh;
+  height: 6vh;
   width: 10vw;
   top: 60vh;
   border-radius: 10px;

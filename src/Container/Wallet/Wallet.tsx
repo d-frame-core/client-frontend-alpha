@@ -1,5 +1,5 @@
 import { Box, Divider } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./wallet.css";
@@ -80,9 +80,9 @@ export default function Wallet() {
             </Box>
           </Box>
           <Box className="userWallet">
-            <p>Wallet Balance {userdata.dft}</p>
+            <p>Wallet Balance : {userdata.dft}</p>
             <div>
-              <p className="userAddress">{userdata.userad.slice(0, 25)}....</p>
+              <p className="userAddress">{userdata.userad.slice(0, 20)}....</p>
               <div
                 title="Copy your wallet address"
                 onClick={() => copyContent(userdata.userad)}
@@ -101,7 +101,7 @@ export default function Wallet() {
                   className="inputForm"
                   value={senderAddress}
                   onChange={(e) => setSenderAddress(e.target.value)}
-                  type="text"
+                  type="email"
                 />
               </div>
               <div className="walletAddressInput">
@@ -110,7 +110,7 @@ export default function Wallet() {
                   className="inputForm"
                   value={dftAmount}
                   onChange={(e) => setDftAmount(e.target.value)}
-                  type="text"
+                  type="email"
                 />
               </div>
               <button className="sendButton" onClick={handleSend}>

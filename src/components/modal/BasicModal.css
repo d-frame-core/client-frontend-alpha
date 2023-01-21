@@ -1,0 +1,23 @@
+.btncl {
+  position: relative;
+  height: 6vh;
+  width: 6vw;
+  background-color: #017efa;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 2.5vh;
+  left: 80%;
+  cursor: pointer;
+}
+.btncl1 {
+  position: relative;
+  height: 6vh;
+  width: 6vw;
+  background-color: #017efa;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 2.5vh;
+  cursor: pointer;
+}

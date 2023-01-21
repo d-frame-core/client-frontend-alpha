@@ -7,7 +7,9 @@ import { Box } from "@mui/system";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import data from "./data.json";
+import CheckIcon from "@mui/icons-material/Check";
 export default function Ads() {
+  const [tick, setTick] = useState(false);
   return (
     <div>
       <>{Sidebar()}</>
@@ -39,8 +41,11 @@ export default function Ads() {
                   <div className="snoData">{item.sno}</div>
                   <div className="campaignNameData">{item.campaignName}</div>
                   <div className="tickData">
-                    <div className="tickDataIcon">
-                      {item.tick === true ? "✓" : " "}
+                    <div
+                      className="tickDataIcon"
+                      onClick={() => setTick(!tick)}
+                    >
+                      {tick === true ? <CheckIcon /> : <div> </div>}
                     </div>
                   </div>
                   <div className="campaignTypeData">{item.campaignType}</div>
