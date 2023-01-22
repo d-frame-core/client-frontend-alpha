@@ -5,6 +5,16 @@ import "./DataPool.css";
 import AddIcon from "@mui/icons-material/Add";
 import Chart from "../../components/chart/Chart";
 const DataPool = () => {
+  const popularTags = [
+    "Bitcoin",
+    "Ethereum",
+    "Doge",
+    "BNB",
+    "Solana",
+    "Polygon",
+    "ADA",
+    "Avalanche",
+  ];
   const [data, setData] = React.useState([
     { name: "Man", time1: 40, per: "22%", long: "117 minutes", long1: 117 },
     { name: "Child", time1: 32, per: "18%", long: "112 minutes", long1: 112 },
@@ -68,7 +78,11 @@ const DataPool = () => {
                 return <div className="tag">{tag}</div>;
               })}
             </div>
-            <div className="tagsBox"></div>
+            <div className="tagsBox">
+              {popularTags.map((tag) => {
+                return <div className="tag">{tag}</div>;
+              })}
+            </div>
           </div>
           <div className="chart">{Chart(data, "long1")}</div>
         </Box>
