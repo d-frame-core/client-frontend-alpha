@@ -100,8 +100,8 @@
 .chart {
   position: absolute;
   top: 10vh;
-  right: 5vw;
+  right: 3vw;
   height: 35vh;
-  width: 30vw;
+  width: 32vw;
   border: 2px solid red;
 }
