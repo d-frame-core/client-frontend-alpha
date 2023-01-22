@@ -9,6 +9,7 @@ import Wallet from "./Container/Wallet/Wallet";
 import Settings from "./Container/Settings/Settings";
 import Campaigns from "./Container/Campaigns/Campaigns";
 import Ads from "./Container/Ads/Ads";
+import DataPool from "./Container/Data Pool/DataPool";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/ads" element={<Ads />} />
+          <Route path="data-pool" element={<DataPool />} />
         </Routes>
       </Router>
     </div>
