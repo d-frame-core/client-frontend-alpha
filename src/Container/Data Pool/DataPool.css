@@ -46,6 +46,8 @@
   display: flex;
   column-gap: 4px;
   position: relative;
+  /* border: 1px solid red; */
+  align-items: center;
 }
 .addtagsItem {
   display: flex;
@@ -59,16 +61,15 @@
   font-size: 110%;
   padding: 0 2%;
   border-radius: 10px;
-  position: relative;
-  top: -0.8vh;
   border: 0.5px solid #dde2ea;
 }
 .AddTagsIcon {
   width: 10%;
-  height: 40%;
+  height: 30%;
   cursor: pointer;
   /* border: 1px solid red; */
-  right: 0;
+  right: 1%;
+  text-align: center;
   position: absolute;
 }
 .tagsBox {
