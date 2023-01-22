@@ -57,7 +57,7 @@ export default function Help() {
   ];
   return (
     <div>
-      <>{Sidebar()}</>
+      <>{Sidebar(0)}</>
       <div className="helpBox">
         <Box>
           <div className="helpTitle">Help</div>

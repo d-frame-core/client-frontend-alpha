@@ -57,7 +57,7 @@ export default function LearnMore() {
 
   return (
     <div>
-      <>{Sidebar()}</>
+      <>{Sidebar(0)}</>
       <div className="learnBox">
         <Box>
           <div className="learnTitle">Learn More</div>

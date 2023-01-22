@@ -57,7 +57,7 @@ export default function Settings() {
   }
   return (
     <div>
-      <>{Sidebar()}</>
+      <>{Sidebar(6)}</>
       <div>
         <Box className="settingsBox">
           <div>

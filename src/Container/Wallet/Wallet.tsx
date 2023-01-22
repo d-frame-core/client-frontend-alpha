@@ -51,7 +51,7 @@ export default function Wallet() {
   };
   return (
     <div>
-      <>{Sidebar()}</>
+      <>{Sidebar(2)}</>
       <div className="Wallet">
         <Box>
           <div className="head">Wallet</div>

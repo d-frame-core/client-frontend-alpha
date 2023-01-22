@@ -12,7 +12,7 @@ export default function Ads() {
   const [tick, setTick] = useState(false);
   return (
     <div>
-      <>{Sidebar()}</>
+      <>{Sidebar(5)}</>
       <div className="ads">
         <Box>
           <div className="adsTitle">Ads</div>

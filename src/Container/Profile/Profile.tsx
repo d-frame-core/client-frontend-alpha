@@ -25,7 +25,7 @@ export default function Profile() {
   };
   return (
     <div>
-      <>{Sidebar()}</>
+      <>{Sidebar(1)}</>
       <div className="Profile">
         <Box>
           <div className="profileTitle">Profile</div>

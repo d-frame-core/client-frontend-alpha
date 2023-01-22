@@ -29,7 +29,7 @@ export default function Campaigns() {
   return (
     <div>
       <>
-        <Sidebar />
+        <>{Sidebar(4)} </>
       </>
       <div className="campaignsPage">Campaigns</div>
       <div className="campaignsBox">

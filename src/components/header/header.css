@@ -1,10 +1,10 @@
 .header {
   position: absolute;
-  width: 79vw;
-  height: 8.8vh;
+  width: 84vw;
+  height: 9vh;
   top: 0vh;
   z-index: -1;
-  left: 18vw;
+  left: 16vw;
   background: linear-gradient(
     90deg,
     rgba(63, 13, 206, 0.71) 0%,
@@ -21,11 +21,12 @@
   right: 6vw;
 }
 .user1 {
-  width: 5%;
-  height: 70%;
+  width: 3vw;
+  height: 6vh;
   position: absolute;
   right: 17vw;
-  top: 1vh;
+  top: 2vh;
+ 
 }
 .drp {
   position: absolute;

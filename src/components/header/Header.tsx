@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <div className="header">
       <img src={user} alt="" className="user1" />
-      <div className="head1">User Name</div>
+      <div className="head1">Username</div>
       <div className="drp">
         <KeyboardArrowDownIcon />
       </div>
