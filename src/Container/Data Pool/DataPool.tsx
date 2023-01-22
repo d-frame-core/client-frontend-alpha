@@ -27,7 +27,7 @@ const DataPool = () => {
   };
   return (
     <div>
-      <>{Sidebar()}</>
+      <>{Sidebar(3)}</>
       <div className="categories"></div>
       <div className="DataPool">
         <Box>

@@ -24,7 +24,7 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/ads" element={<Ads />} />
-          <Route path="data-pool" element={<DataPool />} />
+          <Route path="datapool" element={<DataPool />} />
         </Routes>
       </Router>
     </div>
