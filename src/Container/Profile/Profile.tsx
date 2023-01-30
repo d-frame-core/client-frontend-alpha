@@ -37,7 +37,7 @@ export default function Profile() {
                     <img src={user} alt="user" className="img" />
                   </div>
                 </Grid>
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={7} sm={3}>
                   <div className="profileEntries">
                     <div className="profileEntriesData">Company Name </div>
                     <div className="profileEntriesData">Company Type </div>
@@ -84,7 +84,7 @@ export default function Profile() {
                     </div>
                   </div>
                 </Grid>
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={7} sm={3}>
                   <div className="profileEntries">
                     <div className="profileEntriesData">Company Name </div>
                     <div className="profileEntriesData">Company Type </div>
@@ -104,7 +104,7 @@ export default function Profile() {
                     <div className="colonIcon">:</div>
                   </div>
                 </Grid>
-                <Grid item xs={5} sm={5.5}>
+                <Grid item xs={5} sm={4.2}>
                   <div className="profileDetailsEdit">
                     <input
                       className="profileDetailsDataEdit1"

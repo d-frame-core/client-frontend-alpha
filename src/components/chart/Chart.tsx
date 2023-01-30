@@ -27,9 +27,12 @@ const COLORS = [
   "#702963",
 ];
 const style = {
+  
   top: "4vh",
+  
   right: "0vw",
   lineHeight: "34px",
+  //background:'white'
 };
 const RADIAN = Math.PI / 180;
 
@@ -56,6 +59,7 @@ export default function Chart(indata: any[], value: string) {
           layout="vertical"
           verticalAlign="middle"
           wrapperStyle={style}
+
         />
 
         <Tooltip />

@@ -17,6 +17,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/sidebar" element={<Sidebar />} />
+          <Route path="" element={<Profile />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/wallet" element={<Wallet />} />
           <Route path="/help" element={<Help />} />
@@ -24,7 +25,7 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/ads" element={<Ads />} />
-          <Route path="data-pool" element={<DataPool />} />
+          <Route path="/datapool" element={<DataPool />} />
         </Routes>
       </Router>
     </div>

@@ -37,7 +37,7 @@ export default function Sidebar(index : any) {
               <div className={toggleState === 1? "act1" : "notActive"} >
                 <PortraitIcon className='ic'/>Profile</div>
             </NavLink>
-            <Divider  sx={{color:"white",zIndex:'10'}}/>
+            
             <NavLink to='/wallet' style={{textDecoration:'none',color:'white',width:'18vw'}}onClick={()=> index=2}>
               <div className={toggleState === 2? "act1" : "notActive"}>
                 <AccountBalanceWalletOutlinedIcon className='ic' />Wallet</div>

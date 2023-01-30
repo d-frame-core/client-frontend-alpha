@@ -1,9 +1,9 @@
 .ads {
   position: absolute;
-  height: 80vh;
-  width: 70vw;
-  top: 15vh;
-  left: 24vw;
+  height: 82vh;
+  width: 75vw;
+  top: 14vh;
+  left: 21vw;
   background: #dde2ea;
   text-align: left;
   border-radius: 1vh;
@@ -44,9 +44,9 @@
 }
 .adsContent {
   position: absolute;
-  width: 90%;
-  height: 80%;
-  left: 3.5vw;
+  width: 95%;
+  height: 84%;
+  left: 2vw;
   top: 11vh;
   border-radius: 10px;
   background-color: white;

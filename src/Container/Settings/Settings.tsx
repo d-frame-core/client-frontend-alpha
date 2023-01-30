@@ -65,18 +65,7 @@ export default function Settings() {
           </div>
           <div>
             <Box className="settingsDetails">
-              <div className="settingsOptions">
-                <p className="updateEmail">Update Email</p>
-                <p className="emailColon">:</p>
-
-                <input className="emailInput" type={"email"} />
-              </div>
-              <div className="settingsOptions2">
-                <p className="updateNum">Update Number</p>
-                <p className="numColon">:</p>
-
-                <input className="numInput" type={"text"} />
-              </div>
+              
               <div className="settingsOptions3">
                 <p className="updateTheme">Theme</p>
                 <p className="themeColon">:</p>

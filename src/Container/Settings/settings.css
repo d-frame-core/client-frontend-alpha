@@ -3,12 +3,13 @@
 
 .settingsBox {
   position: absolute;
-  height: 80vh;
-  width: 70vw;
-  top: 15vh;
-  left: 24vw;
+  height: 81vh;
+  width: 76vw;
+  top: 14vh;
+  left: 20vw;
   background: #dde2ea;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-size: 3vh;
   font-family: "IBM Plex Sans Devanagari";
   border-radius: 10px;
 }
@@ -30,7 +31,8 @@
 .updateEmail {
   position: absolute;
   top: -0.5vh;
-  font: 500 3vh "IBM Plex Sans Devanagari";
+  font-size: 120%;
+ 
   left: 2vw;
 }
 .emailColon {

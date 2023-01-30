@@ -38,15 +38,15 @@ export default function LearnMore() {
   }, [open]);
   const [modalData, setModaData] = React.useState([
     {
-      title: "Why Advertise on D-Frame?",
-      text: "Ad-frame is an advertising platform built on D frame, to help clients target users better. Through advanced functionalities like real time target audience analytics with matching interests and a general willingness to watch ads from the users, we hope for significantly higher Click Through Rates (CTR) through AD-frame. This should drastically reduce advertising expenditure for the Clients and help reach the users directly with an ability to offer incentives directly to their wallets. Hence, reliance on Influencers and promotional expenditure can be reduced too. Influencing users not Influences can be a win-win for both client and users but cutting out the middle men.",
+      title: "Why Advertise on D Frame?",
+      text: "Ad frame is an advertising platform built on D Frame, to help clients target users better. Through advanced functionalities like real time target audience analytics with matching interests and a general willingness to watch ads from the users, we hope for significantly higher Click Through Rates (CTR) through AD-frame. This should drastically reduce advertising expenditure for the Clients and help reach the users directly with an ability to offer incentives directly to their wallets. Hence, reliance on Influencers and promotional expenditure can be reduced too. Influencing users not Influences can be a win-win for both client and users but cutting out the middle men.",
     },
     {
       title: "How does campaigns pricing work?",
       text: "The Campaign Pricing is decided via the Data Valuation Engine (DVE). This is discussed in Detail in the White Paper. Through general demand-supply dynamics for certain types of Data determined via tags and actual Ad spent, the pricing is calculated. A base price of different data types is set and further calculations are processed. To be explored in the Alpha version. https://dframe.org/d-frame-white-paper-v1-1/ ",
     },
     {
-      title: "What is the reach of our campaigns",
+      title: "What is the reach of our campaigns?",
       text: "Theoretically, the reach of the campaigns would be determined by the user base of D frame. Overtime, through our Projection frame idea of a Real Time Data Analytics Platform for Clients connecting users for their Healthcare, Travel, Finance data etc. we hope for higher quality and quantity of data & users. Ad-frame would benefit from overall user growth of the D frame data ecosystem.",
     },
     {
@@ -70,8 +70,8 @@ export default function LearnMore() {
             </div>
             <div className="learnItemContent">
               <BasicModal
-                name={modalData[2].title}
-                paragraph={modalData[2].text}
+                name={modalData[1].title}
+                paragraph={modalData[1].text}
               />
             </div>
             <div className="learnItemContent">

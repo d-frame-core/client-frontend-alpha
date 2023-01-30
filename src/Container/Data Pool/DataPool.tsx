@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
-import React from "react";
+import { Box, Divider } from "@mui/material";
+import React, { useState } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./DataPool.css";
 import AddIcon from "@mui/icons-material/Add";
@@ -25,9 +25,77 @@ const DataPool = () => {
     setTags([...tags, input]);
     setInput("");
   };
+
+  
+const Crypto=[
+  {name:'Bitcoin',per:35,value: 35},
+  {name:'Ethereum',per:35,value: 35},
+  {name:'Polygon',per:30,value: 30},
+  {name:'Solana',per:30,value: 30},
+  {name:'Hyperledger',per:30,value: 30},
+];
+const Gender=[
+  {name:'Male',per:46,value: 300},
+  {name:'Female',per:46,value: 300},
+  {name:'others',per:8,value: 50}
+];
+const Agegroup=[
+  {name:'>18',per:43,value: 300},
+  {name:'25-40',per:43,value: 300},
+  {name:'41-60',per:7,value: 50},
+  {name:'<60',per:7,value: 50}
+];
+const sports=[
+  {name:'Football',per:40,value: 300},
+  {name:'Cricket',per:40,value: 300},
+  {name:'Hockey',per:7,value: 50},
+  {name:'Kabbadi',per:7,value: 50},
+  {name:'Badmiton',per:7,value: 50}
+];
+const SocialMedia=[
+  {name:'Instagram',per:35,value: 300},
+  {name:'Meta',per:29,value: 250},
+  {name:'Reddit',per:24,value: 200},
+  {name:'Linkedin',per:12,value: 100}
+];
+const Finance=[
+  {name:'Muthoot',per:33,value: 33},
+  {name:'Mahindra',per:33,value: 33},
+  {name:'HDFC',per:22,value: 22},
+  {name:'EasyLoan',per:11,value: 11}
+];
+var a:any[]= [];
+
+
+  const [toggleState,setToggleState] = useState(3);
+  const toggleTab = (index: void |any) =>{
+    setToggleState(index);
+  }
+  if (toggleState === 3 ){
+    ( a = Crypto);
+  }
+  else if (toggleState === 4){
+    (a = Gender);
+   
+  }
+  else if (toggleState === 5){
+    (a = Agegroup);
+  }
+  else if (toggleState === 6){
+    (a = sports);
+  }
+  else if (toggleState === 7){
+    (a = SocialMedia);
+  }
+  else if (toggleState === 8){
+    (a = Finance);
+  }
+
   return (
     <div>
-      <>{Sidebar()}</>
+      <>{Sidebar(3)}</>
+      
+     
       <div className="categories"></div>
       <div className="DataPool">
         <Box>
@@ -35,6 +103,7 @@ const DataPool = () => {
           <div className="DataPoolSizeBox">
             <div>Size of D Frame Data Pool</div>
             <div>105.91 K</div>
+            
           </div>
           <div className="AddTags">
             {/* {tags.length > 0 ? (
@@ -57,7 +126,7 @@ const DataPool = () => {
               onChange={(e) => setInput(e.target.value)}
               value={input}
             />
-            <div>|</div>
+            
             <div className="AddTagsIcon" onClick={() => handleAdd()}>
               <AddIcon />
             </div>
@@ -70,7 +139,7 @@ const DataPool = () => {
             </div>
             <div className="tagsBox"></div>
           </div>
-          <div className="chart">{Chart(data, "long1")}</div>
+          <div className="chart">{Chart(a, "per")}</div>
         </Box>
       </div>
     </div>
