@@ -26,6 +26,7 @@ function App() {
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/ads" element={<Ads />} />
           <Route path="/datapool" element={<DataPool />} />
+          
         </Routes>
       </Router>
     </div>
