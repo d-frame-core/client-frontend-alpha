@@ -13,7 +13,10 @@ const typesofads:any[]=[
   {value:'Image',label:'Image'},
   {value:'Video',label:'Video'}
 ]
-
+const dataofcampaigns:any[]=[
+  {camname:'ad1',act:'active',bid:'normal',budget:'500',reach:'5k',type:'video',time:'10'},
+  {camname:'ad1',act:'active',bid:'normal',budget:'500',reach:'5k',type:'video',time:'10'}
+]
 export default function Campaigns() {
  
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -40,7 +43,23 @@ export default function Campaigns() {
         <a>Type</a><Divider variant='middle' style={{width:'0',left:'0vw',backgroundColor:'#1D59F4'}} orientation='vertical'/>
         <a>Time</a>
       </div>
-          
+       <div >{dataofcampaigns.map(item=>{
+        return(
+          <div className='camitem'>
+       <div className='sep'>
+          <div className='a1'>{item.camname}</div>
+          <div className='a2'>{item.act}</div>
+          <div className='a3'>{item.bid}</div>
+          <div className='a4'>{item.budget}</div>
+          <div className='a5'>{item.reach}</div>
+          <div className='a6'>{item.type}</div>
+          <div className='a7'>{item.time}</div>
+       </div>
+       </div>
+       );
+      })
+      }
+      </div>
       <Backdrop open={formopen} sx={{  zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <div className='form'>
           <a onClick={()=>setFormopen(false)}><CloseIcon sx={{top:'3vh',left:'37vw',position:'absolute',zIndex:'1'}}/></a>
@@ -127,7 +146,8 @@ export default function Campaigns() {
          sx={{left:'2vw',width:'90%'}} 
          {...register('location')}
         />
-        <input type="datetime-local" className='datetime' {...register("dateandtime")}/>
+        <a className="dt">Start Date:<input type="date" className='datetime' {...register("Startdate")}/></a>
+        <a className="dt">End Date:<input type="date" className='datetime' {...register("Enddate")}/></a>
         <button type='submit' className='btncampaign'>Complete</button>
       </form></>
     }

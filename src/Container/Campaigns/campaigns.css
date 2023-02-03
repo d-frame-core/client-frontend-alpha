@@ -72,7 +72,62 @@ border-radius: 10px;
     position: relative;
     height: 5vh;
     width: 10vw;
-    top: 4vh;
+    
     left: 2vw;
 
+}
+.camitem{
+    position: relative;
+    display: flex;
+    height: 10vh;
+   
+    border: 1px solid #0971f1;
+    border-top: 0px;
+    width: 100%;
+    
+}
+.sep{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    top: 2vh;
+    height: 10vh;
+    font-size: 3vh;
+    column-gap: 1.8%;
+    left: 2.5vw;
+}
+.a1{
+position: relative;
+left:3vw;
+}
+.a2{
+    position: relative;
+    left:13vw; 
+}
+.a3{
+    position: relative;
+    left:20vw;
+}
+.a4{
+    position: relative;
+    left:28vw;
+}
+.a5{
+    position: relative;
+    left: 35vw;
+}
+.a6{
+    position: relative;
+    left: 41vw;
+}
+.a7{
+    position: relative;
+    left:46vw;
+}
+.dt{
+    position: relative;
+    right:10vw;
+    top: 4vh;
+    
 }
