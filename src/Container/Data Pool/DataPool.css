@@ -1,9 +1,6 @@
 .DataPool {
-  position: absolute;
-  height: 80vh;
-  width: 70vw;
-  top: 18vh;
-  left: 23vw;
+  height: 90%;
+  width: 87%;
   margin: auto;
   border-radius: 1vh;
   background: #dde2ea;
@@ -32,23 +29,22 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
-  row-gap: 15px;
+  justify-content: space-evenly;
 }
 .AddTags {
   width: 80%;
-  padding: 3% 2%;
+  height: 7vh;
+  padding: 1% 2%;
   background-color: white;
   font-size: 3vh;
   font-weight: 500;
-  text-align: center;
+  align-items: center;
   margin: 0 8%;
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   display: flex;
   column-gap: 4px;
-  position: relative;
   /* border: 1px solid red; */
-  align-items: center;
 }
 .dataPoolAndTags {
   display: flex;
@@ -61,6 +57,7 @@
   display: flex;
   flex-direction: column;
   margin-left: 5%;
+  width: 40%;
   /* border: 1px solid red; */
 }
 .AddTagsTitle {
@@ -76,6 +73,7 @@
 }
 .AddTagsInput {
   width: 80%;
+  height: 60%;
   margin: 0;
   border: none;
   outline: none;
@@ -83,54 +81,56 @@
   padding: 0 2%;
   border-radius: 10px;
   border: 0.5px solid #dde2ea;
+  padding-left: 20px;
+  padding: 4px;
 }
 .AddTagsIcon {
   width: 10%;
   height: 30%;
   cursor: pointer;
-  /* border: 1px solid red; */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .tagsBox {
   width: 40%;
-  padding: 2% 1%;
+  padding: 1% 1%;
   background-color: white;
   font-size: 110%;
   text-align: center;
   margin: 0 4%;
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  height: 15vh;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-items: center;
+  align-content: flex-start;
+  overflow-y: auto;
 }
 .tag {
   background-color: #47b5ff;
   color: white;
-  padding: 1% 3%;
-  margin: 0 1%;
-  height: 20%;
+  /* border: 1px solid red; */
+  padding: 2% 3%;
+  margin: 1.2% 1%;
   border-radius: 10px;
-  /* width: 15%; */
+  text-align: center;
 }
 .tagsDiv {
   display: flex;
   margin: 0 4%;
+  height: 20vh;
+  /* border: 1px solid red; */
 }
 .right {
   display: flex;
   flex-direction: column;
-  /* border: 1px solid red; */
-  width: 40%;
+  /* border: 1px solid yellow; */
+  width: 35%;
   margin-right: 10%;
   justify-content: flex-start;
   align-items: center;
-  /* flex-wrap: wrap; */
-}
-.chart {
 }
 
 .sites1 {
@@ -152,40 +152,47 @@
 }
 
 .categories {
-  width: 84%;
-  background-color: #47b5ff;
+  min-width: 84%;
   display: flex;
-  position: relative;
-  left: 16vw;
-  top: 9vh;
-  height: 20%;
+  margin-bottom: 3vh;
+  /* border: 1px solid green; */
+  justify-content: space-evenly;
 }
 .categoriesTitle {
   text-align: center;
   color: white;
   border: 0.5px solid blue;
-  width: 9%;
   height: 99%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: #47b5ff;
   font-size: 110%;
   font-weight: 500;
   cursor: pointer;
   padding: 1% 0;
+  width: 100%;
 }
 .categoryActive {
   text-align: center;
   color: black;
   border: 0.5px solid white;
-  width: 9%;
+  width: 100%;
   height: 99%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 110%;
   font-weight: 500;
   background-color: white;
   cursor: pointer;
   padding: 1% 0;
+}
+.outerBox {
+  /* border: 1px solid red; */
+  position: absolute;
+  left: 16vw;
+  top: 9vh;
+  height: 88vh;
+  width: 83.8vw;
+}
+input[type="text"] {
+  padding: 3px;
+  padding-left: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }

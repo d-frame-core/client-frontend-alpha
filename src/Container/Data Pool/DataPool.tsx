@@ -1,4 +1,4 @@
-import { Box, Divider } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useState } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./DataPool.css";
@@ -157,63 +157,64 @@ const DataPool = () => {
   return (
     <div>
       <>{Sidebar(3)}</>
-
-      <div className="categories">
-        {heading.map((item, index) => {
-          return (
-            <div
-              className={
-                toggleState === index ? "categoryActive" : "categoriesTitle"
-              }
-              onClick={() => toggleTab(index)}
-            >
-              {item}
-            </div>
-          );
-        })}
-      </div>
-      <div className="DataPool">
-        <Box>
-          <div className="DataPoolTitle">Data Pool</div>
-          <div className="dataPoolAndTags">
-            <div className="left">
-              <div className="DataPoolSizeBox">
-                <div>Size of D Frame Data Pool</div>
-                <div>105.91 K</div>
+      <div className="outerBox">
+        <div className="categories">
+          {heading.map((item, index) => {
+            return (
+              <div
+                className={
+                  toggleState === index ? "categoryActive" : "categoriesTitle"
+                }
+                onClick={() => toggleTab(index)}
+              >
+                {item}
               </div>
-              <div className="AddTagsTitle">Add Tags</div>
-              <div className="AddTags">
-                <input
-                  type="text"
-                  className="AddTagsInput"
-                  onChange={(e) => setInput(e.target.value)}
-                  value={input}
-                />
+            );
+          })}
+        </div>
+        <div className="DataPool">
+          <Box>
+            <div className="DataPoolTitle">Data Pool</div>
+            <div className="dataPoolAndTags">
+              <div className="left">
+                <div className="DataPoolSizeBox">
+                  <div>Size of D Frame Data Pool</div>
+                  <div>105.91 K</div>
+                </div>
+                <div className="AddTagsTitle">Add Tags</div>
+                <div className="AddTags">
+                  <input
+                    type="text"
+                    className="AddTagsInput"
+                    onChange={(e) => setInput(e.target.value)}
+                    value={input}
+                  />
 
-                <div className="AddTagsIcon" onClick={handleAdd}>
-                  <AddIcon />
+                  <div className="AddTagsIcon" onClick={handleAdd}>
+                    <AddIcon />
+                  </div>
                 </div>
               </div>
+              <div className="right">
+                <div className="chart">{Chart(a, "per")}</div>
+              </div>
             </div>
-            <div className="right">
-              <div className="chart">{Chart(a, "per")}</div>
-            </div>
-          </div>
 
-          {/* <button onClick={() => handleAdd()}>Add</button> */}
-          <div className="tagsDiv">
-            <div className="tagsBox">
-              {tags.map((tag) => {
-                return <div className="tag">{tag}</div>;
-              })}
+            {/* <button onClick={() => handleAdd()}>Add</button> */}
+            <div className="tagsDiv">
+              <div className="tagsBox">
+                {tags.map((tag) => {
+                  return <div className="tag">{tag}</div>;
+                })}
+              </div>
+              <div className="tagsBox">
+                {popularTags.map((tag) => {
+                  return <div className="tag">{tag}</div>;
+                })}
+              </div>
             </div>
-            <div className="tagsBox">
-              {popularTags.map((tag) => {
-                return <div className="tag">{tag}</div>;
-              })}
-            </div>
-          </div>
-        </Box>
+          </Box>
+        </div>
       </div>
     </div>
   );
