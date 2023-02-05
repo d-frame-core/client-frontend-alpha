@@ -16,10 +16,15 @@ export default function Profile() {
   const [address2, setAddress2] = useState(data[0].caddress2);
   const wallet = data[0].cwallet;
   const [edit, setEdit] = useState(false);
-  const [file, setFile] = useState(user);
+  const [files, setFiles] = useState(user);
   function handleChange(e: any) {
     console.log(e.target.files);
-    setFile(URL.createObjectURL(e.target.files[0]));
+    const image = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.readAsDataURL(image);
+    setFiles(URL.createObjectURL(e.target.files[0]));
+    console.log(files);
   }
   const handleEdit = () => {
     setEdit(!edit);
@@ -39,7 +44,12 @@ export default function Profile() {
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={3}>
                   <div className="profileImage">
-                    <img src={file} alt="user" className="img" />
+                    <img
+                      src={files}
+                      alt="user"
+                      className="img"
+                      id="profilePicture"
+                    />
                   </div>
                 </Grid>
                 <Grid item xs={7} sm={3}>
@@ -83,7 +93,7 @@ export default function Profile() {
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={3}>
                   <div className="profileImage">
-                    <img src={file} alt="user" className="imgInEditMode" />
+                    <img src={files} alt="user" className="imgInEditMode" />
                     <div className="editIMG">
                       <label className="editIcon" htmlFor="files">
                         <CreateOutlinedIcon />

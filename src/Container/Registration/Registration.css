@@ -1,0 +1,122 @@
+.body {
+  background-color: aqua;
+  width: 100vw;
+  height: 100vh;
+}
+.container {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+
+  width: 50%;
+  height: 87%;
+  position: absolute;
+  top: 8%;
+  left: 25%;
+  /* border: 2px solid red; */
+  background: #dde2ea;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+.title {
+  font-size: 5vh;
+  font-weight: 700;
+  color: #1c1f37;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+  margin: 2%;
+}
+.user-details {
+  display: flex;
+  align-items: center;
+  /* border: 1px solid red; */
+  margin: 2%;
+}
+.detailTitle {
+  font-size: 3vh;
+  font-weight: 400;
+  color: #1c1f37;
+  /* border: 1px solid red; */
+  margin: 2%;
+  width: 30%;
+}
+.colon {
+  font-size: 3vh;
+  font-weight: 500;
+  color: #1c1f37;
+  /* border: 1px solid red; */
+  margin: 2%;
+  width: 5%;
+}
+.detailValue {
+  font-size: 3vh;
+  font-weight: 400;
+  color: #1c1f37;
+  /* border: 1px solid red; */
+  margin: 2%;
+  width: 95%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+.content {
+  /* border: 1px solid red; */
+  margin: 3% 6%;
+}
+.btn {
+  border-radius: 10px;
+  outline: none;
+  color: #ffffff;
+  border: none;
+  background-color: #47b5ff;
+  cursor: pointer;
+  font-size: 3vh;
+  font-weight: 400;
+  height: 30%;
+  margin: 3%;
+  padding: 1% 2%;
+  border: 1px solid blue;
+}
+.btndiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.phoneVerify {
+  font-size: 3vh;
+  font-weight: 400;
+  color: #1c1f37;
+  /* border: 1px solid red; */
+  margin: 2%;
+  width: 95%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+.otp {
+  border-radius: 10px;
+  outline: none;
+  color: #ffffff;
+  border: none;
+  background-color: #47b5ff;
+  cursor: pointer;
+  font-size: 2vh;
+  font-weight: 400;
+  padding: 2% 3%;
+  margin: 1%;
+}
+.btnDisabled {
+  background-color: gray;
+  cursor: not-allowed;
+  font-size: 3vh;
+  font-weight: 400;
+  height: 30%;
+  margin: 3%;
+  padding: 1% 2%;
+}
+input[type="tel"] {
+  padding: 3px;
+  padding-left: 15px;
+}

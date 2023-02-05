@@ -10,6 +10,9 @@ import Settings from "./Container/Settings/Settings";
 import Campaigns from "./Container/Campaigns/Campaigns";
 import Ads from "./Container/Ads/Ads";
 import DataPool from "./Container/Data Pool/DataPool";
+import Registration from "./Container/Registration/Registration";
+import Verify from "./Container/Verify/Verify";
+import Home from "./Container/Home/Home";
 
 function App() {
   return (
@@ -26,7 +29,8 @@ function App() {
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/ads" element={<Ads />} />
           <Route path="/datapool" element={<DataPool />} />
-          
+          <Route path="/register" element={<Registration />} />
+          <Route path="/verify-email" element={<Verify />} />
         </Routes>
       </Router>
     </div>
