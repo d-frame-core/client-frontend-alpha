@@ -7,7 +7,14 @@ import Grid from "@mui/material/Grid";
 import "./profilep.css";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import data from "./data.json";
-
+const convertToBase64 = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+  });
+};
 export default function Profile() {
   const [name, setName] = useState(data[0].cname);
   const [type, setType] = useState(data[0].ctype);
@@ -17,6 +24,16 @@ export default function Profile() {
   const wallet = data[0].cwallet;
   const [edit, setEdit] = useState(false);
   const [files, setFiles] = useState(user);
+  const [image, setImage] = useState<string | null>(
+    localStorage.getItem("image") || null
+  );
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files![0];
+    convertToBase64(file).then((base64String) => {
+      localStorage.setItem("image", base64String);
+      setImage(base64String);
+    });
+  };
   function handleChange(e: any) {
     console.log(e.target.files);
     const image = e.target.files[0];
@@ -44,12 +61,21 @@ export default function Profile() {
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={3}>
                   <div className="profileImage">
-                    <img
-                      src={files}
-                      alt="user"
-                      className="img"
-                      id="profilePicture"
-                    />
+                    {image ? (
+                      <img
+                        src={image}
+                        alt="user"
+                        className="img"
+                        id="profilePicture"
+                      />
+                    ) : (
+                      <img
+                        src={files}
+                        alt="user"
+                        className="img"
+                        id="profilePicture"
+                      />
+                    )}
                   </div>
                 </Grid>
                 <Grid item xs={7} sm={3}>
@@ -93,7 +119,11 @@ export default function Profile() {
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={3}>
                   <div className="profileImage">
-                    <img src={files} alt="user" className="imgInEditMode" />
+                    {image ? (
+                      <img src={image} alt="Stored" className="imgInEditMode" />
+                    ) : (
+                      <img src={files} alt="user" className="imgInEditMode" />
+                    )}
                     <div className="editIMG">
                       <label className="editIcon" htmlFor="files">
                         <CreateOutlinedIcon />
@@ -102,7 +132,7 @@ export default function Profile() {
                         type="file"
                         className="hidden"
                         id="files"
-                        onChange={handleChange}
+                        onChange={handleFileChange}
                       />
                     </div>
                   </div>
