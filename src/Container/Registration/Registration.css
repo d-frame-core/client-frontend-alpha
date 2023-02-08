@@ -1,5 +1,5 @@
 .body {
-  background-color: #6699cc;
+  background-color: #e3f8f9;
   width: 100vw;
   height: 100vh;
 }
@@ -38,10 +38,11 @@
   font-size: 3vh;
   font-weight: 400;
   color: #1c1f37;
-  /* border: 1px solid red; */
+  border: 1px solid red;
   margin: 2%;
-  width: 30%;
+  width: 28%;
 }
+
 .colon {
   font-size: 3vh;
   font-weight: 500;
@@ -119,4 +120,43 @@
 input[type="tel"] {
   padding: 3px;
   padding-left: 15px;
+}
+
+/* 
+..........................  */
+.phoneNumberDiv {
+  display: flex;
+  align-items: center;
+  border: 1px solid red;
+  margin: 2%;
+}
+.phoneNumberTitle {
+  font-size: 3vh;
+  font-weight: 400;
+  color: #1c1f37;
+  border: 1px solid red;
+  margin: 2%;
+  width: 28%;
+}
+.phoneNumberColon {
+  font-size: 3vh;
+  font-weight: 500;
+  color: #1c1f37;
+  /* border: 1px solid red; */
+  margin: 2%;
+  width: 5%;
+}
+.phoneNumberInput {
+  font-size: 3vh;
+  font-weight: 400;
+  color: #1c1f37;
+  border: 1px solid red;
+  width: 50%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  padding: 2% 0;
+}
+.phoneContent {
+  margin: 3% 6%;
 }

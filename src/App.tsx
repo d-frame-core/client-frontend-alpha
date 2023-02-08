@@ -13,6 +13,7 @@ import DataPool from "./Container/Data Pool/DataPool";
 import Registration from "./Container/Registration/Registration";
 import Verify from "./Container/Verify/Verify";
 import Home from "./Container/Home/Home";
+import CreateSurvey from "./Container/CreateSurvey/CreateSurvey";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/datapool" element={<DataPool />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/verify-email" element={<Verify />} />
+          <Route path="/create-survey" element={<CreateSurvey />} />
         </Routes>
       </Router>
     </div>

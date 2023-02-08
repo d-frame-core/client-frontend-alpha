@@ -217,6 +217,44 @@ const PhoneVerification = () => {
             );
           })}
         </div>
+        {/* <div className="phoneContent">
+          <div className="phoneNumberDiv">
+            <div className="phoneNumberTitle">Phone Number</div>
+            <div className="phoneNumberColon">:</div>
+            <div className="phoneNumberInput">
+              {!confirmationResult ? (
+                <form onSubmit={handleSubmitPhoneNumber}>
+                  <input
+                    type="tel"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    placeholder="Enter phone number"
+                    required
+                    className="phoneVerify"
+                  />
+                  <div id="recaptcha-container"></div>
+                  <button type="submit" className="otp">
+                    Send OTP
+                  </button>
+                </form>
+              ) : (
+                <form onSubmit={handleSubmitOtp}>
+                  <input
+                    type="text"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                    placeholder="Enter OTP"
+                    required
+                    className="phoneVerify"
+                  />
+                  <button type="submit" className="otp">
+                    Verify
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+        </div> */}
         <div className="btndiv">
           <button
             className={verified ? "btn" : "btnDisabled"}
