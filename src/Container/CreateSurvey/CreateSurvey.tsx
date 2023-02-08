@@ -36,6 +36,14 @@ const CreateSurvey = () => {
       startDate: "12/01/23",
       endDate: "6/05/23",
     },
+    {
+      surveyName: "Amazon",
+      totalQues: "10",
+      totalRes: "12",
+      statusCampaign: "Ongoing",
+      startDate: "12/01/23",
+      endDate: "6/05/23",
+    },
   ];
   return (
     <div>
