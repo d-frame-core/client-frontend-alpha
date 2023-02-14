@@ -24,6 +24,11 @@ const SurveyHistory = () => {
         <div className="surveyHistoryContent">
           <div className="surveyHistoryContentTitle">
             <div className="surveyHistorySno">S.NO</div>
+            <div className="surveyHistorySurveyName">Survey Name</div>
+            <div className="surveyHistoryTotalQues">Total Ques</div>
+            <div className="surveyHistoryTotalRes">Total Res</div>
+            <div className="surveyHistoryTotalReward">Total Reward</div>
+            <div className="surveyHistoryTimePeriod">Time Period</div>
           </div>
         </div>
       </div>

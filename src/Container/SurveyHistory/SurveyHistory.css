@@ -93,8 +93,64 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 150%;
-  font-weight: 600;
+  font-size: 110%;
+  font-weight: 500;
   border: 1px solid blue;
   border-left: 0.5px;
+}
+.surveyHistorySurveyName {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 110%;
+  font-weight: 500;
+  border: 1px solid blue;
+  border-left: 0.5px;
+}
+.surveyHistoryTotalQues {
+  width: 15%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 110%;
+  font-weight: 500;
+  border: 1px solid blue;
+  border-left: 0.5px;
+}
+.surveyHistoryTotalRes {
+  width: 15%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 110%;
+  font-weight: 500;
+  border: 1px solid blue;
+  border-left: 0.5px;
+}
+.surveyHistoryTotalReward {
+  width: 15%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 110%;
+  font-weight: 500;
+  border: 1px solid blue;
+  border-left: 0.5px;
+}
+.surveyHistoryTimePeriod {
+  width: 15%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 110%;
+  font-weight: 500;
+  border: 1px solid blue;
+  border-left: 0.5px;
+  border-right: 0.5px;
 }

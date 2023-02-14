@@ -22,7 +22,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/sidebar" element={<Sidebar />} />
-          <Route path="" element={<Home />} />
+          <Route path="" element={<Profile />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/wallet" element={<Wallet />} />
           <Route path="/help" element={<Help />} />

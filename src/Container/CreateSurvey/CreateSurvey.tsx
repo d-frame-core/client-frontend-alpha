@@ -116,6 +116,7 @@ const CreateSurvey = () => {
             }}
           />
         </div>
+        <hr />
       </div>
     );
   }
