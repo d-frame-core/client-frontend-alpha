@@ -24,7 +24,7 @@
   /* border: 1px solid red; */
   height: 12%;
 }
-.createSurveyHeaderTitle {
+.createSurveyHeaderTitleMain {
   font-size: 250%;
   font-weight: 600;
   margin: 0 5%;
@@ -205,4 +205,122 @@
   font-weight: 400;
   height: 100%;
   /* border: 0.5px solid blue; */
+}
+.createSurveyForm {
+  /* border: 1px solid gray; */
+  border-radius: 10px;
+  position: absolute;
+  z-index: 3;
+  height: 85vh;
+  width: 40vw;
+  background-color: white;
+  top: 50%;
+  text-align: center;
+  margin: auto;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+
+  transform: translate(-50%, -50%);
+  /* overflow-y: auto; */
+}
+.createSurveyFormHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  height: 10%;
+  width: 100%;
+  margin: auto;
+  background-color: #47b5ff;
+  color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.createSurveyHeaderTitle {
+  font-size: 250%;
+  font-weight: 600;
+  margin: auto;
+}
+.closeButtonCreateSurveyPage {
+  margin: 3%;
+  width: 6%;
+  height: 60%;
+  font-size: 120%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin-left: 0;
+}
+.createSurveyFormBody {
+  padding-top: 2%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 3%;
+  height: 90%;
+  width: 100%;
+  background-color: white;
+  color: black;
+  overflow-y: auto;
+  /* border: 1px solid blue; */
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+.optionsInNumberOfQuestion {
+  padding: 2%;
+}
+.fieldInputDiv {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 100px;
+  margin: auto;
+  margin-bottom: 2%;
+  /* border: 10px; */
+  border: 1px solid white;
+  justify-content: space-around;
+}
+.fieldInputSurveyName {
+  border: none;
+  outline: none;
+}
+.fieldInputSurveyInputBlock {
+  display: flex;
+  /* border: 1px solid blue; */
+  justify-content: space-around;
+  align-items: center;
+}
+.fieldInputSurveyNameInputField {
+  /* border: none; */
+  outline: none;
+  /* border: 10px; */
+}
+.submitSurveyButton {
+  width: 20%;
+  height: 8%;
+  margin: auto;
+  margin: 2% auto;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 120%;
+  font-weight: 600;
+  background-color: #47b5ff;
+  color: white;
+}
+input[type="date"]:required:invalid::-webkit-datetime-edit {
+  color: transparent;
+}
+input[type="date"]:focus::-webkit-datetime-edit {
+  color: black !important;
 }

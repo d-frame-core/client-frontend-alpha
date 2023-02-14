@@ -14,6 +14,7 @@ import Registration from "./Container/Registration/Registration";
 import Verify from "./Container/Verify/Verify";
 import Home from "./Container/Home/Home";
 import CreateSurvey from "./Container/CreateSurvey/CreateSurvey";
+import SurveyHistory from "./Container/SurveyHistory/SurveyHistory";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/sidebar" element={<Sidebar />} />
-          <Route path="" element={<Profile />} />
+          <Route path="" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/wallet" element={<Wallet />} />
           <Route path="/help" element={<Help />} />
@@ -33,6 +34,7 @@ function App() {
           <Route path="/register" element={<Registration />} />
           <Route path="/verify-email" element={<Verify />} />
           <Route path="/create-survey" element={<CreateSurvey />} />
+          <Route path="/survey-history" element={<SurveyHistory />} />
         </Routes>
       </Router>
     </div>
