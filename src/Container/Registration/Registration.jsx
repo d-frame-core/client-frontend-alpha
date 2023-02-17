@@ -31,6 +31,15 @@ const PhoneVerification = () => {
     "Phone Number",
   ];
   let u;
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   axios.post('/api/user', { name, email, message })
+  //     .then((response) => {
+  //       console.log(response);
+  //       // do something with response, like display a success message
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
   const actionCodeSettings = {
     // URL you want to redirect back to. The domain (www.example.com) for this
     // URL must be in the authorized domains list in the Firebase Console.

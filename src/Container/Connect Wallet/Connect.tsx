@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Connect.css";
+import axios from "axios";
 const Connect = () => {
   const navigate = useNavigate();
   const [address, setAddress] = React.useState("");
@@ -14,9 +15,16 @@ const Connect = () => {
       .then((accounts: string[]) => {
         setAddress(accounts[0]);
         setIsConnected(true);
+        axios
+          .post("http://localhost:3000/users/login", {
+            walletAddress: address,
+          })
+          .then((res) => {
+            console.log(res.data);
+          });
       })
       .catch((error: any) => {
-        alert(`Something went wrong: ${error}`);
+        console.log(`Something went wrong: ${error}`);
       });
   }
   return (
