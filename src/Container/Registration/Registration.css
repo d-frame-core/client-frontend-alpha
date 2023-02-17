@@ -38,7 +38,7 @@
   font-size: 3vh;
   font-weight: 400;
   color: #1c1f37;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   margin: 2%;
   width: 28%;
 }
@@ -127,14 +127,14 @@ input[type="tel"] {
 .phoneNumberDiv {
   display: flex;
   align-items: center;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   margin: 2%;
 }
 .phoneNumberTitle {
   font-size: 3vh;
   font-weight: 400;
   color: #1c1f37;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   margin: 2%;
   width: 28%;
 }
@@ -150,7 +150,7 @@ input[type="tel"] {
   font-size: 3vh;
   font-weight: 400;
   color: #1c1f37;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   width: 50%;
   border-radius: 10px;
   border: none;

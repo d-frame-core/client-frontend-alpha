@@ -1,0 +1,25 @@
+.connectClientWallet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* border: 1px solid #000; */
+  text-align: center;
+}
+.connectClientWallet__button {
+  background-color: #47b5ff;
+  outline: none;
+  color: #ffffff;
+  border: none;
+  padding: 3% 5%;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 3vh;
+  text-align: center;
+  font-weight: 100;
+}
+.connectClientWallet__heading {
+  font-size: 6vh;
+  font-weight: 500;
+  color: #000;
+}

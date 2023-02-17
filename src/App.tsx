@@ -12,9 +12,9 @@ import Ads from "./Container/Ads/Ads";
 import DataPool from "./Container/Data Pool/DataPool";
 import Registration from "./Container/Registration/Registration";
 import Verify from "./Container/Verify/Verify";
-import Home from "./Container/Home/Home";
 import CreateSurvey from "./Container/CreateSurvey/CreateSurvey";
 import SurveyHistory from "./Container/SurveyHistory/SurveyHistory";
+import Connect from "./Container/Connect Wallet/Connect";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/sidebar" element={<Sidebar />} />
-          <Route path="" element={<Profile />} />
+          <Route path="" element={<Connect />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/wallet" element={<Wallet />} />
           <Route path="/help" element={<Help />} />
