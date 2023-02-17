@@ -6,7 +6,7 @@ import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined
 const SurveyHistory = () => {
   return (
     <div>
-      <>{Sidebar(5)}</>
+      <>{Sidebar(7)}</>
       <div className="surveyHistoryOuterBox">
         <div className="surveyHistoryHeader">
           <div className="surveyHistoryTitle">Survey History</div>

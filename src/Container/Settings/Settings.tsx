@@ -10,7 +10,7 @@ export default function Settings() {
   }
   return (
     <div>
-      <>{Sidebar(6)}</>
+      <>{Sidebar(8)}</>
       <div>
         <Box className="settingsBox">
           <div>

@@ -135,7 +135,7 @@ const CreateSurvey = () => {
   };
   return (
     <div>
-      <>{Sidebar(7)}</>
+      <>{Sidebar(6)}</>
       <div className="createSurveyBox">
         <div className="createSurveyGreyBox">
           <div className="createSurveyHeader">
