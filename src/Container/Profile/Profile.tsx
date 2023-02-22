@@ -1,12 +1,14 @@
 import { Box } from "@mui/material";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import user from "../../assets/userIcon.png";
 import Grid from "@mui/material/Grid";
 // import "./profile.css";
 import "./profilep.css";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
-import data from "./data.json";
+import { MyContext } from "../../components/context/Context";
+import axios from "axios";
+import { async } from "@firebase/util";
 const convertToBase64 = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -16,40 +18,104 @@ const convertToBase64 = (file: File): Promise<string> => {
   });
 };
 export default function Profile() {
-  const [name, setName] = useState(data[0].cname);
-  const [type, setType] = useState(data[0].ctype);
-  const email = data[0].cemail;
-  const [address1, setAddress1] = useState(data[0].caddress1);
-  const [address2, setAddress2] = useState(data[0].caddress2);
-  const wallet = data[0].cwallet;
   const [edit, setEdit] = useState(false);
   const [files, setFiles] = useState(user);
-  const [image, setImage] = useState<string | null>(
-    localStorage.getItem("image") || null
-  );
+  const [image, setImage] = useState(localStorage.getItem("image") || null);
+  const {
+    _id,
+    companyAddress1,
+    setCompanyAddress1,
+    companyAddress2,
+    setCompanyAddress2,
+    companyName,
+    setCompanyName,
+    companyType,
+    setCompanyType,
+    companyEmail,
+    setCompanyEmail,
+    walletAddress,
+    setWalletAddress,
+  } = useContext(MyContext);
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files![0];
+    setFiles(URL.createObjectURL(file));
     convertToBase64(file).then((base64String) => {
       localStorage.setItem("image", base64String);
       setImage(base64String);
     });
   };
-  function handleChange(e: any) {
-    console.log(e.target.files);
-    const image = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.readAsDataURL(image);
-    setFiles(URL.createObjectURL(e.target.files[0]));
+  const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const file = event.target.files![0];
+    console.log(file);
+    // Read the file as a buffer
+    setFiles(URL.createObjectURL(file));
     console.log(files);
-  }
+    const reader = new FileReader();
+    reader.readAsArrayBuffer(file);
+    reader.onload = () => {
+      // Create a new Blob object from the buffer
+      const blob = new Blob([new Uint8Array(reader.result as ArrayBuffer)]);
+
+      // Create a new FormData object and append the blob to it
+      const formData = new FormData();
+      formData.append("image", file);
+
+      // Send the image to the backend using Axios
+      axios
+        .post("http://localhost:3000/profile/uploadProfilePicture", formData)
+        .then((response) => {
+          console.log(response.data);
+          setImage(URL.createObjectURL(file));
+          // localStorage.setItem("image", URL.createObjectURL(file));
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+  };
   const handleEdit = () => {
     setEdit(!edit);
   };
-  const handleSave = () => {
-    console.log(name, type, email, address1, address2, wallet);
+  const handleSave = async () => {
     setEdit(!edit);
+    console.log("save");
+    const id = _id || localStorage.getItem("id");
+    console.log(id);
+    await axios
+      .patch(`http://localhost:3000/users/${id}`, {
+        companyName,
+        companyType,
+        companyEmail,
+        companyAddress1,
+        companyAddress2,
+        walletAddress,
+      })
+      .then((response) => {
+        console.log("Data has been sent to the server");
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+  useEffect(() => {
+    const id = _id || localStorage.getItem("id");
+    axios
+      .get(`http://localhost:3000/users/${id}`)
+      .then((response) => {
+        const data = response.data;
+        setCompanyName(data.companyName);
+        setCompanyType(data.companyType);
+        setCompanyEmail(data.companyEmail);
+        setCompanyAddress1(data.companyAddress1);
+        setCompanyAddress2(data.companyAddress2);
+        setWalletAddress(data.walletAddress);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
     <div>
       <>{Sidebar(1)}</>
@@ -100,12 +166,18 @@ export default function Profile() {
                 </Grid>
                 <Grid item xs={5} sm={5.5}>
                   <div className="profileDetails">
-                    <div className="profileDetailsData">{name}</div>
-                    <div className="profileDetailsData">{type}</div>
-                    <div className="profileDetailsData">{email}</div>
-                    <div className="profileDetailsData">{address1}</div>
-                    <div className="profileDetailsData">{address2}</div>
-                    <div className="profileDetailsData">{wallet}</div>
+                    <div className="profileDetailsData">{companyName}</div>
+                    <div className="profileDetailsData">{companyType}</div>
+                    <div className="profileDetailsData">{companyEmail}</div>
+                    <div className="profileDetailsData">
+                      {companyAddress1.length > 30
+                        ? companyAddress1.slice(0, 25) + "..."
+                        : companyAddress1}
+                    </div>
+                    <div className="profileDetailsData">{companyAddress2}</div>
+                    <div className="profileDetailsData">
+                      {walletAddress.slice(0, 10)}...{walletAddress.slice(27)}
+                    </div>
                   </div>
                 </Grid>
               </Grid>
@@ -161,26 +233,30 @@ export default function Profile() {
                   <div className="profileDetailsEdit">
                     <input
                       className="profileDetailsDataEdit1"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      value={companyName}
+                      onChange={(e) => setCompanyName(e.target.value)}
                     />
                     <input
                       className="profileDetailsDataEdit1"
-                      value={type}
-                      onChange={(e) => setType(e.target.value)}
+                      value={companyType}
+                      onChange={(e) => setCompanyType(e.target.value)}
                     />
-                    <div className="profileDetailsDataEditState">{email}</div>
+                    <div className="profileDetailsDataEditState">
+                      {companyEmail}
+                    </div>
                     <input
                       className="profileDetailsDataEdit1"
-                      value={address1}
-                      onChange={(e) => setAddress1(e.target.value)}
+                      value={companyAddress1}
+                      onChange={(e) => setCompanyAddress1(e.target.value)}
                     />
                     <input
                       className="profileDetailsDataEdit1"
-                      value={address2}
-                      onChange={(e) => setAddress2(e.target.value)}
+                      value={companyAddress2}
+                      onChange={(e) => setCompanyAddress2(e.target.value)}
                     />
-                    <div className="profileDetailsDataEditState">{wallet}</div>
+                    <div className="profileDetailsDataEditState">
+                      {walletAddress.slice(0, 10)}...{walletAddress.slice(27)}
+                    </div>
                   </div>
                 </Grid>
               </Grid>

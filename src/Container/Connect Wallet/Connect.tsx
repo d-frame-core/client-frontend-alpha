@@ -2,30 +2,34 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Connect.css";
 import axios from "axios";
+import { MyContext } from "../../components/context/Context";
 const Connect = () => {
   const navigate = useNavigate();
-  const [address, setAddress] = React.useState("");
+  const { walletAddress, setWalletAddress, setId } =
+    React.useContext(MyContext);
   const [isConnected, setIsConnected] = React.useState(false);
   async function connectWallet(): Promise<void> {
-    //to get around type checking
-    (window as any).ethereum
-      .request({
+    try {
+      const accounts: string[] = await (window as any).ethereum.request({
         method: "eth_requestAccounts",
-      })
-      .then((accounts: string[]) => {
-        setAddress(accounts[0]);
-        setIsConnected(true);
-        axios
-          .post("http://localhost:3000/users/login", {
-            walletAddress: address,
-          })
-          .then((res) => {
-            console.log(res.data);
-          });
-      })
-      .catch((error: any) => {
-        console.log(`Something went wrong: ${error}`);
       });
+      const address = accounts[0];
+
+      const response = await axios.post("http://localhost:3000/users/signup", {
+        walletAddress: address,
+      });
+
+      console.log(response.data);
+
+      setWalletAddress(address);
+      if (response.data.message === "Address already exists. Login instead.") {
+        navigate("/profile");
+      } else {
+        setIsConnected(true);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
   return (
     <div className="connectClientWallet">
@@ -44,7 +48,12 @@ const Connect = () => {
       )}
       {isConnected && (
         <div>
-          <p className="connectClientWallet__address">Connected to {address}</p>
+          <p className="connectClientWallet__address">
+            Connected to {walletAddress}
+          </p>
+          <p className="connectClientWallet__message">
+            You are NOT registered with us. Please register to continue
+          </p>
           <button
             className="connectClientWallet__button"
             onClick={() => navigate("/register")}

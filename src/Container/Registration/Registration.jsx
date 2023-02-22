@@ -1,16 +1,14 @@
-import React, { useState } from "react";
-import firebase from "firebase/app";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   getAuth,
   RecaptchaVerifier,
   signInWithPhoneNumber,
-  sendSignInLinkToEmail,
-  isSignInWithEmailLink,
-  signInWithEmailLink,
 } from "firebase/auth";
 import "./Registration.css";
 import { initializeApp } from "firebase/app";
+import axios from "axios";
+import { MyContext } from "../../components/context/Context";
 const firebaseConfig = {
   apiKey: "AIzaSyCYpkhlVsy1eO1vVuRNpa6l1CWONEKiXU8",
   authDomain: "client-dashboard-2.firebaseapp.com",
@@ -22,70 +20,32 @@ const firebaseConfig = {
 
 const PhoneVerification = () => {
   const navigate = useNavigate();
+  const { walletAddress, setId, _id } = useContext(MyContext);
   const details = [
-    "First Name",
-    "Last Name",
-    "UserName",
-    "Email",
-    "Address",
+    "Company Name",
+    "Company Type",
+    "Company Email",
+    "Company Address1",
+    "Company Address2",
     "Phone Number",
   ];
-  let u;
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   axios.post('/api/user', { name, email, message })
-  //     .then((response) => {
-  //       console.log(response);
-  //       // do something with response, like display a success message
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  const actionCodeSettings = {
-    // URL you want to redirect back to. The domain (www.example.com) for this
-    // URL must be in the authorized domains list in the Firebase Console.
-    url: "https://localhost0004.page.link/",
-    // This must be true.
-    handleCodeInApp: true,
-    iOS: {
-      bundleId: "com.example.ios",
-    },
-    android: {
-      packageName: "com.example.android",
-      installApp: true,
-      minimumVersion: "12",
-    },
-    dynamicLinkDomain: "https://localhost0004.page.link/6RQi",
-  };
   const app = initializeApp(firebaseConfig);
   const auth = getAuth();
   auth.languageCode = "en";
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
   const [confirmationResult, setConfirmationResult] = useState(null);
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [userName, setUserName] = useState("");
-  const [address, setAddress] = useState("");
+  const [companyAddress1, setCompanyAddress1] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [companyType, setCompanyType] = useState("");
+  const [companyEmail, setCompanyEmail] = useState("");
+  const [companyAddress2, setCompanyAddress2] = useState("");
   const [verified, setVerified] = useState(false);
-  const handleSubmitEmail = async (event) => {
-    console.log("email", email);
-    event.preventDefault();
-    try {
-      console.log("inside try");
-      const emailData = await sendSignInLinkToEmail(
-        auth,
-        email,
-        actionCodeSettings
-      );
-      console.log("emailData", emailData);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const [recaptchaVerifier, setRecaptchaVerifier] = useState(false);
   let appVerifier = window.recaptchaVerifier;
   const handleSubmitPhoneNumber = async (event) => {
     event.preventDefault();
+    setRecaptchaVerifier(true);
     appVerifier = new RecaptchaVerifier("recaptcha-container", {}, auth);
     console.log("appVerifier", appVerifier);
     try {
@@ -113,25 +73,33 @@ const PhoneVerification = () => {
       console.error(error);
     }
   };
-  const [value, setValue] = useState(localStorage.getItem("value") || "");
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-    localStorage.setItem("value", event.target.value);
+  // console.log("walletAddress", walletAddress);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios
+      .post("http://localhost:3000/users/", {
+        companyName,
+        companyType,
+        companyEmail,
+        companyAddress1,
+        companyAddress2,
+        walletAddress,
+      })
+      .then((response) => {
+        console.log(response);
+        // do something with response, like display a success message
+        console.log("response ID", response.data.id);
+        setId(response.data.id);
+        localStorage.setItem("id", response.data.id);
+        alert("Registration Successful, Please Login");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error(error);
+        // do something with error, like display an error message
+      });
   };
   return (
-    // <>
-    //   <input type="text" value={value} onChange={handleChange} />
-    //   <form onSubmit={handleSubmitEmail}>
-    //     <input
-    //       type="emal"
-    //       name="email"
-    //       value={email}
-    //       onChange={(e) => setEmail(e.target.value)}
-    //     />
-    //     <button type="submit">Verify Email</button>
-    //   </form>
-    // </>
     <div className="body">
       <div className="container">
         <div className="title">Client Profile</div>
@@ -145,64 +113,77 @@ const PhoneVerification = () => {
                   {index === 0 && (
                     <input
                       type="text"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
+                      value={companyName}
+                      onChange={(e) => setCompanyName(e.target.value)}
                       className="detailValue"
-                      placeholder="Enter First Name"
+                      placeholder="Enter Company Name"
                     />
                   )}
                   {index === 1 && (
                     <input
                       type="text"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
+                      value={companyType}
+                      onChange={(e) => setCompanyType(e.target.value)}
                       className="detailValue"
-                      placeholder="Enter Last Name"
+                      placeholder="Enter Company Type"
                     />
                   )}
                   {index === 2 && (
                     <input
-                      type="text"
-                      value={userName}
-                      onChange={(e) => setUserName(e.target.value)}
+                      type="email"
+                      value={companyEmail}
+                      onChange={(e) => setCompanyEmail(e.target.value)}
                       className="detailValue"
-                      placeholder="Enter User Name"
+                      placeholder="Enter Company Email"
                     />
                   )}
                   {index === 3 && (
                     <input
                       type="text"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      value={companyAddress1}
+                      onChange={(e) => setCompanyAddress1(e.target.value)}
                       className="detailValue"
-                      placeholder="Enter Email"
+                      placeholder="Enter Address"
                     />
                   )}
                   {index === 4 && (
                     <input
                       type="text"
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
+                      value={companyAddress2}
+                      onChange={(e) => setCompanyAddress2(e.target.value)}
                       className="detailValue"
-                      placeholder="Enter Address"
+                      placeholder="Enter Address contd."
                     />
                   )}
+                  {/* {index === 5 && (
+                    <input
+                      type="text"
+                      value={walletAddress}
+                      onChange={(e) => setWalletAddress(e.target.value)}
+                      className="detailValue"
+                      placeholder="Enter Wallet Address"
+                    />
+                  )} */}
                   {index === 5 && (
                     <>
                       {!confirmationResult ? (
                         <form onSubmit={handleSubmitPhoneNumber}>
-                          <input
-                            type="tel"
-                            value={phoneNumber}
-                            onChange={(e) => setPhoneNumber(e.target.value)}
-                            placeholder="Enter phone number"
-                            required
-                            className="phoneVerify"
-                          />
+                          {!recaptchaVerifier && (
+                            <>
+                              <input
+                                type="tel"
+                                value={phoneNumber}
+                                onChange={(e) => setPhoneNumber(e.target.value)}
+                                placeholder="Enter phone number"
+                                required
+                                className="phoneVerify"
+                              />
+                              <button type="submit" className="otp">
+                                Send OTP
+                              </button>
+                            </>
+                          )}
                           <div id="recaptcha-container"></div>
-                          <button type="submit" className="otp">
-                            Send OTP
-                          </button>
                         </form>
                       ) : (
                         <form onSubmit={handleSubmitOtp}>
@@ -212,7 +193,7 @@ const PhoneVerification = () => {
                             onChange={(e) => setOtp(e.target.value)}
                             placeholder="Enter OTP"
                             required
-                            className="phoneVerify"
+                            className="phoneVerifyOtp"
                           />
                           <button type="submit" className="otp">
                             Verify
@@ -226,48 +207,11 @@ const PhoneVerification = () => {
             );
           })}
         </div>
-        {/* <div className="phoneContent">
-          <div className="phoneNumberDiv">
-            <div className="phoneNumberTitle">Phone Number</div>
-            <div className="phoneNumberColon">:</div>
-            <div className="phoneNumberInput">
-              {!confirmationResult ? (
-                <form onSubmit={handleSubmitPhoneNumber}>
-                  <input
-                    type="tel"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    placeholder="Enter phone number"
-                    required
-                    className="phoneVerify"
-                  />
-                  <div id="recaptcha-container"></div>
-                  <button type="submit" className="otp">
-                    Send OTP
-                  </button>
-                </form>
-              ) : (
-                <form onSubmit={handleSubmitOtp}>
-                  <input
-                    type="text"
-                    value={otp}
-                    onChange={(e) => setOtp(e.target.value)}
-                    placeholder="Enter OTP"
-                    required
-                    className="phoneVerify"
-                  />
-                  <button type="submit" className="otp">
-                    Verify
-                  </button>
-                </form>
-              )}
-            </div>
-          </div>
-        </div> */}
         <div className="btndiv">
           <button
             className={verified ? "btn" : "btnDisabled"}
             disabled={verified ? false : true}
+            onClick={handleSubmit}
           >
             Sign Up
           </button>

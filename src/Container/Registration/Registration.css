@@ -35,12 +35,12 @@
   margin: 2%;
 }
 .detailTitle {
-  font-size: 3vh;
+  font-size: 120%;
   font-weight: 400;
   color: #1c1f37;
   /* border: 1px solid red; */
   margin: 2%;
-  width: 28%;
+  width: 35%;
 }
 
 .colon {
@@ -52,7 +52,7 @@
   width: 5%;
 }
 .detailValue {
-  font-size: 3vh;
+  font-size: 120%;
   font-weight: 400;
   color: #1c1f37;
   /* border: 1px solid red; */
@@ -61,10 +61,14 @@
   border-radius: 10px;
   border: none;
   outline: none;
+  margin-left: 0;
+  /* padding: 2% 0; */
 }
 .content {
   /* border: 1px solid red; */
   margin: 3% 6%;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 .btn {
   border-radius: 10px;
@@ -79,22 +83,39 @@
   margin: 3%;
   padding: 1% 2%;
   border: 1px solid blue;
+  /* margin-top: 1%; */
 }
 .btndiv {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* border: 1px solid red; */
+  margin: 0;
+  padding: 0;
 }
 .phoneVerify {
-  font-size: 3vh;
+  font-size: 120%;
   font-weight: 400;
   color: #1c1f37;
   /* border: 1px solid red; */
   margin: 2%;
-  width: 95%;
+  width: 75%;
   border-radius: 10px;
   border: none;
   outline: none;
+  margin-left: 0;
+}
+.phoneVerifyOtp {
+  font-size: 120%;
+  font-weight: 400;
+  color: #1c1f37;
+  /* border: 1px solid red; */
+  margin: 2%;
+  width: 80%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  margin-left: 0;
 }
 .otp {
   border-radius: 10px;
@@ -116,6 +137,7 @@
   height: 30%;
   margin: 3%;
   padding: 1% 2%;
+  /* margin-top: 1%; */
 }
 input[type="tel"] {
   padding: 3px;
@@ -159,4 +181,16 @@ input[type="tel"] {
 }
 .phoneContent {
   margin: 3% 6%;
+}
+input[type="text"] {
+  padding: 3%;
+  padding-left: 15px;
+}
+input[type="email"] {
+  padding: 3%;
+  padding-left: 15px;
+}
+input[type="tel"] {
+  padding: 3%;
+  padding-left: 15px;
 }
