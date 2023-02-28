@@ -182,10 +182,10 @@ input[type="tel"] {
 .phoneContent {
   margin: 3% 6%;
 }
-input[type="text"] {
+/* input[type="text"] {
   padding: 3%;
   padding-left: 15px;
-}
+} */
 input[type="email"] {
   padding: 3%;
   padding-left: 15px;

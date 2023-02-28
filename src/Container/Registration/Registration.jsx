@@ -77,7 +77,7 @@ const PhoneVerification = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post("http://localhost:3000/users/", {
+      .post("http://localhost:3000/users/signup", {
         companyName,
         companyType,
         companyEmail,
@@ -86,11 +86,11 @@ const PhoneVerification = () => {
         walletAddress,
       })
       .then((response) => {
-        console.log(response);
+        console.log(response.data.user._id);
         // do something with response, like display a success message
-        console.log("response ID", response.data.id);
-        setId(response.data.id);
-        localStorage.setItem("id", response.data.id);
+        // console.log("response ID", response.data.id);
+        setId(response.data.user._id);
+        localStorage.setItem("id", response.data.user._id);
         alert("Registration Successful, Please Login");
         navigate("/");
       })
@@ -186,7 +186,7 @@ const PhoneVerification = () => {
                           <div id="recaptcha-container"></div>
                         </form>
                       ) : (
-                        <form onSubmit={handleSubmitOtp}>
+                        <form>
                           <input
                             type="text"
                             value={otp}
@@ -195,7 +195,11 @@ const PhoneVerification = () => {
                             required
                             className="phoneVerifyOtp"
                           />
-                          <button type="submit" className="otp">
+                          <button
+                            type="submit"
+                            className="otp"
+                            onClick={handleSubmitOtp}
+                          >
                             Verify
                           </button>
                         </form>

@@ -9,7 +9,7 @@ const DataPool = () => {
     "Education",
     "Age",
     "Social",
-    "Details",
+    "Gender",
     "Food",
     "States",
     "News",
@@ -202,15 +202,21 @@ const DataPool = () => {
 
             {/* <button onClick={() => handleAdd()}>Add</button> */}
             <div className="tagsDiv">
-              <div className="tagsBox">
-                {tags.map((tag) => {
-                  return <div className="tag">{tag}</div>;
-                })}
+              <div className="tagsBoxAboveDiv">
+                <p>Custom Tags</p>
+                <div className="tagsBox">
+                  {tags.map((tag) => {
+                    return <div className="tag">{tag}</div>;
+                  })}
+                </div>
               </div>
-              <div className="tagsBox">
-                {popularTags.map((tag) => {
-                  return <div className="tag">{tag}</div>;
-                })}
+              <div className="tagsBoxAboveDiv">
+                <p>Popular Tags</p>
+                <div className="tagsBox">
+                  {popularTags.map((tag) => {
+                    return <div className="tag">{tag}</div>;
+                  })}
+                </div>
               </div>
             </div>
           </Box>
@@ -221,4 +227,3 @@ const DataPool = () => {
 };
 
 export default DataPool;
-// validate an email with regex

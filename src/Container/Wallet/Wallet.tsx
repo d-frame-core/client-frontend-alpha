@@ -101,7 +101,7 @@ export default function Wallet() {
                   className="inputForm"
                   value={senderAddress}
                   onChange={(e) => setSenderAddress(e.target.value)}
-                  
+                  type="walletPageInput"
                 />
               </div>
               <div className="walletAddressInput">
@@ -110,7 +110,7 @@ export default function Wallet() {
                   className="inputForm"
                   value={dftAmount}
                   onChange={(e) => setDftAmount(e.target.value)}
-                 
+                  type="walletPageInput"
                 />
               </div>
               <button className="sendButton" onClick={handleSend}>

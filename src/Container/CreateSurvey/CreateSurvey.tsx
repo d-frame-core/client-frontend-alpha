@@ -171,6 +171,7 @@ const CreateSurvey = () => {
                   </div>
                 );
               })}
+              <div className="lastEntry"></div>
             </div>
           </div>
         </div>

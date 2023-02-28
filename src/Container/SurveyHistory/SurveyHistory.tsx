@@ -8,15 +8,15 @@ const SurveyHistory = () => {
     <div>
       <>{Sidebar(7)}</>
       <div className="surveyHistoryOuterBox">
-        <div className="surveyHistoryHeader">
-          <div className="surveyHistoryTitle">Survey History</div>
-          <div className="surveyHistoryHeaderButtons">
-            <button className="surveyHistoryEditButton">
+        <div className="surveyBoxFlex">
+          <div className="surveyTitle">Survey</div>
+          <div className="surveyIconsBox">
+            <button className="editIconSurveyPage">
               <EditIcon /> Edit
             </button>
 
             <DeleteForeverOutlinedIcon
-              className="surveyHistoryDeleteButton"
+              className="deleteSurveyPage"
               sx={{ fontSize: "6vh" }}
             />
           </div>

@@ -40,7 +40,7 @@ export default function Help() {
   const content = [
     {
       title: "Read More",
-      text: "Detials will be added in due time.",
+      text: "Details will be added in due time.",
     },
     {
       title: "Privacy Policy",
@@ -52,7 +52,7 @@ export default function Help() {
     },
     {
       title: "Terms of Service",
-      text: "Detials will be added in due time.",
+      text: "Details will be added in due time.",
     },
   ];
   return (

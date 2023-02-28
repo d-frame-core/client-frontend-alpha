@@ -15,18 +15,22 @@ export default function Ads() {
       <>{Sidebar(5)}</>
       <div className="ads">
         <Box>
-          <div className="adsTitle">Ads</div>
-          <button className="edit">
-            <EditIcon /> Edit
-          </button>
+          <div className="adsBoxFlex">
+            <div className="adsTitle">Ads</div>
+            <div className="adsIconsBox">
+              <button className="editIconAdsPage">
+                <EditIcon /> Edit
+              </button>
 
-          <DeleteForeverOutlinedIcon
-            className="delete"
-            sx={{ fontSize: "6vh" }}
-          />
+              <DeleteForeverOutlinedIcon
+                className="delete"
+                sx={{ fontSize: "6vh" }}
+              />
+            </div>
+          </div>
           <div className="adsContent">
             <Box className="adsContentTitle">
-              <div className="sno">S.NO</div>
+              <div className="sno">S.No</div>
               <div className="campaignName">Campaign Name</div>
               <div className="tick">✓</div>
               <div className="campaignType">Campaign Type</div>

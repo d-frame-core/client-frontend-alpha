@@ -9,6 +9,7 @@ import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import { MyContext } from "../../components/context/Context";
 import axios from "axios";
 import { async } from "@firebase/util";
+import { Navigate, useNavigate } from "react-router-dom";
 const convertToBase64 = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -18,9 +19,10 @@ const convertToBase64 = (file: File): Promise<string> => {
   });
 };
 export default function Profile() {
+  const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
   const [files, setFiles] = useState(user);
-  const [image, setImage] = useState(localStorage.getItem("image") || null);
+  const [image, setImage] = useState<string | null>(null);
   const {
     _id,
     companyAddress1,
@@ -35,22 +37,23 @@ export default function Profile() {
     setCompanyEmail,
     walletAddress,
     setWalletAddress,
+    token,
   } = useContext(MyContext);
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files![0];
-    setFiles(URL.createObjectURL(file));
-    convertToBase64(file).then((base64String) => {
-      localStorage.setItem("image", base64String);
-      setImage(base64String);
-    });
-  };
+  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files![0];
+  //   setFiles(URL.createObjectURL(file));
+  //   convertToBase64(file).then((base64String) => {
+  //     localStorage.setItem("image", base64String);
+  //     setImage(base64String);
+  //   });
+  // };
   const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     const file = event.target.files![0];
-    console.log(file);
+    // console.log(file);
     // Read the file as a buffer
     setFiles(URL.createObjectURL(file));
-    console.log(files);
+    // console.log(files);
     const reader = new FileReader();
     reader.readAsArrayBuffer(file);
     reader.onload = () => {
@@ -65,11 +68,13 @@ export default function Profile() {
       axios
         .post("http://localhost:3000/profile/uploadProfilePicture", formData)
         .then((response) => {
-          console.log(response.data);
-          setImage(URL.createObjectURL(file));
-          // localStorage.setItem("image", URL.createObjectURL(file));
+          // console.log(response.data.data._id);
+          // console.log("image called");
+          // setImage(URL.createObjectURL(file));
+          localStorage.setItem("imageID", response.data.data._id);
         })
         .catch((error) => {
+          console.log("image error");
           console.error(error);
         });
     };
@@ -79,9 +84,9 @@ export default function Profile() {
   };
   const handleSave = async () => {
     setEdit(!edit);
-    console.log("save");
+    // console.log("save");
     const id = _id || localStorage.getItem("id");
-    console.log(id);
+    // console.log(id);
     await axios
       .patch(`http://localhost:3000/users/${id}`, {
         companyName,
@@ -99,21 +104,47 @@ export default function Profile() {
         console.log(error);
       });
   };
+  // console.log(token);
   useEffect(() => {
     const id = _id || localStorage.getItem("id");
+    const _token = token || localStorage.getItem("token");
+
     axios
-      .get(`http://localhost:3000/users/${id}`)
+      .get("http://localhost:3000/users/proctedroute", {
+        headers: {
+          Authorization: `Bearer ${_token}`,
+        },
+      })
       .then((response) => {
-        const data = response.data;
-        setCompanyName(data.companyName);
-        setCompanyType(data.companyType);
-        setCompanyEmail(data.companyEmail);
-        setCompanyAddress1(data.companyAddress1);
-        setCompanyAddress2(data.companyAddress2);
-        setWalletAddress(data.walletAddress);
+        if (response.data.message === "Welcome to protected routes") {
+          const imageId = localStorage.getItem("imageID");
+          axios
+            .get(`http://localhost:3000/profile/${imageId}`)
+            .then((response) => {
+              console.log(response.data.data.profileImage);
+              // setImage(response.data.data.profileImage.imageURL);
+            });
+          axios
+            .get(`http://localhost:3000/users/data/${id}`)
+            .then((response) => {
+              const data = response.data.User;
+              setCompanyName(data.companyName);
+              setCompanyType(data.companyType);
+              setCompanyEmail(data.companyEmail);
+              setCompanyAddress1(data.companyAddress1);
+              setCompanyAddress2(data.companyAddress2);
+              setWalletAddress(data.walletAddress);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          alert("Login Again. Session Expired");
+          navigate("/");
+        }
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error.response.data);
       });
   }, []);
   return (
@@ -204,7 +235,7 @@ export default function Profile() {
                         type="file"
                         className="hidden"
                         id="files"
-                        onChange={handleFileChange}
+                        onChange={handleFileChange2}
                       />
                     </div>
                   </div>

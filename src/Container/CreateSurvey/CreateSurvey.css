@@ -141,10 +141,16 @@
   align-items: center;
   width: 100%;
   min-height: 11%;
-  border: 0.5px solid blue;
+  /* border: 0.5px solid blue; */
+  /* border-left: 1px solid blue;
+  border-right: 1px solid blue; */
+  /* border: 0.5px solid green; */
+  border-top: 1px solid blue;
   border-left: 1px solid blue;
   border-right: 1px solid blue;
-  /* border: 0.5px solid green; */
+}
+.lastEntry {
+  border-bottom: 1px solid blue;
 }
 .surveyNameDetails {
   display: flex;
@@ -323,4 +329,8 @@ input[type="date"]:required:invalid::-webkit-datetime-edit {
 }
 input[type="date"]:focus::-webkit-datetime-edit {
   color: black !important;
+}
+input[type="text"] {
+  padding: 1%;
+  padding-left: 4%;
 }
