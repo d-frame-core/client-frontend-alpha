@@ -151,6 +151,8 @@ input[type="tel"] {
   align-items: center;
   /* border: 1px solid red; */
   margin: 2%;
+  min-height: 10vh;
+  justify-content: center;
 }
 .phoneNumberTitle {
   font-size: 3vh;

@@ -73,7 +73,6 @@ const PhoneVerification = () => {
       console.error(error);
     }
   };
-  // console.log("walletAddress", walletAddress);
   const handleSubmit = (event) => {
     event.preventDefault();
     axios

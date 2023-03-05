@@ -179,11 +179,10 @@
   display: flex;
   align-items: center;
   height: 10%;
-  border-top: 0.5px solid #1c1f37;
-  border-left: 1px solid #1c1f37;
-  border-bottom: 0.5px solid #1c1f37;
-  border-right: 1px solid #1c1f37;
+  border: 0.5px solid black;
   font-weight: 500;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
 }
 .snoData {
   justify-content: center;
@@ -242,4 +241,7 @@
   display: flex;
   width: 15%;
   /* border: 0.4px solid red; */
+}
+.lastEntryAds {
+  border-bottom: 0.5px solid black;
 }

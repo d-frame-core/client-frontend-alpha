@@ -16,6 +16,14 @@ const CreateSurvey = () => {
       questionOption2: "",
     },
   ];
+  const [questionData, setQuestionData] = useState([
+    {
+      questionName: "",
+      questionOption1: "",
+      questionOption2: "",
+      questionId: 0,
+    },
+  ]);
   const inputFields = [];
   const numberOfQuestions: any[] = [
     { value: "2", label: "2" },
@@ -93,7 +101,14 @@ const CreateSurvey = () => {
           className="fieldInputSurveyName"
           // value={surveyQuestions[i].questionName}
           onChange={(e) => {
-            surveyQuestions[i].questionName = e.target.value;
+            setQuestionData({
+              ...questionData,
+              [i]: {
+                ...questionData[i],
+                questionName: e.target.value,
+                questionId: i,
+              },
+            });
           }}
         />
         <div className="fieldInputSurveyInputBlock">
@@ -103,7 +118,13 @@ const CreateSurvey = () => {
             className="fieldInputSurveyNameInputField"
             // value={surveyQuestions[i].questionOption1}
             onChange={(e) => {
-              surveyQuestions[i].questionOption1 = e.target.value;
+              setQuestionData({
+                ...questionData,
+                [i]: {
+                  ...questionData[i],
+                  questionOption1: e.target.value,
+                },
+              });
             }}
           />
           <input
@@ -112,7 +133,13 @@ const CreateSurvey = () => {
             className="fieldInputSurveyNameInputField"
             // value={surveyQuestions[i].questionOption2}
             onChange={(e) => {
-              surveyQuestions[i].questionOption2 = e.target.value;
+              setQuestionData({
+                ...questionData,
+                [i]: {
+                  ...questionData[i],
+                  questionOption2: e.target.value,
+                },
+              });
             }}
           />
         </div>
@@ -131,7 +158,15 @@ const CreateSurvey = () => {
       endDate,
       surveyResource
     );
-    console.log(surveyQuestions);
+    console.log(questionData);
+    for (let i = 0; i < parseInt(numberOfQuestionsSelected); i++) {
+      console.log(
+        questionData[i].questionName,
+        questionData[i].questionId,
+        questionData[i].questionOption1,
+        questionData[i].questionOption2
+      );
+    }
   };
   return (
     <div>

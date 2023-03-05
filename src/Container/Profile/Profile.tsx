@@ -84,18 +84,35 @@ export default function Profile() {
         console.log(error);
       });
   };
+
   const fetchImage = async () => {
     const imageId = localStorage.getItem("imageID");
     console.log(imageId);
     const imageUrl = `http://localhost:3000/profile/${imageId}`;
     try {
+      console.log("came to try");
       const response = await axios.get<Buffer>(imageUrl, {
         responseType: "arraybuffer",
       });
-      const base64Image = Buffer.from(response.data).toString("base64");
-      setImage(`data:image/png;base64,${base64Image}`);
+      console.log("response called");
+      // const base64 = Buffer.from(response.data, "binary").toString("base64");
+      // setImage(`data:${response.headers["content-type"]};base64,${base64}`);
+      const img: Uint8Array = new Uint8Array(response.data);
+      console.log("img", img);
+      const encoder: TextEncoder = new TextEncoder();
+      const base64String: string = btoa(
+        encoder
+          .encode(img as unknown as string)
+          .reduce(
+            (data: string, byte: number) => data + String.fromCharCode(byte),
+            ""
+          )
+      );
+      const imageSrc: string = `data:image/jpeg;base64,${base64String}`;
+      // setImage(imageSrc);
     } catch (error) {
       console.error(error);
+      console.log("image not found");
     }
   };
   useEffect(() => {
@@ -111,7 +128,7 @@ export default function Profile() {
       .then((response) => {
         if (response.data.message === "Welcome to protected routes") {
           fetchImage().then(() => {
-            console.log("image fetched");
+            console.log("..........");
           });
           axios
             .get(`http://localhost:3000/users/data/${id}`)

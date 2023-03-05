@@ -59,7 +59,7 @@ export default function Ads() {
                 </Box>
               );
             })}
-            <div className="lastEntry"></div>
+            <div className="lastEntryAds"></div>
           </div>
         </Box>
       </div>
