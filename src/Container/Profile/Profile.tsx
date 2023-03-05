@@ -10,19 +10,12 @@ import { MyContext } from "../../components/context/Context";
 import axios from "axios";
 import { async } from "@firebase/util";
 import { Navigate, useNavigate } from "react-router-dom";
-const convertToBase64 = (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-  });
-};
+
 export default function Profile() {
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
   const [files, setFiles] = useState(user);
-  const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<string>("");
   const {
     _id,
     companyAddress1,
@@ -39,21 +32,12 @@ export default function Profile() {
     setWalletAddress,
     token,
   } = useContext(MyContext);
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files![0];
-  //   setFiles(URL.createObjectURL(file));
-  //   convertToBase64(file).then((base64String) => {
-  //     localStorage.setItem("image", base64String);
-  //     setImage(base64String);
-  //   });
-  // };
   const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     const file = event.target.files![0];
-    // console.log(file);
     // Read the file as a buffer
     setFiles(URL.createObjectURL(file));
-    // console.log(files);
+
     const reader = new FileReader();
     reader.readAsArrayBuffer(file);
     reader.onload = () => {
@@ -68,9 +52,7 @@ export default function Profile() {
       axios
         .post("http://localhost:3000/profile/uploadProfilePicture", formData)
         .then((response) => {
-          // console.log(response.data.data._id);
-          // console.log("image called");
-          // setImage(URL.createObjectURL(file));
+          console.log("image called");
           localStorage.setItem("imageID", response.data.data._id);
         })
         .catch((error) => {
@@ -84,9 +66,7 @@ export default function Profile() {
   };
   const handleSave = async () => {
     setEdit(!edit);
-    // console.log("save");
     const id = _id || localStorage.getItem("id");
-    // console.log(id);
     await axios
       .patch(`http://localhost:3000/users/${id}`, {
         companyName,
@@ -104,7 +84,20 @@ export default function Profile() {
         console.log(error);
       });
   };
-  // console.log(token);
+  const fetchImage = async () => {
+    const imageId = localStorage.getItem("imageID");
+    console.log(imageId);
+    const imageUrl = `http://localhost:3000/profile/${imageId}`;
+    try {
+      const response = await axios.get<Buffer>(imageUrl, {
+        responseType: "arraybuffer",
+      });
+      const base64Image = Buffer.from(response.data).toString("base64");
+      setImage(`data:image/png;base64,${base64Image}`);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
     const id = _id || localStorage.getItem("id");
     const _token = token || localStorage.getItem("token");
@@ -117,13 +110,9 @@ export default function Profile() {
       })
       .then((response) => {
         if (response.data.message === "Welcome to protected routes") {
-          const imageId = localStorage.getItem("imageID");
-          axios
-            .get(`http://localhost:3000/profile/${imageId}`)
-            .then((response) => {
-              console.log(response.data.data.profileImage);
-              // setImage(response.data.data.profileImage.imageURL);
-            });
+          fetchImage().then(() => {
+            console.log("image fetched");
+          });
           axios
             .get(`http://localhost:3000/users/data/${id}`)
             .then((response) => {

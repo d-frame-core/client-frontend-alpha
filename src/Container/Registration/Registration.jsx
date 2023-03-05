@@ -112,7 +112,7 @@ const PhoneVerification = () => {
                 <div>
                   {index === 0 && (
                     <input
-                      type="text"
+                      type="registrationInput"
                       value={companyName}
                       onChange={(e) => setCompanyName(e.target.value)}
                       className="detailValue"
@@ -121,7 +121,7 @@ const PhoneVerification = () => {
                   )}
                   {index === 1 && (
                     <input
-                      type="text"
+                      type="registrationInput"
                       value={companyType}
                       onChange={(e) => setCompanyType(e.target.value)}
                       className="detailValue"
@@ -130,7 +130,7 @@ const PhoneVerification = () => {
                   )}
                   {index === 2 && (
                     <input
-                      type="email"
+                      type="registrationInput"
                       value={companyEmail}
                       onChange={(e) => setCompanyEmail(e.target.value)}
                       className="detailValue"
@@ -139,7 +139,7 @@ const PhoneVerification = () => {
                   )}
                   {index === 3 && (
                     <input
-                      type="text"
+                      type="registrationInput"
                       value={companyAddress1}
                       onChange={(e) => setCompanyAddress1(e.target.value)}
                       className="detailValue"
@@ -148,7 +148,7 @@ const PhoneVerification = () => {
                   )}
                   {index === 4 && (
                     <input
-                      type="text"
+                      type="registrationInput"
                       value={companyAddress2}
                       onChange={(e) => setCompanyAddress2(e.target.value)}
                       className="detailValue"
@@ -171,7 +171,7 @@ const PhoneVerification = () => {
                           {!recaptchaVerifier && (
                             <>
                               <input
-                                type="tel"
+                                type="registrationInput"
                                 value={phoneNumber}
                                 onChange={(e) => setPhoneNumber(e.target.value)}
                                 placeholder="Enter phone number"
@@ -183,12 +183,11 @@ const PhoneVerification = () => {
                               </button>
                             </>
                           )}
-                          <div id="recaptcha-container"></div>
                         </form>
                       ) : (
                         <form>
                           <input
-                            type="text"
+                            type="registrationInput"
                             value={otp}
                             onChange={(e) => setOtp(e.target.value)}
                             placeholder="Enter OTP"
@@ -211,6 +210,12 @@ const PhoneVerification = () => {
             );
           })}
         </div>
+        {!confirmationResult && (
+          <div className="recaptcha-container">
+            <div id="recaptcha-container"></div>
+          </div>
+        )}
+        {confirmationResult && <div className="recaptcha-container"></div>}
         <div className="btndiv">
           <button
             className={verified ? "btn" : "btnDisabled"}

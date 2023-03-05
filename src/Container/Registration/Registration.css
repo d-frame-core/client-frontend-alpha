@@ -182,15 +182,15 @@ input[type="tel"] {
 .phoneContent {
   margin: 3% 6%;
 }
-/* input[type="text"] {
-  padding: 3%;
-  padding-left: 15px;
-} */
-input[type="email"] {
-  padding: 3%;
-  padding-left: 15px;
+input[type="registrationInput"] {
+  padding: 2%;
+  padding-left: 4%;
 }
-input[type="tel"] {
-  padding: 3%;
-  padding-left: 15px;
+.recaptcha-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2%;
+  /* border: 1px solid red; */
+  height: 6%;
 }
