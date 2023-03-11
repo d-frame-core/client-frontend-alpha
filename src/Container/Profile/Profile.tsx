@@ -81,10 +81,40 @@ export default function Profile() {
         console.log(response);
       })
       .catch((error) => {
-        console.log(error);
+        console.log("error in sending data to server",error);
       });
   };
 
+  // const fetchImage = async () => {
+  //   const imageId = localStorage.getItem("imageID");
+  //   console.log(imageId);
+  //   const imageUrl = `http://localhost:3000/profile/${imageId}`;
+  //   try {
+  //     console.log("came to try");
+  //     const response = await axios.get<Buffer>(imageUrl, {
+  //       responseType: "arraybuffer",
+  //     });
+  //     console.log("response called");
+  //     // const base64 = Buffer.from(response.data, "binary").toString("base64");
+  //     // setImage(`data:${response.headers["content-type"]};base64,${base64}`);
+  //     const img: Uint8Array = new Uint8Array(response.data);
+  //     console.log("img", img);
+  //     const encoder: TextEncoder = new TextEncoder();
+  //     const base64String: string = btoa(
+  //       encoder
+  //         .encode(img as unknown as string)
+  //         .reduce(
+  //           (data: string, byte: number) => data + String.fromCharCode(byte),
+  //           ""
+  //         )
+  //     );
+  //     const imageSrc: string = `data:image/jpeg;base64,${base64String}`;
+  //     setImage(imageSrc);
+  //   } catch (error) {
+  //     console.error(error);
+  //     console.log("image not found");
+  //   }
+  // };
   const fetchImage = async () => {
     const imageId = localStorage.getItem("imageID");
     console.log(imageId);
@@ -95,26 +125,18 @@ export default function Profile() {
         responseType: "arraybuffer",
       });
       console.log("response called");
-      // const base64 = Buffer.from(response.data, "binary").toString("base64");
-      // setImage(`data:${response.headers["content-type"]};base64,${base64}`);
-      const img: Uint8Array = new Uint8Array(response.data);
-      console.log("img", img);
-      const encoder: TextEncoder = new TextEncoder();
-      const base64String: string = btoa(
-        encoder
-          .encode(img as unknown as string)
-          .reduce(
-            (data: string, byte: number) => data + String.fromCharCode(byte),
-            ""
-          )
+      const base64String = btoa(
+        new Uint8Array(response.data)
+          .reduce((data, byte) => data + String.fromCharCode(byte), "")
       );
-      const imageSrc: string = `data:image/jpeg;base64,${base64String}`;
-      // setImage(imageSrc);
+      const imageSrc = `data:image/png;base64,${base64String}`;
+      console.log("imageSrc",imageSrc);
+      setImage(imageSrc);
     } catch (error) {
       console.error(error);
       console.log("image not found");
-    }
-  };
+}
+};
   useEffect(() => {
     const id = _id || localStorage.getItem("id");
     const _token = token || localStorage.getItem("token");
@@ -186,8 +208,8 @@ export default function Profile() {
                     <div className="profileEntriesData">Company Name </div>
                     <div className="profileEntriesData">Company Type </div>
                     <div className="profileEntriesData">Company Email </div>
-                    <div className="profileEntriesData">Company Address 1 </div>
-                    <div className="profileEntriesData">Company Address 2 </div>
+                    <div className="profileEntriesData">Company Address1 </div>
+                    <div className="profileEntriesData">Company Address2 </div>
                     <div className="profileEntriesData">Wallet Address </div>
                   </div>
                 </Grid>
@@ -251,8 +273,8 @@ export default function Profile() {
                     <div className="profileEntriesData">Company Name </div>
                     <div className="profileEntriesData">Company Type </div>
                     <div className="profileEntriesData">Company Email </div>
-                    <div className="profileEntriesData">Company Address 1 </div>
-                    <div className="profileEntriesData">Company Address 2 </div>
+                    <div className="profileEntriesData">Company Address1 </div>
+                    <div className="profileEntriesData">Company Address2 </div>
                     <div className="profileEntriesData">Wallet Address </div>
                   </div>
                 </Grid>

@@ -74,12 +74,12 @@
 }
 .profileEntries {
   /* border: 1px solid green; */
-  font-size: 3vh;
+  width: 100%;
   font-weight: 600;
 }
 .profileEntriesData {
   /* border: 2px solid yellow; */
-  font-size: 100%;
+  font-size: 120%;
   margin: 4vh 0;
 }
 .semiColon {
@@ -89,7 +89,7 @@
 
 .colonIcon {
   /* border: 2px solid orange; */
-  margin: 121% 0;
+  margin: 108% 0;
 }
 .profileDetails {
   /* border: 2px solid blue; */
@@ -98,7 +98,7 @@
 }
 .profileDetailsData {
   /* border: 2px solid pink; */
-  margin: 4.55vh 0;
+  margin: 4.1vh 0;
 }
 .editButton {
   position: relative;
@@ -112,7 +112,7 @@
   font-weight: 100;
   height: 5vh;
   width: 10vw;
-  margin: 0 25%;
+  margin: 5% 25%;
 }
 .hidden {
   display: none;
@@ -127,12 +127,12 @@
   outline: none;
   border: none;
   border-radius: 5px;
-  margin-top: 11%;
+  margin-top: 9.5%;
   width: 80%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .profileDetailsDataEditState {
-  margin-top: 11%;
+  margin-top: 10%;
 }
 .profileDetailsEdit {
   font-size: 2.5vh;

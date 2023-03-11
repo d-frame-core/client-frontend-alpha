@@ -1,13 +1,17 @@
 import { Backdrop, Divider, TextField } from "@mui/material";
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { MyContext } from "../../components/context/Context";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./CreateSurvey.css";
+import Modal from '../../components/survey/Modal'
 const CreateSurvey = () => {
+  const { _id } = useContext(MyContext);
   const [surveyName, setSurveyName] = useState("");
   const [surveyDescription, setSurveyDescription] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date());
   const [surveyResource, setSurveyResource] = useState("");
   const surveyQuestions = [
     {
@@ -16,14 +20,15 @@ const CreateSurvey = () => {
       questionOption2: "",
     },
   ];
-  const [questionData, setQuestionData] = useState([
+  const [totalQues, setTotalQues] = useState([
     {
-      questionName: "",
-      questionOption1: "",
-      questionOption2: "",
-      questionId: 0,
+      questionNumber: 0,
+      title: "",
+      options: [] as any,
+      optionGroups: [],
     },
   ]);
+  const [option, setOption] = useState("");
   const inputFields = [];
   const numberOfQuestions: any[] = [
     { value: "2", label: "2" },
@@ -45,6 +50,8 @@ const CreateSurvey = () => {
   const [formopen, setFormopen] = useState(false);
   const [nextpage, setNextpage] = useState(false);
   const questionsData = [{}];
+  const [option1,setOption1] = useState("")
+  const [option2,setOption2] = useState("")
   const [numberOfQuestionsSelected, setNumberOfQuestionsSelected] =
     useState("");
   const details = [
@@ -91,82 +98,155 @@ const CreateSurvey = () => {
     },
   ];
   // console.log(surveyQuestions);
+  function handleData(i:any){
+    if (option1 && option2) {
+      if (i===parseInt(numberOfQuestionsSelected)-1) {
+        console.log('last')
+      }
+      setTotalQues((prev) => {
+        return {
+          ...prev,
+          [i-1]: {
+            ...prev[i-1],
+            options: [option1,option2],
+          },
+        };
+      });
+      console.log('option1',option1)
+      console.log('option2',option2)
+      console.log('i',i)
+    }
+  }
   const fields = [];
   for (let i = 0; i < parseInt(numberOfQuestionsSelected); i++) {
     fields.push(
       <div key={i} className="fieldInputDiv">
-        <input
+           <input
           type="text"
           placeholder={"Question " + (i + 1) + ""}
           className="fieldInputSurveyName"
+     
           // value={surveyQuestions[i].questionName}
+          onClick={()=>handleData(i)}
           onChange={(e) => {
-            setQuestionData({
-              ...questionData,
-              [i]: {
-                ...questionData[i],
-                questionName: e.target.value,
-                questionId: i,
-              },
+            setTotalQues((prev) => {
+              return {
+                ...prev,
+                [i]: {
+                  ...prev[i],
+                  title: e.target.value,
+                  questionNumber: i + 1,
+                  optionGroups: [],
+                },
+
+              };
+
             });
           }}
-        />
+          />
         <div className="fieldInputSurveyInputBlock">
           <input
             type="text"
             placeholder={"Option 1"}
             className="fieldInputSurveyNameInputField"
+           
             // value={surveyQuestions[i].questionOption1}
             onChange={(e) => {
-              setQuestionData({
-                ...questionData,
-                [i]: {
-                  ...questionData[i],
-                  questionOption1: e.target.value,
-                },
-              });
+              // setTotalQues((prev) => {
+              //   return {
+              //     ...prev,
+              //     [i]: {
+              //       ...prev[i],
+              //       options: [e.target.value],
+              //     },
+              //   };
+              // });
+              setOption1(e.target.value)
             }}
           />
           <input
             type="text"
             placeholder={"Option 2"}
             className="fieldInputSurveyNameInputField"
+         
             // value={surveyQuestions[i].questionOption2}
+            // onChange={(e) => {
+            //   const input = e.target.value;
+            //   setTotalQues((prev) => {
+            //     return {
+            //       ...prev,
+            //       [i]: {
+            //         ...prev[i],
+            //         options: [...prev[i].options, input],
+            //       },
+            //     };
+            //   });
+            //   console.log(input);
+            // }}
             onChange={(e) => {
-              setQuestionData({
-                ...questionData,
-                [i]: {
-                  ...questionData[i],
-                  questionOption2: e.target.value,
-                },
-              });
+              setOption2(e.target.value);
             }}
+            
+            
           />
         </div>
+  
         <hr />
       </div>
     );
   }
 
-  const submitFormFunction = () => {
+  const handleStartDateChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const newDate = new Date(event.target.value);
+    setStartDate(newDate);
+  };
+  const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newDate = new Date(event.target.value);
+    setEndDate(newDate);
+  };
+  const submitFormFunction = async () => {
     setNextpage(true);
     setFormopen(false);
-    console.log(
-      surveyName,
-      surveyDescription,
-      startDate,
-      endDate,
-      surveyResource
-    );
-    console.log(questionData);
-    for (let i = 0; i < parseInt(numberOfQuestionsSelected); i++) {
-      console.log(
-        questionData[i].questionName,
-        questionData[i].questionId,
-        questionData[i].questionOption1,
-        questionData[i].questionOption2
-      );
-    }
+    const index=parseInt(numberOfQuestionsSelected)
+    console.log("index",index);
+  //   setTotalQues((prev) => {
+  //     return {
+  //       ...prev,
+  //       [index-1]: {
+  //         ...prev[index-1],
+  //         options: [option1,option2],
+  //       },
+  //     };
+  // });
+    var resultArray = Object.keys(totalQues).map(function(personNamedIndex:any){
+      let person = totalQues[personNamedIndex];
+      // do something with person
+      return person;
+  });
+    const cliendId = _id || localStorage.getItem("id");
+    resultArray[index-1].options=[option1,option2]
+    console.log( resultArray);
+    
+    await axios.post("http://localhost:3000/survey", {
+      surveyName: surveyName,
+      surveyDescription: surveyDescription,
+      totalQues: resultArray,
+      clientId: cliendId,
+      statusCampaign: "Active",
+      totalReward: parseInt(surveyResource),
+      startDate: startDate,
+      endDate: endDate,
+    })
+      .then((res) => {
+        console.log("THEN CALLED");
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log("err", err);
+        console.error(err);
+      });
   };
   return (
     <div>
@@ -263,7 +343,7 @@ const CreateSurvey = () => {
                 type={"date"}
                 sx={{ left: "2vw", width: "90%" }}
                 {...register("startDate")}
-                onChange={(e) => setStartDate(e.target.value)}
+                onChange={handleStartDateChange}
                 required
               />
               <TextField
@@ -273,7 +353,7 @@ const CreateSurvey = () => {
                 type={"date"}
                 sx={{ left: "2vw", width: "90%" }}
                 {...register("endDate")}
-                onChange={(e) => setEndDate(e.target.value)}
+                onChange={handleEndDateChange}
                 required
               />
               <TextField
