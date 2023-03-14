@@ -20,6 +20,7 @@ const Connect = () => {
     setCompanyType,
     companyEmail,
     setCompanyEmail,
+    _id
   } = React.useContext(MyContext);
   const [isConnected, setIsConnected] = React.useState(false);
   async function connectWallet(): Promise<void> {
@@ -43,6 +44,7 @@ const Connect = () => {
         // console.log("token", response.data.token);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("walletAddress", address);
+        console.log('id',_id)
 
         const data = response.data.user;
         console.log(data.user);

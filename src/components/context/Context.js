@@ -11,6 +11,7 @@ function MyContextProvider(props) {
   const [companyAddress1, setCompanyAddress1] = useState("");
   const [companyAddress2, setCompanyAddress2] = useState("");
   const [token, setToken] = useState("");
+  const [_imageUrl, setImageUrl] = useState("");
   return (
     <MyContext.Provider
       value={{
@@ -30,6 +31,8 @@ function MyContextProvider(props) {
         setCompanyEmail,
         token,
         setToken,
+        _imageUrl,
+        setImageUrl,
       }}
     >
       {props.children}

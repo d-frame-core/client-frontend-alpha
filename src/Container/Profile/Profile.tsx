@@ -15,7 +15,7 @@ export default function Profile() {
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
   const [files, setFiles] = useState(user);
-  const [image, setImage] = useState<string>("");
+  const [image, setImage] = useState("");
   const {
     _id,
     companyAddress1,
@@ -31,8 +31,46 @@ export default function Profile() {
     walletAddress,
     setWalletAddress,
     token,
+    _imageUrl,
+    setImageUrl
   } = useContext(MyContext);
-  const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+  
+
+const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+  event.preventDefault();
+  const file = event.target.files![0];
+  // Read the file as a buffer
+  setFiles(URL.createObjectURL(file));
+
+  const reader = new FileReader();
+  reader.readAsArrayBuffer(file);
+  reader.onload = () => {
+    // Create a new Blob object from the buffer
+    const blob = new Blob([new Uint8Array(reader.result as ArrayBuffer)]);
+
+    // Create a new FormData object and append the blob to it
+    const formData = new FormData();
+    formData.append("image", file);
+
+    // Send the image to the backend using Axios
+    axios
+      .post("http://localhost:3000/uploads/uploadProfilePicture", formData)
+      .then((response) => {
+        console.log("image called");
+        console.log(response.data.data.imageUrl);
+        const _imageUrl = response.data.data.imageUrl;
+        setImageUrl(_imageUrl);
+        setImage(response.data.imageUrl);
+        localStorage.setItem('imageUrl',response.data.data.imageUrl)
+        console.log(image);
+      })
+      .catch((error) => {
+        console.log("image error");
+        console.error(error);
+      });
+  };
+};
+  /*const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     const file = event.target.files![0];
     // Read the file as a buffer
@@ -50,7 +88,7 @@ export default function Profile() {
 
       // Send the image to the backend using Axios
       axios
-        .post("http://localhost:3000/profile/uploadProfilePicture", formData)
+        .post("http://localhost:3000/uploads/uploadProfilePicture", formData)
         .then((response) => {
           console.log("image called");
           localStorage.setItem("imageID", response.data.data._id);
@@ -60,13 +98,14 @@ export default function Profile() {
           console.error(error);
         });
     };
-  };
+  };*/
   const handleEdit = () => {
     setEdit(!edit);
   };
   const handleSave = async () => {
     setEdit(!edit);
     const id = _id || localStorage.getItem("id");
+    console.log("id",id);
     await axios
       .patch(`http://localhost:3000/users/${id}`, {
         companyName,
@@ -84,38 +123,210 @@ export default function Profile() {
         console.log("error in sending data to server",error);
       });
   };
-
-  // const fetchImage = async () => {
-  //   const imageId = localStorage.getItem("imageID");
-  //   console.log(imageId);
-  //   const imageUrl = `http://localhost:3000/profile/${imageId}`;
-  //   try {
-  //     console.log("came to try");
-  //     const response = await axios.get<Buffer>(imageUrl, {
-  //       responseType: "arraybuffer",
-  //     });
-  //     console.log("response called");
-  //     // const base64 = Buffer.from(response.data, "binary").toString("base64");
-  //     // setImage(`data:${response.headers["content-type"]};base64,${base64}`);
-  //     const img: Uint8Array = new Uint8Array(response.data);
-  //     console.log("img", img);
-  //     const encoder: TextEncoder = new TextEncoder();
-  //     const base64String: string = btoa(
-  //       encoder
-  //         .encode(img as unknown as string)
-  //         .reduce(
-  //           (data: string, byte: number) => data + String.fromCharCode(byte),
-  //           ""
-  //         )
-  //     );
-  //     const imageSrc: string = `data:image/jpeg;base64,${base64String}`;
-  //     setImage(imageSrc);
-  //   } catch (error) {
-  //     console.error(error);
-  //     console.log("image not found");
-  //   }
-  // };
   const fetchImage = async () => {
+    const imageUrl = _imageUrl || localStorage.getItem("imageUrl");
+  
+    try {
+      const response = await axios.get(imageUrl, {
+        responseType: "blob",
+      });
+  
+      const imageUrlObject = URL.createObjectURL(response.data);
+      setImage(imageUrlObject);
+      
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+ /* const fetchImage = async () => {
+    
+    
+    //const imageId = localStorage.getItem("imageID");
+    const imageUrl = "http://localhost:3000/uploads/640e0efbd35aec2e41bd5518.jpg";
+  
+    try {
+      const response = await axios.get(imageUrl, {
+        responseType: "arraybuffer",
+      });
+  
+      const base64String = btoa(
+        new Uint8Array(response.data)
+          .reduce((data, byte) => data + String.fromCharCode(byte), "")
+      );
+  
+      const imageSrc = `data:image/jpeg;base64,${base64String}`;
+      setImage(imageSrc);
+      console.log(imageSrc);
+    } catch (error) {
+      console.error(error);
+    }
+  };*/
+  /*const fetchImage = async () => {
+    const imageUrl = "http://localhost:3000/uploads/640e09bbd35aec2e41bd5503.jpg";
+const parts = imageUrl.split("/");
+const imageId = parts[parts.length - 1].replace(".jpg", "");
+console.log(imageId); 
+   
+    try {
+      console.log("came to try");
+      const response = await axios.get(`http://localhost:3000/uploads/${imageId}`, {
+        responseType: "arraybuffer",
+      });
+      console.log("response called");
+      const base64String = btoa(
+        new Uint8Array(response.data)
+          .reduce((data, byte) => data + String.fromCharCode(byte), "")
+      );
+      const imageSrc = `data:image/jpeg;base64,${base64String}`;
+      setImage(imageSrc);
+      console.log(imageSrc);
+      console.log(imageId);
+    } catch (error) {
+      console.error(error);
+      console.log("image not found");
+    }
+  };
+  
+  /*const fetchImage = async (imageUrl: string) => {
+    try {
+      const response = await axios.get<Buffer>(imageUrl, {
+        responseType: "arraybuffer",
+      });
+      const base64String = btoa(
+        new Uint8Array(response.data)
+          .reduce((data, byte) => data + String.fromCharCode(byte), "")
+      );
+      const imageSrc = `data:image/jpeg;base64,${base64String}`;
+      setImage(imageSrc);
+      console.log(imageSrc);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    const getImageUrl = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/profile/"
+        );
+        const imageUrl = response.data.data[0].profileImage;
+        fetchImage(imageUrl);
+        console.log(imageUrl);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getImageUrl();
+  }, []);*/
+  
+  /*useEffect(() => {
+    const fetchImage = async () => {
+      const response = await axios.get(
+        "http://localhost:3000/Profile/64096768f33b453cb6de7d03",
+        { responseType: "arraybuffer" }
+      );
+      const base64String = btoa(
+        new Uint8Array(response.data)
+          .reduce((data, byte) => data + String.fromCharCode(byte), "")
+      );
+      const imageSrc = `data:${response.headers["content-type"]};base64,${base64String}`;
+      setImage(imageSrc);
+    };
+    fetchImage();
+  }, []);
+  /*const fetchImage = async () => {
+    const imageId = localStorage.getItem("imageID");
+    console.log(imageId);
+    try {
+      const response = await axios.get(`http://localhost:3000/profile/${imageId}`);
+      const imageUrl = response.data.data.profileImage;
+      const responseImage = await axios.get(imageUrl, { responseType: 'arraybuffer' });
+      const base64String = btoa(
+        new Uint8Array(responseImage.data)
+          .reduce((data, byte) => data + String.fromCharCode(byte), '')
+      );
+      const imageSrc = `data:image/jpeg;base64,${base64String}`;
+      setImage(imageSrc);
+    } catch (error) {
+      console.error(error);
+      console.log('image not found');
+    }
+  };
+  
+  /*interface ProfileImageData {
+    contentType: string;
+    data: number[];
+  }
+  const fetchImage = async (imageId: string) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/profile/${imageId}`);
+      const imageUrl = response.data.data;
+      const response2 = await axios.get<ArrayBuffer>(imageUrl, {
+        responseType: "arraybuffer",
+      });
+      const blob = new Blob([response2.data], { type: response2.headers["content-type"] });
+      const url = URL.createObjectURL(blob);
+      setImage(url);
+      console.log(url);
+    } catch (error) {
+      console.error(error);
+      console.log("image not found");
+    }
+  };
+  
+  
+  /*const fetchImage = async (imageId: string) => {
+    const imageUrl = `http://localhost:3000/profile/${imageId}`;
+    try {
+      const response = await axios.get(imageUrl);
+      const imageData = response.data.data;
+      console.log(typeof imageData)
+      const base64 = imageData.replace(/^data:image\/[a-z]+;base64,/, "");
+      const imageUrlWithBase64 = `data:image/jpeg;base64,${base64}`;
+      setImage(imageUrlWithBase64);
+    } catch (error) {
+      console.error(error);
+      console.log("image not found");
+    }
+  };*/
+  
+  
+  /*const fetchImage = async (imageId: string) => {
+    const imageUrl = `http://localhost:3000/profile/${imageId}`;
+    try {
+      const response = await axios.get<ArrayBuffer>(imageUrl, {
+        responseType: "arraybuffer",
+      });
+      const blob = new Blob([response.data], { type: response.headers["content-type"] });
+      const url = URL.createObjectURL(blob);
+      setImage(url);
+      console.log(url);
+    } catch (error) {
+      console.error(error);
+      console.log("image not found");
+    }
+  };/*
+  
+ /* const fetchImage = async (imageId: string) => {
+    const imageUrl = `http://localhost:3000/profile/${imageId}`;
+    try {
+      const response = await axios.get<ArrayBuffer>(imageUrl, {
+        responseType: "arraybuffer",
+      });
+      const blob = new Blob([response.data], { type: response.headers["content-type"] });
+      const url = URL.createObjectURL(blob);
+      
+      setImage(url);
+      console.log(url);
+    } catch (error) {
+      console.error(error);
+      console.log("image not found");
+    }
+  };/*
+  
+ /* const fetchImage = async () => {
     const imageId = localStorage.getItem("imageID");
     console.log(imageId);
     const imageUrl = `http://localhost:3000/profile/${imageId}`;
@@ -125,18 +336,26 @@ export default function Profile() {
         responseType: "arraybuffer",
       });
       console.log("response called");
-      const base64String = btoa(
-        new Uint8Array(response.data)
-          .reduce((data, byte) => data + String.fromCharCode(byte), "")
+      // const base64 = Buffer.from(response.data, "binary").toString("base64");
+      // setImage(`data:${response.headers["content-type"]};base64,${base64}`);
+      const img: Uint8Array = new Uint8Array(response.data);
+      console.log("img", img);
+      const encoder: TextEncoder = new TextEncoder();
+      const base64String: string = btoa(
+        encoder
+          .encode(img as unknown as string)
+          .reduce(
+            (data: string, byte: number) => data + String.fromCharCode(byte),
+            ""
+          )
       );
-      const imageSrc = `data:image/png;base64,${base64String}`;
-      console.log("imageSrc",imageSrc);
+      const imageSrc: string = `data:image/jpeg;base64,${base64String}`;
       setImage(imageSrc);
     } catch (error) {
       console.error(error);
       console.log("image not found");
-}
-};
+    }
+  };*/
   useEffect(() => {
     const id = _id || localStorage.getItem("id");
     const _token = token || localStorage.getItem("token");
@@ -149,7 +368,10 @@ export default function Profile() {
       })
       .then((response) => {
         if (response.data.message === "Welcome to protected routes") {
-          fetchImage().then(() => {
+          const imageId = localStorage.getItem("imageID") || "defaultImageId";
+//fetchImage();
+
+         fetchImage().then(() => {
             console.log("..........");
           });
           axios

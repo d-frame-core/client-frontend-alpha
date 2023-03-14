@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { MyContext } from "../../components/context/Context";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./CreateSurvey.css";
-import Modal from '../../components/survey/Modal'
 const CreateSurvey = () => {
   const { _id } = useContext(MyContext);
   const [surveyName, setSurveyName] = useState("");
