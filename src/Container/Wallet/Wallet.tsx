@@ -1,11 +1,12 @@
 import { Box, Divider } from "@mui/material";
-import { useState } from "react";
-
+import { useContext, useState } from "react";
+import { MyContext } from "../../components/context/Context";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./wallet.css";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import data from "./data.json";
 export default function Wallet() {
+  const {walletAddress}=useContext(MyContext)
   const [walletdata, setwalletdata] = useState(data);
 
   const [senderAddress, setSenderAddress] = useState("");
@@ -81,8 +82,9 @@ export default function Wallet() {
           </Box>
           <Box className="userWallet">
             <p>Wallet Balance : {userdata.dft}</p>
+            {/* {walletAddress} */}
             <div>
-              <p className="userAddress">{userdata.userad.slice(0, 20)}....</p>
+              <p className="userAddress">{walletAddress.slice(0, 20)}....</p>
               <div
                 title="Copy your wallet address"
                 onClick={() => copyContent(userdata.userad)}

@@ -111,9 +111,9 @@ const CreateSurvey = () => {
           },
         };
       });
-      console.log('option1',option1)
-      console.log('option2',option2)
-      console.log('i',i)
+      // console.log('option1',option1)
+      // console.log('option2',option2)
+      // console.log('i',i)
     }
   }
   const fields = [];
@@ -209,7 +209,7 @@ const CreateSurvey = () => {
     setNextpage(true);
     setFormopen(false);
     const index=parseInt(numberOfQuestionsSelected)
-    console.log("index",index);
+    // console.log("index",index);
   //   setTotalQues((prev) => {
   //     return {
   //       ...prev,
@@ -226,7 +226,7 @@ const CreateSurvey = () => {
   });
     const cliendId = _id || localStorage.getItem("id");
     resultArray[index-1].options=[option1,option2]
-    console.log( resultArray);
+    // console.log( resultArray);
     
     await axios.post("http://localhost:3000/survey", {
       surveyName: surveyName,
@@ -239,8 +239,7 @@ const CreateSurvey = () => {
       endDate: endDate,
     })
       .then((res) => {
-        console.log("THEN CALLED");
-        console.log("res", res);
+        console.log(res.data.data)
       })
       .catch((err) => {
         console.log("err", err);
