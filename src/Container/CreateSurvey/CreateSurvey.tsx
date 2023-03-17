@@ -1,12 +1,12 @@
 import { Backdrop, Divider, TextField } from "@mui/material";
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { MyContext } from "../../components/context/Context";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./CreateSurvey.css";
 const CreateSurvey = () => {
-  const { _id } = useContext(MyContext);
+  const { _id, token } = useContext(MyContext);
   const [surveyName, setSurveyName] = useState("");
   const [surveyDescription, setSurveyDescription] = useState("");
   const [startDate, setStartDate] = useState<Date>(new Date());
@@ -19,6 +19,7 @@ const CreateSurvey = () => {
       questionOption2: "",
     },
   ];
+  const [fetchedData, setFetchedData] = useState([]);
   const [totalQues, setTotalQues] = useState([
     {
       questionNumber: 0,
@@ -27,8 +28,6 @@ const CreateSurvey = () => {
       optionGroups: [],
     },
   ]);
-  const [option, setOption] = useState("");
-  const inputFields = [];
   const numberOfQuestions: any[] = [
     { value: "2", label: "2" },
     { value: "3", label: "3" },
@@ -48,9 +47,8 @@ const CreateSurvey = () => {
   } = useForm();
   const [formopen, setFormopen] = useState(false);
   const [nextpage, setNextpage] = useState(false);
-  const questionsData = [{}];
-  const [option1,setOption1] = useState("")
-  const [option2,setOption2] = useState("")
+  const [option1, setOption1] = useState("");
+  const [option2, setOption2] = useState("");
   const [numberOfQuestionsSelected, setNumberOfQuestionsSelected] =
     useState("");
   const details = [
@@ -97,17 +95,17 @@ const CreateSurvey = () => {
     },
   ];
   // console.log(surveyQuestions);
-  function handleData(i:any){
+  function handleData(i: any) {
     if (option1 && option2) {
-      if (i===parseInt(numberOfQuestionsSelected)-1) {
-        console.log('last')
+      if (i === parseInt(numberOfQuestionsSelected) - 1) {
+        console.log("last");
       }
       setTotalQues((prev) => {
         return {
           ...prev,
-          [i-1]: {
-            ...prev[i-1],
-            options: [option1,option2],
+          [i - 1]: {
+            ...prev[i - 1],
+            options: [option1, option2],
           },
         };
       });
@@ -120,13 +118,12 @@ const CreateSurvey = () => {
   for (let i = 0; i < parseInt(numberOfQuestionsSelected); i++) {
     fields.push(
       <div key={i} className="fieldInputDiv">
-           <input
+        <input
           type="text"
           placeholder={"Question " + (i + 1) + ""}
           className="fieldInputSurveyName"
-     
           // value={surveyQuestions[i].questionName}
-          onClick={()=>handleData(i)}
+          onClick={() => handleData(i)}
           onChange={(e) => {
             setTotalQues((prev) => {
               return {
@@ -137,18 +134,15 @@ const CreateSurvey = () => {
                   questionNumber: i + 1,
                   optionGroups: [],
                 },
-
               };
-
             });
           }}
-          />
+        />
         <div className="fieldInputSurveyInputBlock">
           <input
             type="text"
             placeholder={"Option 1"}
             className="fieldInputSurveyNameInputField"
-           
             // value={surveyQuestions[i].questionOption1}
             onChange={(e) => {
               // setTotalQues((prev) => {
@@ -160,14 +154,13 @@ const CreateSurvey = () => {
               //     },
               //   };
               // });
-              setOption1(e.target.value)
+              setOption1(e.target.value);
             }}
           />
           <input
             type="text"
             placeholder={"Option 2"}
             className="fieldInputSurveyNameInputField"
-         
             // value={surveyQuestions[i].questionOption2}
             // onChange={(e) => {
             //   const input = e.target.value;
@@ -185,16 +178,26 @@ const CreateSurvey = () => {
             onChange={(e) => {
               setOption2(e.target.value);
             }}
-            
-            
           />
         </div>
-  
+
         <hr />
       </div>
     );
   }
-
+  // async function fetchAllSurveys() {
+  //   const id = _id || localStorage.getItem("id");
+  //   const _tokenn = token || localStorage.getItem("token");
+  //   const res = await axios.get("http://localhost:3000/survey/client/", {
+  //     headers: {
+  //       Authorization: `Bearer ${_tokenn}`,
+  //       clientid: id,
+  //     },
+  //   });
+  //   console.log("res.data");
+  //   setFetchedData(res.data);
+  //   console.log(fetchedData);
+  // }
   const handleStartDateChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -208,44 +211,97 @@ const CreateSurvey = () => {
   const submitFormFunction = async () => {
     setNextpage(true);
     setFormopen(false);
-    const index=parseInt(numberOfQuestionsSelected)
+    const index = parseInt(numberOfQuestionsSelected);
     // console.log("index",index);
-  //   setTotalQues((prev) => {
-  //     return {
-  //       ...prev,
-  //       [index-1]: {
-  //         ...prev[index-1],
-  //         options: [option1,option2],
-  //       },
-  //     };
-  // });
-    var resultArray = Object.keys(totalQues).map(function(personNamedIndex:any){
+    //   setTotalQues((prev) => {
+    //     return {
+    //       ...prev,
+    //       [index-1]: {
+    //         ...prev[index-1],
+    //         options: [option1,option2],
+    //       },
+    //     };
+    // });
+    var resultArray = Object.keys(totalQues).map(function (
+      personNamedIndex: any
+    ) {
       let person = totalQues[personNamedIndex];
       // do something with person
       return person;
-  });
+    });
     const cliendId = _id || localStorage.getItem("id");
-    resultArray[index-1].options=[option1,option2]
+    resultArray[index - 1].options = [option1, option2];
     // console.log( resultArray);
-    
-    await axios.post("http://localhost:3000/survey", {
-      surveyName: surveyName,
-      surveyDescription: surveyDescription,
-      totalQues: resultArray,
-      clientId: cliendId,
-      statusCampaign: "Active",
-      totalReward: parseInt(surveyResource),
-      startDate: startDate,
-      endDate: endDate,
-    })
+
+    // await axios.post("http://localhost:3000/survey", {
+    //   surveyName: surveyName,
+    //   surveyDescription: surveyDescription,
+    //   totalQues: resultArray,
+    //   clientId: cliendId,
+    //   statusCampaign: "Active",
+    //   totalReward: parseInt(surveyResource),
+    //   startDate: startDate,
+    //   endDate: endDate,
+    // })
+    //   .then((res) => {
+    //     console.log(res.data.data)
+    //   })
+    //   .catch((err) => {
+    //     console.log("err", err);
+    //     console.error(err);
+    //   });
+    const _tokenn = token || localStorage.getItem("token");
+    await axios
+      .post(
+        "http://localhost:3000/survey",
+        {
+          surveyName: surveyName,
+          surveyDescription: surveyDescription,
+          totalQues: resultArray,
+          clientId: cliendId,
+          statusCampaign: "Active",
+          totalReward: parseInt(surveyResource),
+          startDate: startDate,
+          endDate: endDate,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${_tokenn}`,
+          },
+        }
+      )
       .then((res) => {
-        console.log(res.data.data)
+        console.log("THEN CALLED");
+        console.log("res", res);
+        fetchAllSurveys();
       })
       .catch((err) => {
         console.log("err", err);
         console.error(err);
       });
   };
+
+  async function fetchAllSurveys() {
+    const id = _id || localStorage.getItem("id");
+    const _tokenn = token || localStorage.getItem("token");
+    const res = await axios.get("http://localhost:3000/survey/client/", {
+      headers: {
+        Authorization: `Bearer ${_tokenn}`,
+        clientid: id,
+      },
+    });
+    console.log("res.data");
+    setFetchedData(res.data);
+  }
+
+  useEffect(() => {
+    fetchAllSurveys();
+  }, []);
+
+  useEffect(() => {
+    console.log(fetchedData);
+  }, [fetchedData]);
+
   return (
     <div>
       <>{Sidebar(6)}</>
@@ -269,18 +325,28 @@ const CreateSurvey = () => {
               <div className="startDate">Start Date</div>
               <div className="endDate">End Date</div>
             </div>
+
             <div className="createSurveyDetails">
-              {details.map((item) => {
+              {fetchedData.map((item: any) => {
                 return (
                   <div className="surveyDetails">
                     <div className="surveyNameDetails"> {item.surveyName} </div>
-                    <div className="totalQuesDetails"> {item.totalQues} </div>
-                    <div className="totalResDetails"> {item.totalRes} </div>
+                    <div className="totalQuesDetails">
+                      {" "}
+                      {item.totalQues.length}{" "}
+                    </div>
+                    <div className="totalResDetails"> {item.totalReward} </div>
                     <div className="statusCampaignDetails">
                       {item.statusCampaign}
                     </div>
-                    <div className="startDateDetails"> {item.startDate} </div>
-                    <div className="endDateDetails"> {item.endDate} </div>
+                    <div className="startDateDetails">
+                      {" "}
+                      {item.startDate.toString().slice(0, 10)}{" "}
+                    </div>
+                    <div className="endDateDetails">
+                      {" "}
+                      {item.endDate.toString().slice(0, 10)}{" "}
+                    </div>
                   </div>
                 );
               })}
