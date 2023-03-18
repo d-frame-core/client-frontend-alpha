@@ -3,7 +3,29 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import "./SurveyHistory.css";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
+import axios from "axios";
+import { useContext } from "react";
+import { MyContext } from "../../components/context/Context";
 const SurveyHistory = () => {
+  const { _id, token } = useContext(MyContext);
+  async function getAllPastSurveys() {
+    const id = _id || localStorage.getItem("id");
+    const _tokenn = token || localStorage.getItem("token");
+    console.log(id, _tokenn);
+    await axios
+      .get("http://localhost:3000/survey/expired/client/c", {
+        headers: {
+          Authorization: `Bearer ${_tokenn}`,
+          clientId: "6402e7d78851d6105b175bd2",
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   return (
     <div>
       <>{Sidebar(7)}</>

@@ -5,6 +5,9 @@ import { useForm } from "react-hook-form";
 import { MyContext } from "../../components/context/Context";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./CreateSurvey.css";
+import SurveyModal from "../../components/Survey Modal/SurveyModal";
+import Modal from "@mui/material/Modal";
+import { Box } from "@mui/system";
 const CreateSurvey = () => {
   const { _id, token } = useContext(MyContext);
   const [surveyName, setSurveyName] = useState("");
@@ -12,7 +15,7 @@ const CreateSurvey = () => {
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
   const [surveyResource, setSurveyResource] = useState("");
-  const surveyQuestions = [
+  let surveyQuestions = [
     {
       questionName: "",
       questionOption1: "",
@@ -20,6 +23,7 @@ const CreateSurvey = () => {
     },
   ];
   const [fetchedData, setFetchedData] = useState([]);
+  const [open, setOpen] = useState(false);
   const [totalQues, setTotalQues] = useState([
     {
       questionNumber: 0,
@@ -274,13 +278,49 @@ const CreateSurvey = () => {
         console.log("THEN CALLED");
         console.log("res", res);
         fetchAllSurveys();
+        surveyQuestions = [
+          {
+            questionName: "",
+            questionOption1: "",
+            questionOption2: "",
+          },
+        ];
       })
       .catch((err) => {
         console.log("err", err);
         console.error(err);
       });
   };
+  async function getParticularSurvey(id: any) {
+    setOpen(true);
+    const _tokenn = token || localStorage.getItem("token");
+    const clientId = _id || localStorage.getItem("id");
+    await axios
+      .get(`http://localhost:3000/survey/${id}`, {
+        headers: {
+          Authorization: `Bearer ${_tokenn}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  const style = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
 
+    width: 400,
+    bgcolor: "white",
+    boxShadow: 24,
+    border: "0",
+    p: 4,
+    borderRadius: "1.1vh",
+  };
   async function fetchAllSurveys() {
     const id = _id || localStorage.getItem("id");
     const _tokenn = token || localStorage.getItem("token");
@@ -291,6 +331,7 @@ const CreateSurvey = () => {
       },
     });
     console.log("res.data");
+    console.log(res);
     setFetchedData(res.data);
   }
 
@@ -329,7 +370,10 @@ const CreateSurvey = () => {
             <div className="createSurveyDetails">
               {fetchedData.map((item: any) => {
                 return (
-                  <div className="surveyDetails">
+                  <div
+                    className="surveyDetails"
+                    onClick={() => getParticularSurvey(item._id)}
+                  >
                     <div className="surveyNameDetails"> {item.surveyName} </div>
                     <div className="totalQuesDetails">
                       {" "}
@@ -478,6 +522,33 @@ const CreateSurvey = () => {
             </button>
           </div>
         </Backdrop>
+        <Modal
+          open={open}
+          onClose={() => {
+            setOpen(false);
+          }}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <div className="modalHeader">
+              <h1 className=" modalHeaderHeading ">Survey Name</h1>
+              <p className="modalHeaderDescription">
+                Survey Description. consectetur adipiscing elit. lorem ipsum
+                dolor sit amet, consectetur adipiscing elit. lorem ipsum dolor
+                sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+            <div className="modalBody">
+              <p>Total Ques: {2}</p>
+              <p>Total Respondants: {2}</p>
+              <p>Status: {"Active"}</p>
+              <p>Start Date: {"2021-10-10"}</p>
+              <p>End Date: {"2021-10-10"}</p>
+              <p>Total Rewards: {12} DFT</p>
+            </div>
+          </Box>
+        </Modal>
       </div>
     </div>
   );

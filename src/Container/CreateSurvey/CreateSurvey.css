@@ -54,19 +54,19 @@
   margin-left: 3%;
   border-radius: 10px;
   background-color: white;
-  /* border: 1px solid red; */
+  border: 1px solid blue;
 }
 .createSurveyCategoriesBox {
   display: flex;
   align-items: center;
-  width: 99.9%;
+  width: 100%;
   height: 10%;
   background-color: #47b5ff;
   color: white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  border: 1px solid blue;
-  border-bottom: 0.5px solid blue;
+  /* border: 1px solid blue;
+  border-bottom: 0.5px solid blue; */
 }
 .surveyName {
   display: flex;
@@ -76,8 +76,7 @@
   font-size: 110%;
   font-weight: 500;
   height: 100%;
-  border-top-left-radius: 10px;
-  border: 0.5px solid blue;
+  border-right:  1px solid blue;
 }
 .totalQues {
   display: flex;
@@ -87,7 +86,8 @@
   font-size: 110%;
   font-weight: 500;
   height: 100%;
-  border: 0.5px solid blue;
+  /* border: 0.5px solid blue; */
+  border-right: 1px solid blue;
 }
 .totalRes {
   display: flex;
@@ -97,7 +97,8 @@
   font-size: 110%;
   font-weight: 500;
   height: 100%;
-  border: 0.5px solid blue;
+  /* border: 0.5px solid blue; */
+  border-right: 1px solid blue;
 }
 .statusCampaign {
   display: flex;
@@ -107,7 +108,8 @@
   font-size: 110%;
   font-weight: 500;
   height: 100%;
-  border: 0.5px solid blue;
+  /* border: 0.5px solid blue; */
+  border-right: 1px solid blue;
 }
 .startDate {
   display: flex;
@@ -117,7 +119,8 @@
   font-size: 110%;
   font-weight: 500;
   height: 100%;
-  border: 0.5px solid blue;
+  /* border: 0.5px solid blue; */
+  border-right: 1px solid blue;
 }
 .endDate {
   display: flex;
@@ -128,12 +131,12 @@
   font-weight: 500;
   height: 100%;
   border-top-right-radius: 10px;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
 }
 .createSurveyDetails {
   display: flex;
   flex-direction: column;
-  width: 99.8%;
+  width: 100%;
   height: 90%;
   /* border: 1px solid blue; */
 }
@@ -147,8 +150,7 @@
   border-right: 1px solid blue; */
   /* border: 0.5px solid green; */
   border-top: 1px solid blue;
-  border-left: 1px solid blue;
-  border-right: 1px solid blue;
+  cursor: pointer;
 }
 .lastEntry {
   border-bottom: 1px solid blue;
@@ -335,4 +337,41 @@ input[type="date"]:focus::-webkit-datetime-edit {
 input[type="text"] {
   padding: 1%;
   padding-left: 4%;
+}
+.modalHeader{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+}
+.modalHeaderHeading{
+  font-size: 200%;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+.modalHeaderDescription{
+  font-size: 100%;
+  font-weight: 400;
+  margin: 3%;
+  padding: 1%;
+}
+.modalBody{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  border-top: 1px solid blue;
+  padding: 0;
+  margin: 0;
+  row-gap: 20%;
+  column-gap: 5%;
+  justify-content: center;
+  align-items: center;
 }
