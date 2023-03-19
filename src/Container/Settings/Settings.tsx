@@ -74,6 +74,15 @@ export default function Settings() {
             <tr></tr>
             <tr></tr>
             <tr>
+              <td className="tableData">Clear Survey History</td>
+              <td className="tableDataColon">:</td>
+              <td>
+                <button className="button">Clear Survey</button>
+              </td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+            <tr>
               <td className="tableData">Clear Notifications</td>
               <td className="tableDataColon">:</td>
               <td>

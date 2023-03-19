@@ -148,7 +148,7 @@
   border-left: 0.5px;
 }
 .surveyHistorySurveyName {
-  width: 30%;
+  width: 27%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -170,7 +170,7 @@
   border-left: 0.5px;
 }
 .surveyHistoryTotalRes {
-  width: 15%;
+  width: 18%;
   height: 100%;
   display: flex;
   align-items: center;

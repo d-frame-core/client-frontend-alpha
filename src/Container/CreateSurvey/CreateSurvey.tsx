@@ -360,8 +360,8 @@ const CreateSurvey = () => {
           <div className="createSurveyBody">
             <div className="createSurveyCategoriesBox">
               <div className="surveyName">Survey Name</div>
-              <div className="totalQues">Total Ques</div>
-              <div className="totalRes">Total Respondants</div>
+              <div className="totalQues">Total Questions</div>
+              <div className="totalRes">Rewards(DFT)</div>
               <div className="statusCampaign">Status</div>
               <div className="startDate">Start Date</div>
               <div className="endDate">End Date</div>
@@ -435,7 +435,7 @@ const CreateSurvey = () => {
               />
               <TextField
                 id="standard-basic"
-                label="Survey Resource DFT"
+                label="Rewards (DFT)"
                 variant="standard"
                 type={"number"}
                 sx={{ left: "2vw", width: "90%" }}
@@ -540,12 +540,12 @@ const CreateSurvey = () => {
               </p>
             </div>
             <div className="modalBody">
-              <p>Total Ques: {2}</p>
+              <p>Total Questions: {2}</p>
               <p>Total Respondants: {2}</p>
               <p>Status: {"Active"}</p>
+              <p>Total Rewards: {12} DFT</p>
               <p>Start Date: {"2021-10-10"}</p>
               <p>End Date: {"2021-10-10"}</p>
-              <p>Total Rewards: {12} DFT</p>
             </div>
           </Box>
         </Modal>
