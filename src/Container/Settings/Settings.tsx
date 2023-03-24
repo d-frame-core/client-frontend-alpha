@@ -62,7 +62,7 @@ export default function Settings() {
                 />
               </td>
             </tr>
-            <tr></tr>
+
             <tr></tr>
             <tr>
               <td className="tableData">Clear Ads History</td>
@@ -71,7 +71,7 @@ export default function Settings() {
                 <button className="button">Clear Ads</button>
               </td>
             </tr>
-            <tr></tr>
+
             <tr></tr>
             <tr>
               <td className="tableData">Clear Survey History</td>
@@ -80,7 +80,7 @@ export default function Settings() {
                 <button className="button">Clear Survey</button>
               </td>
             </tr>
-            <tr></tr>
+
             <tr></tr>
             <tr>
               <td className="tableData">Clear Notifications</td>

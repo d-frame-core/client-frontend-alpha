@@ -343,8 +343,22 @@ input[type="text"] {
   display: flex;
   flex-direction: column;
   text-align: center;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  height: 100%;
+  height: 25%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+}
+.modalHeaderShort {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 15%;
   /* border: 1px solid blue; */
   padding: 0;
   margin: 0;
@@ -361,18 +375,395 @@ input[type="text"] {
   margin: 3%;
   padding: 1%;
 }
+
 .modalBody{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   text-align: center;
   width: 100%;
-  height: 100%;
+  height: 20%;
   border-top: 1px solid blue;
   padding: 0;
   margin: 0;
-  row-gap: 20%;
-  column-gap: 5%;
+  row-gap: 5%;
+  column-gap: 10%;
+  justify-content: center;
+  align-items: center;
+}
+.modalFooter{
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  width: 100%;
+  height: 10%;
+  border-top: 1px solid blue;
+  padding: 1%;
+  margin: 0;
+  margin-top: 5%;
+  justify-content: center;
+  align-items: center;
+}
+.modalFooterButtonEdit{
+  width: 25%;
+  height: 50%;
+  margin: 2%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  padding: 3%;
+  cursor: pointer;
+  font-size: 100%;
+  font-weight: 600;
+  background-color: #47b5ff;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.modalFooterButtonDelete{
+  width: 25%;
+  height: 50%;
+  margin: 2%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 3%;
+  font-size: 100%;
+  font-weight: 600;
+  background-color: #ff4d4d;
+  color: white;
+    display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+}
+.modalFooterButtonInactive{
+  width: 25%;
+  height: 50%;
+  margin: 2%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 100%;
+  padding: 3%;
+  font-weight: 600;
+  background-color: #20f34e;
+  color: white;
+    display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+}
+.modalFooterButtonClose{
+  width: 25%;
+  height: 50%;
+  margin: 2%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 100%;
+  padding: 3%;
+  font-weight: 600;
+  background-color: #47b5ff;
+  color: white;
+}
+.modalCloseButton{
+position: absolute;
+top: 2%;
+right: 1%;
+width:5%;
+height: 7%;
+font-size: 100%;
+font-weight: 600;
+border-radius: 10px;
+border: none;
+outline: none;  
+cursor: pointer;
+background-color: #47b5ff;
+color: white;
+
+}
+
+.viewQuestions{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 60%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+}
+.questionsArray{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid red; */
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+}
+.questionModalHeadingDiv{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 10%;
+  /* border: 1px solid blue; */
+  /* border-bottom: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: space-between;
+  align-items: center;
+}
+.questionsModalHeadingSno{
+  display: flex;
+  flex-direction: row;
+  width: 10%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.questionsModalHeadingQuestion{
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.questionsModalHeadingOption{
+  display: flex;
+  flex-direction: row;
+  width: 30%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.questionModalBodyDiv{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 90%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  margin-top: 2%;
+  justify-content: space-between;
+  align-items: center;
+}
+.questionModalBodySno{
+  display: flex;
+  flex-direction: row;
+  width: 10%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.questionModalBodyQuestion{
+  display: flex;
+  flex-direction: row;
+  width: 71%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  padding-left: 10%;
+  /* justify-content: center; */
+  text-align: left;
+  align-items: center;
+}
+.questionModalBodyOption{
+  display: flex;
+  flex-direction: row;
+  width: 30%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.questionModalBodyDivTableForm{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: space-between;
+  align-items: center;
+}
+.questionModalBodySnoTableForm{
+  display: flex;
+  flex-direction: row;
+  width: 10%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.questionModalBodyQuestionTableForm{
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: space-around;
+  align-items: center;
+}
+.questionModalBodyOptionTableForm{
+  display: flex;
+  flex-direction: row;
+  width: 30%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.questionModalBodyOptionTableForm{
+  display: flex;
+  flex-direction: row;
+  width: 30%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.questionsArrayInEdit{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid red; */
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+}
+.questionModalBodyDivInEdit{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 90%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  margin-top: 2%;
+  justify-content: space-between;
+  align-items: center;
+}
+.questionModalBodySnoInEdit{
+  display: flex;
+  flex-direction: row;
+  width: 10%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.questionModalBodyQuestionInEdit{
+  display: flex;
+  flex-direction: row;
+  width: 71%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  padding-left: 10%;
+  /* justify-content: center; */
+  text-align: left;
+  align-items: center;
+}
+.questionModalBodyQuestionInput{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.questionModalBodyOptionInEdit{
+  display: flex;
+  flex-direction: row;
+  width: 30%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.questionModalBodyOptionInput{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.modalFooterInEdit{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 10%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.modalFooterButtonEditInEdit{
+  display: flex;
+  flex-direction: row;
+  width: 10%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.modalFooterButtonSaveInEdit{
+  display: flex;
+  flex-direction: row;
+  width: 10%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
   justify-content: center;
   align-items: center;
 }

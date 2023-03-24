@@ -1,6 +1,11 @@
 import { Backdrop, Divider, TextField } from "@mui/material";
-import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import axios, { AxiosResponse } from "axios";
+import React, {
+  ReactComponentElement,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useForm } from "react-hook-form";
 import { MyContext } from "../../components/context/Context";
 import Sidebar from "../../components/sidebar/Sidebar";
@@ -8,6 +13,10 @@ import "./CreateSurvey.css";
 import SurveyModal from "../../components/Survey Modal/SurveyModal";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/system";
+interface Item {
+  id: number;
+  name: string;
+}
 const CreateSurvey = () => {
   const { _id, token } = useContext(MyContext);
   const [surveyName, setSurveyName] = useState("");
@@ -15,6 +24,23 @@ const CreateSurvey = () => {
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
   const [surveyResource, setSurveyResource] = useState("");
+  const [singleSurveyData, setSingleSurveyData] = useState<any>();
+  const [editSurvey, setEditSurvey] = useState(false);
+  const [editSurveyData, setEditSurveyData] = useState<any>([]);
+  const [surveyId, setSurveyId] = useState("");
+  const surveyEditedData = [
+    {
+      surveyName: "",
+      surveyDescription: "",
+      surveyReward: "",
+    },
+  ];
+  const surveyEditedQues: any[] = [
+    {
+      title: "",
+      options: [],
+    },
+  ];
   let surveyQuestions = [
     {
       questionName: "",
@@ -55,49 +81,6 @@ const CreateSurvey = () => {
   const [option2, setOption2] = useState("");
   const [numberOfQuestionsSelected, setNumberOfQuestionsSelected] =
     useState("");
-  const details = [
-    {
-      surveyName: "Amazon",
-      totalQues: "10",
-      totalRes: "12",
-      statusCampaign: "Ongoing",
-      startDate: "12/01/23",
-      endDate: "6/05/23",
-    },
-
-    {
-      surveyName: "Apple",
-      totalQues: "110",
-      totalRes: "112",
-      statusCampaign: "Finished",
-      startDate: "11/01/23",
-      endDate: "16/02/23",
-    },
-    {
-      surveyName: "Amazon",
-      totalQues: "9",
-      totalRes: "12",
-      statusCampaign: "Ongoing",
-      startDate: "12/01/23",
-      endDate: "6/05/23",
-    },
-    {
-      surveyName: "Amazon",
-      totalQues: "10",
-      totalRes: "12",
-      statusCampaign: "Ongoing",
-      startDate: "12/01/23",
-      endDate: "6/05/23",
-    },
-    {
-      surveyName: "Amazon",
-      totalQues: "10",
-      totalRes: "12",
-      statusCampaign: "Ongoing",
-      startDate: "12/01/23",
-      endDate: "6/05/23",
-    },
-  ];
   // console.log(surveyQuestions);
   function handleData(i: any) {
     if (option1 && option2) {
@@ -128,6 +111,7 @@ const CreateSurvey = () => {
           className="fieldInputSurveyName"
           // value={surveyQuestions[i].questionName}
           onClick={() => handleData(i)}
+          onFocus={() => handleData(i)}
           onChange={(e) => {
             setTotalQues((prev) => {
               return {
@@ -185,7 +169,7 @@ const CreateSurvey = () => {
           />
         </div>
 
-        <hr />
+        <hr style={{ color: "#47b5ff" }} />
       </div>
     );
   }
@@ -208,6 +192,31 @@ const CreateSurvey = () => {
     const newDate = new Date(event.target.value);
     setStartDate(newDate);
   };
+  async function editSurveyInBackend() {
+    setEditSurvey(false);
+    // window.location.reload();
+    const _tokenn = token || localStorage.getItem("token");
+    const clientId = _id || localStorage.getItem("id");
+    // const tx = await axios.put(
+    //   `http://localhost:3000/survey/${surveyId}`,
+    //   {
+    //     surveyName: surveyName,
+    //     surveyDescription: surveyDescription,
+    //     surveyQuestions: editSurveyData,
+    //     surveyStartDate: startDate,
+    //     surveyEndDate: endDate,
+    //     surveyId: surveyId,
+    //   },
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${_tokenn}`,
+    //     },
+    //   }
+    // );
+    // console.log("res.data");
+    // console.log(tx.data);
+    console.log("editSurveyData", editSurveyData);
+  }
   const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newDate = new Date(event.target.value);
     setEndDate(newDate);
@@ -290,9 +299,10 @@ const CreateSurvey = () => {
         console.log("err", err);
         console.error(err);
       });
+    window.location.reload();
   };
-  async function getParticularSurvey(id: any) {
-    setOpen(true);
+  async function getParticularSurvey2(id: any) {
+    setSurveyId(id);
     const _tokenn = token || localStorage.getItem("token");
     const clientId = _id || localStorage.getItem("id");
     await axios
@@ -301,25 +311,38 @@ const CreateSurvey = () => {
           Authorization: `Bearer ${_tokenn}`,
         },
       })
-      .then((res) => {
-        console.log(res.data);
+      .then((res) => setSingleSurveyData(res.data));
+  }
+  async function getParticularSurvey(
+    id: any,
+    e: React.MouseEvent<HTMLDivElement>
+  ) {
+    // await getParticularSurvey2(id);
+    const _tokenn = token || localStorage.getItem("token");
+    const clientId = _id || localStorage.getItem("id");
+    await axios
+      .get(`http://localhost:3000/survey/${id}`, {
+        headers: {
+          Authorization: `Bearer ${_tokenn}`,
+        },
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((res) => setSingleSurveyData(res.data));
+    setOpen(true);
   }
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-
-    width: 400,
+    width: 900,
+    height: 600,
     bgcolor: "white",
     boxShadow: 24,
     border: "0",
-    p: 4,
+    p: 3,
     borderRadius: "1.1vh",
+    overflow: "hidden",
+    overflowY: "scroll",
   };
   async function fetchAllSurveys() {
     const id = _id || localStorage.getItem("id");
@@ -331,7 +354,6 @@ const CreateSurvey = () => {
       },
     });
     console.log("res.data");
-    console.log(res);
     setFetchedData(res.data);
   }
 
@@ -342,7 +364,9 @@ const CreateSurvey = () => {
   useEffect(() => {
     console.log(fetchedData);
   }, [fetchedData]);
-
+  useEffect(() => {
+    console.log(singleSurveyData);
+  }, [getParticularSurvey]);
   return (
     <div>
       <>{Sidebar(6)}</>
@@ -372,7 +396,7 @@ const CreateSurvey = () => {
                 return (
                   <div
                     className="surveyDetails"
-                    onClick={() => getParticularSurvey(item._id)}
+                    onClick={(e) => getParticularSurvey(item._id, e)}
                   >
                     <div className="surveyNameDetails"> {item.surveyName} </div>
                     <div className="totalQuesDetails">
@@ -522,33 +546,181 @@ const CreateSurvey = () => {
             </button>
           </div>
         </Backdrop>
-        <Modal
-          open={open}
-          onClose={() => {
-            setOpen(false);
-          }}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <div className="modalHeader">
-              <h1 className=" modalHeaderHeading ">Survey Name</h1>
-              <p className="modalHeaderDescription">
-                Survey Description. consectetur adipiscing elit. lorem ipsum
-                dolor sit amet, consectetur adipiscing elit. lorem ipsum dolor
-                sit amet, consectetur adipiscing elit.
-              </p>
-            </div>
-            <div className="modalBody">
-              <p>Total Questions: {2}</p>
-              <p>Total Respondants: {2}</p>
-              <p>Status: {"Active"}</p>
-              <p>Total Rewards: {12} DFT</p>
-              <p>Start Date: {"2021-10-10"}</p>
-              <p>End Date: {"2021-10-10"}</p>
-            </div>
-          </Box>
-        </Modal>
+        {singleSurveyData && (
+          <Modal
+            open={open}
+            onClose={() => {
+              setOpen(false);
+            }}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <div
+                className={
+                  singleSurveyData.surveyDescription.toString().length > 200
+                    ? "modalHeader"
+                    : "modalHeaderShort"
+                }
+              >
+                <h1 className=" modalHeaderHeading ">
+                  {singleSurveyData.surveyName}
+                </h1>
+                <button
+                  className="modalCloseButton"
+                  onClick={() => setOpen(false)}
+                >
+                  X
+                </button>
+
+                <p className="modalHeaderDescription">
+                  {singleSurveyData.surveyDescription.toString().length > 200
+                    ? singleSurveyData.surveyDescription
+                        .toString()
+                        .slice(0, 200) + "..."
+                    : singleSurveyData.surveyDescription}
+                </p>
+              </div>
+              <div className="modalBody">
+                <p>Total Questions: {singleSurveyData.totalQues.length}</p>
+                <p>Total Respondants: {"N.A"}</p>
+                <p>Status: {singleSurveyData.statusCampaign}</p>
+                <p>Total Rewards: {singleSurveyData.totalReward} DFT</p>
+                <p>
+                  Start Date:{" "}
+                  {singleSurveyData.startDate.toString().slice(0, 10)}
+                </p>
+                <p>
+                  End Date: {singleSurveyData.endDate.toString().slice(0, 10)}
+                </p>
+              </div>
+              <div className="viewQuestions">
+                <div className="questionModalHeadingDiv">
+                  <h3 className="questionsModalHeadingSno">S.No</h3>
+                  <h3 className="questionsModalHeadingQuestion">Question</h3>
+                  <h3 className="questionsModalHeadingOption">Option 1</h3>
+                  <h3 className="questionsModalHeadingOption">Option 2</h3>
+                </div>
+
+                {!editSurvey && (
+                  <div className="questionsArray">
+                    {singleSurveyData.totalQues.map((item: any, index: any) => {
+                      return (
+                        <div className="questionModalBodyDiv">
+                          <div className="questionModalBodySno">
+                            {index + 1}
+                          </div>
+                          <div className="questionModalBodyQuestion">
+                            {item.title}
+                          </div>
+                          <div className="questionModalBodyOption">
+                            {item.options[0]}
+                          </div>
+                          <div className="questionModalBodyOption">
+                            {item.options[1]}
+                          </div>
+                        </div>
+                      );
+                    })}
+                    {/* {singleSurveyData.totalQues.map((item: any, index: any) => {
+                    return (
+                      <tr className="questionModalBodyDivTableForm">
+                        <td className="questionModalBodySnoTableForm">
+                          {index + 1}
+                        </td>
+                        <td className="questionModalBodyQuestionTableForm">
+                          {item.title}
+                        </td>
+                        <td className="questionModalBodyOptionTableForm">
+                          {item.options[0]}
+                        </td>
+                        <td className="questionModalBodyOptionTableForm">
+                          {item.options[1]}
+                        </td>
+                      </tr>
+                    );
+                  })} */}
+                  </div>
+                )}
+                {editSurvey && (
+                  <div className="questionsArrayInEdit">
+                    {singleSurveyData.totalQues.map((item: any, index: any) => {
+                      return (
+                        <div className="questionModalBodyDivInEdit">
+                          <div className="questionModalBodySnoInEdit">
+                            {index + 1}
+                          </div>
+                          <div className="questionModalBodyQuestionInEdit">
+                            <input
+                              className="questionModalBodyQuestionInput"
+                              type="text"
+                              defaultValue={item.title}
+                              onChange={(e) => {
+                                surveyEditedQues[index].title = e.target.value;
+                              }}
+                            />
+                          </div>
+                          <div className="questionModalBodyOptionInEdit">
+                            <input
+                              className="questionModalBodyOptionInput"
+                              type="text"
+                              defaultValue={item.options[0]}
+                              onChange={(e) => {
+                                surveyEditedQues[index].options[0] =
+                                  e.target.value;
+                              }}
+                            />
+                          </div>
+                          <div className="questionModalBodyOptionInEdit">
+                            <input
+                              className="questionModalBodyOptionInput"
+                              type="text"
+                              defaultValue={item.options[1]}
+                              onChange={(e) => {
+                                surveyEditedQues[index].options[1] =
+                                  e.target.value;
+                              }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+              {!editSurvey && (
+                <div className="modalFooter">
+                  <button
+                    className="modalFooterButtonEdit"
+                    onClick={() => setEditSurvey(true)}
+                  >
+                    Edit
+                  </button>
+                  <button className="modalFooterButtonDelete">Delete</button>
+                  <button className="modalFooterButtonInactive">
+                    Inactive
+                  </button>
+                </div>
+              )}
+              {editSurvey && (
+                <div className="modalFooter">
+                  <button
+                    className="modalFooterButtonDelete"
+                    onClick={() => setEditSurvey(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="modalFooterButtonEdit"
+                    onClick={() => editSurveyInBackend()}
+                  >
+                    Save Edit
+                  </button>
+                </div>
+              )}
+            </Box>
+          </Modal>
+        )}
       </div>
     </div>
   );
