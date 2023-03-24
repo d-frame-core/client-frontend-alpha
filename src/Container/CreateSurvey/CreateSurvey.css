@@ -73,7 +73,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 25%;
+  width: 30%;
   font-size: 110%;
   font-weight: 500;
   height: 100%;
@@ -105,7 +105,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 15%;
+  width: 11%;
   font-size: 110%;
   font-weight: 500;
   height: 100%;
@@ -151,7 +151,7 @@
   border-right: 1px solid blue; */
   /* border: 0.5px solid green; */
   border-top: 1px solid blue;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 .lastEntry {
   border-bottom: 1px solid blue;
@@ -161,7 +161,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 25%;
+  width: 24%;
   font-size: 110%;
   font-weight: 400;
   height: 100%;
@@ -191,11 +191,25 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 15%;
-  font-size: 110%;
+  width: 11%;
+  font-size: 100%;
   font-weight: 400;
   height: 100%;
+  text-align: center;
   /* border: 0.5px solid blue; */
+  padding: 0;
+}
+.themeSwitch{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 11%;
+  font-size: 100%;
+  font-weight: 400;
+  height: 100%;
+  text-align: center;
+  /* border: 0.5px solid blue; */
+  padding: 0;
 }
 .startDateDetails {
   display: flex;
@@ -766,4 +780,17 @@ color: white;
   margin: 0;
   justify-content: center;
   align-items: center;
+}
+.editIconCreateSurvey{
+  display: flex;
+  flex-direction: row;
+  width: 4%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  padding-left: 2%;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }

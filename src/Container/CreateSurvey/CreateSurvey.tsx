@@ -1,4 +1,10 @@
-import { Backdrop, Divider, TextField } from "@mui/material";
+import {
+  Backdrop,
+  Divider,
+  FormControlLabel,
+  Switch,
+  TextField,
+} from "@mui/material";
 import axios, { AxiosResponse } from "axios";
 import React, {
   ReactComponentElement,
@@ -6,6 +12,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import EditIcon from "@mui/icons-material/Edit";
 import { useForm } from "react-hook-form";
 import { MyContext } from "../../components/context/Context";
 import Sidebar from "../../components/sidebar/Sidebar";
@@ -96,10 +103,11 @@ const CreateSurvey = () => {
           },
         };
       });
-      // console.log('option1',option1)
-      // console.log('option2',option2)
-      // console.log('i',i)
     }
+  }
+  async function setSurveyInactive() {
+    console.log("setSurveyInactive");
+    window.location.reload();
   }
   const fields = [];
   for (let i = 0; i < parseInt(numberOfQuestionsSelected); i++) {
@@ -320,6 +328,8 @@ const CreateSurvey = () => {
     // await getParticularSurvey2(id);
     const _tokenn = token || localStorage.getItem("token");
     const clientId = _id || localStorage.getItem("id");
+    setSurveyId(id);
+
     await axios
       .get(`http://localhost:3000/survey/${id}`, {
         headers: {
@@ -353,7 +363,7 @@ const CreateSurvey = () => {
         clientid: id,
       },
     });
-    console.log("res.data");
+    // console.log("res.data");
     setFetchedData(res.data);
   }
 
@@ -362,11 +372,25 @@ const CreateSurvey = () => {
   }, []);
 
   useEffect(() => {
-    console.log(fetchedData);
+    // console.log(fetchedData);
   }, [fetchedData]);
   useEffect(() => {
-    console.log(singleSurveyData);
+    // console.log(singleSurveyData);
   }, [getParticularSurvey]);
+
+  async function deleteParticularSurvey() {
+    const _tokenn = token || localStorage.getItem("token");
+    alert("Deleted the survey");
+    const res = await axios.delete(`http://localhost:3000/survey/${surveyId}`, {
+      headers: {
+        Authorization: `Bearer ${_tokenn}`,
+      },
+    });
+    console.log("delete");
+    // console.log(res.data);
+    setOpen(false);
+    fetchAllSurveys();
+  }
   return (
     <div>
       <>{Sidebar(6)}</>
@@ -394,10 +418,13 @@ const CreateSurvey = () => {
             <div className="createSurveyDetails">
               {fetchedData.map((item: any) => {
                 return (
-                  <div
-                    className="surveyDetails"
-                    onClick={(e) => getParticularSurvey(item._id, e)}
-                  >
+                  <div className="surveyDetails">
+                    <div
+                      className="editIconCreateSurvey"
+                      onClick={(e) => getParticularSurvey(item._id, e)}
+                    >
+                      <EditIcon />
+                    </div>
                     <div className="surveyNameDetails"> {item.surveyName} </div>
                     <div className="totalQuesDetails">
                       {" "}
@@ -405,7 +432,21 @@ const CreateSurvey = () => {
                     </div>
                     <div className="totalResDetails"> {item.totalReward} </div>
                     <div className="statusCampaignDetails">
-                      {item.statusCampaign}
+                      {item.statusCampaign === "Active" ? (
+                        <FormControlLabel
+                          label=" Active"
+                          className="themeSwitch"
+                          onClick={setSurveyInactive}
+                          control={<Switch defaultChecked />}
+                        />
+                      ) : (
+                        <FormControlLabel
+                          label="inactive"
+                          className="themeSwitch"
+                          // onClick={myFunction}
+                          control={<Switch />}
+                        />
+                      )}
                     </div>
                     <div className="startDateDetails">
                       {" "}
@@ -694,11 +735,13 @@ const CreateSurvey = () => {
                     className="modalFooterButtonEdit"
                     onClick={() => setEditSurvey(true)}
                   >
-                    Edit
+                    Edit Survey
                   </button>
-                  <button className="modalFooterButtonDelete">Delete</button>
-                  <button className="modalFooterButtonInactive">
-                    Inactive
+                  <button
+                    className="modalFooterButtonDelete"
+                    onClick={() => deleteParticularSurvey()}
+                  >
+                    Delete Survey
                   </button>
                 </div>
               )}

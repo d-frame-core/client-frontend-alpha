@@ -12,6 +12,7 @@
   font-size: 3vh;
   font-family: "IBM Plex Sans Devanagari";
   border-radius: 10px;
+  /* border: 1px solid blue; */
 }
 .settingsTitle {
   font-size: 5vh;
@@ -23,11 +24,12 @@
   font-size: 3vh;
   font-weight: 500;
   color: #1c1f37;
-  margin: 6% 8%;
+  margin: 1% 8%;
+  /* border: 1px solid blue; */
 }
 .tableData {
   /* border: 2px solid red; */
-  height: 15vh;
+  height: 11vh;
   width: 18vw;
   text-align: left;
 }
