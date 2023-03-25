@@ -123,18 +123,18 @@
   margin-left: 3%;
   border-radius: 10px;
   background-color: white;
-  /* border: 1px solid red; */
+  border: 1px solid blue;
 }
 .surveyHistoryContentTitle {
   display: flex;
   align-items: center;
-  width: 99.8%;
+  width: 100%;
   height: 10%;
   background-color: #47b5ff;
   color: white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
 }
 .surveyHistorySno {
   width: 10%;
@@ -144,8 +144,7 @@
   justify-content: center;
   font-size: 110%;
   font-weight: 500;
-  border: 1px solid blue;
-  border-left: 0.5px;
+  border-right: 1px solid blue;
 }
 .surveyHistorySurveyName {
   width: 27%;
@@ -155,8 +154,9 @@
   justify-content: center;
   font-size: 110%;
   font-weight: 500;
-  border: 1px solid blue;
-  border-left: 0.5px;
+  /* border: 1px solid blue; */
+    border-right: 1px solid blue;
+
 }
 .surveyHistoryTotalQues {
   width: 15%;
@@ -166,8 +166,9 @@
   justify-content: center;
   font-size: 110%;
   font-weight: 500;
-  border: 1px solid blue;
-  border-left: 0.5px;
+  /* border: 1px solid blue; */
+    border-right: 1px solid blue;
+
 }
 .surveyHistoryTotalRes {
   width: 18%;
@@ -177,8 +178,9 @@
   justify-content: center;
   font-size: 110%;
   font-weight: 500;
-  border: 1px solid blue;
-  border-left: 0.5px;
+  /* border: 1px solid blue; */
+    border-right: 1px solid blue;
+
 }
 .surveyHistoryTotalReward {
   width: 15%;
@@ -188,8 +190,9 @@
   justify-content: center;
   font-size: 110%;
   font-weight: 500;
-  border: 1px solid blue;
-  border-left: 0.5px;
+  /* border: 1px solid blue; */
+    border-right: 1px solid blue;
+
 }
 .surveyHistoryTimePeriod {
   width: 15%;
@@ -199,7 +202,17 @@
   justify-content: center;
   font-size: 110%;
   font-weight: 500;
-  border: 1px solid blue;
-  border-left: 0.5px;
-  border-right: 0.5px;
+  /* border: 1px solid blue; */
+
+  
+}
+.noSurveyFound{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 200%;
+  font-weight: 600;
+  color: #1c1f37;
 }

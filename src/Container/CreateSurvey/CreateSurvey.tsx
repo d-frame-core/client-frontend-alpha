@@ -307,7 +307,7 @@ const CreateSurvey = () => {
         console.log("err", err);
         console.error(err);
       });
-    window.location.reload();
+    // window.location.reload();
   };
   async function getParticularSurvey2(id: any) {
     setSurveyId(id);
@@ -375,7 +375,7 @@ const CreateSurvey = () => {
     // console.log(fetchedData);
   }, [fetchedData]);
   useEffect(() => {
-    // console.log(singleSurveyData);
+    console.log(singleSurveyData);
   }, [getParticularSurvey]);
 
   async function deleteParticularSurvey() {
@@ -411,6 +411,7 @@ const CreateSurvey = () => {
               <div className="totalQues">Total Questions</div>
               <div className="totalRes">Rewards(DFT)</div>
               <div className="statusCampaign">Status</div>
+              <div className="editCampaign">Edit</div>
               <div className="startDate">Start Date</div>
               <div className="endDate">End Date</div>
             </div>
@@ -419,12 +420,6 @@ const CreateSurvey = () => {
               {fetchedData.map((item: any) => {
                 return (
                   <div className="surveyDetails">
-                    <div
-                      className="editIconCreateSurvey"
-                      onClick={(e) => getParticularSurvey(item._id, e)}
-                    >
-                      <EditIcon />
-                    </div>
                     <div className="surveyNameDetails"> {item.surveyName} </div>
                     <div className="totalQuesDetails">
                       {" "}
@@ -434,19 +429,25 @@ const CreateSurvey = () => {
                     <div className="statusCampaignDetails">
                       {item.statusCampaign === "Active" ? (
                         <FormControlLabel
-                          label=" Active"
+                          label=""
                           className="themeSwitch"
                           onClick={setSurveyInactive}
                           control={<Switch defaultChecked />}
                         />
                       ) : (
                         <FormControlLabel
-                          label="inactive"
+                          label=""
                           className="themeSwitch"
                           // onClick={myFunction}
                           control={<Switch />}
                         />
                       )}
+                    </div>
+                    <div
+                      className="editIconCreateSurvey"
+                      onClick={(e) => getParticularSurvey(item._id, e)}
+                    >
+                      <EditIcon />
                     </div>
                     <div className="startDateDetails">
                       {" "}

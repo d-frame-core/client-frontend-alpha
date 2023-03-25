@@ -83,7 +83,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 13%;
+  width: 15%;
   font-size: 110%;
   font-weight: 500;
   height: 100%;
@@ -94,7 +94,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 17%;
+  width: 15%;
   font-size: 110%;
   font-weight: 500;
   height: 100%;
@@ -105,7 +105,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 11%;
+  width: 7%;
+  font-size: 110%;
+  font-weight: 500;
+  height: 100%;
+  /* border: 0.5px solid blue; */
+  border-right: 1px solid blue;
+}
+.editCampaign{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 7%;
   font-size: 110%;
   font-weight: 500;
   height: 100%;
@@ -116,7 +127,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 15%;
+  width: 13%;
   font-size: 110%;
   font-weight: 500;
   height: 100%;
@@ -127,7 +138,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 15%;
+  width: 13%;
   font-size: 110%;
   font-weight: 500;
   height: 100%;
@@ -161,7 +172,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 24%;
+  width: 31%;
   font-size: 110%;
   font-weight: 400;
   height: 100%;
@@ -171,7 +182,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 13%;
+  width: 15%;
   font-size: 110%;
   font-weight: 400;
   height: 100%;
@@ -181,7 +192,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 17%;
+  width: 15%;
   font-size: 110%;
   font-weight: 400;
   height: 100%;
@@ -191,19 +202,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 11%;
+  width: 4%;
   font-size: 100%;
   font-weight: 400;
   height: 100%;
   text-align: center;
   /* border: 0.5px solid blue; */
   padding: 0;
+  padding-left: 2%;
 }
 .themeSwitch{
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 11%;
+  width: 3%;
   font-size: 100%;
   font-weight: 400;
   height: 100%;
@@ -211,11 +223,23 @@
   /* border: 0.5px solid blue; */
   padding: 0;
 }
+.editIconCreateSurvey {
+  display: flex;
+  flex-direction: row;
+  width: 7%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
 .startDateDetails {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 15%;
+  width: 13%;
   font-size: 110%;
   font-weight: 400;
   height: 100%;
@@ -225,7 +249,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 15%;
+  width: 13%;
   font-size: 110%;
   font-weight: 400;
   height: 100%;
@@ -780,17 +804,4 @@ color: white;
   margin: 0;
   justify-content: center;
   align-items: center;
-}
-.editIconCreateSurvey{
-  display: flex;
-  flex-direction: row;
-  width: 4%;
-  height: 100%;
-  /* border: 1px solid blue; */
-  padding: 0;
-  padding-left: 2%;
-  margin: 0;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
 }

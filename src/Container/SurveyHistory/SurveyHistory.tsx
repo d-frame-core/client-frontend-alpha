@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./SurveyHistory.css";
 import EditIcon from "@mui/icons-material/Edit";
@@ -7,6 +7,7 @@ import axios from "axios";
 import { useContext } from "react";
 import { MyContext } from "../../components/context/Context";
 const SurveyHistory = () => {
+  const [oastSurveyExist, setPastSurveyExist] = useState(false);
   const { _id, token } = useContext(MyContext);
   async function getAllPastSurveys() {
     const id = _id || localStorage.getItem("id");
@@ -16,32 +17,34 @@ const SurveyHistory = () => {
       .get("http://localhost:3000/survey/expired/client/c", {
         headers: {
           Authorization: `Bearer ${_tokenn}`,
-          clientId: "6402e7d78851d6105b175bd2",
+          clientid: id,
         },
       })
       .then((response) => {
         console.log(response.data);
+        setPastSurveyExist(true);
       })
       .catch((error) => {
-        console.log(error);
+        if (
+          error.response.data.message ===
+          "No expired surveys found for this client."
+        ) {
+          setPastSurveyExist(false);
+        } else {
+          console.log(error);
+        }
       });
   }
+
+  useEffect(() => {
+    getAllPastSurveys();
+  }, []);
   return (
     <div>
       <>{Sidebar(7)}</>
       <div className="surveyHistoryOuterBox">
         <div className="surveyBoxFlex">
-          <div className="surveyTitle">Survey</div>
-          <div className="surveyIconsBox">
-            <button className="editIconSurveyPage">
-              <EditIcon /> Edit
-            </button>
-
-            <DeleteForeverOutlinedIcon
-              className="deleteSurveyPage"
-              sx={{ fontSize: "6vh" }}
-            />
-          </div>
+          <div className="surveyTitle">Survey History</div>
         </div>
         <div className="surveyHistoryContent">
           <div className="surveyHistoryContentTitle">
@@ -52,6 +55,11 @@ const SurveyHistory = () => {
             <div className="surveyHistoryTotalReward">Total Rewards</div>
             <div className="surveyHistoryTimePeriod">Time Period</div>
           </div>
+          {!oastSurveyExist && (
+            <div className="noSurveyFound">
+              <h2>No Survey History Found !!</h2>
+            </div>
+          )}
         </div>
       </div>
     </div>
