@@ -333,18 +333,6 @@ const CreateSurvey = () => {
       });
     // window.location.reload();
   };
-  async function getParticularSurvey2(id: any) {
-    setSurveyId(id);
-    const _tokenn = token || localStorage.getItem("token");
-    const clientId = _id || localStorage.getItem("id");
-    await axios
-      .get(`http://localhost:3000/survey/${id}`, {
-        headers: {
-          Authorization: `Bearer ${_tokenn}`,
-        },
-      })
-      .then((res) => setSingleSurveyData(res.data));
-  }
   async function getParticularSurvey(
     id: any,
     e: React.MouseEvent<HTMLDivElement>
@@ -360,7 +348,9 @@ const CreateSurvey = () => {
           Authorization: `Bearer ${_tokenn}`,
         },
       })
-      .then((res) => setSingleSurveyData(res.data));
+      .then((res) => {
+        setSingleSurveyData(res.data);
+      });
     setOpen(true);
   }
   const style = {
@@ -399,7 +389,7 @@ const CreateSurvey = () => {
     // console.log(fetchedData);
   }, [fetchedData]);
   useEffect(() => {
-    console.log(singleSurveyData);
+    setEditSurveyData(singleSurveyData);
   }, [getParticularSurvey]);
 
   async function deleteParticularSurvey() {
@@ -680,10 +670,14 @@ const CreateSurvey = () => {
                             {item.title}
                           </div>
                           <div className="questionModalBodyOption">
-                            {item.options[0]}
+                            {item.options[0].toString().length > 11
+                              ? item.options[0].toString().slice(0, 11) + "..."
+                              : item.options[0]}
                           </div>
                           <div className="questionModalBodyOption">
-                            {item.options[1]}
+                            {item.options[1].toString().length > 11
+                              ? item.options[1].toString().slice(0, 11) + "..."
+                              : item.options[1]}
                           </div>
                         </div>
                       );
@@ -758,7 +752,10 @@ const CreateSurvey = () => {
                 <div className="modalFooter">
                   <button
                     className="modalFooterButtonEdit"
-                    onClick={() => setEditSurvey(true)}
+                    onClick={() => {
+                      setEditSurvey(true);
+                      console.log(editSurveyData);
+                    }}
                   >
                     Edit Survey
                   </button>
