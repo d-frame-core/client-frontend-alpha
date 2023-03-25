@@ -105,9 +105,33 @@ const CreateSurvey = () => {
       });
     }
   }
-  async function setSurveyInactive() {
-    console.log("setSurveyInactive");
-    window.location.reload();
+  async function setSurveyInactive(id: any) {
+    console.log("setSurveyInactive", id);
+    await axios
+      .put(`http://localhost:3000/survey/${id}/status`, {
+        isActive: false,
+      })
+      .then((res) => {
+        console.log(res);
+        // window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  async function setSurveyActive(id: any) {
+    await axios
+      .put(`http://localhost:3000/survey/${id}/status`, {
+        isActive: true,
+      })
+      .then((res) => {
+        console.log(res);
+        // window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // fetchAllSurveys();
   }
   const fields = [];
   for (let i = 0; i < parseInt(numberOfQuestionsSelected); i++) {
@@ -427,18 +451,18 @@ const CreateSurvey = () => {
                     </div>
                     <div className="totalResDetails"> {item.totalReward} </div>
                     <div className="statusCampaignDetails">
-                      {item.statusCampaign === "Active" ? (
+                      {item.statusCampaign === "active" ? (
                         <FormControlLabel
                           label=""
                           className="themeSwitch"
-                          onClick={setSurveyInactive}
+                          onClick={() => setSurveyInactive(item._id)}
                           control={<Switch defaultChecked />}
                         />
                       ) : (
                         <FormControlLabel
                           label=""
                           className="themeSwitch"
-                          // onClick={myFunction}
+                          onClick={() => setSurveyActive(item._id)}
                           control={<Switch />}
                         />
                       )}

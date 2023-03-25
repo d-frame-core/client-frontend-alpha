@@ -182,7 +182,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 15%;
+  width: 14.1%;
   font-size: 110%;
   font-weight: 400;
   height: 100%;
@@ -192,7 +192,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 15%;
+  width: 14.2%;
   font-size: 110%;
   font-weight: 400;
   height: 100%;
@@ -209,7 +209,7 @@
   text-align: center;
   /* border: 0.5px solid blue; */
   padding: 0;
-  padding-left: 2%;
+  padding-left: 4%;
 }
 .themeSwitch{
   display: flex;
