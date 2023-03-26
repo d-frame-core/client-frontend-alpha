@@ -421,7 +421,7 @@ input[type="text"] {
   text-align: center;
   width: 100%;
   height: 20%;
-  border-top: 1px solid blue;
+  /* border-top: 1px solid blue; */
   padding: 0;
   margin: 0;
   row-gap: 5%;
@@ -638,61 +638,7 @@ color: white;
   justify-content: center;
   align-items: center;
 }
-.questionModalBodyDivTableForm{
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100%;
-  /* border: 1px solid blue; */
-  padding: 0;
-  margin: 0;
-  justify-content: space-between;
-  align-items: center;
-}
-.questionModalBodySnoTableForm{
-  display: flex;
-  flex-direction: row;
-  width: 10%;
-  height: 100%;
-  /* border: 1px solid blue; */
-  padding: 0;
-  margin: 0;
-  justify-content: center;
-  align-items: center;
-}
-.questionModalBodyQuestionTableForm{
-  display: flex;
-  flex-direction: row;
-  width: 80%;
-  height: 100%;
-  /* border: 1px solid blue; */
-  padding: 0;
-  margin: 0;
-  justify-content: space-around;
-  align-items: center;
-}
-.questionModalBodyOptionTableForm{
-  display: flex;
-  flex-direction: row;
-  width: 30%;
-  height: 100%;
-  /* border: 1px solid blue; */
-  padding: 0;
-  margin: 0;
-  justify-content: center;
-  align-items: center;
-}
-.questionModalBodyOptionTableForm{
-  display: flex;
-  flex-direction: row;
-  width: 30%;
-  height: 100%;
-  /* border: 1px solid blue; */
-  padding: 0;
-  margin: 0;
-  justify-content: center;
-  align-items: center;
-}
+
 .questionsArrayInEdit{
   display: flex;
   flex-direction: column;
@@ -803,6 +749,40 @@ color: white;
   /* border: 1px solid blue; */
   padding: 0;
   margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.modalHeaderEdit{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 25%;
+  /* border-bottom: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.modalHeaderHeadingEdit{
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 1%;
+  justify-content: center;
+  align-items: center;
+  font-size: 150%;
+  font-weight: 600;
+}
+.modalHeaderDescriptionEdit{
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 1%;
   justify-content: center;
   align-items: center;
 }

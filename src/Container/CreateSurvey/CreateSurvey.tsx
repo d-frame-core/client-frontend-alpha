@@ -33,7 +33,7 @@ const CreateSurvey = () => {
   const [surveyResource, setSurveyResource] = useState("");
   const [singleSurveyData, setSingleSurveyData] = useState<any>();
   const [editSurvey, setEditSurvey] = useState(false);
-  const [editSurveyData, setEditSurveyData] = useState<any>([]);
+  const [editSurveyData, setEditSurveyData] = useState<any>();
   const [surveyId, setSurveyId] = useState("");
   const surveyEditedData = [
     {
@@ -224,31 +224,37 @@ const CreateSurvey = () => {
     const newDate = new Date(event.target.value);
     setStartDate(newDate);
   };
-  async function editSurveyInBackend() {
+  const editSurveyInBackend = async () => {
     setEditSurvey(false);
     // window.location.reload();
     const _tokenn = token || localStorage.getItem("token");
     const clientId = _id || localStorage.getItem("id");
-    // const tx = await axios.put(
-    //   `http://localhost:3000/survey/${surveyId}`,
-    //   {
-    //     surveyName: surveyName,
-    //     surveyDescription: surveyDescription,
-    //     surveyQuestions: editSurveyData,
-    //     surveyStartDate: startDate,
-    //     surveyEndDate: endDate,
-    //     surveyId: surveyId,
-    //   },
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${_tokenn}`,
-    //     },
-    //   }
-    // );
-    // console.log("res.data");
-    // console.log(tx.data);
-    console.log("editSurveyData", editSurveyData);
-  }
+    const _surveyId = surveyId || localStorage.getItem("surveyId");
+    console.log(surveyId);
+    await axios
+      .put(
+        `http://localhost:3000/survey/${surveyId}`,
+        {
+          surveyName: editSurveyData.surveyName,
+          surveyDescription: editSurveyData.surveyDescription,
+          totalQues: editSurveyData.totalQues,
+          startDate: editSurveyData.startDate,
+          endDate: editSurveyData.endDate,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${_tokenn}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        console.log("then called");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newDate = new Date(event.target.value);
     setEndDate(newDate);
@@ -340,6 +346,7 @@ const CreateSurvey = () => {
     // await getParticularSurvey2(id);
     const _tokenn = token || localStorage.getItem("token");
     const clientId = _id || localStorage.getItem("id");
+    localStorage.setItem("surveyId", id);
     setSurveyId(id);
 
     await axios
@@ -390,6 +397,7 @@ const CreateSurvey = () => {
   }, [fetchedData]);
   useEffect(() => {
     setEditSurveyData(singleSurveyData);
+    // console.log("singleSurveyData", singleSurveyData);
   }, [getParticularSurvey]);
 
   async function deleteParticularSurvey() {
@@ -612,31 +620,65 @@ const CreateSurvey = () => {
             aria-describedby="modal-modal-description"
           >
             <Box sx={style}>
-              <div
-                className={
-                  singleSurveyData.surveyDescription.toString().length > 200
-                    ? "modalHeader"
-                    : "modalHeaderShort"
-                }
-              >
-                <h1 className=" modalHeaderHeading ">
-                  {singleSurveyData.surveyName}
-                </h1>
-                <button
-                  className="modalCloseButton"
-                  onClick={() => setOpen(false)}
+              {!editSurvey && (
+                <div
+                  className={
+                    singleSurveyData.surveyDescription.toString().length > 200
+                      ? "modalHeader"
+                      : "modalHeaderShort"
+                  }
                 >
-                  X
-                </button>
+                  <h1 className=" modalHeaderHeading ">
+                    {singleSurveyData.surveyName}
+                  </h1>
+                  <button
+                    className="modalCloseButton"
+                    onClick={() => setOpen(false)}
+                  >
+                    X
+                  </button>
 
-                <p className="modalHeaderDescription">
-                  {singleSurveyData.surveyDescription.toString().length > 200
-                    ? singleSurveyData.surveyDescription
-                        .toString()
-                        .slice(0, 200) + "..."
-                    : singleSurveyData.surveyDescription}
-                </p>
-              </div>
+                  <p className="modalHeaderDescription">
+                    {singleSurveyData.surveyDescription.toString().length > 200
+                      ? singleSurveyData.surveyDescription
+                          .toString()
+                          .slice(0, 200) + "..."
+                      : singleSurveyData.surveyDescription}
+                  </p>
+                </div>
+              )}
+              {editSurvey && (
+                <div className="modalHeaderEdit">
+                  <input
+                    type="text"
+                    className="modalHeaderHeadingEdit"
+                    defaultValue={singleSurveyData.surveyName}
+                    onChange={(e) =>
+                      setEditSurveyData({
+                        ...editSurveyData,
+                        surveyName: e.target.value,
+                      })
+                    }
+                  />
+                  <button
+                    className="modalCloseButton"
+                    onClick={() => setOpen(false)}
+                  >
+                    X
+                  </button>
+                  <input
+                    type="text"
+                    className="modalHeaderDescriptionEdit"
+                    defaultValue={singleSurveyData.surveyDescription}
+                    onChange={(e) =>
+                      setEditSurveyData({
+                        ...editSurveyData,
+                        surveyDescription: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+              )}
               <div className="modalBody">
                 <p>Total Questions: {singleSurveyData.totalQues.length}</p>
                 <p>Total Respondants: {"N.A"}</p>
@@ -682,24 +724,6 @@ const CreateSurvey = () => {
                         </div>
                       );
                     })}
-                    {/* {singleSurveyData.totalQues.map((item: any, index: any) => {
-                    return (
-                      <tr className="questionModalBodyDivTableForm">
-                        <td className="questionModalBodySnoTableForm">
-                          {index + 1}
-                        </td>
-                        <td className="questionModalBodyQuestionTableForm">
-                          {item.title}
-                        </td>
-                        <td className="questionModalBodyOptionTableForm">
-                          {item.options[0]}
-                        </td>
-                        <td className="questionModalBodyOptionTableForm">
-                          {item.options[1]}
-                        </td>
-                      </tr>
-                    );
-                  })} */}
                   </div>
                 )}
                 {editSurvey && (
@@ -716,7 +740,14 @@ const CreateSurvey = () => {
                               type="text"
                               defaultValue={item.title}
                               onChange={(e) => {
-                                surveyEditedQues[index].title = e.target.value;
+                                setEditSurveyData({
+                                  ...editSurveyData,
+                                  totalQues: [
+                                    ...editSurveyData.totalQues,
+                                    (editSurveyData.totalQues[index].title =
+                                      e.target.value),
+                                  ],
+                                });
                               }}
                             />
                           </div>
@@ -726,8 +757,15 @@ const CreateSurvey = () => {
                               type="text"
                               defaultValue={item.options[0]}
                               onChange={(e) => {
-                                surveyEditedQues[index].options[0] =
-                                  e.target.value;
+                                setEditSurveyData({
+                                  ...editSurveyData,
+                                  totalQues: [
+                                    ...editSurveyData.totalQues,
+                                    (editSurveyData.totalQues[
+                                      index
+                                    ].options[0] = e.target.value),
+                                  ],
+                                });
                               }}
                             />
                           </div>
@@ -737,8 +775,15 @@ const CreateSurvey = () => {
                               type="text"
                               defaultValue={item.options[1]}
                               onChange={(e) => {
-                                surveyEditedQues[index].options[1] =
-                                  e.target.value;
+                                setEditSurveyData({
+                                  ...editSurveyData,
+                                  totalQues: [
+                                    ...editSurveyData.totalQues,
+                                    (editSurveyData.totalQues[
+                                      index
+                                    ].options[1] = e.target.value),
+                                  ],
+                                });
                               }}
                             />
                           </div>

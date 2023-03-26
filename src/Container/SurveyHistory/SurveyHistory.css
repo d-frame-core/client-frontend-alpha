@@ -10,43 +10,14 @@
   /* background-color: #47b5ff; */
   border-radius: 10px 10px 0 0;
 }
-.surveyIconsBox {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 40%;
-  /* border: 1px solid red; */
-}
+
 .surveyTitle {
   font-weight: 600;
   font-size: 300%;
   margin: 4%;
   color: #1c1f37;
 }
-.editIconSurveyPage {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 120%;
-  font-weight: 400;
-  color: white;
-  background-color: #47b5ff;
-  outline: none;
-  border: none;
-  height: 50%;
-  width: 25%;
-  text-align: center;
-  border-radius: 10px;
-  cursor: pointer;
-  margin: 6%;
-}
 
-.deleteSurveyPage {
-  color: red;
-  cursor: pointer;
-}
 .surveyHistoryOuterBox {
   position: absolute;
   height: 82vh;
@@ -60,53 +31,7 @@
   font-family: "inter";
   border-radius: 10px;
 }
-.surveyHistoryHeader {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  /* border: 1px solid red; */
-  height: 12%;
-}
-.surveyHistoryHeaderButtons {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  /* border: 1px solid red; */
-  height: 90%;
-  width: 20%;
-  margin: 0 7%;
-}
-.surveyHistoryEditButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 8%;
-  width: 55%;
-  height: 65%;
-  font-size: 150%;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  background-color: #47b5ff;
-  color: white;
-  cursor: pointer;
-}
-.surveyHistoryDeleteButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 8%;
-  width: 55%;
-  height: 65%;
-  font-size: 150%;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  color: red;
-  cursor: pointer;
-}
+
 .surveyHistoryTitle {
   font-size: 250%;
   font-weight: 600;
@@ -204,7 +129,18 @@
   font-weight: 500;
   /* border: 1px solid blue; */
 
-  
+
+}
+.surveyHistorySelector{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8%;
+  height: 100%;
+  font-size: 110%;
+  font-weight: 500;
+  color: white;
+  border-right: 1px solid blue;
 }
 .noSurveyFound{
   display: flex;
@@ -215,4 +151,75 @@
   font-size: 200%;
   font-weight: 600;
   color: #1c1f37;
+}
+.surveyHistoryContentData{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 10%;
+  font-size: 110%;
+  font-weight: 500;
+  color: #1c1f37;
+  border-bottom: 1px solid blue;
+}
+.surveyHistorySelectorIcon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8%;
+  height: 100%;
+  /* color:red; */
+  /* border: 1px solid red; */
+}
+
+.surveyHistorySnoData{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10%;
+  height: 100%;
+  font-size: 110%;
+  /* color:red; */
+  /* border: 1px solid red; */
+}
+.surveyHistorySurveyNameData{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 27.2%;
+  height: 100%;
+  font-size: 110%;
+  /* color:red; */
+  /* border: 1px solid red; */
+}
+.surveyHistoryTotalQuesData{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15%;
+  height: 100%;
+  font-size: 110%;
+  /* color:red; */
+  /* border: 1px solid red; */
+}
+.surveyHistoryTotalResData{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18%;
+  height: 100%;
+  font-size: 110%;
+  /* color:red; */
+  /* border: 1px solid red; */
+}
+.surveyHistoryTotalRewardData{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15%;
+  height: 100%;
+  font-size: 110%;
+  /* color:red; */
+  /* border: 1px solid red; */
 }
