@@ -9,6 +9,7 @@ import { MyContext } from "../../components/context/Context";
 import { useNavigate } from "react-router-dom";
 import { Alert, Snackbar } from "@mui/material";
 const SurveyHistory = () => {
+  const [deleteToastOpen, setDeleteToastOpen] = useState(false);
   const [openToast, setOpenToast] = React.useState(false);
   const navigate = useNavigate();
   const [oastSurveyExist, setPastSurveyExist] = useState(false);
@@ -50,8 +51,10 @@ const SurveyHistory = () => {
     }
 
     setOpenToast(false);
+    setDeleteToastOpen(false);
   };
   async function deleteParticularSurvey(id: any) {
+    setDeleteToastOpen(true);
     const clientId = _id || localStorage.getItem("id");
     const _tokenn = token || localStorage.getItem("token");
     const surveyId = id || localStorage.getItem("surveyId");
@@ -170,6 +173,24 @@ const SurveyHistory = () => {
                 </div>
               );
             })}
+          {deleteToastOpen && (
+            <Snackbar
+              anchorOrigin={{ vertical: "top", horizontal: "right" }}
+              open={deleteToastOpen}
+              autoHideDuration={6000}
+              onClose={() => {
+                setDeleteToastOpen(false);
+              }}
+            >
+              <Alert
+                onClose={handleToastClose}
+                severity="error"
+                sx={{ width: "20vw", height: "5vh" }}
+              >
+                Deleted the Survey Succesfully
+              </Alert>
+            </Snackbar>
+          )}
         </div>
       </div>
     </div>

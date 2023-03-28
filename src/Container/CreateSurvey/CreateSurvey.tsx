@@ -26,6 +26,8 @@ interface Item {
   name: string;
 }
 const CreateSurvey = () => {
+  const [surveyInactiveToastOpen, setSurveyInactiveToastOpen] = useState(false);
+  const [surveyActiveToastOpen, setSurveyActiveToastOpen] = useState(false);
   const [submitToastOpen, setSubmitToastOpen] = useState(false);
   const [openToast, setOpenToast] = useState(false);
   const { _id, token } = useContext(MyContext);
@@ -109,6 +111,7 @@ const CreateSurvey = () => {
     }
   }
   async function setSurveyInactive(id: any) {
+    setSurveyInactiveToastOpen(true);
     console.log("setSurveyInactive", id);
     await axios
       .put(`http://localhost:3000/survey/${id}/status`, {
@@ -123,6 +126,7 @@ const CreateSurvey = () => {
       });
   }
   async function setSurveyActive(id: any) {
+    setSurveyActiveToastOpen(true);
     await axios
       .put(`http://localhost:3000/survey/${id}/status`, {
         isActive: true,
@@ -208,19 +212,6 @@ const CreateSurvey = () => {
       </div>
     );
   }
-  // async function fetchAllSurveys() {
-  //   const id = _id || localStorage.getItem("id");
-  //   const _tokenn = token || localStorage.getItem("token");
-  //   const res = await axios.get("http://localhost:3000/survey/client/", {
-  //     headers: {
-  //       Authorization: `Bearer ${_tokenn}`,
-  //       clientid: id,
-  //     },
-  //   });
-  //   console.log("res.data");
-  //   setFetchedData(res.data);
-  //   console.log(fetchedData);
-  // }
   const handleStartDateChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -414,6 +405,8 @@ const CreateSurvey = () => {
 
     setOpenToast(false);
     setSubmitToastOpen(false);
+    setSurveyInactiveToastOpen(false);
+    setSurveyActiveToastOpen(false);
   };
   async function deleteParticularSurvey() {
     const _tokenn = token || localStorage.getItem("token");
@@ -877,9 +870,45 @@ const CreateSurvey = () => {
           <Alert
             onClose={handleToastClose}
             severity="success"
-            sx={{ width: "20vw", height: "5vh", fontSize: "1.5rem" }}
+            sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
           >
             Edited Survey
+          </Alert>
+        </Snackbar>
+      )}
+      {surveyInactiveToastOpen && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={surveyInactiveToastOpen}
+          autoHideDuration={6000}
+          onClose={() => {
+            setSurveyInactiveToastOpen(false);
+          }}
+        >
+          <Alert
+            onClose={handleToastClose}
+            severity="info"
+            sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
+          >
+            Survey is Inactive now
+          </Alert>
+        </Snackbar>
+      )}
+      {surveyActiveToastOpen && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={surveyActiveToastOpen}
+          autoHideDuration={6000}
+          onClose={() => {
+            setSurveyActiveToastOpen(false);
+          }}
+        >
+          <Alert
+            onClose={handleToastClose}
+            severity="info"
+            sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
+          >
+            Survey is Active now
           </Alert>
         </Snackbar>
       )}
