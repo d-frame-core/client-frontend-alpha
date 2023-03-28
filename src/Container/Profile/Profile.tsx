@@ -10,8 +10,9 @@ import { MyContext } from "../../components/context/Context";
 import axios from "axios";
 import { async } from "@firebase/util";
 import { Navigate, useNavigate } from "react-router-dom";
-
+import { Alert, Snackbar } from "@mui/material";
 export default function Profile() {
+  const [openToast, setOpenToast] = useState(false);
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
   const [files, setFiles] = useState(user);
@@ -32,44 +33,43 @@ export default function Profile() {
     setWalletAddress,
     token,
     _imageUrl,
-    setImageUrl
+    setImageUrl,
   } = useContext(MyContext);
-  
 
-const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
-  event.preventDefault();
-  const file = event.target.files![0];
-  // Read the file as a buffer
-  setFiles(URL.createObjectURL(file));
+  const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const file = event.target.files![0];
+    // Read the file as a buffer
+    setFiles(URL.createObjectURL(file));
 
-  const reader = new FileReader();
-  reader.readAsArrayBuffer(file);
-  reader.onload = () => {
-    // Create a new Blob object from the buffer
-    const blob = new Blob([new Uint8Array(reader.result as ArrayBuffer)]);
+    const reader = new FileReader();
+    reader.readAsArrayBuffer(file);
+    reader.onload = () => {
+      // Create a new Blob object from the buffer
+      const blob = new Blob([new Uint8Array(reader.result as ArrayBuffer)]);
 
-    // Create a new FormData object and append the blob to it
-    const formData = new FormData();
-    formData.append("image", file);
+      // Create a new FormData object and append the blob to it
+      const formData = new FormData();
+      formData.append("image", file);
 
-    // Send the image to the backend using Axios
-    axios
-      .post("http://localhost:3000/uploads/uploadProfilePicture", formData)
-      .then((response) => {
-        console.log("image called");
-        console.log(response.data.data.imageUrl);
-        const _imageUrl = response.data.data.imageUrl;
-        setImageUrl(_imageUrl);
-        setImage(response.data.imageUrl);
-        localStorage.setItem('imageUrl',response.data.data.imageUrl)
-        console.log(image);
-      })
-      .catch((error) => {
-        console.log("image error");
-        console.error(error);
-      });
+      // Send the image to the backend using Axios
+      axios
+        .post("http://localhost:3000/uploads/uploadProfilePicture", formData)
+        .then((response) => {
+          console.log("image called");
+          console.log(response.data.data.imageUrl);
+          const _imageUrl = response.data.data.imageUrl;
+          setImageUrl(_imageUrl);
+          setImage(response.data.imageUrl);
+          localStorage.setItem("imageUrl", response.data.data.imageUrl);
+          console.log(image);
+        })
+        .catch((error) => {
+          console.log("image error");
+          console.error(error);
+        });
+    };
   };
-};
   /*const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     const file = event.target.files![0];
@@ -104,8 +104,9 @@ const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
   };
   const handleSave = async () => {
     setEdit(!edit);
+    setOpenToast(true);
     const id = _id || localStorage.getItem("id");
-    console.log("id",id);
+    console.log("id", id);
     await axios
       .patch(`http://localhost:3000/users/${id}`, {
         companyName,
@@ -120,26 +121,25 @@ const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
         console.log(response);
       })
       .catch((error) => {
-        console.log("error in sending data to server",error);
+        console.log("error in sending data to server", error);
       });
   };
   const fetchImage = async () => {
     const imageUrl = _imageUrl || localStorage.getItem("imageUrl");
-  
+
     try {
       const response = await axios.get(imageUrl, {
         responseType: "blob",
       });
-  
+
       const imageUrlObject = URL.createObjectURL(response.data);
       setImage(imageUrlObject);
-      
     } catch (error) {
       console.error(error);
     }
   };
-  
- /* const fetchImage = async () => {
+
+  /* const fetchImage = async () => {
     
     
     //const imageId = localStorage.getItem("imageID");
@@ -220,7 +220,7 @@ console.log(imageId);
     };
     getImageUrl();
   }, []);*/
-  
+
   /*useEffect(() => {
     const fetchImage = async () => {
       const response = await axios.get(
@@ -291,8 +291,7 @@ console.log(imageId);
       console.log("image not found");
     }
   };*/
-  
-  
+
   /*const fetchImage = async (imageId: string) => {
     const imageUrl = `http://localhost:3000/profile/${imageId}`;
     try {
@@ -369,9 +368,9 @@ console.log(imageId);
       .then((response) => {
         if (response.data.message === "Welcome to protected routes") {
           const imageId = localStorage.getItem("imageID") || "defaultImageId";
-//fetchImage();
+          //fetchImage();
 
-         fetchImage().then(() => {
+          fetchImage().then(() => {
             console.log("..........");
           });
           axios
@@ -397,6 +396,16 @@ console.log(imageId);
         console.error(error.response.data);
       });
   }, []);
+  const handleToastClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenToast(false);
+  };
   return (
     <div>
       <>{Sidebar(1)}</>
@@ -548,6 +557,24 @@ console.log(imageId);
           )}
         </Box>
       </div>
+      {openToast && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={openToast}
+          autoHideDuration={6000}
+          onClose={() => {
+            setOpenToast(false);
+          }}
+        >
+          <Alert
+            onClose={handleToastClose}
+            severity="success"
+            sx={{ width: "20vw", height: "5vh" }}
+          >
+            Profile Details edited succesfully
+          </Alert>
+        </Snackbar>
+      )}
     </div>
   );
 }

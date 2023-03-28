@@ -20,11 +20,14 @@ import "./CreateSurvey.css";
 import SurveyModal from "../../components/Survey Modal/SurveyModal";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/system";
+import { Alert, Snackbar } from "@mui/material";
 interface Item {
   id: number;
   name: string;
 }
 const CreateSurvey = () => {
+  const [submitToastOpen, setSubmitToastOpen] = useState(false);
+  const [openToast, setOpenToast] = useState(false);
   const { _id, token } = useContext(MyContext);
   const [surveyName, setSurveyName] = useState("");
   const [surveyDescription, setSurveyDescription] = useState("");
@@ -113,7 +116,7 @@ const CreateSurvey = () => {
       })
       .then((res) => {
         console.log(res);
-        // window.location.reload();
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
@@ -125,8 +128,8 @@ const CreateSurvey = () => {
         isActive: true,
       })
       .then((res) => {
+        window.location.reload();
         console.log(res);
-        // window.location.reload();
       })
       .catch((err) => {
         console.log(err);
@@ -226,6 +229,7 @@ const CreateSurvey = () => {
   };
   const editSurveyInBackend = async () => {
     setEditSurvey(false);
+    setOpenToast(true);
     // window.location.reload();
     const _tokenn = token || localStorage.getItem("token");
     const clientId = _id || localStorage.getItem("id");
@@ -324,6 +328,7 @@ const CreateSurvey = () => {
       .then((res) => {
         console.log("THEN CALLED");
         console.log("res", res);
+        setSubmitToastOpen(true);
         fetchAllSurveys();
         surveyQuestions = [
           {
@@ -399,7 +404,17 @@ const CreateSurvey = () => {
     setEditSurveyData(singleSurveyData);
     // console.log("singleSurveyData", singleSurveyData);
   }, [getParticularSurvey]);
+  const handleToastClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
 
+    setOpenToast(false);
+    setSubmitToastOpen(false);
+  };
   async function deleteParticularSurvey() {
     const _tokenn = token || localStorage.getItem("token");
     alert("Deleted the survey");
@@ -832,6 +847,42 @@ const CreateSurvey = () => {
           </Modal>
         )}
       </div>
+      {!editSurvey && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={openToast}
+          autoHideDuration={6000}
+          onClose={() => {
+            setOpenToast(false);
+          }}
+        >
+          <Alert
+            onClose={handleToastClose}
+            severity="success"
+            sx={{ width: "20vw", height: "5vh" }}
+          >
+            Edited Survey
+          </Alert>
+        </Snackbar>
+      )}
+      {submitToastOpen && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={openToast}
+          autoHideDuration={6000}
+          onClose={() => {
+            setOpenToast(false);
+          }}
+        >
+          <Alert
+            onClose={handleToastClose}
+            severity="success"
+            sx={{ width: "20vw", height: "5vh", fontSize: "1.5rem" }}
+          >
+            Edited Survey
+          </Alert>
+        </Snackbar>
+      )}
     </div>
   );
 };

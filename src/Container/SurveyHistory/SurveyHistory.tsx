@@ -6,7 +6,11 @@ import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined
 import axios from "axios";
 import { useContext } from "react";
 import { MyContext } from "../../components/context/Context";
+import { useNavigate } from "react-router-dom";
+import { Alert, Snackbar } from "@mui/material";
 const SurveyHistory = () => {
+  const [openToast, setOpenToast] = React.useState(false);
+  const navigate = useNavigate();
   const [oastSurveyExist, setPastSurveyExist] = useState(false);
   const [pastSurveyData, setPastSurveyData] = useState<any[]>([]);
   const { _id, token } = useContext(MyContext);
@@ -31,11 +35,22 @@ const SurveyHistory = () => {
           "No expired surveys found for this client."
         ) {
           setPastSurveyExist(false);
+          setOpenToast(true);
         } else {
           console.log(error);
         }
       });
   }
+  const handleToastClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenToast(false);
+  };
   async function deleteParticularSurvey(id: any) {
     const clientId = _id || localStorage.getItem("id");
     const _tokenn = token || localStorage.getItem("token");
@@ -60,6 +75,7 @@ const SurveyHistory = () => {
   useEffect(() => {
     console.log(pastSurveyData);
   }, [getAllPastSurveys]);
+
   return (
     <div>
       <>{Sidebar(7)}</>
@@ -79,8 +95,37 @@ const SurveyHistory = () => {
           </div>
           {!oastSurveyExist && (
             <div className="noSurveyFound">
-              <h2>No Survey History Found !!</h2>
+              <div className="nosurveyFoundDiv">
+                <h2 className="nosurveyFoundHeading">
+                  No Survey History Found !!
+                </h2>
+                <p className="nosurveyFoundPara">Please Create a New Survey</p>
+                <button
+                  className="nosurveyFoundButton"
+                  onClick={() => navigate("/create-survey")}
+                >
+                  Create New Survey
+                </button>
+              </div>
             </div>
+          )}
+          {!oastSurveyExist && (
+            <Snackbar
+              anchorOrigin={{ vertical: "top", horizontal: "right" }}
+              open={openToast}
+              autoHideDuration={6000}
+              onClose={() => {
+                setOpenToast(false);
+              }}
+            >
+              <Alert
+                onClose={handleToastClose}
+                severity="error"
+                sx={{ width: "20vw", height: "5vh" }}
+              >
+                No History found for survey
+              </Alert>
+            </Snackbar>
           )}
           {oastSurveyExist &&
             pastSurveyData.map((data, index) => {
