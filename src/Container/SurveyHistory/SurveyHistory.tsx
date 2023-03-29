@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./SurveyHistory.css";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import axios from "axios";
 import { useContext } from "react";
 import { MyContext } from "../../components/context/Context";
@@ -146,7 +146,7 @@ const SurveyHistory = () => {
                     className="surveyHistorySelectorIcon"
                     onClick={() => deleteParticularSurvey(data._id)}
                   >
-                    <DeleteForeverOutlinedIcon
+                    <DeleteForeverIcon
                       className="deleteIconPerSurvey"
                       sx={{
                         color: "red",

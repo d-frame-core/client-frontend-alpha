@@ -3,7 +3,9 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import { Box } from "@mui/system";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
+import { useState } from "react";
 export default function Settings() {
+  const [themeToastOpen, setThemeToastOpen] = useState(false);
   function myFunction() {
     var element = document.body;
     element.classList.toggle("dark-mode");
@@ -16,44 +18,12 @@ export default function Settings() {
           <div>
             <p className="settingsTitle">Settings</p>
           </div>
-          {/* <div>
-            <Box className="settingsDetails">
-              <div className="settingsOptions3">
-                <p className="updateTheme">Theme</p>
-                <p className="themeColon">:</p>
-                <FormControlLabel
-                  label=""
-                  className="themeSwitch"
-                  onClick={myFunction}
-                  control={<Switch />}
-                />
-              </div>
-              <div className="settingsOptions4">
-                <p className="updateAds">Clear Ads History</p>
-                <p className="adsColon">:</p>
-                <button className="adsButton">Clear Previous Campaigns</button>
-              </div>
-              <div className="settingsOptions5">
-                <p className="updateNotifications">Clear Notifications</p>
-                <p className="notificationsColon">:</p>
-                <FormControlLabel
-                  control={<Switch defaultChecked />}
-                  className="notificationsSwitch"
-                  label=""
-                />
-              </div>
-            </Box>
-          </div>
-          <div>
-            <button className="saveButton">Save</button>
-          </div> */}
 
           <table className="table">
             <tr className="">
               <td className="tableData">Theme</td>
               <td className="tableDataColon">:</td>
               <td>
-                {" "}
                 <FormControlLabel
                   label=""
                   onClick={myFunction}

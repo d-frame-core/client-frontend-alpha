@@ -12,6 +12,7 @@ import { async } from "@firebase/util";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Alert, Snackbar } from "@mui/material";
 export default function Profile() {
+  const [openImageToast, setOpenImageToast] = useState(false);
   const [openToast, setOpenToast] = useState(false);
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
@@ -38,6 +39,7 @@ export default function Profile() {
 
   const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
+    setOpenImageToast(true);
     const file = event.target.files![0];
     // Read the file as a buffer
     setFiles(URL.createObjectURL(file));
@@ -161,6 +163,7 @@ export default function Profile() {
     }
 
     setOpenToast(false);
+    setOpenImageToast(false);
   };
   return (
     <div>
@@ -328,6 +331,24 @@ export default function Profile() {
             sx={{ width: "20vw", height: "5vh" }}
           >
             Profile Details edited succesfully
+          </Alert>
+        </Snackbar>
+      )}
+      {openImageToast && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={openImageToast}
+          autoHideDuration={6000}
+          onClose={() => {
+            setOpenImageToast(false);
+          }}
+        >
+          <Alert
+            onClose={handleToastClose}
+            severity="info"
+            sx={{ width: "20vw", height: "5vh" }}
+          >
+            Image Edited Succesfully
           </Alert>
         </Snackbar>
       )}

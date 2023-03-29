@@ -305,7 +305,7 @@ const CreateSurvey = () => {
           surveyDescription: surveyDescription,
           totalQues: resultArray,
           clientId: cliendId,
-          statusCampaign: "Active",
+          statusCampaign: "active",
           totalReward: parseInt(surveyResource),
           startDate: startDate,
           endDate: endDate,
@@ -631,7 +631,7 @@ const CreateSurvey = () => {
               {!editSurvey && (
                 <div
                   className={
-                    singleSurveyData.surveyDescription.toString().length > 200
+                    singleSurveyData.surveyDescription.toString().length > 100
                       ? "modalHeader"
                       : "modalHeaderShort"
                   }
@@ -647,10 +647,10 @@ const CreateSurvey = () => {
                   </button>
 
                   <p className="modalHeaderDescription">
-                    {singleSurveyData.surveyDescription.toString().length > 200
+                    {singleSurveyData.surveyDescription.toString().length > 100
                       ? singleSurveyData.surveyDescription
                           .toString()
-                          .slice(0, 200) + "..."
+                          .slice(0, 100) + "..."
                       : singleSurveyData.surveyDescription}
                   </p>
                 </div>

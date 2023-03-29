@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Connect.css";
 import axios from "axios";
 import { MyContext } from "../../components/context/Context";
+import dframLogo from "../../assets/dframe.png";
 const Connect = () => {
   const navigate = useNavigate();
   const {
@@ -20,7 +21,7 @@ const Connect = () => {
     setCompanyType,
     companyEmail,
     setCompanyEmail,
-    _id
+    _id,
   } = React.useContext(MyContext);
   const [isConnected, setIsConnected] = React.useState(false);
   async function connectWallet(): Promise<void> {
@@ -44,7 +45,7 @@ const Connect = () => {
         // console.log("token", response.data.token);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("walletAddress", address);
-        console.log('id',_id)
+        console.log("id", _id);
 
         const data = response.data.user;
         console.log(data.user);
@@ -65,6 +66,14 @@ const Connect = () => {
     <div className="connectClientWallet">
       {!isConnected && (
         <div>
+          <h1 className="connectClientWallet__headingMain">
+            Welcome to DFrame
+          </h1>
+          <img
+            className="dframeLogoConnectWalletPage"
+            src={dframLogo}
+            alt="d frame logo"
+          />
           <h1 className="connectClientWallet__heading">
             Connect Wallet To Login
           </h1>
