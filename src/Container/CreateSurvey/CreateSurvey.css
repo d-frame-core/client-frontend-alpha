@@ -385,7 +385,7 @@ input[type="text"] {
   align-items: center;
   width: 100%;
   height: 25%;
-  /* border: 1px solid blue; */
+  border-bottom: 1px solid blue;
   padding: 0;
   margin: 0;
 }
@@ -397,7 +397,7 @@ input[type="text"] {
   align-items: center;
   width: 100%;
   height: 15%;
-  /* border: 1px solid blue; */
+  border-bottom: 1px solid blue;
   padding: 0;
   margin: 0;
 }
@@ -757,7 +757,7 @@ color: white;
   flex-direction: column;
   width: 100%;
   height: 25%;
-  /* border-bottom: 1px solid blue; */
+  border-bottom: 1px solid blue;
   padding: 0;
   margin: 0;
   justify-content: center;

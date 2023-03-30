@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Divider } from "@mui/material";
-import "./BasicModal.css";
+import "./ModalWithLink.css";
 
 const style = {
   position: "absolute" as "absolute",
@@ -20,7 +20,12 @@ const style = {
   borderRadius: "1.1vh",
 };
 
-const BasicModal = (props: { name: string; paragraph: string }) => {
+const BasicModal = (props: {
+  name: string;
+  paragraph: string;
+  webLink: string;
+  webLinkName: string;
+}) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -46,7 +51,21 @@ const BasicModal = (props: { name: string; paragraph: string }) => {
             </Typography>
             <br />
             <Divider />
+          </div>
+          <div>
+            <Typography
+              id="modal-modal-description"
+              sx={{ mt: 2, rowGap: "2vh" }}
+              component="div"
+            >
+              {props.webLinkName} :{" "}
+              <a href={props.webLink} target="_blank" rel="noreferrer">
+                {props.webLink}
+              </a>
+              <br />
+            </Typography>
             <br />
+            {/* <Divider /> */}
           </div>
           <div>
             <button onClick={handleClose} className="btncl">

@@ -7,8 +7,10 @@ import axios from "axios";
 import { useContext } from "react";
 import { MyContext } from "../../components/context/Context";
 import { useNavigate } from "react-router-dom";
-import { Alert, Snackbar } from "@mui/material";
+import { Alert, Box, Modal, Snackbar } from "@mui/material";
 const SurveyHistory = () => {
+  const [selectedSurveyId, setSelectedSurveyId] = useState<any>(null);
+  const [deletingSurvey, setDeletingSurvey] = useState(false);
   const [deleteToastOpen, setDeleteToastOpen] = useState(false);
   const [openToast, setOpenToast] = React.useState(false);
   const navigate = useNavigate();
@@ -52,6 +54,23 @@ const SurveyHistory = () => {
 
     setOpenToast(false);
     setDeleteToastOpen(false);
+  };
+  async function deleteSurveyModal(id: any) {
+    setSelectedSurveyId(id);
+    setDeletingSurvey(true);
+  }
+  const style = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 500,
+    height: 200,
+    bgcolor: "white",
+    boxShadow: 24,
+    border: "0",
+    p: 3,
+    borderRadius: "1.1vh",
   };
   async function deleteParticularSurvey(id: any) {
     setDeleteToastOpen(true);
@@ -144,7 +163,7 @@ const SurveyHistory = () => {
                 <div className="surveyHistoryContentData">
                   <div
                     className="surveyHistorySelectorIcon"
-                    onClick={() => deleteParticularSurvey(data._id)}
+                    onClick={() => deleteSurveyModal(data._id)}
                   >
                     <DeleteForeverIcon
                       className="deleteIconPerSurvey"
@@ -192,6 +211,36 @@ const SurveyHistory = () => {
             </Snackbar>
           )}
         </div>
+        {deletingSurvey && (
+          <Modal
+            open={deletingSurvey}
+            onClose={() => setDeletingSurvey(false)}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <div className="deleteSurveyModal">
+                <div className="deleteSurveyModalHeading">
+                  Do You want to delete this survey ?
+                </div>
+                <div className="deleteSurveyModalButton">
+                  <button
+                    className="deleteSurveyModalButtonYes"
+                    onClick={() => deleteParticularSurvey(selectedSurveyId)}
+                  >
+                    Yes
+                  </button>
+                  <button
+                    className="deleteSurveyModalButtonNo"
+                    onClick={() => setDeletingSurvey(false)}
+                  >
+                    No
+                  </button>
+                </div>
+              </div>
+            </Box>
+          </Modal>
+        )}
       </div>
     </div>
   );

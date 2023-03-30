@@ -16,9 +16,13 @@ import {
   DialogTitle,
   Divider,
 } from "@mui/material";
+import axios from "axios";
+import ModalWithLink from "../../components/ModalWithLink/ModalWithLink";
 export default function LearnMore() {
+  const [fetchedData, setFetchedData] = React.useState<any[]>([]);
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
+  const [faqData, setFaqData] = React.useState<any[]>([]);
   const handleClickOpen = (scrollType: DialogProps["scroll"]) => () => {
     setOpen(true);
     setScroll(scrollType);
@@ -36,25 +40,39 @@ export default function LearnMore() {
       }
     }
   }, [open]);
-  const [modalData, setModaData] = React.useState([
-    {
-      title: "Why Advertise on D Frame?",
-      text: "Ad frame is an advertising platform built on D Frame, to help clients target users better. Through advanced functionalities like real time target audience analytics with matching interests and a general willingness to watch ads from the users, we hope for significantly higher Click Through Rates (CTR) through AD-frame. This should drastically reduce advertising expenditure for the Clients and help reach the users directly with an ability to offer incentives directly to their wallets. Hence, reliance on Influencers and promotional expenditure can be reduced too. Influencing users not Influences can be a win-win for both client and users but cutting out the middle men.",
-    },
-    {
-      title: "How does campaigns pricing work?",
-      text: "The Campaign Pricing is decided via the Data Valuation Engine (DVE). This is discussed in Detail in the White Paper. Through general demand-supply dynamics for certain types of Data determined via tags and actual Ad spent, the pricing is calculated. A base price of different data types is set and further calculations are processed. To be explored in the Alpha version. https://dframe.org/d-frame-white-paper-v1-1/ ",
-    },
-    {
-      title: "What is the reach of our campaigns?",
-      text: "Theoretically, the reach of the campaigns would be determined by the user base of D frame. Overtime, through our Projection frame idea of a Real Time Data Analytics Platform for Clients connecting users for their Healthcare, Travel, Finance data etc. we hope for higher quality and quantity of data & users. Ad-frame would benefit from overall user growth of the D frame data ecosystem.",
-    },
-    {
-      title: "How do you pay for a campaign?",
-      text: "Payment for the Campaigns would be done via DFT tokens. This is one of the major utlity of the DFT tokens, to get access to user data, with their permission. At the Alpha Release stage, we may decide to offer support for high volume Crypto. tokens like Stablecoins, Bitcoin, Ethereum etc. This is subject to the release and would be decided then.",
-    },
-  ]);
+  async function fetchDataFromBackend() {
+    await axios
+      .get("http://localhost:3000/Learnmore")
+      .then((res) => {
+        setFetchedData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
+  async function fetchFAQs() {
+    await axios
+      .get("http://localhost:3000/F&Q/faq/")
+      .then((res) => {
+        setFaqData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  React.useEffect(() => {
+    fetchDataFromBackend();
+  }, []);
+  React.useEffect(() => {
+    // console.log(fetchedData);
+  }, [fetchedData]);
+  React.useEffect(() => {
+    fetchFAQs();
+  }, []);
+  React.useEffect(() => {
+    // console.log(faqData);
+  }, [faqData]);
   return (
     <div>
       <>{Sidebar(0)}</>
@@ -62,30 +80,22 @@ export default function LearnMore() {
         <Box>
           <div className="learnTitle">Learn More</div>
           <div className="learnContent">
-            <div className="learnItemContent">
-              <BasicModal
-                name={modalData[0].title}
-                paragraph={modalData[0].text}
-              />
-            </div>
-            <div className="learnItemContent">
-              <BasicModal
-                name={modalData[1].title}
-                paragraph={modalData[1].text}
-              />
-            </div>
-            <div className="learnItemContent">
-              <BasicModal
-                name={modalData[2].title}
-                paragraph={modalData[2].text}
-              />
-            </div>
-            <div className="learnItemContent">
-              <BasicModal
-                name={modalData[3].title}
-                paragraph={modalData[3].text}
-              />
-            </div>
+            {fetchedData.map((item) =>
+              item.title !== "How does campaigns pricing work?" ? (
+                <div className="learnItemContent">
+                  <BasicModal name={item.title} paragraph={item.text} />
+                </div>
+              ) : (
+                <div className="learnItemContent">
+                  <ModalWithLink
+                    name={item.title}
+                    paragraph={item.text}
+                    webLink="https://dframe.org/white-paper-v1-1/"
+                    webLinkName="White Paper"
+                  />
+                </div>
+              )
+            )}
             <div
               className="learnItemContent"
               onClick={handleClickOpen("paper")}
@@ -106,82 +116,18 @@ export default function LearnMore() {
                   ref={descriptionElementRef}
                   tabIndex={-1}
                 >
-                  <strong>
-                    1. Where is D Frame Registered?
-                    <br />
-                  </strong>
-                  <Divider />
-                  1. The D Frame Foundation is registered in the Hague,
-                  Netherlands. <br />
-                  <br />
-                  <strong>
-                    2. What is D Frame?
-                    <br />
-                  </strong>
-                  <Divider />
-                  2. D Frame is a decentralised data ecosystem to help people
-                  monetise their personal data with privacy, support businesses
-                  with dynamic value laden data and encourage developers to
-                  build for re-imagining the data ecosystem. Using Blockchain
-                  based smart contracts for trust and a D Frame token for value
-                  generation & distribution, the ecosystem aspires to be a
-                  community driven sustainable effort.
-                  <br />
-                  <br />
-                  <strong>
-                    3.What is Ad Frame? <br />
-                  </strong>
-                  <Divider />
-                  3. Ad Frame is an advertising platform built on D Frame, to
-                  help clients target users better. Through advanced
-                  functionalities like real time target audience analytics with
-                  matching interests and a general willingness to watch ads from
-                  the users, we hope for significantly higher Click Through
-                  Rates (CTR) through Ad Frame.
-                  <br />
-                  <br />
-                  <strong>
-                    4. How many users does D Frame have?
-                    <br />
-                  </strong>
-                  <Divider />
-                  4. Currently, D Frame is at the prototype stage. Further, we
-                  would plan for an Alpha release for 50,000 to 100,000 users.
-                  Long term, a user base of atleast 10 million plus users is
-                  targeted.
-                  <br />
-                  <br />
-                  <strong>
-                    5. How many Clients use D Frame? How can Clients be
-                    successful on D Frame? <br />
-                  </strong>
-                  <Divider />
-                  5. Currently, D Frame is at the Prototype stage and we do not
-                  have active partnership with any client. However, we are
-                  pursuing partnerships with some of the largest Advertising
-                  firms in the world.
-                  <br />
-                  <br />
-                  <strong>
-                    6. How does D Frame compare to other Advertising platforms?
-                    <br />
-                  </strong>
-                  <Divider />
-                  6. D Frame shows an active data pool size of all the relevant
-                  users. Further, User's are willing to view advertisements for
-                  making passive income for sharing their data. Finally, we
-                  would be working on integration with different metaverse
-                  platforms.
-                  <br />
-                  <br />
-                  <strong>
-                    7. How much money do users make?
-                    <br />
-                  </strong>
-                  <Divider />
-                  7.Currently, we hope to atleast share 50% of the revenue
-                  generated directly with the users. Based on community feedback
-                  and stakeholder dynamics, these numbers will evolve.
+                  {faqData.map((item) => (
+                    <div>
+                      <strong>
+                        {item.question}
+                        <br />
+                      </strong>
+                      <Divider />
+                      {item.answer}
+                      <br />
+                      <br />
+                    </div>
+                  ))}
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
