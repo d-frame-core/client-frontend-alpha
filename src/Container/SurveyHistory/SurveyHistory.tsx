@@ -85,6 +85,7 @@ const SurveyHistory = () => {
       })
       .then((response) => {
         console.log(response);
+        setDeletingSurvey(false);
         getAllPastSurveys();
       })
       .catch((error) => {
@@ -121,7 +122,6 @@ const SurveyHistory = () => {
                 <h2 className="nosurveyFoundHeading">
                   No Survey History Found !!
                 </h2>
-                <p className="nosurveyFoundPara">Please Create a New Survey</p>
                 <button
                   className="nosurveyFoundButton"
                   onClick={() => navigate("/create-survey")}
@@ -194,7 +194,7 @@ const SurveyHistory = () => {
             })}
           {deleteToastOpen && (
             <Snackbar
-              anchorOrigin={{ vertical: "top", horizontal: "right" }}
+              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
               open={deleteToastOpen}
               autoHideDuration={6000}
               onClose={() => {

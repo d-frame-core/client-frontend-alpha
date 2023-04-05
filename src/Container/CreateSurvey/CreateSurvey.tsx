@@ -21,11 +21,14 @@ import SurveyModal from "../../components/Survey Modal/SurveyModal";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/system";
 import { Alert, Snackbar } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import SurveyAnalytics from "../SurveyAnalytics/SurveyAnalytics";
 interface Item {
   id: number;
   name: string;
 }
 const CreateSurvey = () => {
+  const navigate = useNavigate();
   const [surveyInactiveToastOpen, setSurveyInactiveToastOpen] = useState(false);
   const [surveyActiveToastOpen, setSurveyActiveToastOpen] = useState(false);
   const [submitToastOpen, setSubmitToastOpen] = useState(false);
@@ -119,7 +122,7 @@ const CreateSurvey = () => {
       })
       .then((res) => {
         console.log(res);
-        window.location.reload();
+        // window.location.reload();
       })
       .catch((err) => {
         console.log(err);
@@ -132,7 +135,7 @@ const CreateSurvey = () => {
         isActive: true,
       })
       .then((res) => {
-        window.location.reload();
+        // window.location.reload();
         console.log(res);
       })
       .catch((err) => {
@@ -449,7 +452,12 @@ const CreateSurvey = () => {
             <div className="createSurveyDetails">
               {fetchedData.map((item: any) => {
                 return (
-                  <div className="surveyDetails">
+                  <div
+                    className="surveyDetails"
+                    onClick={() => {
+                      navigate(`/survey-analytics/${item._id}`);
+                    }}
+                  >
                     <div className="surveyNameDetails"> {item.surveyName} </div>
                     <div className="totalQuesDetails">
                       {" "}

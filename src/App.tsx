@@ -15,6 +15,7 @@ import Verify from "./Container/Verify/Verify";
 import CreateSurvey from "./Container/CreateSurvey/CreateSurvey";
 import SurveyHistory from "./Container/SurveyHistory/SurveyHistory";
 import Connect from "./Container/Connect Wallet/Connect";
+import SurveyAnalytics from "./Container/SurveyAnalytics/SurveyAnalytics";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/verify-email" element={<Verify />} />
           <Route path="/create-survey" element={<CreateSurvey />} />
           <Route path="/survey-history" element={<SurveyHistory />} />
+          <Route path="/survey-analytics/*" element={<SurveyAnalytics />} />
         </Routes>
       </Router>
     </div>
