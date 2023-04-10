@@ -36,7 +36,10 @@ function App() {
           <Route path="/verify-email" element={<Verify />} />
           <Route path="/create-survey" element={<CreateSurvey />} />
           <Route path="/survey-history" element={<SurveyHistory />} />
-          <Route path="/survey-analytics/*" element={<SurveyAnalytics />} />
+          <Route
+            path="/survey-analytics/:surveyAnalyticsId"
+            element={<SurveyAnalytics />}
+          />
         </Routes>
       </Router>
     </div>

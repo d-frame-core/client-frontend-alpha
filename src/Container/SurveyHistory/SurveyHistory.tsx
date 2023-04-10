@@ -133,7 +133,7 @@ const SurveyHistory = () => {
           )}
           {!oastSurveyExist && (
             <Snackbar
-              anchorOrigin={{ vertical: "top", horizontal: "right" }}
+              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
               open={openToast}
               autoHideDuration={6000}
               onClose={() => {

@@ -4,12 +4,19 @@ import { Box } from "@mui/system";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { useState } from "react";
+import { Alert, Snackbar } from "@mui/material";
 export default function Settings() {
   const [themeToastOpen, setThemeToastOpen] = useState(false);
-  function myFunction() {
-    var element = document.body;
-    element.classList.toggle("dark-mode");
-  }
+  const handleToastClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setThemeToastOpen(false);
+  };
   return (
     <div>
       <>{Sidebar(8)}</>
@@ -26,7 +33,7 @@ export default function Settings() {
               <td>
                 <FormControlLabel
                   label=""
-                  onClick={myFunction}
+                  onClick={() => setThemeToastOpen(!themeToastOpen)}
                   control={<Switch />}
                   className="tableData"
                 />
@@ -65,6 +72,24 @@ export default function Settings() {
               </td>
             </tr>
           </table>
+          {themeToastOpen && (
+            <Snackbar
+              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+              open={themeToastOpen}
+              autoHideDuration={6000}
+              onClose={() => {
+                setThemeToastOpen(false);
+              }}
+            >
+              <Alert
+                onClose={handleToastClose}
+                severity="info"
+                sx={{ width: "20vw", height: "5vh" }}
+              >
+                Theme Changed
+              </Alert>
+            </Snackbar>
+          )}
         </Box>
       </div>
     </div>
