@@ -16,6 +16,7 @@ import CreateSurvey from "./Container/CreateSurvey/CreateSurvey";
 import SurveyHistory from "./Container/SurveyHistory/SurveyHistory";
 import Connect from "./Container/Connect Wallet/Connect";
 import SurveyAnalytics from "./Container/SurveyAnalytics/SurveyAnalytics";
+import Dashboard from "./Container/admin/Dashboard";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/create-survey" element={<CreateSurvey />} />
           <Route path="/survey-history" element={<SurveyHistory />} />
           <Route path="/survey-analytics/*" element={<SurveyAnalytics />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
         </Routes>
       </Router>
     </div>
