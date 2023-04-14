@@ -318,7 +318,7 @@ export default function Profile() {
       </div>
       {openToast && (
         <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           open={openToast}
           autoHideDuration={6000}
           onClose={() => {
@@ -336,7 +336,7 @@ export default function Profile() {
       )}
       {openImageToast && (
         <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           open={openImageToast}
           autoHideDuration={6000}
           onClose={() => {

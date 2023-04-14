@@ -114,6 +114,7 @@ const CreateSurvey = () => {
     }
   }
   async function setSurveyInactive(id: any) {
+    // .stopPropagation();
     setSurveyInactiveToastOpen(true);
     console.log("setSurveyInactive", id);
     await axios
@@ -122,7 +123,7 @@ const CreateSurvey = () => {
       })
       .then((res) => {
         console.log(res);
-        // window.location.reload();
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
@@ -136,6 +137,9 @@ const CreateSurvey = () => {
       })
       .then((res) => {
         // window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
         console.log(res);
       })
       .catch((err) => {
@@ -342,6 +346,7 @@ const CreateSurvey = () => {
     id: any,
     e: React.MouseEvent<HTMLDivElement>
   ) {
+    e.stopPropagation();
     // await getParticularSurvey2(id);
     const _tokenn = token || localStorage.getItem("token");
     const clientId = _id || localStorage.getItem("id");
@@ -464,12 +469,15 @@ const CreateSurvey = () => {
                       {item.totalQues.length}{" "}
                     </div>
                     <div className="totalResDetails"> {item.totalReward} </div>
-                    <div className="statusCampaignDetails">
+                    <div
+                      className="statusCampaignDetails"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       {item.statusCampaign === "active" ? (
                         <FormControlLabel
                           label=""
                           className="themeSwitch"
-                          onClick={() => setSurveyInactive(item._id)}
+                          onClick={(event) => setSurveyInactive(item._id)}
                           control={<Switch defaultChecked />}
                         />
                       ) : (
@@ -850,7 +858,7 @@ const CreateSurvey = () => {
       </div>
       {!editSurvey && (
         <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           open={openToast}
           autoHideDuration={6000}
           onClose={() => {
@@ -868,7 +876,7 @@ const CreateSurvey = () => {
       )}
       {submitToastOpen && (
         <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           open={openToast}
           autoHideDuration={6000}
           onClose={() => {
@@ -886,7 +894,7 @@ const CreateSurvey = () => {
       )}
       {surveyInactiveToastOpen && (
         <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           open={surveyInactiveToastOpen}
           autoHideDuration={6000}
           onClose={() => {
@@ -904,7 +912,7 @@ const CreateSurvey = () => {
       )}
       {surveyActiveToastOpen && (
         <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           open={surveyActiveToastOpen}
           autoHideDuration={6000}
           onClose={() => {
