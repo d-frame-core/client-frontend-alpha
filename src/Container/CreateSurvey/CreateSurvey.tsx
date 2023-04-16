@@ -23,10 +23,6 @@ import { Box } from "@mui/system";
 import { Alert, Snackbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import SurveyAnalytics from "../SurveyAnalytics/SurveyAnalytics";
-interface Item {
-  id: number;
-  name: string;
-}
 const CreateSurvey = () => {
   const navigate = useNavigate();
   const [surveyInactiveToastOpen, setSurveyInactiveToastOpen] = useState(false);

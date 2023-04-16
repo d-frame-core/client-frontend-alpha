@@ -89,7 +89,7 @@ export default function Help() {
                     name={item.title}
                     paragraph={item.text}
                     webLink="https://dframe.org/privacy-policy/"
-                    webLinkName="Privacy Policy"
+                    webLinkName=""
                   />
                 </div>
               )

@@ -14,32 +14,30 @@ import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
+import axios from "axios";
+import { MyContext } from "../../components/context/Context";
 
 const typesofads: any[] = [
   { value: "Image", label: "Image" },
   { value: "Video", label: "Video" },
 ];
-const dataofcampaigns: any[] = [
-  {
-    camname: "ad1",
-    act: "active",
-    bid: "normal",
-    budget: "500",
-    reach: "5k",
-    type: "video",
-    time: "10",
-  },
-  {
-    camname: "ad1",
-    act: "active",
-    bid: "normal",
-    budget: "500",
-    reach: "5k",
-    type: "video",
-    time: "10",
-  },
-];
 export default function Campaigns() {
+  const [campaignName, setCampaignName] = useState<string>("");
+  const [campaignType, setCampaignType] = useState<string>("");
+  const [adName, setAdName] = useState<string>("");
+  const [adType, setAdType] = useState<string>("");
+  const [adImage, setAdImage] = useState<string>("");
+  const [adVideo, setAdVideo] = useState<string>("");
+  const [adText, setAdText] = useState<string>("");
+  const [adLink, setAdLink] = useState<string>("");
+  const [adTags, setAdTags] = useState<any>([]);
+  const [adLocation, setAdLocation] = useState<string>("");
+  const [adBudget, setAdBudget] = useState<string>("");
+  const [adStartDate, setAdStartDate] = useState<string>("");
+  const [adEndDate, setAdEndDate] = useState<string>("");
+  const [inputValue, setInputValue] = useState("");
+  const { _id, token } = React.useContext(MyContext);
+  const [tagsExist, setTagsExist] = useState(false);
   const {
     register,
     handleSubmit,
@@ -52,6 +50,34 @@ export default function Campaigns() {
   };
   const [formopen, setFormopen] = useState(false);
   const [nextpage, setNextpage] = useState(false);
+  async function submitAdCampaign() {
+    const id = _id || localStorage.getItem("id");
+    console.log("id", id);
+    await axios
+      .post("http://localhost:3000/ads", {
+        clientId: id,
+        campaignName: "Demo Campaign",
+        campaignType: "Demo Campaign Type",
+        adName: "Demo Ad",
+        adType: "Image",
+        startDate: "21-04-2023",
+        endDate: "23-04-2023",
+        adUrl: "https://www.google.com/",
+        adContent: "Demo Ad Content",
+        adTags: ["Demo", "Ad", "Tags"],
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setFormopen(false);
+  }
+  const removeTag = (indexToRemove: number) => {
+    setAdTags(adTags.filter((_: any, index: any) => index !== indexToRemove));
+  };
+
   return (
     <>
       <>{Sidebar(4)}</>
@@ -93,7 +119,7 @@ export default function Campaigns() {
                     variant="standard"
                     sx={{ left: "2vw", width: "90%" }}
                     {...register("campaignName")}
-                    // onChange={(e) => setcampaignName(e.target.value)}
+                    onChange={(e) => setCampaignName(e.target.value)}
                     required
                   />
                   <TextField
@@ -103,6 +129,7 @@ export default function Campaigns() {
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
                     {...register("campaignType")}
                     // onChange={(e) => setcampaignName(e.target.value)}
+                    onChange={(e) => setCampaignType(e.target.value)}
                     required
                   />
                   <TextField
@@ -112,6 +139,7 @@ export default function Campaigns() {
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
                     {...register("Ad Name")}
                     // onChange={(e) => setcampaignName(e.target.value)}
+                    onChange={(e) => setAdName(e.target.value)}
                     required
                   />
                   <TextField
@@ -125,6 +153,7 @@ export default function Campaigns() {
                     }}
                     helperText="Please select the ad type"
                     variant="standard"
+                    onChange={(e) => setAdType(e.target.value)}
                   >
                     {typesofads.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -132,6 +161,17 @@ export default function Campaigns() {
                       </option>
                     ))}
                   </TextField>
+                  <div className="addImage">
+                    <label className="editIcon" htmlFor="files">
+                      Add File
+                    </label>
+                    <input
+                      type="file"
+                      className="hidden"
+                      id="files"
+                      // onChange={handleFileChange}
+                    />
+                  </div>
                   <TextField
                     id="standard-basic"
                     label="Ad Url"
@@ -139,6 +179,7 @@ export default function Campaigns() {
                     sx={{ left: "2vw", width: "90%" }}
                     {...register("Ad URL")}
                     // onChange={(e) => setcampaignName(e.target.value)}
+                    onChange={(e) => setAdLink(e.target.value)}
                     required
                   />
                   <TextField
@@ -148,36 +189,60 @@ export default function Campaigns() {
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
                     {...register("Ad Content")}
                     // onChange={(e) => setcampaignName(e.target.value)}
+                    onChange={(e) => setAdText(e.target.value)}
                     required
                   />
                 </div>
               )}
               {nextpage && (
                 <div className="campaignsFormBody">
-                  <TextField
-                    id="standard-basic"
-                    label="Ad Tags"
-                    variant="standard"
-                    sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
-                    {...register("Ad Tags")}
-                    // onChange={(e) => setcampaignName(e.target.value)}
-                    required
-                  />
+                  <div className="tagsOuterDiv">
+                    <div
+                      className={`${
+                        tagsExist ? "tagsBox" : "tagsBoxVisibilityHidden"
+                      }`}
+                    >
+                      {adTags.map((tag: any, index: any) => (
+                        <div key={index} className="tagAddedDiv">
+                          <span>{tag}</span>
+                          <button onClick={() => removeTag(index)}>
+                            &#10006;
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+
+                    <TextField
+                      id="standard-basic"
+                      label="Ad Tags"
+                      variant="standard"
+                      sx={{ left: "0", width: "90%", marginTop: "1.5vh" }}
+                      value={inputValue}
+                      {...register("Ad Tags")}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          const tagText = inputValue.trim();
+                          if (tagText) {
+                            setAdTags([...adTags, tagText]);
+                            setInputValue("");
+                            setTagsExist(true);
+                          }
+                          e.preventDefault();
+                        }
+                        if (e.key === "Backspace" && inputValue === "") {
+                          setAdTags(adTags.slice(0, adTags.length - 1));
+                        }
+                      }}
+                      required
+                    />
+                  </div>
                   <TextField
                     id="standard-basic"
                     label="Location"
                     variant="standard"
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
                     {...register("location")}
-                    // onChange={(e) => setcampaignName(e.target.value)}
-                    required
-                  />
-                  <TextField
-                    id="standard-basic"
-                    label="Budget (DFT)"
-                    variant="standard"
-                    sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
-                    {...register("budget")}
                     // onChange={(e) => setcampaignName(e.target.value)}
                     required
                   />
@@ -218,7 +283,7 @@ export default function Campaigns() {
                 <button
                   className="nextCampaignButton"
                   type="submit"
-                  // onClick={() => setNextpage(true)}
+                  onClick={() => submitAdCampaign()}
                 >
                   Submit
                 </button>
