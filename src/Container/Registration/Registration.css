@@ -149,9 +149,9 @@ input[type="tel"] {
 .phoneNumberDiv {
   display: flex;
   align-items: center;
-  /* border: 1px solid red; */
+  border: 1px solid red;
   margin: 2%;
-  min-height: 10vh;
+  min-height: 13vh;
   justify-content: center;
 }
 .phoneNumberTitle {
@@ -188,11 +188,11 @@ input[type="registrationInput"] {
   padding: 2%;
   padding-left: 4%;
 }
-.recaptcha-container {
+.recaptcha-container1 {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 2%;
   /* border: 1px solid red; */
-  height: 6%;
+  height: 72px;
 }

@@ -17,6 +17,7 @@ import SurveyHistory from "./Container/SurveyHistory/SurveyHistory";
 import Connect from "./Container/Connect Wallet/Connect";
 import SurveyAnalytics from "./Container/SurveyAnalytics/SurveyAnalytics";
 import Dashboard from "./Container/admin/Dashboard";
+import Register1 from "./Container/Registration/Register";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/survey-history" element={<SurveyHistory />} />
           <Route path="/survey-analytics/*" element={<SurveyAnalytics />} />
           <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/register1" element={<Register1 />} />
         </Routes>
       </Router>
     </div>

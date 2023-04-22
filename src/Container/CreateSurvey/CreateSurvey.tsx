@@ -5,13 +5,8 @@ import {
   Switch,
   TextField,
 } from "@mui/material";
-import axios, { AxiosResponse } from "axios";
-import React, {
-  ReactComponentElement,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import { useForm } from "react-hook-form";
 import { MyContext } from "../../components/context/Context";

@@ -28,7 +28,7 @@ export default function Campaigns() {
   const [adType, setAdType] = useState<string>("");
   const [adImage, setAdImage] = useState<string>("");
   const [adVideo, setAdVideo] = useState<string>("");
-  const [adText, setAdText] = useState<string>("");
+  const [adContent, setAdContent] = useState<string>("");
   const [adLink, setAdLink] = useState<string>("");
   const [adTags, setAdTags] = useState<any>([]);
   const [adLocation, setAdLocation] = useState<string>("");
@@ -55,29 +55,44 @@ export default function Campaigns() {
     console.log("id", id);
     await axios
       .post("http://localhost:3000/ads", {
-        clientId: id,
-        campaignName: "Demo Campaign",
-        campaignType: "Demo Campaign Type",
-        adName: "Demo Ad",
+        clientId: Number(id),
+        campaignName: campaignName,
+        campaignType: campaignType,
+        adName: adName,
         adType: "Image",
-        startDate: "21-04-2023",
-        endDate: "23-04-2023",
-        adUrl: "https://www.google.com/",
-        adContent: "Demo Ad Content",
-        adTags: ["Demo", "Ad", "Tags"],
+        startDate: adStartDate,
+        endDate: adEndDate,
+        adUrl: adLink,
+        adContent: adContent,
+        adTags: adTags,
       })
       .then((res) => {
         console.log(res.data);
+        // window.location.reload();
       })
       .catch((err) => {
         console.log(err);
       });
+    // console.log("Ads tags are", adTags);
+    // "643d60b5f70acc7cd413b405"
     setFormopen(false);
   }
   const removeTag = (indexToRemove: number) => {
     setAdTags(adTags.filter((_: any, index: any) => index !== indexToRemove));
   };
 
+  async function getParticularCampaign() {
+    const id = _id || localStorage.getItem("id");
+    await axios
+      .get(`http://localhost:3000/ads/643d60b5f70acc7cd413b405`)
+      .then((res) => {
+        console.log("res.data");
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   return (
     <>
       <>{Sidebar(4)}</>
@@ -108,7 +123,7 @@ export default function Campaigns() {
                   onClick={() => setFormopen(false)}
                 >
                   X
-                </button>
+                </button>{" "}
               </div>
               <Divider />
               {!nextpage && (
@@ -128,7 +143,6 @@ export default function Campaigns() {
                     variant="standard"
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
                     {...register("campaignType")}
-                    // onChange={(e) => setcampaignName(e.target.value)}
                     onChange={(e) => setCampaignType(e.target.value)}
                     required
                   />
@@ -138,7 +152,6 @@ export default function Campaigns() {
                     variant="standard"
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
                     {...register("Ad Name")}
-                    // onChange={(e) => setcampaignName(e.target.value)}
                     onChange={(e) => setAdName(e.target.value)}
                     required
                   />
@@ -165,12 +178,7 @@ export default function Campaigns() {
                     <label className="editIcon" htmlFor="files">
                       Add File
                     </label>
-                    <input
-                      type="file"
-                      className="hidden"
-                      id="files"
-                      // onChange={handleFileChange}
-                    />
+                    <input type="file" className="hidden" id="files" />
                   </div>
                   <TextField
                     id="standard-basic"
@@ -178,7 +186,6 @@ export default function Campaigns() {
                     variant="standard"
                     sx={{ left: "2vw", width: "90%" }}
                     {...register("Ad URL")}
-                    // onChange={(e) => setcampaignName(e.target.value)}
                     onChange={(e) => setAdLink(e.target.value)}
                     required
                   />
@@ -188,18 +195,21 @@ export default function Campaigns() {
                     variant="standard"
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
                     {...register("Ad Content")}
-                    // onChange={(e) => setcampaignName(e.target.value)}
-                    onChange={(e) => setAdText(e.target.value)}
+                    onChange={(e) => setAdContent(e.target.value)}
                     required
                   />
                 </div>
               )}
               {nextpage && (
                 <div className="campaignsFormBody">
-                  <div className="tagsOuterDiv">
+                  <div
+                    className={`${
+                      tagsExist ? "tagsOuterDivv" : "tagsOuterDivvSmall"
+                    }`}
+                  >
                     <div
                       className={`${
-                        tagsExist ? "tagsBox" : "tagsBoxVisibilityHidden"
+                        tagsExist ? "tagsBoxx" : "tagsBoxVisibilityHidden"
                       }`}
                     >
                       {adTags.map((tag: any, index: any) => (
@@ -243,7 +253,6 @@ export default function Campaigns() {
                     variant="standard"
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
                     {...register("location")}
-                    // onChange={(e) => setcampaignName(e.target.value)}
                     required
                   />
                   <TextField
@@ -254,7 +263,7 @@ export default function Campaigns() {
                     type={"date"}
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
                     {...register("startDate")}
-                    // onChange={handleStartDateChange}
+                    onChange={(e) => setAdStartDate(e.target.value)}
                     required
                   />
                   <TextField
@@ -264,7 +273,7 @@ export default function Campaigns() {
                     type={"date"}
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
                     {...register("endDate")}
-                    // onChange={handleEndDateChange}
+                    onChange={(e) => setAdEndDate(e.target.value)}
                     required
                   />
                 </div>
@@ -326,6 +335,7 @@ export default function Campaigns() {
               </div>
             </div>
           </div>
+          <button onClick={() => getParticularCampaign()}>click</button>
         </div>
       </div>
     </>
