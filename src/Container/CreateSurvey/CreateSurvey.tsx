@@ -34,6 +34,7 @@ const CreateSurvey = () => {
   const [editSurvey, setEditSurvey] = useState(false);
   const [editSurveyData, setEditSurveyData] = useState<any>();
   const [surveyId, setSurveyId] = useState("");
+  const [surveyDeletedToaster, setSurveyDeletedToaster] = useState(false);
   const surveyEditedData = [
     {
       surveyName: "",
@@ -406,10 +407,11 @@ const CreateSurvey = () => {
     setSubmitToastOpen(false);
     setSurveyInactiveToastOpen(false);
     setSurveyActiveToastOpen(false);
+    setSurveyDeletedToaster(false);
   };
   async function deleteParticularSurvey() {
     const _tokenn = token || localStorage.getItem("token");
-    alert("Deleted the survey");
+    setSurveyDeletedToaster(true);
     const res = await axios.delete(`http://localhost:3000/survey/${surveyId}`, {
       headers: {
         Authorization: `Bearer ${_tokenn}`,
@@ -916,6 +918,24 @@ const CreateSurvey = () => {
             sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
           >
             Survey is Active now
+          </Alert>
+        </Snackbar>
+      )}
+      {surveyDeletedToaster && (
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          open={surveyDeletedToaster}
+          autoHideDuration={6000}
+          onClose={() => {
+            setSurveyDeletedToaster(false);
+          }}
+        >
+          <Alert
+            onClose={handleToastClose}
+            severity="error"
+            sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
+          >
+            Survey Deleted
           </Alert>
         </Snackbar>
       )}
