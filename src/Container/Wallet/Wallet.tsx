@@ -7,20 +7,27 @@ import "./wallet.css";
 import { Alert, Snackbar } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import data from "./data.json";
+import CircularProgress from "@mui/material/CircularProgress";
 import Web3 from "web3";
 export default function Wallet() {
+  //  importing from context api
   const { walletAddress, walletBalance, setWalletBalance } =
     useContext(MyContext);
   const _walletAddress = walletAddress || localStorage.getItem("walletAddress");
+
+  //  defining state variables
   const [walletdata, setwalletdata] = useState(data);
 
   const [senderAddress, setSenderAddress] = useState("");
   const [dftAmount, setDftAmount] = useState("");
   const [transactionEvents, setTransactionEvents] = useState<any>([]);
   const [dftCA, setdftCA] = useState<any>("");
+  const [loadingTransactions, setLoadingTransactions] = useState(true);
 
   const [contentCopiedSuccesfully, setContentCopiedSuccesfully] =
     useState(false);
+
+  //  function to copy the wallet address
   const copyContent = async (text: any) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -30,16 +37,18 @@ export default function Wallet() {
       console.error("Failed to copy: ", err);
     }
   };
+
+  //  function to handle the close of the snackbar
   const handleSend = async () => {
     const web3 = new Web3((window as any).ethereum);
 
     // set the wallet address to query
     const _walletAddress =
       walletAddress || localStorage.getItem("walletAddress");
-    // set the contract address of the MATIC token
+    // set the contract address of the DFRAME token
     const dframeAddress = "0x0B6163c61D095b023EC3b52Cc77a9099f6231FCC";
 
-    // set the ABI for the MATIC token contract
+    // set the ABI for the DFRAME token contract
     const dframeABI = [
       { inputs: [], stateMutability: "nonpayable", type: "constructor" },
       {
@@ -292,15 +301,56 @@ export default function Wallet() {
       },
     ];
 
-    // get the MATIC token contract instance
+    // get the DFRAME token contract instance
     const dframeContract = new web3.eth.Contract(
       dframeABI as any,
       dframeAddress
     );
     const amount = web3.utils.toWei(dftAmount as any, "ether");
-    await dframeContract.methods
-      .transfer(senderAddress, amount)
-      .send({ from: _walletAddress });
+
+    // transfer DFT tokens using web3.eth.getTransactionCount
+    web3.eth.getTransactionCount(_walletAddress).then((nonce) => {
+      const tx = {
+        from: _walletAddress,
+        to: senderAddress,
+        value: amount,
+        gas: 2000000,
+        nonce: nonce,
+        gasPrice: web3.utils.toWei("10", "gwei"),
+      };
+      dframeContract.methods // call the transfer function
+        .transfer(senderAddress, amount)
+        .send(tx)
+        .on("transactionHash", function (hash: any) {
+          console.log("Transaction Hash:", hash);
+        })
+        .on("receipt", function (receipt: any) {
+          console.log("Transaction Receipt:", receipt);
+        })
+        .on("confirmation", function (confirmationNumber: any, receipt: any) {
+          console.log("Confirmation Number:", confirmationNumber);
+          console.log("Transaction Receipt:", receipt);
+        })
+        .on("error", console.error);
+    });
+
+    // call the transfer function web3.eth.getTransactionCount . call this function
+    // with the from address and the nonce
+
+    // dframeContract.methods
+    //   .transfer(senderAddress, amount)
+    //   .send({ from: _walletAddress })
+    //   .on("transactionHash", function (hash: any) {
+    //     console.log("Transaction Hash:", hash);
+    //   })
+    //   .on("receipt", function (receipt: any) {
+    //     console.log("Transaction Receipt:", receipt);
+    //   })
+    //   .on("confirmation", function (confirmationNumber: any, receipt: any) {
+    //     console.log("Confirmation Number:", confirmationNumber);
+    //     console.log("Transaction Receipt:", receipt);
+    //   })
+    //   .on("error", console.error);
 
     getPastEvents();
     setSenderAddress("");
@@ -317,6 +367,8 @@ export default function Wallet() {
 
     setContentCopiedSuccesfully(false);
   };
+
+  //  function to get the past events of the DFT token contract
   async function getPastEvents() {
     // initialize the Web3 provider
     const web3 = new Web3(
@@ -327,10 +379,10 @@ export default function Wallet() {
     // set the wallet address to query
     const _walletAddress =
       walletAddress || localStorage.getItem("walletAddress");
-    // set the contract address of the MATIC token
+    // set the contract address of the DFT token
     const dframeAddress = "0x0B6163c61D095b023EC3b52Cc77a9099f6231FCC";
 
-    // set the ABI for the MATIC token contract
+    // set the ABI for the DFT token contract
     const dframeABI = [
       { inputs: [], stateMutability: "nonpayable", type: "constructor" },
       {
@@ -583,7 +635,7 @@ export default function Wallet() {
       },
     ];
 
-    // get the MATIC token contract instance
+    // get the DFT token contract instance
     const dframeContract = new web3.eth.Contract(
       dframeABI as any,
       dframeAddress
@@ -601,10 +653,7 @@ export default function Wallet() {
         balanceInEth
     );
     const balanceInKFormat =
-      ((balanceInEth as any) / 1000).toString() +
-      "." +
-      ((balanceInEth as any) % 1000).toString() +
-      "K";
+      Math.trunc((balanceInEth as any) / 1000).toString() + "K";
     setWalletBalance(balanceInKFormat);
     // get the transfer events of the MATIC token for the specified wallet address
     const transferFromEvents = await dframeContract.getPastEvents("Transfer", {
@@ -642,7 +691,10 @@ export default function Wallet() {
       (a, b) => (b as any).timestamp - (a as any).timestamp
     );
     setTransactionEvents(sortedEvents);
+    setLoadingTransactions(false);
   }
+
+  //  useeffect to get the past events of the DFRAME token
   useEffect(() => {
     getPastEvents();
   }, []);
@@ -658,147 +710,165 @@ export default function Wallet() {
           <Box className="transactions">
             <div className="transactionHeader">Transactions</div>
             <Divider />
-            <Box className="transactionBox">
-              {transactionEvents.map((event: any) => {
-                if (
-                  event.returnValues.from.toString().toLowerCase() ===
-                  _walletAddress.toString().toLowerCase()
-                ) {
-                  console.log("sent");
-                  return (
-                    <div
-                      className="transactionList"
-                      onClick={() => {
-                        // redirect to the transaction details page
-                        window.open(
-                          "https://polygonscan.com/tx/" + event.transactionHash,
-                          "_blank"
-                        );
-                      }}
-                    >
-                      <div className="transactionListTop">
-                        <div className="transactionListTopLeft">
-                          <p className="transactionListTopLeftText">
-                            To: {event.returnValues.to.slice(0, 7)}....
-                            {event.returnValues.to.slice(-7)}
-                          </p>
-                        </div>
-                        <div className="transactionListTopRight">
-                          <p className="transactionListTopRightText">
-                            On:{" "}
-                            {new Date(event.timestamp * 1000)
-                              .toLocaleString()
-                              .slice(0, 9)}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="transactionListBottom">
-                        <div className="transactionListBottomLeft">
-                          <p className="transactionListBottomLeftText">
-                            Amount:{" "}
-                            {(Web3.utils.fromWei(
-                              event.returnValues.value,
-                              "ether"
-                            ) as any) >= 1000
-                              ? (Web3.utils.fromWei(
+            {
+              // if the transactions are loading, show the loading icon
+              loadingTransactions === true ? (
+                <div className="transactionLoading">
+                  <CircularProgress />
+                </div>
+              ) : (
+                <Box className="transactionBox">
+                  {transactionEvents.map((event: any) => {
+                    if (
+                      event.returnValues.from.toString().toLowerCase() ===
+                      _walletAddress.toString().toLowerCase()
+                    ) {
+                      console.log("sent");
+                      return (
+                        <div
+                          className="transactionList"
+                          onClick={() => {
+                            // redirect to the transaction details page
+                            window.open(
+                              "https://polygonscan.com/tx/" +
+                                event.transactionHash,
+                              "_blank"
+                            );
+                          }}
+                          key={event.transactionHash}
+                        >
+                          <div
+                            className="transactionListTop"
+                            key={event.transactionHash}
+                          >
+                            <div className="transactionListTopLeft">
+                              <p className="transactionListTopLeftText">
+                                To: {event.returnValues.to.slice(0, 7)}....
+                                {event.returnValues.to.slice(-7)}
+                              </p>
+                            </div>
+                            <div className="transactionListTopRight">
+                              <p className="transactionListTopRightText">
+                                On:{" "}
+                                {new Date(event.timestamp * 1000)
+                                  .toLocaleString()
+                                  .slice(0, 9)}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="transactionListBottom">
+                            <div className="transactionListBottomLeft">
+                              <p className="transactionListBottomLeftText">
+                                Amount:{" "}
+                                {(Web3.utils.fromWei(
                                   event.returnValues.value,
                                   "ether"
-                                ) as any) /
-                                  1000 +
-                                "K"
-                              : Web3.utils.fromWei(
+                                ) as any) >= 1000
+                                  ? (Web3.utils.fromWei(
+                                      event.returnValues.value,
+                                      "ether"
+                                    ) as any) /
+                                      1000 +
+                                    "K"
+                                  : Web3.utils.fromWei(
+                                      event.returnValues.value,
+                                      "ether"
+                                    )}{" "}
+                                DFT
+                              </p>
+                            </div>
+                            <div className="transactionListBottomCenter">
+                              <p className="transactionListBottomCenterText">
+                                At:{" "}
+                                {new Date(event.timestamp * 1000)
+                                  .toLocaleString()
+                                  .slice(11)}
+                              </p>
+                            </div>
+                            <div className="transactionListBottomRight">
+                              <p className="transactionListBottomRightTextSent">
+                                Sent
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    } else {
+                      console.log("received");
+                      return (
+                        <div
+                          className="transactionList"
+                          onClick={() => {
+                            // redirect to the transaction details page
+                            window.open(
+                              "https://polygonscan.com/tx/" +
+                                event.transactionHash,
+                              "_blank"
+                            );
+                          }}
+                        >
+                          <div className="transactionListTop">
+                            <div className="transactionListTopLeft">
+                              <p className="transactionListTopLeftText">
+                                From: {event.returnValues.from.slice(0, 7)}....
+                                {event.returnValues.from.slice(-6)}
+                              </p>
+                            </div>
+                            <div className="transactionListTopRight">
+                              <p className="transactionListTopRightText">
+                                On:{" "}
+                                {new Date(event.timestamp * 1000)
+                                  .toLocaleString()
+                                  .slice(0, 9)}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="transactionListBottom">
+                            <div className="transactionListBottomLeft">
+                              <p className="transactionListBottomLeftText">
+                                Amount:{" "}
+                                {(Web3.utils.fromWei(
                                   event.returnValues.value,
                                   "ether"
-                                )}{" "}
-                            DFT
-                          </p>
+                                ) as any) >= 1000
+                                  ? (Web3.utils.fromWei(
+                                      event.returnValues.value,
+                                      "ether"
+                                    ) as any) /
+                                      1000 +
+                                    "K"
+                                  : Web3.utils.fromWei(
+                                      event.returnValues.value,
+                                      "ether"
+                                    )}{" "}
+                                DFT
+                              </p>
+                            </div>
+                            <div className="transactionListBottomCenter">
+                              <p className="transactionListBottomCenterText">
+                                At:{" "}
+                                {new Date(
+                                  event.timestamp * 1000
+                                ).toLocaleTimeString("en-US", {
+                                  timeZone: "UTC",
+                                })}
+                              </p>
+                            </div>
+                            <div className="transactionListBottomRight">
+                              <p className="transactionListBottomRightTextreceived">
+                                Received
+                              </p>
+                            </div>
+                          </div>
                         </div>
-                        <div className="transactionListBottomCenter">
-                          <p className="transactionListBottomCenterText">
-                            At:{" "}
-                            {new Date(event.timestamp * 1000)
-                              .toLocaleString()
-                              .slice(11)}
-                          </p>
-                        </div>
-                        <div className="transactionListBottomRight">
-                          <p className="transactionListBottomRightTextSent">
-                            Sent
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                } else {
-                  console.log("received");
-                  return (
-                    <div
-                      className="transactionList"
-                      onClick={() => {
-                        // redirect to the transaction details page
-                        window.open(
-                          "https://polygonscan.com/tx/" + event.transactionHash,
-                          "_blank"
-                        );
-                      }}
-                    >
-                      <div className="transactionListTop">
-                        <div className="transactionListTopLeft">
-                          <p className="transactionListTopLeftText">
-                            From: {event.returnValues.from.slice(0, 7)}....
-                            {event.returnValues.from.slice(-6)}
-                          </p>
-                        </div>
-                        <div className="transactionListTopRight">
-                          <p className="transactionListTopRightText">
-                            On:{" "}
-                            {new Date(event.timestamp * 1000)
-                              .toLocaleString()
-                              .slice(0, 9)}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="transactionListBottom">
-                        <div className="transactionListBottomLeft">
-                          <p className="transactionListBottomLeftText">
-                            Amount:{" "}
-                            {(Web3.utils.fromWei(
-                              event.returnValues.value,
-                              "ether"
-                            ) as any) >= 1000
-                              ? (Web3.utils.fromWei(
-                                  event.returnValues.value,
-                                  "ether"
-                                ) as any) /
-                                  1000 +
-                                "K"
-                              : Web3.utils.fromWei(
-                                  event.returnValues.value,
-                                  "ether"
-                                )}{" "}
-                            DFT
-                          </p>
-                        </div>
-                        <div className="transactionListBottomCenter">
-                          <p className="transactionListBottomCenterText">
-                            At:{" "}
-                            {new Date(event.timestamp * 1000)
-                              .toLocaleString()
-                              .slice(11)}
-                          </p>
-                        </div>
-                        <div className="transactionListBottomRight">
-                          <p className="transactionListBottomRightTextreceived">
-                            Received
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                }
-              })}
-              <p className="extraSpace"></p>
-            </Box>
+                      );
+                    }
+                  })}
+
+                  <p className="extraSpace"></p>
+                </Box>
+              )
+            }
           </Box>
           <Box className="userWallet">
             <p>Wallet Balance : {walletBalance} DFT</p>

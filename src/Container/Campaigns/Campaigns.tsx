@@ -6,12 +6,12 @@ import {
   Backdrop,
   Button,
   FormControlLabel,
+  Modal,
   Switch,
   TextField,
 } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
+import { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
 import axios from "axios";
@@ -38,6 +38,24 @@ export default function Campaigns() {
   const [inputValue, setInputValue] = useState("");
   const { _id, token } = React.useContext(MyContext);
   const [tagsExist, setTagsExist] = useState(false);
+  const [allAdsDetails, setAllAdsDetails] = useState<any>([]);
+  const [particularAdsDetails, setParticularAdsDetails] = useState<any>();
+  const [edit, setEdit] = useState(false);
+  const style = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 900,
+    height: 500,
+    bgcolor: "white",
+    boxShadow: 24,
+    border: "0",
+    p: 3,
+    borderRadius: "1.1vh",
+    overflow: "hidden",
+    overflowY: "scroll",
+  };
   const {
     register,
     handleSubmit,
@@ -51,11 +69,11 @@ export default function Campaigns() {
   const [formopen, setFormopen] = useState(false);
   const [nextpage, setNextpage] = useState(false);
   async function submitAdCampaign() {
-    const id = _id || localStorage.getItem("id");
-    console.log("id", id);
+    const clientId = _id || localStorage.getItem("id");
+    console.log("id", clientId);
     await axios
       .post("http://localhost:3000/ads", {
-        clientId: Number(id),
+        clientId: clientId,
         campaignName: campaignName,
         campaignType: campaignType,
         adName: adName,
@@ -81,18 +99,44 @@ export default function Campaigns() {
     setAdTags(adTags.filter((_: any, index: any) => index !== indexToRemove));
   };
 
-  async function getParticularCampaign() {
+  async function getAllCampaigns() {
     const id = _id || localStorage.getItem("id");
     await axios
-      .get(`http://localhost:3000/ads/643d60b5f70acc7cd413b405`)
+      .get(`http://localhost:3000/ads/64567278729a9ccf7b616461`)
+      // ""
       .then((res) => {
-        console.log("res.data");
-        console.log(res.data);
+        console.log("All Ads Details", res.data);
+        setAllAdsDetails(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }
+
+  async function getParticularCampaign(
+    id: any,
+    e: React.MouseEvent<HTMLDivElement>
+  ) {
+    await axios
+      .get(`http://localhost:3000/ads/${id}`)
+      .then((res) => {
+        // console.log("Particular Ad Details", res.data);
+        setParticularAdsDetails(res.data);
+        setEdit(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  useEffect(() => {
+    getAllCampaigns();
+  }, []);
+
+  useEffect(() => {
+    // console.log("Particular Ads Details", allAdsDetails);
+  }, [getAllCampaigns]);
+
   return (
     <>
       <>{Sidebar(4)}</>
@@ -304,7 +348,6 @@ export default function Campaigns() {
               <div className="campaignNameHeading">Campaign Name</div>
               <div className="bidStrategy">Bid Strategy</div>
               <div className="budgetDFT">Budget (DFT)</div>
-              <div className="statusCampaignHeading">Status</div>
               <div className="editCampaignHeading">Edit</div>
               <div className="typeHeading">Type</div>
               <div className="reachHeading">Reach</div>
@@ -313,29 +356,127 @@ export default function Campaigns() {
             </div>
 
             <div className="campaignsDetails">
-              <div className="adDetails">
-                <div className="campaignNameDetails">Campaign 1</div>
-                <div className="bidStrategyDetails">Normal</div>
-                <div className="budgetDFTDetails">34</div>
-                <div className="statusCampaignDetailss">
-                  <FormControlLabel
-                    label=""
-                    className="statusSwitch"
-                    // onClick={() => setSurveyActive(item._id)}
-                    control={<Switch />}
-                  />
+              {allAdsDetails && (
+                <div className="adDetails">
+                  <div className="campaignNameDetails">
+                    {allAdsDetails.campaignName}
+                  </div>
+                  <div className="bidStrategyDetails">Normal(S)</div>
+                  <div className="budgetDFTDetails">34(S)</div>
+                  <div
+                    className="editCampaignDetails"
+                    onClick={(e) => getParticularCampaign(allAdsDetails._id, e)}
+                  >
+                    <EditIcon />
+                  </div>
+                  <div className="typeDetails">Active(S)</div>
+                  <div className="reachDetails">5000(S)</div>
+                  <div className="startDateCampaignDetails">
+                    {allAdsDetails.startDate}
+                  </div>
+                  <div className="endDateCampginDetails">
+                    {allAdsDetails.endDate}
+                  </div>
                 </div>
-                <div className="editCampaignDetails">
-                  <EditIcon />
-                </div>
-                <div className="typeDetails">Active</div>
-                <div className="reachDetails">5000</div>
-                <div className="startDateCampaignDetails">12-03-2023</div>
-                <div className="endDateCampginDetails">31-12-2023</div>
-              </div>
+              )}
             </div>
+            {particularAdsDetails && (
+              <Modal
+                open={edit}
+                onClose={() => {
+                  setEdit(false);
+                }}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <div className="modalHeaderCampaignsPage">
+                    <h1 className=" modalHeaderCampaignName ">
+                      {particularAdsDetails.campaignName}
+                    </h1>
+                    <p className="modalHeaderCampaignType">
+                      {particularAdsDetails.campaignType}
+                    </p>
+                    <button
+                      className="modalCloseButtonCampaignsPage"
+                      onClick={() => setEdit(false)}
+                    >
+                      X
+                    </button>
+                  </div>
+                  <div className="modalBodyCampaignsPage">
+                    <div className="modalBodyCampaignsPageTop">
+                      <h2 className="modalBodyCampaignsPageHeadingTitle">
+                        Ad Name:-{" "}
+                      </h2>
+                      <h2> </h2>
+                      <h2 className="modalBodyCampaignsPageHeading">
+                        {" "}
+                        {particularAdsDetails.adName}
+                      </h2>
+                    </div>
+                    <div className="modalBodyCampaignsPageMiddle">
+                      <p className="modalBodyCampaignsPageContentTitle">
+                        Ad Content:-{" "}
+                      </p>
+                      <p> </p>
+                      <p className="modalBodyCampaignsPageContent">
+                        {particularAdsDetails.adContent}
+                      </p>
+                    </div>
+                    <div className="modalBodyCampaignsPageBottom">
+                      <p className="modalBodyCampaignsPageBottomTitle">
+                        Ad Tags:-{" "}
+                      </p>
+                      <p> </p>
+                      <p className="modalBodyCampaignsPageBottomContent">
+                        {particularAdsDetails.tags.length > 0 ? (
+                          particularAdsDetails.tags.map(
+                            (tag: any, index: any) => (
+                              <div
+                                key={index}
+                                className="tagAddedDivCampaignsPage"
+                              >
+                                <span>{tag}</span>
+                              </div>
+                            )
+                          )
+                        ) : (
+                          <div className="tagAddedDivCampaignsPage">
+                            <span>No Tags Added</span>
+                          </div>
+                        )}
+                      </p>
+                    </div>
+                    <div className="modalBodyCampaignsPageBottom">
+                      <p className="modalBodyCampaignsPageBottomTitle">
+                        Users Reached:-{" "}
+                      </p>
+                      <p> </p>
+                      <p className="modalBodyCampaignsPageBottomContent">
+                        {particularAdsDetails.users.length > 0 ? (
+                          particularAdsDetails.users.map(
+                            (user: any, index: any) => (
+                              <div
+                                key={index}
+                                className="tagAddedDivCampaignsPage"
+                              >
+                                <span>{user}</span>
+                              </div>
+                            )
+                          )
+                        ) : (
+                          <div className="tagAddedDivCampaignsPage">
+                            <span>No Users Reached</span>
+                          </div>
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                </Box>
+              </Modal>
+            )}
           </div>
-          <button onClick={() => getParticularCampaign()}>click</button>
         </div>
       </div>
     </>

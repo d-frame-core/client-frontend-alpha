@@ -448,6 +448,12 @@ const CreateSurvey = () => {
             </div>
 
             <div className="createSurveyDetails">
+              {
+                // no data in fetched data
+                fetchedData.length === 0 && (
+                  <div className="noDataCreateSurvey">No Data to display</div>
+                )
+              }
               {fetchedData.map((item: any) => {
                 return (
                   <div
@@ -496,10 +502,10 @@ const CreateSurvey = () => {
                       {" "}
                       {item.endDate.toString().slice(0, 10)}{" "}
                     </div>
+                    <div className="lastEntry"></div>
                   </div>
                 );
               })}
-              <div className="lastEntry"></div>
             </div>
           </div>
         </div>
