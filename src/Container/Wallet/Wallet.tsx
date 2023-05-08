@@ -308,51 +308,25 @@ export default function Wallet() {
     );
     const amount = web3.utils.toWei(dftAmount as any, "ether");
 
-    // transfer DFT tokens using web3.eth.getTransactionCount
-    web3.eth.getTransactionCount(_walletAddress).then((nonce) => {
-      const tx = {
-        from: _walletAddress,
-        to: senderAddress,
-        value: amount,
-        gas: 2000000,
-        nonce: nonce,
-        gasPrice: web3.utils.toWei("10", "gwei"),
-      };
-      dframeContract.methods // call the transfer function
-        .transfer(senderAddress, amount)
-        .send(tx)
-        .on("transactionHash", function (hash: any) {
-          console.log("Transaction Hash:", hash);
-        })
-        .on("receipt", function (receipt: any) {
-          console.log("Transaction Receipt:", receipt);
-        })
-        .on("confirmation", function (confirmationNumber: any, receipt: any) {
-          console.log("Confirmation Number:", confirmationNumber);
-          console.log("Transaction Receipt:", receipt);
-        })
-        .on("error", console.error);
-    });
+    // transfer DFT tokens using web3
 
-    // call the transfer function web3.eth.getTransactionCount . call this function
-    // with the from address and the nonce
-
-    // dframeContract.methods
-    //   .transfer(senderAddress, amount)
-    //   .send({ from: _walletAddress })
-    //   .on("transactionHash", function (hash: any) {
-    //     console.log("Transaction Hash:", hash);
-    //   })
-    //   .on("receipt", function (receipt: any) {
-    //     console.log("Transaction Receipt:", receipt);
-    //   })
-    //   .on("confirmation", function (confirmationNumber: any, receipt: any) {
-    //     console.log("Confirmation Number:", confirmationNumber);
-    //     console.log("Transaction Receipt:", receipt);
-    //   })
-    //   .on("error", console.error);
-
-    getPastEvents();
+    dframeContract.methods
+      .transfer(senderAddress, amount)
+      .send({ from: _walletAddress, gasPrice: web3.utils.toWei("300", "gwei") }) // Adjust the gas price as needed
+      .on("transactionHash", function (hash: any) {
+        console.log("Transaction Hash:", hash);
+      })
+      .on("receipt", function (receipt: any) {
+        console.log("Transaction Receipt:", receipt);
+      })
+      .on("confirmation", function (confirmationNumber: any, receipt: any) {
+        console.log("Confirmation Number:", confirmationNumber);
+        console.log("Transaction Receipt:", receipt);
+      })
+      .on("error", console.error);
+    setTimeout(() => {
+      getPastEvents();
+    }, 4000);
     setSenderAddress("");
     setDftAmount("");
   };
@@ -705,9 +679,9 @@ export default function Wallet() {
     <div>
       <>{Sidebar(2)}</>
       <div className="Wallet">
-        <Box>
-          <div className="head">Wallet</div>
-          <Box className="transactions">
+        <div className="head">Wallet</div>
+        <div className="walletBox">
+          <div className="transactions">
             <div className="transactionHeader">Transactions</div>
             <Divider />
             {
@@ -717,7 +691,7 @@ export default function Wallet() {
                   <CircularProgress />
                 </div>
               ) : (
-                <Box className="transactionBox">
+                <div className="transactionBox">
                   {transactionEvents.map((event: any) => {
                     if (
                       event.returnValues.from.toString().toLowerCase() ===
@@ -750,9 +724,13 @@ export default function Wallet() {
                             <div className="transactionListTopRight">
                               <p className="transactionListTopRightText">
                                 On:{" "}
-                                {new Date(event.timestamp * 1000)
-                                  .toLocaleString()
-                                  .slice(0, 9)}
+                                {new Date(
+                                  event.timestamp * 1000
+                                ).toLocaleDateString("en-US", {
+                                  month: "2-digit",
+                                  day: "2-digit",
+                                  year: "2-digit",
+                                })}
                               </p>
                             </div>
                           </div>
@@ -781,8 +759,16 @@ export default function Wallet() {
                               <p className="transactionListBottomCenterText">
                                 At:{" "}
                                 {new Date(event.timestamp * 1000)
-                                  .toLocaleString()
-                                  .slice(11)}
+                                  .toLocaleTimeString("en-US", {
+                                    timeZone: "UTC",
+                                  })
+                                  .slice(0, 4) +
+                                  " " +
+                                  new Date(event.timestamp * 1000)
+                                    .toLocaleTimeString("en-US", {
+                                      timeZone: "UTC",
+                                    })
+                                    .slice(-2)}
                               </p>
                             </div>
                             <div className="transactionListBottomRight">
@@ -806,6 +792,7 @@ export default function Wallet() {
                               "_blank"
                             );
                           }}
+                          key={event.transactionHash}
                         >
                           <div className="transactionListTop">
                             <div className="transactionListTopLeft">
@@ -817,9 +804,13 @@ export default function Wallet() {
                             <div className="transactionListTopRight">
                               <p className="transactionListTopRightText">
                                 On:{" "}
-                                {new Date(event.timestamp * 1000)
-                                  .toLocaleString()
-                                  .slice(0, 9)}
+                                {new Date(
+                                  event.timestamp * 1000
+                                ).toLocaleDateString("en-US", {
+                                  month: "2-digit",
+                                  day: "2-digit",
+                                  year: "2-digit",
+                                })}
                               </p>
                             </div>
                           </div>
@@ -847,11 +838,17 @@ export default function Wallet() {
                             <div className="transactionListBottomCenter">
                               <p className="transactionListBottomCenterText">
                                 At:{" "}
-                                {new Date(
-                                  event.timestamp * 1000
-                                ).toLocaleTimeString("en-US", {
-                                  timeZone: "UTC",
-                                })}
+                                {new Date(event.timestamp * 1000)
+                                  .toLocaleTimeString("en-US", {
+                                    timeZone: "UTC",
+                                  })
+                                  .slice(0, 4) +
+                                  " " +
+                                  new Date(event.timestamp * 1000)
+                                    .toLocaleTimeString("en-US", {
+                                      timeZone: "UTC",
+                                    })
+                                    .slice(-2)}
                               </p>
                             </div>
                             <div className="transactionListBottomRight">
@@ -866,10 +863,10 @@ export default function Wallet() {
                   })}
 
                   <p className="extraSpace"></p>
-                </Box>
+                </div>
               )
             }
-          </Box>
+          </div>
           <Box className="userWallet">
             <p>Wallet Balance : {walletBalance} DFT</p>
             {/* {walletAddress} */}
@@ -910,7 +907,7 @@ export default function Wallet() {
               </button>
             </div>
           </Box>
-        </Box>
+        </div>
       </div>
       {contentCopiedSuccesfully && (
         <Snackbar
