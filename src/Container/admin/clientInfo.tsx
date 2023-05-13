@@ -107,7 +107,7 @@ const rows = [
   createData('Oreo', 437, 18.0),
 ].sort((a, b) => (a.calories < b.calories ? -1 : 1));
 
-export default function CustomPaginationActionsTable() {
+export default function ClientInfo() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -137,14 +137,14 @@ export default function CustomPaginationActionsTable() {
         <Box sx={{padding:"20px"}}>
           <Box sx={{display:"flex"}}>
             <Box sx={{background:"white",padding:"16px",borderRadius:"8px",marginBottom:"16px", textAlign:"center",fontSize:"20px"}}>
-               Dframe Stats
+               Dframe Client Stats
               <DftStat />
             </Box>
             <Box sx={{padding:"4px", marginLeft:"16px",height:"375px",width:"450px"}}>
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#ed5151",color:"white"}}>
-                  <p>Average Active Users</p>
+                  <p>Average Active Clients</p>
                   <p>233</p>
                 </Box>
               </Grid>
@@ -156,13 +156,13 @@ export default function CustomPaginationActionsTable() {
               </Grid>
               <Grid item xs={6}>
                 <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#e6de02",color:"white"}}>
-                  <p>Dft Distributed to Users</p>
+                  <p>Dft Client Bought</p>
                   <p>15231 DFT</p>
                 </Box>
               </Grid>
               <Grid item xs={6}>
                 <Box sx={{background:"white",borderRadius:"8px",padding:"4px",textAlign:"center",fontSize:"18px",backgroundColor:"#2c9e41",color:"white"}}>
-                  <p>To be distributed this month</p>
+                  <p>This mmonth pridiction Of DFT use</p>
                   <p style={{marginTop:"-12px"}}>2123 DFT</p>
                 </Box>
               </Grid>
