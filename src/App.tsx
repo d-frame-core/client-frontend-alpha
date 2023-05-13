@@ -17,6 +17,19 @@ import SurveyHistory from "./Container/SurveyHistory/SurveyHistory";
 import Connect from "./Container/Connect Wallet/Connect";
 import SurveyAnalytics from "./Container/SurveyAnalytics/SurveyAnalytics";
 import Dashboard from "./Container/admin/Dashboard";
+import KycUser from "./Container/admin/Kyc";
+import UserHelp from "./Container/admin/userHelp";
+import UserLearn from "./Container/admin/userLearn";
+import ClientHelp from "./Container/admin/clientHelp";
+import ClientLearn from "./Container/admin/clientLearn";
+import UserAnalytics from "./Container/admin/userAnalytics";
+import ClientAnalytics from "./Container/admin/clientAnalytics";
+import ClientInfo from "./Container/admin/clientInfo";
+import ClientVerification from "./Container/admin/clientVerification";
+import SingleUser from "./Container/admin/singleUser";
+import SingleClient from "./Container/admin/singleClient";
+import SingleCampaign from "./Container/admin/singleCampaign";
+import CampaignInfo from "./Container/admin/campaignInfo";
 
 function App() {
   return (
@@ -39,6 +52,19 @@ function App() {
           <Route path="/survey-history" element={<SurveyHistory />} />
           <Route path="/survey-analytics/*" element={<SurveyAnalytics />} />
           <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/userKyc" element={<KycUser />} />
+          <Route path="/admin/userHelp" element={<UserHelp />} />
+          <Route path="/admin/userLearn" element={<UserLearn />} />
+          <Route path="/admin/clientHelp" element={<ClientHelp />} />
+          <Route path="/admin/clientLearn" element={<ClientLearn />} />
+          <Route path="/admin/userAnalytics" element={<UserAnalytics />} /> 
+          <Route path="/admin/clientAnalytics" element={<ClientAnalytics />} /> 
+          <Route path="/admin/clientInfo" element={<ClientInfo />} /> 
+          <Route path="/admin/clientVerification" element={<ClientVerification />} /> 
+          <Route path="/admin/singleUser" element={<SingleUser />} />
+          <Route path="/admin/singleClient" element={<SingleClient />} /> 
+          <Route path="/admin/singleCampaign" element={<SingleCampaign />} />
+          <Route path="/admin/campaignInfo" element={<CampaignInfo />} />
         </Routes>
       </Router>
     </div>

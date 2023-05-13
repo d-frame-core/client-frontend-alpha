@@ -17,8 +17,15 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import { Grid } from '@mui/material';
-import DftStat from '../../components/admin/user/dashboard/SideTabs';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -29,7 +36,6 @@ interface TablePaginationActionsProps {
     newPage: number,
   ) => void;
 }
-
 
 function TablePaginationActions(props: TablePaginationActionsProps) {
   const theme = useTheme();
@@ -87,30 +93,44 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-function createData(name: string, calories: number, fat: number) {
-  return { name, calories, fat };
+function createData(name: string, lastUpdated: any) {
+  return { name, lastUpdated };
 }
 
 const rows = [
-  createData('Cupcake', 305, 3.7),
-  createData('Donut', 452, 25.0),
-  createData('Eclair', 262, 16.0),
-  createData('Frozen yoghurt', 159, 6.0),
-  createData('Gingerbread', 356, 16.0),
-  createData('Honeycomb', 408, 3.2),
-  createData('Ice cream sandwich', 237, 9.0),
-  createData('Jelly Bean', 375, 0.0),
-  createData('KitKat', 518, 26.0),
-  createData('Lollipop', 392, 0.2),
-  createData('Marshmallow', 318, 0),
-  createData('Nougat', 360, 19.0),
-  createData('Oreo', 437, 18.0),
-].sort((a, b) => (a.calories < b.calories ? -1 : 1));
+  createData('What is Dframe', "11/12/22"),
+  createData('How can I use Dframe', "12/12/22"),
+  createData('What are the benefits of Dframe', "13/12/22"),
+  createData('Is my data safe with Dframe', "14/12/22"),
+  createData('How does dframe work', "15/12/22"),
+  createData('What is Dframe', "11/12/22"),
+  createData('How can I use Dframe', "12/12/22"),
+  createData('What are the benefits of Dframe', "13/12/22"),
+  createData('Is my data safe with Dframe', "14/12/22"),
+  createData('How does dframe work', "15/12/22"),
+]
 
-export default function CustomPaginationActionsTable() {
+export default function ClientHelp() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [open, setOpen] = React.useState(false);
+  const [openEdit, setOpenEdit] = React.useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleClickOpenEdit = () => {
+    setOpenEdit(true);
+  };
+
+  const handleCloseEdit = () => {
+    setOpenEdit(false);
+  };
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -132,67 +152,100 @@ export default function CustomPaginationActionsTable() {
   return (
     <Box sx={{ display: 'flex'}} >
       <Sidebar/>
-      <Box style={{background:"#f3f3f3"}}>
+      <Box style={{background:"#f3f3f3",minHeight:"100vh"}}>
         <Header />
+
+        <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Help Questions</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            <Box>
+                <h3>Question</h3>
+                <ul>
+                    <li>What is Dframe</li>
+                    <li>Dframe is a project which will help user to get rewarded for their data</li>
+                    <li>Any image</li>
+                    <li>Any pdf</li>
+                </ul>
+            </Box>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Close</Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={openEdit} onClose={handleCloseEdit} maxWidth="md">
+        <DialogTitle>Edit Help Questions</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            <Box>
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Question"
+                    type="email"
+                    fullWidth
+                    variant="standard"
+                    value="what is dframe"
+                />
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Answer"
+                    type="email"
+                    fullWidth
+                    variant="standard"
+                    value="Dframe is way for user to get rewarded for his/her data"
+                />
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Question"
+                    type="email"
+                    fullWidth
+                    variant="standard"
+                    value="what is dframe"
+                />
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Answer"
+                    type="email"
+                    fullWidth
+                    variant="standard"
+                    value="Dframe is way for user to get rewarded for his/her data"
+                />
+            </Box>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseEdit}>Close</Button>
+        </DialogActions>
+      </Dialog>
+        
         <Box sx={{padding:"20px"}}>
-          <Box sx={{display:"flex"}}>
-            <Box sx={{background:"white",padding:"16px",borderRadius:"8px",marginBottom:"16px", textAlign:"center",fontSize:"20px"}}>
-               Dframe Stats
-              <DftStat />
-            </Box>
-            <Box sx={{padding:"4px", marginLeft:"16px",height:"375px",width:"450px"}}>
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#ed5151",color:"white"}}>
-                  <p>Average Active Users</p>
-                  <p>233</p>
-                </Box>
-              </Grid>
-              <Grid item xs={6}>
-                <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#4770f5",color:"white"}}>
-                  <p>DFT current value</p>
-                  <p>15 Rs</p>
-                </Box>
-              </Grid>
-              <Grid item xs={6}>
-                <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#e6de02",color:"white"}}>
-                  <p>Dft Distributed to Users</p>
-                  <p>15231 DFT</p>
-                </Box>
-              </Grid>
-              <Grid item xs={6}>
-                <Box sx={{background:"white",borderRadius:"8px",padding:"4px",textAlign:"center",fontSize:"18px",backgroundColor:"#2c9e41",color:"white"}}>
-                  <p>To be distributed this month</p>
-                  <p style={{marginTop:"-12px"}}>2123 DFT</p>
-                </Box>
-              </Grid>
-              <Grid item xs={6}>
-                <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#d91cd2",color:"white"}}>
-                  <p>Total Ads watched</p>
-                  <p>2321</p>
-                </Box>
-              </Grid>
-              <Grid item xs={6}>
-                <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#f09b2b",color:"white"}}>
-                  <p>Today's Ads Queue</p>
-                  <p>151</p>
-                </Box>
-              </Grid>
-            </Grid>
-            </Box>
-          </Box>
+            
         <TableContainer component={Paper}>
+        <Box sx={{padding:"10px",marginLeft:"10px",fontWeight:"500",fontSize:"180%"}}>Client Help Section</Box>
           <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <TableHead>
-            <TableRow>
-                <TableCell>
-                 Name
+            <TableRow >
+                <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
+                 Question
                 </TableCell>
-                <TableCell>
-                 Age
+                <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
+                 Last Updated
                 </TableCell>
-                <TableCell>
-                 Id
+                <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
+                 Edit
+                </TableCell>
+                <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
+                 Delete
                 </TableCell>
             </TableRow>
           </TableHead>
@@ -202,14 +255,17 @@ export default function CustomPaginationActionsTable() {
                 : rows
               ).map((row) => (
                 <TableRow key={row.name}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
+                  <TableCell width={620} onClick={handleClickOpen} sx={{cursor:"pointer",paddingX:"40px",'&:hover':{fontSize:"105%"}}}>
+                  {row.name}
                   </TableCell>
-                  <TableCell style={{ width: 160 }} align="right">
-                    {row.calories}
+                  <TableCell >
+                    {row.lastUpdated}
                   </TableCell>
-                  <TableCell style={{ width: 160 }} align="right">
-                    {row.fat}
+                  <TableCell onClick={handleClickOpenEdit} sx={{cursor:"pointer"}}>
+                    <EditIcon sx={{color:"#ae08c4"}}/>
+                  </TableCell>
+                  <TableCell >
+                    <DeleteIcon sx={{color:"#db040f"}}/>
                   </TableCell>
                 </TableRow>
               ))}

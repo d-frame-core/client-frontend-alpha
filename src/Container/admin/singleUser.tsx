@@ -17,8 +17,8 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import { Grid } from '@mui/material';
-import DftStat from '../../components/admin/user/dashboard/SideTabs';
+import { Grid, List, ListItem, ListItemText } from '@mui/material';
+import DftStats from '../../components/admin/user/SideTabsSecond';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -107,7 +107,7 @@ const rows = [
   createData('Oreo', 437, 18.0),
 ].sort((a, b) => (a.calories < b.calories ? -1 : 1));
 
-export default function CustomPaginationActionsTable() {
+export default function SingleUser() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -137,62 +137,137 @@ export default function CustomPaginationActionsTable() {
         <Box sx={{padding:"20px"}}>
           <Box sx={{display:"flex"}}>
             <Box sx={{background:"white",padding:"16px",borderRadius:"8px",marginBottom:"16px", textAlign:"center",fontSize:"20px"}}>
-               Dframe Stats
-              <DftStat />
-            </Box>
-            <Box sx={{padding:"4px", marginLeft:"16px",height:"375px",width:"450px"}}>
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#ed5151",color:"white"}}>
-                  <p>Average Active Users</p>
-                  <p>233</p>
-                </Box>
-              </Grid>
-              <Grid item xs={6}>
-                <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#4770f5",color:"white"}}>
-                  <p>DFT current value</p>
-                  <p>15 Rs</p>
-                </Box>
-              </Grid>
-              <Grid item xs={6}>
-                <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#e6de02",color:"white"}}>
-                  <p>Dft Distributed to Users</p>
-                  <p>15231 DFT</p>
-                </Box>
-              </Grid>
-              <Grid item xs={6}>
-                <Box sx={{background:"white",borderRadius:"8px",padding:"4px",textAlign:"center",fontSize:"18px",backgroundColor:"#2c9e41",color:"white"}}>
-                  <p>To be distributed this month</p>
-                  <p style={{marginTop:"-12px"}}>2123 DFT</p>
-                </Box>
-              </Grid>
-              <Grid item xs={6}>
-                <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#d91cd2",color:"white"}}>
-                  <p>Total Ads watched</p>
-                  <p>2321</p>
-                </Box>
-              </Grid>
-              <Grid item xs={6}>
-                <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#f09b2b",color:"white"}}>
-                  <p>Today's Ads Queue</p>
-                  <p>151</p>
-                </Box>
-              </Grid>
-            </Grid>
+               User Activity
+               <DftStats />
             </Box>
           </Box>
+
+
+          <Box sx={{display:"flex"}}>
+            <Box sx={{background:"white",padding:"16px",borderRadius:"8px",marginBottom:"16px", textAlign:"center",fontSize:"20px",width:"100%"}}>
+               User Info
+               <Grid container spacing={20}>
+                <Grid item xs={6}>
+                    <Box>
+                        <ul>
+                            <li>
+                            <Grid container spacing={2}>
+                                <Grid item xs={5}>
+                                    <Box >First Name</Box>
+                                </Grid>
+                                <Grid item xs={1}>
+                                    <Box>-</Box>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Box>Alex</Box>
+                                </Grid>
+                            </Grid>
+                            </li>
+                            <li>
+                            <Grid container spacing={2}>
+                                <Grid item xs={5}>
+                                    <Box >First Name</Box>
+                                </Grid>
+                                <Grid item xs={1}>
+                                    <Box>-</Box>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Box>Alex</Box>
+                                </Grid>
+                            </Grid>
+                            </li>
+                            <li>
+                            <Grid container spacing={2}>
+                                <Grid item xs={5}>
+                                    <Box >First Name</Box>
+                                </Grid>
+                                <Grid item xs={1}>
+                                    <Box>-</Box>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Box>Alex</Box>
+                                </Grid>
+                            </Grid>
+                            </li>
+                            <li>
+                            <Grid container spacing={2}>
+                                <Grid item xs={5}>
+                                    <Box >First Name</Box>
+                                </Grid>
+                                <Grid item xs={1}>
+                                    <Box>-</Box>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Box>Alex</Box>
+                                </Grid>
+                            </Grid>
+                            </li>
+                        </ul>
+                    </Box>
+                </Grid>
+                <Grid item xs={6}>
+                    <Box>
+                        <ul>
+                            <li>
+                            <Grid container spacing={2}>
+                                <Grid item xs={5}>
+                                    <Box >First Name</Box>
+                                </Grid>
+                                <Grid item xs={1}>
+                                    <Box>-</Box>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Box>Alex</Box>
+                                </Grid>
+                            </Grid>
+                            </li>
+                            <li>
+                            <Grid container spacing={2}>
+                                <Grid item xs={5}>
+                                    <Box >First Name</Box>
+                                </Grid>
+                                <Grid item xs={1}>
+                                    <Box>-</Box>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Box>Alex</Box>
+                                </Grid>
+                            </Grid>
+                            </li>
+                            <li>
+                            <Grid container spacing={2}>
+                                <Grid item xs={5}>
+                                    <Box >First Name</Box>
+                                </Grid>
+                                <Grid item xs={1}>
+                                    <Box>-</Box>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Box>Alex</Box>
+                                </Grid>
+                            </Grid>
+                            </li>
+                        </ul>
+                    </Box>
+                </Grid>
+                </Grid>
+               <Box>
+               </Box>
+            </Box>
+          </Box>
+
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <TableHead>
             <TableRow>
                 <TableCell>
-                 Name
+                 User Activity
                 </TableCell>
                 <TableCell>
-                 Age
+                 Time
                 </TableCell>
                 <TableCell>
-                 Id
+                 Rewards
                 </TableCell>
             </TableRow>
           </TableHead>
