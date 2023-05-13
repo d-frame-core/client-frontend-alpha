@@ -1,9 +1,9 @@
+// importing required files and packages here.
 import { Box } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import user from "../../assets/userIcon.png";
 import Grid from "@mui/material/Grid";
-// import "./profile.css";
 import "./profilep.css";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import { MyContext } from "../../components/context/Context";
@@ -11,13 +11,18 @@ import axios from "axios";
 import { async } from "@firebase/util";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Alert, Snackbar } from "@mui/material";
+
+// default function here.
 export default function Profile() {
+  // defining states here.
   const [openImageToast, setOpenImageToast] = useState(false);
   const [openToast, setOpenToast] = useState(false);
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
   const [files, setFiles] = useState(user);
   const [image, setImage] = useState("");
+
+  /// using context here.
   const {
     _id,
     companyAddress1,
@@ -37,6 +42,7 @@ export default function Profile() {
     setImageUrl,
   } = useContext(MyContext);
 
+  // function to handle file change here.
   const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setOpenImageToast(true);
@@ -73,9 +79,12 @@ export default function Profile() {
     };
   };
 
+  // function to change the edit mode here
   const handleEdit = () => {
     setEdit(!edit);
   };
+
+  // function to save the data of profile edited here
   const handleSave = async () => {
     setEdit(!edit);
     setOpenToast(true);
@@ -98,6 +107,8 @@ export default function Profile() {
         console.log("error in sending data to server", error);
       });
   };
+
+  // function to fetch the image here.
   const fetchImage = async () => {
     const imageUrl = _imageUrl || localStorage.getItem("imageUrl");
 
@@ -113,6 +124,7 @@ export default function Profile() {
     }
   };
 
+  //  use effect to fetch the data from the server here.
   useEffect(() => {
     const id = _id || localStorage.getItem("id");
     const _token = token || localStorage.getItem("token");
@@ -126,7 +138,6 @@ export default function Profile() {
       .then((response) => {
         if (response.data.message === "Welcome to protected routes") {
           const imageId = localStorage.getItem("imageID") || "defaultImageId";
-          //fetchImage();
 
           fetchImage().then(() => {
             console.log("..........");

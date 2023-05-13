@@ -9,6 +9,7 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import data from "./data.json";
 import CircularProgress from "@mui/material/CircularProgress";
 import Web3 from "web3";
+import { set } from "react-hook-form";
 export default function Wallet() {
   //  importing from context api
   const { walletAddress, walletBalance, setWalletBalance } =
@@ -17,6 +18,8 @@ export default function Wallet() {
 
   //  defining state variables
   const [walletdata, setwalletdata] = useState(data);
+  const [transactionUnderProgress, setTransactionUnderProgress] =
+    useState(false);
 
   const [senderAddress, setSenderAddress] = useState("");
   const [dftAmount, setDftAmount] = useState("");
@@ -31,7 +34,7 @@ export default function Wallet() {
   const copyContent = async (text: any) => {
     try {
       await navigator.clipboard.writeText(text);
-      console.log("Copied to clipboard");
+
       setContentCopiedSuccesfully(true);
     } catch (err) {
       console.error("Failed to copy: ", err);
@@ -40,6 +43,7 @@ export default function Wallet() {
 
   //  function to handle the close of the snackbar
   const handleSend = async () => {
+    setTransactionUnderProgress(true);
     const web3 = new Web3((window as any).ethereum);
 
     // set the wallet address to query
@@ -310,7 +314,7 @@ export default function Wallet() {
 
     // transfer DFT tokens using web3
 
-    dframeContract.methods
+    const tx = dframeContract.methods
       .transfer(senderAddress, amount)
       .send({ from: _walletAddress, gasPrice: web3.utils.toWei("300", "gwei") }) // Adjust the gas price as needed
       .on("transactionHash", function (hash: any) {
@@ -323,14 +327,22 @@ export default function Wallet() {
         console.log("Confirmation Number:", confirmationNumber);
         console.log("Transaction Receipt:", receipt);
       })
-      .on("error", console.error);
-    setTimeout(() => {
-      getPastEvents();
-    }, 4000);
+      .on("error", function (error: any) {
+        console.log("Error:", error);
+        alert("Error: " + error.message);
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      });
+    // wait for the tx on metamask to be completed then recall the getBalance function to update the balance and getpastevents function
+    await tx;
+    getPastEvents();
     setSenderAddress("");
     setDftAmount("");
+    setTransactionUnderProgress(false);
   };
 
+  // function to copy the contract address to clipboard
   const handleToastClose = (
     event?: React.SyntheticEvent | Event,
     reason?: string
@@ -620,12 +632,6 @@ export default function Wallet() {
       .balanceOf(_walletAddress)
       .call();
     const balanceInEth = web3.utils.fromWei(balance, "ether");
-    console.log(
-      "DFRAME balance of wallet address " +
-        _walletAddress +
-        " is " +
-        balanceInEth
-    );
     const balanceInKFormat =
       Math.trunc((balanceInEth as any) / 1000).toString() + "K";
     setWalletBalance(balanceInKFormat);
@@ -637,6 +643,8 @@ export default function Wallet() {
         from: _walletAddress,
       },
     });
+
+    //  get the transfer events of the MATIC token for the specified wallet address
     const eventFromPromises = transferFromEvents.map(async (event) => {
       const block = await web3.eth.getBlock(event.blockNumber);
       return {
@@ -644,6 +652,8 @@ export default function Wallet() {
         timestamp: block.timestamp,
       };
     });
+
+    // get the transfer events of the MATIC token for the specified wallet address
     const eventsFromWithTimestamps = await Promise.all(eventFromPromises);
     const transferToEvents = await dframeContract.getPastEvents("Transfer", {
       fromBlock: 0,
@@ -652,6 +662,8 @@ export default function Wallet() {
         to: _walletAddress,
       },
     });
+
+    // get the transfer events of the MATIC token for the specified wallet address
     const eventToPromises = transferToEvents.map(async (event) => {
       const block = await web3.eth.getBlock(event.blockNumber);
       return {
@@ -659,6 +671,8 @@ export default function Wallet() {
         timestamp: block.timestamp,
       };
     });
+
+    // get the transfer events of the MATIC token for the specified wallet address
     const eventsToWithTimestamps = await Promise.all(eventToPromises);
     const allEvents = [...eventsFromWithTimestamps, ...eventsToWithTimestamps];
     const sortedEvents = allEvents.sort(
@@ -672,9 +686,7 @@ export default function Wallet() {
   useEffect(() => {
     getPastEvents();
   }, []);
-  useEffect(() => {
-    console.log(transactionEvents);
-  }, [transactionEvents]);
+  useEffect(() => {}, [transactionEvents]);
   return (
     <div>
       <>{Sidebar(2)}</>
@@ -688,6 +700,7 @@ export default function Wallet() {
               // if the transactions are loading, show the loading icon
               loadingTransactions === true ? (
                 <div className="transactionLoading">
+                  Loading transactions...
                   <CircularProgress />
                 </div>
               ) : (
@@ -697,7 +710,6 @@ export default function Wallet() {
                       event.returnValues.from.toString().toLowerCase() ===
                       _walletAddress.toString().toLowerCase()
                     ) {
-                      console.log("sent");
                       return (
                         <div
                           className="transactionList"
@@ -759,9 +771,7 @@ export default function Wallet() {
                               <p className="transactionListBottomCenterText">
                                 At:{" "}
                                 {new Date(event.timestamp * 1000)
-                                  .toLocaleTimeString("en-US", {
-                                    timeZone: "UTC",
-                                  })
+                                  .toLocaleTimeString()
                                   .slice(0, 4) +
                                   " " +
                                   new Date(event.timestamp * 1000)
@@ -780,7 +790,6 @@ export default function Wallet() {
                         </div>
                       );
                     } else {
-                      console.log("received");
                       return (
                         <div
                           className="transactionList"
@@ -839,9 +848,7 @@ export default function Wallet() {
                               <p className="transactionListBottomCenterText">
                                 At:{" "}
                                 {new Date(event.timestamp * 1000)
-                                  .toLocaleTimeString("en-US", {
-                                    timeZone: "UTC",
-                                  })
+                                  .toLocaleTimeString()
                                   .slice(0, 4) +
                                   " " +
                                   new Date(event.timestamp * 1000)
@@ -902,9 +909,21 @@ export default function Wallet() {
                   type="walletPageInput"
                 />
               </div>
-              <button className="sendButton" onClick={handleSend}>
-                Send
-              </button>
+              {!transactionUnderProgress && (
+                <button className="sendButton" onClick={handleSend}>
+                  Send
+                </button>
+              )}
+              {
+                // show  a loader in place of SEND text when transactionunderprogress is true
+                transactionUnderProgress && (
+                  <button className="sendButton">
+                    <div className="loader">
+                      <CircularProgress />
+                    </div>
+                  </button>
+                )
+              }
             </div>
           </Box>
         </div>

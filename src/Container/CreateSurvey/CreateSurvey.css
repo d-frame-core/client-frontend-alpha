@@ -68,6 +68,7 @@
   border-top-right-radius: 10px;
   /* border: 1px solid blue;
   border-bottom: 0.5px solid blue; */
+  border-bottom: 1px solid blue;
 }
 .surveyName {
   display: flex;
@@ -162,7 +163,7 @@
   /* border-left: 1px solid blue;
   border-right: 1px solid blue; */
   /* border: 0.5px solid green; */
-  border-top: 1px solid blue;
+  border-bottom: 1px solid blue;
   cursor: pointer;
 
 }

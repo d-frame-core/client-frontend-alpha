@@ -114,8 +114,7 @@ const CreateSurvey = () => {
         isActive: false,
       })
       .then((res) => {
-        console.log(res);
-        window.location.reload();
+        fetchAllSurveys();
       })
       .catch((err) => {
         console.log(err);
@@ -129,10 +128,8 @@ const CreateSurvey = () => {
       })
       .then((res) => {
         // window.location.reload();
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
-        console.log(res);
+        // console.log(res);
+        fetchAllSurveys();
       })
       .catch((err) => {
         console.log(err);
@@ -502,7 +499,6 @@ const CreateSurvey = () => {
                       {" "}
                       {item.endDate.toString().slice(0, 10)}{" "}
                     </div>
-                    <div className="lastEntry"></div>
                   </div>
                 );
               })}

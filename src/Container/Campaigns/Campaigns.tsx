@@ -82,7 +82,7 @@ export default function Campaigns() {
         endDate: adEndDate,
         adUrl: adLink,
         adContent: adContent,
-        adTags: adTags,
+        tags: adTags,
       })
       .then((res) => {
         console.log(res.data);
@@ -102,7 +102,7 @@ export default function Campaigns() {
   async function getAllCampaigns() {
     const id = _id || localStorage.getItem("id");
     await axios
-      .get(`http://localhost:3000/ads/64567278729a9ccf7b616461`)
+      .get(`http://localhost:3000/ads/client/${id}`)
       // ""
       .then((res) => {
         console.log("All Ads Details", res.data);
@@ -113,14 +113,11 @@ export default function Campaigns() {
       });
   }
 
-  async function getParticularCampaign(
-    id: any,
-    e: React.MouseEvent<HTMLDivElement>
-  ) {
+  async function getParticularCampaign(id: any) {
     await axios
       .get(`http://localhost:3000/ads/${id}`)
       .then((res) => {
-        // console.log("Particular Ad Details", res.data);
+        console.log("Particular Ad Details", res.data);
         setParticularAdsDetails(res.data);
         setEdit(true);
       })
@@ -356,29 +353,26 @@ export default function Campaigns() {
             </div>
 
             <div className="campaignsDetails">
-              {allAdsDetails && (
-                <div className="adDetails">
-                  <div className="campaignNameDetails">
-                    {allAdsDetails.campaignName}
+              {allAdsDetails &&
+                allAdsDetails.map((item: any, index: any) => (
+                  <div className="adDetails" key={index}>
+                    <div className="campaignNameDetails">{item.adName}</div>
+                    <div className="bidStrategyDetails">Normal(S)</div>
+                    <div className="budgetDFTDetails">34(S)</div>
+                    <div
+                      className="editCampaignDetails"
+                      onClick={(e) => getParticularCampaign(item._id)}
+                    >
+                      <EditIcon />
+                    </div>
+                    <div className="typeDetails">Active(S)</div>
+                    <div className="reachDetails">5000(S)</div>
+                    <div className="startDateCampaignDetails">
+                      {item.startDate}
+                    </div>
+                    <div className="endDateCampginDetails">{item.endDate}</div>
                   </div>
-                  <div className="bidStrategyDetails">Normal(S)</div>
-                  <div className="budgetDFTDetails">34(S)</div>
-                  <div
-                    className="editCampaignDetails"
-                    onClick={(e) => getParticularCampaign(allAdsDetails._id, e)}
-                  >
-                    <EditIcon />
-                  </div>
-                  <div className="typeDetails">Active(S)</div>
-                  <div className="reachDetails">5000(S)</div>
-                  <div className="startDateCampaignDetails">
-                    {allAdsDetails.startDate}
-                  </div>
-                  <div className="endDateCampginDetails">
-                    {allAdsDetails.endDate}
-                  </div>
-                </div>
-              )}
+                ))}
             </div>
             {particularAdsDetails && (
               <Modal
@@ -425,52 +419,159 @@ export default function Campaigns() {
                       </p>
                     </div>
                     <div className="modalBodyCampaignsPageBottom">
-                      <p className="modalBodyCampaignsPageBottomTitle">
-                        Ad Tags:-{" "}
-                      </p>
-                      <p> </p>
-                      <p className="modalBodyCampaignsPageBottomContent">
-                        {particularAdsDetails.tags.length > 0 ? (
-                          particularAdsDetails.tags.map(
-                            (tag: any, index: any) => (
-                              <div
-                                key={index}
-                                className="tagAddedDivCampaignsPage"
-                              >
-                                <span>{tag}</span>
-                              </div>
+                      <div className="modalBodyCampaignsPageBottomLeft">
+                        <p className="modalBodyCampaignsPageBottomTitle">
+                          Ad Tags:-{" "}
+                        </p>
+
+                        <p className="modalBodyCampaignsPageBottomContent">
+                          {particularAdsDetails.tags.length > 0 ? (
+                            // if tags length more than 4, display 4 tags and show .... after that
+                            particularAdsDetails.tags.length > 4 ? (
+                              particularAdsDetails.tags
+                                .slice(0, 4)
+                                .map((tag: any, index: any) => (
+                                  <div
+                                    key={index}
+                                    className="tagAddedDivCampaignsPage"
+                                  >
+                                    <p>{tag}</p>
+                                    {
+                                      // add comma to all tags without last tag
+                                      index !== 3 && (
+                                        <p className="tagAddedDivCampaignsPageComma">
+                                          ,
+                                        </p>
+                                      )
+                                    }
+                                    {/* now add ..... at last after adding 4 tags */}
+                                    {index === 3 && (
+                                      <p className="tagAddedDivCampaignsPageComma">
+                                        {" "}
+                                        ......
+                                      </p>
+                                    )}
+                                  </div>
+                                ))
+                            ) : (
+                              particularAdsDetails.tags.map(
+                                (tag: any, index: any) => (
+                                  <div
+                                    key={index}
+                                    className="tagAddedDivCampaignsPage"
+                                  >
+                                    <p>{tag}</p>
+                                    {
+                                      // add comma to all tags without last tag
+                                      index !==
+                                        particularAdsDetails.tags.length -
+                                          1 && (
+                                        <p className="tagAddedDivCampaignsPageComma">
+                                          ,
+                                        </p>
+                                      )
+                                    }
+                                  </div>
+                                )
+                              )
                             )
-                          )
-                        ) : (
-                          <div className="tagAddedDivCampaignsPage">
-                            <span>No Tags Added</span>
-                          </div>
-                        )}
-                      </p>
+                          ) : (
+                            <div className="notagsadded">
+                              <p>No Tags Added so no data available</p>
+                            </div>
+                          )}
+                        </p>
+                      </div>
+                      {/* users reached */}
+                      <div className="modalBodyCampaignsPageBottomRight">
+                        <p className="modalBodyCampaignsPageBottomTitle2">
+                          Users Reached:-{" "}
+                        </p>
+
+                        <p className="modalBodyCampaignsPageBottomContent">
+                          {particularAdsDetails.users.length > 0 ? (
+                            // if tags length more than 4, display 4 tags and show .... after that
+                            particularAdsDetails.users.length > 4 ? (
+                              particularAdsDetails.tags
+                                .slice(0, 4)
+                                .map((tag: any, index: any) => (
+                                  <div
+                                    key={index}
+                                    className="tagAddedDivCampaignsPage"
+                                  >
+                                    <p>{tag}</p>
+                                    {
+                                      // add comma to all tags without last tag
+                                      index !== 3 && (
+                                        <p className="tagAddedDivCampaignsPageComma">
+                                          ,
+                                        </p>
+                                      )
+                                    }
+                                    {/* now add ..... at last after adding 4 tags */}
+                                    {index === 3 && (
+                                      <p className="tagAddedDivCampaignsPageComma">
+                                        {" "}
+                                        ......
+                                      </p>
+                                    )}
+                                  </div>
+                                ))
+                            ) : (
+                              particularAdsDetails.users.map(
+                                (user: any, index: any) => (
+                                  <div
+                                    key={index}
+                                    className="tagAddedDivCampaignsPage"
+                                  >
+                                    <p>{user}</p>
+                                    {
+                                      // add comma to all tags without last tag
+                                      index !==
+                                        particularAdsDetails.tags.length -
+                                          1 && (
+                                        <p className="tagAddedDivCampaignsPageComma">
+                                          ,
+                                        </p>
+                                      )
+                                    }
+                                  </div>
+                                )
+                              )
+                            )
+                          ) : (
+                            <div className="notagsadded">
+                              <p>No Users Reached so no data available</p>
+                            </div>
+                          )}
+                        </p>
+                      </div>
                     </div>
-                    <div className="modalBodyCampaignsPageBottom">
-                      <p className="modalBodyCampaignsPageBottomTitle">
-                        Users Reached:-{" "}
-                      </p>
-                      <p> </p>
-                      <p className="modalBodyCampaignsPageBottomContent">
-                        {particularAdsDetails.users.length > 0 ? (
-                          particularAdsDetails.users.map(
-                            (user: any, index: any) => (
-                              <div
-                                key={index}
-                                className="tagAddedDivCampaignsPage"
-                              >
-                                <span>{user}</span>
-                              </div>
-                            )
-                          )
-                        ) : (
-                          <div className="tagAddedDivCampaignsPage">
-                            <span>No Users Reached</span>
-                          </div>
-                        )}
-                      </p>
+                    <div className="modalBodyCampaignsPageBottomDateSection">
+                      <div className="startDateCampaignsPage">
+                        <p className="startDateCampaignsPageTitle">
+                          Start Date:-{" "}
+                        </p>
+                        <p className="startDateCampaignsPageContent">
+                          {particularAdsDetails.startDate}
+                        </p>
+                      </div>
+                      <div className="endDateCampaignsPage">
+                        <p className="endDateCampaignsPageTitle">End Date:- </p>
+                        <p className="endDateCampaignsPageContent">
+                          {particularAdsDetails.endDate}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="modalClientDetails">
+                      <div className="bidModalHeadingDiv">
+                        <h3 className="bidsModalHeadingSno">S.No</h3>
+                        <h3 className="bidsModalHeadingClientName">
+                          Client Name
+                        </h3>
+                        <h3 className="bidsModalHeadingOption">Option 1</h3>
+                        <h3 className="bidsModalHeadingOption">Option 2</h3>
+                      </div>
                     </div>
                   </div>
                 </Box>
