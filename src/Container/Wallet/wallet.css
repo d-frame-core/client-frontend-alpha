@@ -26,9 +26,10 @@
   width: 25vw;
   background-color: white;
   border-radius: 2vh;
-  overflow-y: hidden;
   border: 4px solid white;
   font-family: "IBM Plex Sans Devanagari";
+  height: 60vh;
+  /* border: 1px solid red; */
 }
 .transactionHeader {
   padding: 2vh;
@@ -37,16 +38,93 @@
 }
 
 .transactionList {
-  position: relative;
-  left: 10%;
-  border-radius: 1vh;
-  top: 2vh;
-  margin-bottom: 2vh;
-  font-size: 2vh;
-  height: 10vh;
-  width: 20vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 25%;
+  border-radius: 10px;
   background-color: #dde2ea;
+  font-size: 80%;
+  margin: 4% auto;
+  cursor: pointer;
+  /* border: 1px solid blue; */
+  margin-top: 2%;
+}
+.transactionListTop{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-around;
   overflow: hidden;
+  font-size: 80%;
+  /* border: 1px solid red; */
+  width: 95%;
+  height: 40%;
+  font-weight: 500;
+
+}
+.transactionListTopLeft{
+  /* border: 1px solid blue; */
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.transactionListTopRight{
+  /* border: 1px solid blue; */
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.transactionListBottomLeft{
+  /* border: 1px solid blue; */
+  height: 80%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.transactionListBottomCenter{
+  /* border: 1px solid blue; */
+  height: 80%;
+    display: flex;
+      align-items: flex-start;
+      justify-content: center;
+}
+.transactionListBottomRight{
+  /* border: 1px solid blue; */
+  height: 80%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.transactionListBottom{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-around;
+  overflow: hidden;
+  font-size: 75%;
+  /* border: 1px solid red; */
+  width: 95%;
+  height: 40%;
+  font-weight: 500;
+  padding-bottom: 1%;
+}
+.transactionListBottomRightTextSent{
+  color: #f43434;
+  font-weight: 600;
+  font-family: "IBM Plex Sans Devanagari";
+  /* border: 1px solid blue; */
+}
+.transactionListBottomRightTextreceived{
+  color: green;
+  font-weight: 600;
+  font-family: "IBM Plex Sans Devanagari";
+  /* border: 1px solid blue; */
 }
 .userWallet {
   position: absolute;
@@ -62,11 +140,13 @@
   font-size: 3vh;
 }
 .transactionBox {
-  height: 55vh;
-  width: 25vw;
-  overflow-y: scroll;
-  z-index: 2;
-  padding-bottom: 20px;
+  /* border: 1px solid red; */
+  height: 80%;
+  width: 100%;
+  overflow-y: auto;
+  flex-direction: column;
+  position: inherit;
+
 }
 .transactionBox::-webkit-scrollbar {
   border-radius: 2vh;
@@ -75,7 +155,7 @@
 .transactionBox::-webkit-scrollbar-thumb {
   background-color: #dde2ea;
   border-radius: 2vh;
-  border: 0.25em solid white;
+  border: 0.25em solid #dde2ea;
 }
 .to {
   font-weight: 500;
@@ -129,12 +209,7 @@
   color: #098c2e;
   font-family: "IBM Plex Sans Devanagari";
 }
-.sent {
-  margin-top: 17%;
-  margin-left: 70%;
-  width: 20%;
-  font-weight: 500;
-  font-size: 95%;
+.sentStatus {
   color: #f43434;
   font-family: "IBM Plex Sans Devanagari";
 }
@@ -222,4 +297,37 @@
 input[type="walletPageInput"] {
   padding: 1%;
   padding-left: 5%;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.transactionLoading{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

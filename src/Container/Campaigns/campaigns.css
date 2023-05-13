@@ -167,7 +167,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 20%;
+    width: 25%;
     font-size: 110%;
     font-weight: 500;
     height: 100%;
@@ -277,7 +277,7 @@ display: flex;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 20%;
+    width: 25%;
     font-size: 100%;
     /* font-weight: 500; */
     height: 100%;
@@ -312,14 +312,14 @@ display: flex;
     font-size: 100%;
     /* font-weight: 500; */
     height: 100%;
-    /* border: 1px solid blue; */
+    /* border-right: 1px solid blue; */
     padding-left: 2.5%;
 }
 .editCampaignDetails{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 6%;
+    width: 6.3%;
     font-size: 100%;
     /* font-weight: 500; */
     height: 100%;
@@ -376,4 +376,203 @@ display: flex;
         text-align: center;
         /* border: 0.5px solid blue; */
         padding: 0;
+}
+
+.tagAddedDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 20%; */
+    height: 70%;
+    flex-direction: row;
+    padding: 1% 2%;
+    /* border: 1px solid red; */
+    /* border: 1px solid blue; */
+    /* border-right: 1px solid blue; */
+    /* border-left: 1px solid blue; */
+    /* border-bottom: 1px solid blue; */
+}
+.tagsOuterDivv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    height: 25%;
+}
+.tagsOuterDivvSmall{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    height: 10%;
+    /* border: 1px solid blue; */
+}
+.tagsBoxx{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 30%;
+    flex-direction: row;
+            padding: 2% 1%;
+            background-color: white;
+            font-size: 110%;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            align-content: flex-start;
+            overflow-y: auto;
+    /* border: 1px solid blue; */
+}
+
+.tagsBoxVisibilityHidden{
+    display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 20%;
+        margin-top: 5%;
+        flex-direction: row;
+    display: none;
+}
+.addImage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    height: 100%;
+    /* border: 1px solid blue; */
+    /* padding-left: 2%; */
+    margin-left: 5%;
+    border-radius: 10px;
+        outline: none;
+        color: #ffffff;
+        border: none;
+        background-color: #47b5ff;
+        cursor: pointer;
+}
+
+.modalHeaderCampaignsPage {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 20%;
+    border-bottom: 1px solid blue;
+}
+.modalHeaderCampaignName{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+    width: 100%;
+    font-size: 200%;
+    font-weight: 600;
+    height: 50%;
+    padding: 0 ;
+    margin: 0%;
+}
+.modalCloseButtonCampaignsPage {
+    position: absolute;
+    top: 2%;
+    right: 1%;
+    width: 5%;
+    height: 9%;
+    font-size: 120%;
+    font-weight: 600;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: #47b5ff;
+    color: white;
+
+}
+.modalBodyCampaignsPage{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content:flex-start;
+    align-items: center;
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 80%;
+    /* border-bottom: 1px solid blue; */
+}
+.modalBodyCampaignsPageTop{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    align-items: flex-start;
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 10%;
+    /* border-bottom: 1px solid blue; */
+}
+.modalBodyCampaignsPageHeadingTitle{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+    height: 20%;
+    /* border-bottom: 1px solid blue; */
+    font-weight: 600;
+}
+.modalBodyCampaignsPageHeading{
+    display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        align-items: flex-start;
+        /* border: 1px solid red; */
+        height: 20%;
+        /* border-bottom: 1px solid blue; */
+        font-weight: 600;
+}
+.modalBodyCampaignsPageMiddle{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    align-items: flex-start;
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 10%;
+    /* border-bottom: 1px solid blue; */
+}
+.modalFooterCampaignsPage{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 10%;
+    /* border-bottom: 1px solid blue; */
+}
+.modalBodyCampaignsPageBottom{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    align-items: flex-start;
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 10%;
+    /* border-bottom: 1px solid blue; */
 }

@@ -58,7 +58,7 @@ const BasicModal = (props: {
               sx={{ mt: 2, rowGap: "2vh" }}
               component="div"
             >
-              {props.webLinkName} :{" "}
+              {props.webLinkName}
               <a href={props.webLink} target="_blank" rel="noreferrer">
                 {props.webLink}
               </a>

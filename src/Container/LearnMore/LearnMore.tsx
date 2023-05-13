@@ -6,8 +6,6 @@ import Modal from "@mui/joy/Modal";
 import ModalClose from "@mui/joy/ModalClose";
 import BasicModal from "../../components/modal/BasicModal";
 import {
-  Container,
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -91,7 +89,7 @@ export default function LearnMore() {
                     name={item.title}
                     paragraph={item.text}
                     webLink="https://dframe.org/white-paper-v1-1/"
-                    webLinkName="White Paper"
+                    webLinkName="White Paper :  "
                   />
                 </div>
               )

@@ -5,13 +5,8 @@ import {
   Switch,
   TextField,
 } from "@mui/material";
-import axios, { AxiosResponse } from "axios";
-import React, {
-  ReactComponentElement,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import { useForm } from "react-hook-form";
 import { MyContext } from "../../components/context/Context";
@@ -23,10 +18,6 @@ import { Box } from "@mui/system";
 import { Alert, Snackbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import SurveyAnalytics from "../SurveyAnalytics/SurveyAnalytics";
-interface Item {
-  id: number;
-  name: string;
-}
 const CreateSurvey = () => {
   const navigate = useNavigate();
   const [surveyInactiveToastOpen, setSurveyInactiveToastOpen] = useState(false);
@@ -43,6 +34,7 @@ const CreateSurvey = () => {
   const [editSurvey, setEditSurvey] = useState(false);
   const [editSurveyData, setEditSurveyData] = useState<any>();
   const [surveyId, setSurveyId] = useState("");
+  const [surveyDeletedToaster, setSurveyDeletedToaster] = useState(false);
   const surveyEditedData = [
     {
       surveyName: "",
@@ -415,10 +407,11 @@ const CreateSurvey = () => {
     setSubmitToastOpen(false);
     setSurveyInactiveToastOpen(false);
     setSurveyActiveToastOpen(false);
+    setSurveyDeletedToaster(false);
   };
   async function deleteParticularSurvey() {
     const _tokenn = token || localStorage.getItem("token");
-    alert("Deleted the survey");
+    setSurveyDeletedToaster(true);
     const res = await axios.delete(`http://localhost:3000/survey/${surveyId}`, {
       headers: {
         Authorization: `Bearer ${_tokenn}`,
@@ -455,6 +448,12 @@ const CreateSurvey = () => {
             </div>
 
             <div className="createSurveyDetails">
+              {
+                // no data in fetched data
+                fetchedData.length === 0 && (
+                  <div className="noDataCreateSurvey">No Data to display</div>
+                )
+              }
               {fetchedData.map((item: any) => {
                 return (
                   <div
@@ -503,10 +502,10 @@ const CreateSurvey = () => {
                       {" "}
                       {item.endDate.toString().slice(0, 10)}{" "}
                     </div>
+                    <div className="lastEntry"></div>
                   </div>
                 );
               })}
-              <div className="lastEntry"></div>
             </div>
           </div>
         </div>
@@ -925,6 +924,24 @@ const CreateSurvey = () => {
             sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
           >
             Survey is Active now
+          </Alert>
+        </Snackbar>
+      )}
+      {surveyDeletedToaster && (
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          open={surveyDeletedToaster}
+          autoHideDuration={6000}
+          onClose={() => {
+            setSurveyDeletedToaster(false);
+          }}
+        >
+          <Alert
+            onClose={handleToastClose}
+            severity="error"
+            sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
+          >
+            Survey Deleted
           </Alert>
         </Snackbar>
       )}
