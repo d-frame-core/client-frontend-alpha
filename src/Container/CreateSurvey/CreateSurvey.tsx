@@ -1,3 +1,4 @@
+// importing required files and packages here.
 import {
   Backdrop,
   Divider,
@@ -18,7 +19,10 @@ import { Box } from "@mui/system";
 import { Alert, Snackbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import SurveyAnalytics from "../SurveyAnalytics/SurveyAnalytics";
+
+// default function of CreateSurvey.tsx file.
 const CreateSurvey = () => {
+  // defining states here.
   const navigate = useNavigate();
   const [surveyInactiveToastOpen, setSurveyInactiveToastOpen] = useState(false);
   const [surveyActiveToastOpen, setSurveyActiveToastOpen] = useState(false);
@@ -35,19 +39,6 @@ const CreateSurvey = () => {
   const [editSurveyData, setEditSurveyData] = useState<any>();
   const [surveyId, setSurveyId] = useState("");
   const [surveyDeletedToaster, setSurveyDeletedToaster] = useState(false);
-  const surveyEditedData = [
-    {
-      surveyName: "",
-      surveyDescription: "",
-      surveyReward: "",
-    },
-  ];
-  const surveyEditedQues: any[] = [
-    {
-      title: "",
-      options: [],
-    },
-  ];
   let surveyQuestions = [
     {
       questionName: "",
@@ -76,6 +67,8 @@ const CreateSurvey = () => {
     { value: "9", label: "9" },
     { value: "10", label: "10" },
   ];
+
+  // defining useForm here
   const {
     register,
     handleSubmit,
@@ -88,7 +81,8 @@ const CreateSurvey = () => {
   const [option2, setOption2] = useState("");
   const [numberOfQuestionsSelected, setNumberOfQuestionsSelected] =
     useState("");
-  // console.log(surveyQuestions);
+
+  // function to handle questions data
   function handleData(i: any) {
     if (option1 && option2) {
       if (i === parseInt(numberOfQuestionsSelected) - 1) {
@@ -105,6 +99,8 @@ const CreateSurvey = () => {
       });
     }
   }
+
+  // function to set survey inactive
   async function setSurveyInactive(id: any) {
     // .stopPropagation();
     setSurveyInactiveToastOpen(true);
@@ -120,6 +116,8 @@ const CreateSurvey = () => {
         console.log(err);
       });
   }
+
+  // function to set survey active
   async function setSurveyActive(id: any) {
     setSurveyActiveToastOpen(true);
     await axios
@@ -127,16 +125,15 @@ const CreateSurvey = () => {
         isActive: true,
       })
       .then((res) => {
-        // window.location.reload();
-        // console.log(res);
         fetchAllSurveys();
       })
       .catch((err) => {
         console.log(err);
       });
-    // fetchAllSurveys();
   }
-  const fields = [];
+  const fields = []; // this array will contain all the fields
+
+  // this loop will push the fields in the array
   for (let i = 0; i < parseInt(numberOfQuestionsSelected); i++) {
     fields.push(
       <div key={i} className="fieldInputDiv">
@@ -166,17 +163,7 @@ const CreateSurvey = () => {
             type="text"
             placeholder={"Option 1"}
             className="fieldInputSurveyNameInputField"
-            // value={surveyQuestions[i].questionOption1}
             onChange={(e) => {
-              // setTotalQues((prev) => {
-              //   return {
-              //     ...prev,
-              //     [i]: {
-              //       ...prev[i],
-              //       options: [e.target.value],
-              //     },
-              //   };
-              // });
               setOption1(e.target.value);
             }}
           />
@@ -184,20 +171,6 @@ const CreateSurvey = () => {
             type="text"
             placeholder={"Option 2"}
             className="fieldInputSurveyNameInputField"
-            // value={surveyQuestions[i].questionOption2}
-            // onChange={(e) => {
-            //   const input = e.target.value;
-            //   setTotalQues((prev) => {
-            //     return {
-            //       ...prev,
-            //       [i]: {
-            //         ...prev[i],
-            //         options: [...prev[i].options, input],
-            //       },
-            //     };
-            //   });
-            //   console.log(input);
-            // }}
             onChange={(e) => {
               setOption2(e.target.value);
             }}
@@ -208,23 +181,27 @@ const CreateSurvey = () => {
       </div>
     );
   }
+
+  // this function will change the start date entered by the client
   const handleStartDateChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const newDate = new Date(event.target.value);
     setStartDate(newDate);
   };
+
+  // function to edit the survey data in backend
   const editSurveyInBackend = async () => {
     setEditSurvey(false);
     setOpenToast(true);
-    // window.location.reload();
     const _tokenn = token || localStorage.getItem("token");
     const clientId = _id || localStorage.getItem("id");
     const _surveyId = surveyId || localStorage.getItem("surveyId");
-    console.log(surveyId);
+
+    // axios call to edit the survey
     await axios
       .put(
-        `http://localhost:3000/survey/${surveyId}`,
+        `http://localhost:3000/survey/${_surveyId}`,
         {
           surveyName: editSurveyData.surveyName,
           surveyDescription: editSurveyData.surveyDescription,
@@ -246,53 +223,31 @@ const CreateSurvey = () => {
         console.log(err);
       });
   };
+
+  // function to handle the end date entered by the client
   const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newDate = new Date(event.target.value);
     setEndDate(newDate);
   };
+
+  // function to submit the survey created by the client
   const submitFormFunction = async () => {
     setNextpage(true);
     setFormopen(false);
     const index = parseInt(numberOfQuestionsSelected);
-    // console.log("index",index);
-    //   setTotalQues((prev) => {
-    //     return {
-    //       ...prev,
-    //       [index-1]: {
-    //         ...prev[index-1],
-    //         options: [option1,option2],
-    //       },
-    //     };
-    // });
     var resultArray = Object.keys(totalQues).map(function (
       personNamedIndex: any
     ) {
       let person = totalQues[personNamedIndex];
-      // do something with person
+
       return person;
     });
     const cliendId = _id || localStorage.getItem("id");
     resultArray[index - 1].options = [option1, option2];
-    // console.log( resultArray);
 
-    // await axios.post("http://localhost:3000/survey", {
-    //   surveyName: surveyName,
-    //   surveyDescription: surveyDescription,
-    //   totalQues: resultArray,
-    //   clientId: cliendId,
-    //   statusCampaign: "Active",
-    //   totalReward: parseInt(surveyResource),
-    //   startDate: startDate,
-    //   endDate: endDate,
-    // })
-    //   .then((res) => {
-    //     console.log(res.data.data)
-    //   })
-    //   .catch((err) => {
-    //     console.log("err", err);
-    //     console.error(err);
-    //   });
     const _tokenn = token || localStorage.getItem("token");
+
+    // axios api call to post the survey in the backend
     await axios
       .post(
         "http://localhost:3000/survey",
@@ -329,8 +284,9 @@ const CreateSurvey = () => {
         console.log("err", err);
         console.error(err);
       });
-    // window.location.reload();
   };
+
+  // function to get particular survey from backend
   async function getParticularSurvey(
     id: any,
     e: React.MouseEvent<HTMLDivElement>
@@ -353,6 +309,8 @@ const CreateSurvey = () => {
       });
     setOpen(true);
   }
+
+  // style for the modal
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
@@ -368,6 +326,8 @@ const CreateSurvey = () => {
     overflow: "hidden",
     overflowY: "scroll",
   };
+
+  // function to fetch all surveys from the backend
   async function fetchAllSurveys() {
     const id = _id || localStorage.getItem("id");
     const _tokenn = token || localStorage.getItem("token");
@@ -377,21 +337,24 @@ const CreateSurvey = () => {
         clientid: id,
       },
     });
-    // console.log("res.data");
+
     setFetchedData(res.data);
   }
 
+  // useEffect to fetch all surveys
   useEffect(() => {
     fetchAllSurveys();
   }, []);
 
-  useEffect(() => {
-    // console.log(fetchedData);
-  }, [fetchedData]);
+  // useeffect during data fetched
+  useEffect(() => {}, [fetchedData]);
+
+  // useeffect to set the edit survey data
   useEffect(() => {
     setEditSurveyData(singleSurveyData);
-    // console.log("singleSurveyData", singleSurveyData);
   }, [getParticularSurvey]);
+
+  // function to handle the toast close
   const handleToastClose = (
     event?: React.SyntheticEvent | Event,
     reason?: string
@@ -399,13 +362,14 @@ const CreateSurvey = () => {
     if (reason === "clickaway") {
       return;
     }
-
     setOpenToast(false);
     setSubmitToastOpen(false);
     setSurveyInactiveToastOpen(false);
     setSurveyActiveToastOpen(false);
     setSurveyDeletedToaster(false);
   };
+
+  // function to delete particular survey
   async function deleteParticularSurvey() {
     const _tokenn = token || localStorage.getItem("token");
     setSurveyDeletedToaster(true);
@@ -415,10 +379,10 @@ const CreateSurvey = () => {
       },
     });
     console.log("delete");
-    // console.log(res.data);
     setOpen(false);
     fetchAllSurveys();
   }
+
   return (
     <div>
       <>{Sidebar(6)}</>
@@ -610,14 +574,7 @@ const CreateSurvey = () => {
                   </option>
                 ))}
               </TextField>
-              {nextpage && (
-                // <div>
-                //   {[...Array(numberOfQuestionsSelected)].map((e, i) => (
-                //     <div>{i}</div>
-                //   ))}
-                <div className="inputFieldOuterDiv">{fields}</div>
-                // </div>
-              )}
+              {nextpage && <div className="inputFieldOuterDiv">{fields}</div>}
             </form>
             <Divider />
             <button

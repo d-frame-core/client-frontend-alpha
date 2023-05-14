@@ -41,6 +41,7 @@ export default function Campaigns() {
   const [allAdsDetails, setAllAdsDetails] = useState<any>([]);
   const [particularAdsDetails, setParticularAdsDetails] = useState<any>();
   const [edit, setEdit] = useState(false);
+  const [editAd, setEditAd] = useState(false);
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
@@ -129,10 +130,6 @@ export default function Campaigns() {
   useEffect(() => {
     getAllCampaigns();
   }, []);
-
-  useEffect(() => {
-    // console.log("Particular Ads Details", allAdsDetails);
-  }, [getAllCampaigns]);
 
   return (
     <>
@@ -574,6 +571,32 @@ export default function Campaigns() {
                       </div>
                     </div>
                   </div>
+                  {!editAd && (
+                    <div className="modalFooterCampaignsPage">
+                      <button
+                        className="modalFooterButtonEditCampaignsPage"
+                        onClick={() => setEditAd(true)}
+                      >
+                        Edit Ad
+                      </button>
+                      <button className="modalFooterButtonDeleteCampaignsPage">
+                        Delete Ad
+                      </button>
+                    </div>
+                  )}
+                  {editAd && (
+                    <div className="modalFooterCampaignsPage">
+                      <button
+                        className="modalFooterButtonDeleteCampaignsPage"
+                        onClick={() => setEditAd(false)}
+                      >
+                        Cancel
+                      </button>
+                      <button className="modalFooterButtonEditCampaignsPage">
+                        Save Edit
+                      </button>
+                    </div>
+                  )}
                 </Box>
               </Modal>
             )}

@@ -62,6 +62,7 @@ const Connect = () => {
       console.error(error);
     }
   }
+
   return (
     <div className="connectClientWallet">
       {!isConnected && (

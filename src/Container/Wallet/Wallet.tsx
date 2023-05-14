@@ -6,10 +6,8 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import "./wallet.css";
 import { Alert, Snackbar } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import data from "./data.json";
 import CircularProgress from "@mui/material/CircularProgress";
 import Web3 from "web3";
-import { set } from "react-hook-form";
 export default function Wallet() {
   //  importing from context api
   const { walletAddress, walletBalance, setWalletBalance } =
@@ -17,10 +15,8 @@ export default function Wallet() {
   const _walletAddress = walletAddress || localStorage.getItem("walletAddress");
 
   //  defining state variables
-  const [walletdata, setwalletdata] = useState(data);
   const [transactionUnderProgress, setTransactionUnderProgress] =
     useState(false);
-
   const [senderAddress, setSenderAddress] = useState("");
   const [dftAmount, setDftAmount] = useState("");
   const [transactionEvents, setTransactionEvents] = useState<any>([]);
