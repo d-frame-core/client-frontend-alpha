@@ -4,7 +4,10 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useState } from "react";
 
 import { Button, Menu, MenuItem } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import Web3 from "web3";
 export default function Header() {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -12,6 +15,17 @@ export default function Header() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleDisconnect = async () => {
+    // Disconnect from the provider when the button is clicked
+    if ((window as any).ethereum) {
+      (window as any).ethereum.removeAllListeners();
+    }
+    // Disconnect from the provider.
+    console.log("Disconnecting the provider");
+
+    // navigate to home page
+    navigate("/");
   };
   return (
     <div className="header">
@@ -36,9 +50,9 @@ export default function Header() {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={() => handleClose()}>
+          <div onClick={() => handleDisconnect()}>Logout</div>
+        </MenuItem>
       </Menu>
     </div>
   );

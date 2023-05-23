@@ -12,7 +12,6 @@ import { async } from "@firebase/util";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Alert, Snackbar } from "@mui/material";
 
-// default function here.
 export default function Profile() {
   // defining states here.
   const [openImageToast, setOpenImageToast] = useState(false);
@@ -22,7 +21,7 @@ export default function Profile() {
   const [files, setFiles] = useState(user);
   const [image, setImage] = useState("");
 
-  /// using context here.
+  // using context here.
   const {
     _id,
     companyAddress1,
@@ -41,6 +40,8 @@ export default function Profile() {
     _imageUrl,
     setImageUrl,
   } = useContext(MyContext);
+
+  // function to connect to polygon mainnet here.
   const connectToPolygonMainnet = async () => {
     if ((window as any).ethereum) {
       const chainId = await (window as any).ethereum.request({
@@ -206,6 +207,7 @@ export default function Profile() {
         console.error(error.response.data);
       });
   }, []);
+
   const handleToastClose = (
     event?: React.SyntheticEvent | Event,
     reason?: string

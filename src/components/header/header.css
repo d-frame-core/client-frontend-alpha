@@ -3,7 +3,7 @@
   width: 84vw;
   height: 9vh;
   top: 0vh;
-  z-index: -1;
+  z-index: 5;
   left: 16vw;
   background: linear-gradient(
     90deg,

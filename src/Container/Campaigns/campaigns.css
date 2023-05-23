@@ -590,11 +590,12 @@ display: flex;
     display: flex;
     flex-direction: row;
     text-align: center;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     /* border: 1px solid red; */
     width: 100%;
     height: 15%;
+    cursor: pointer;
     /* border-bottom: 1px solid blue; */
 }
 .modalBodyCampaignsPageBottomLeft{
@@ -639,7 +640,7 @@ display: flex;
         justify-content: flex-start;
         align-items: center;
         /* border: 1px solid yellowgreen; */
-        width: 18%;
+        width: 8%;
         height: 90%;
         /* border-bottom: 1px solid blue; */
 }
@@ -815,6 +816,69 @@ width: 25%;
     color: white;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalFooterButtonBidsCampaignsPage{
+    width: 25%;
+        height: 50%;
+        margin: 2%;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 3%;
+        font-size: 100%;
+        font-weight: 600;
+        background-color: #40bc27;
+        color: white;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+}
+.noDataToDisplay{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid blue; */
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+}
+.noDataToDisplayText{
+    display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        font-size: 200%;
+        /* border: 1px solid red; */
+        padding: 0;
+        margin: 0;
+        justify-content: center;
+        align-items: center;
+}
+
+.modalBodyCampaignsPageContentEdit{
+    display: flex;
+    flex-direction: column;
+    height: 10%;
+    /* border: 1px solid blue; */
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+}
+.modalBodyCampaignsPageHeadingEdit{
+    display: flex;
+    flex-direction: row;
+    height: 20%;
+    /* border: 1px solid blue; */
+    padding: 0;
+    margin: 0;
     justify-content: center;
     align-items: center;
 }

@@ -42,6 +42,12 @@ export default function Campaigns() {
   const [particularAdsDetails, setParticularAdsDetails] = useState<any>();
   const [edit, setEdit] = useState(false);
   const [editAd, setEditAd] = useState(false);
+  const [editAdDetails, setEditAdDetails] = useState<any>([]);
+  const [bidAmount, setBidAmount] = useState<any>();
+  const [perDayBudget, setPerDayBudget] = useState<any>();
+  const [totalDaysToRun, setTotalDaysToRun] = useState<any>();
+  const [adSelectedId, setAdSelectedId] = useState<any>();
+  const [editedAdData, setEditedAdData] = useState<any>();
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
@@ -69,6 +75,8 @@ export default function Campaigns() {
   };
   const [formopen, setFormopen] = useState(false);
   const [nextpage, setNextpage] = useState(false);
+
+  // function to create a new Ad
   async function submitAdCampaign() {
     const clientId = _id || localStorage.getItem("id");
     console.log("id", clientId);
@@ -88,22 +96,26 @@ export default function Campaigns() {
       .then((res) => {
         console.log(res.data);
         // window.location.reload();
+        getAllCampaigns();
       })
       .catch((err) => {
         console.log(err);
       });
-    // console.log("Ads tags are", adTags);
-    // "643d60b5f70acc7cd413b405"
     setFormopen(false);
   }
   const removeTag = (indexToRemove: number) => {
     setAdTags(adTags.filter((_: any, index: any) => index !== indexToRemove));
   };
 
+  // function to get all campaigns of a particular client
   async function getAllCampaigns() {
     const id = _id || localStorage.getItem("id");
     await axios
-      .get(`http://localhost:3000/ads/client/${id}`)
+      .get(`http://localhost:3000/ads/client/detail`, {
+        headers: {
+          id: id,
+        },
+      })
       // ""
       .then((res) => {
         console.log("All Ads Details", res.data);
@@ -120,6 +132,7 @@ export default function Campaigns() {
       .then((res) => {
         console.log("Particular Ad Details", res.data);
         setParticularAdsDetails(res.data);
+        setAdSelectedId(id);
         setEdit(true);
       })
       .catch((err) => {
@@ -127,9 +140,45 @@ export default function Campaigns() {
       });
   }
 
+  async function updateParticularAd(id: any) {
+    await axios
+      .patch(`http://localhost:3000/ads/${id}`, {
+        adName: editedAdData.adName,
+        adContent: editedAdData.adContent,
+      })
+      .then((res) => {
+        console.log("Updated Ad Details", res.data);
+        setEdit(false);
+        setEditAd(false);
+        getAllCampaigns();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  useEffect(() => {
+    setEditedAdData(particularAdsDetails);
+  }, [particularAdsDetails]);
+
   useEffect(() => {
     getAllCampaigns();
   }, []);
+
+  // function to delete a particular Ad
+  async function deleteParticularAd(id: any) {
+    await axios
+      .delete(`http://localhost:3000/ads/${id}`)
+      .then((res) => {
+        console.log("Deleted Ad Details", res.data);
+        // window.location.reload();
+        setEdit(false);
+        getAllCampaigns();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
     <>
@@ -314,6 +363,34 @@ export default function Campaigns() {
                     onChange={(e) => setAdEndDate(e.target.value)}
                     required
                   />
+                  <Divider />
+                  <TextField
+                    id="standard-basic"
+                    label="Bid Amount per user"
+                    variant="standard"
+                    sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
+                    {...register("bidAmount")}
+                    onChange={(e) => setBidAmount(e.target.value)}
+                    required
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Budget Amount Per Day"
+                    variant="standard"
+                    sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
+                    {...register("budgetAmountPerDay")}
+                    onChange={(e) => setPerDayBudget(e.target.value)}
+                    required
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Total Days of Campaign"
+                    variant="standard"
+                    sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
+                    {...register("totalDays")}
+                    onChange={(e) => setTotalDaysToRun(e.target.value)}
+                    required
+                  />
                 </div>
               )}
               <Divider />
@@ -340,8 +417,8 @@ export default function Campaigns() {
           <div className="campaignsBody">
             <div className="campaignsCategoriesBox">
               <div className="campaignNameHeading">Campaign Name</div>
-              <div className="bidStrategy">Bid Strategy</div>
-              <div className="budgetDFT">Budget (DFT)</div>
+              <div className="bidStrategy">Bid Amount</div>
+              <div className="budgetDFT">Budget / Day</div>
               <div className="editCampaignHeading">Edit</div>
               <div className="typeHeading">Type</div>
               <div className="reachHeading">Reach</div>
@@ -365,12 +442,23 @@ export default function Campaigns() {
                     <div className="typeDetails">Active(S)</div>
                     <div className="reachDetails">5000(S)</div>
                     <div className="startDateCampaignDetails">
-                      {item.startDate}
+                      {item.startDate.slice(0, 10)}
                     </div>
-                    <div className="endDateCampginDetails">{item.endDate}</div>
+                    <div className="endDateCampginDetails">
+                      {item.endDate.slice(0, 10)}
+                    </div>
                   </div>
                 ))}
+              {
+                // when all ads is empty show No DATA TO DISPLAY AT THE CENTER OF THE campaignDetails
+                allAdsDetails.length === 0 && (
+                  <div className="noDataToDisplay">
+                    <p className="noDataToDisplayText">No Data to Display</p>
+                  </div>
+                )
+              }
             </div>
+
             {particularAdsDetails && (
               <Modal
                 open={edit}
@@ -395,28 +483,35 @@ export default function Campaigns() {
                       X
                     </button>
                   </div>
-                  <div className="modalBodyCampaignsPage">
-                    <div className="modalBodyCampaignsPageTop">
-                      <h2 className="modalBodyCampaignsPageHeadingTitle">
-                        Ad Name:-{" "}
-                      </h2>
-                      <h2> </h2>
-                      <h2 className="modalBodyCampaignsPageHeading">
-                        {" "}
-                        {particularAdsDetails.adName}
-                      </h2>
-                    </div>
-                    <div className="modalBodyCampaignsPageMiddle">
-                      <p className="modalBodyCampaignsPageContentTitle">
-                        Ad Content:-{" "}
-                      </p>
-                      <p> </p>
-                      <p className="modalBodyCampaignsPageContent">
-                        {particularAdsDetails.adContent}
-                      </p>
-                    </div>
-                    <div className="modalBodyCampaignsPageBottom">
-                      <div className="modalBodyCampaignsPageBottomLeft">
+                  {!editAd && (
+                    <div className="modalBodyCampaignsPage">
+                      <div className="modalBodyCampaignsPageTop">
+                        <h2 className="modalBodyCampaignsPageHeadingTitle">
+                          Ad Name:-{" "}
+                        </h2>
+                        <h2> </h2>
+                        <h2 className="modalBodyCampaignsPageHeading">
+                          {" "}
+                          {particularAdsDetails.adName}
+                        </h2>
+                      </div>
+                      <div className="modalBodyCampaignsPageMiddle">
+                        <p className="modalBodyCampaignsPageContentTitle">
+                          Ad Content:-{" "}
+                        </p>
+                        <p> </p>
+                        <p className="modalBodyCampaignsPageContent">
+                          {particularAdsDetails.adContent}
+                        </p>
+                      </div>
+                      <div
+                        className="modalBodyCampaignsPageBottom"
+                        title={
+                          particularAdsDetails.tags.length > 0
+                            ? "Ad Tags:- " + particularAdsDetails.tags.join(",")
+                            : ""
+                        }
+                      >
                         <p className="modalBodyCampaignsPageBottomTitle">
                           Ad Tags:-{" "}
                         </p>
@@ -478,99 +573,173 @@ export default function Campaigns() {
                             </div>
                           )}
                         </p>
-                      </div>
-                      {/* users reached */}
-                      <div className="modalBodyCampaignsPageBottomRight">
-                        <p className="modalBodyCampaignsPageBottomTitle2">
-                          Users Reached:-{" "}
-                        </p>
 
-                        <p className="modalBodyCampaignsPageBottomContent">
-                          {particularAdsDetails.users.length > 0 ? (
-                            // if tags length more than 4, display 4 tags and show .... after that
-                            particularAdsDetails.users.length > 4 ? (
-                              particularAdsDetails.tags
-                                .slice(0, 4)
-                                .map((tag: any, index: any) => (
-                                  <div
-                                    key={index}
-                                    className="tagAddedDivCampaignsPage"
-                                  >
-                                    <p>{tag}</p>
-                                    {
-                                      // add comma to all tags without last tag
-                                      index !== 3 && (
+                        {/* users reached */}
+                      </div>
+                      <div className="modalBodyCampaignsPageBottomDateSection">
+                        <div className="startDateCampaignsPage">
+                          <p className="startDateCampaignsPageTitle">
+                            Start Date:-{" "}
+                          </p>
+                          <p className="startDateCampaignsPageContent">
+                            {particularAdsDetails.startDate.slice(0, 10)}
+                          </p>
+                        </div>
+                        <div className="endDateCampaignsPage">
+                          <p className="endDateCampaignsPageTitle">
+                            End Date:-{" "}
+                          </p>
+                          <p className="endDateCampaignsPageContent">
+                            {particularAdsDetails.endDate.slice(0, 10)}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="modalClientDetails">
+                        <div className="bidModalHeadingDiv">
+                          <h3 className="bidsModalHeadingSno">S.No</h3>
+                          <h3 className="bidsModalHeadingClientName">
+                            Client Name
+                          </h3>
+                          <h3 className="bidsModalHeadingOption">Bid Amount</h3>
+                          <h3 className="bidsModalHeadingOption">
+                            Users Reached
+                          </h3>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {
+                    // edit ad section
+                    editAd && (
+                      <div className="modalBodyCampaignsPage">
+                        <div className="modalBodyCampaignsPageTop">
+                          <h2 className="modalBodyCampaignsPageHeadingTitle">
+                            Ad Name:-{" "}
+                          </h2>
+                          <h2> </h2>
+                          <input
+                            type="text"
+                            className="modalBodyCampaignsPageHeadingEdit"
+                            value={editedAdData.adName}
+                            onChange={(e) =>
+                              setEditedAdData({
+                                ...editedAdData,
+                                adName: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                        <div className="modalBodyCampaignsPageMiddle">
+                          <p className="modalBodyCampaignsPageContentTitle">
+                            Ad Content:-{" "}
+                          </p>
+                          <p> </p>
+                          <input
+                            type="text"
+                            className="modalBodyCampaignsPageContentEdit"
+                            value={editedAdData.adContent}
+                            onChange={(e) =>
+                              setEditedAdData({
+                                ...editedAdData,
+                                adContent: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                        <div className="modalBodyCampaignsPageBottom">
+                          <p className="modalBodyCampaignsPageBottomTitle">
+                            Ad Tags:-{" "}
+                          </p>
+                          <p className="modalBodyCampaignsPageBottomContent">
+                            {particularAdsDetails.tags.length > 0 ? (
+                              // if tags length more than 4, display 4 tags and show .... after that
+                              particularAdsDetails.tags.length > 4 ? (
+                                particularAdsDetails.tags
+                                  .slice(0, 4)
+                                  .map((tag: any, index: any) => (
+                                    <div
+                                      key={index}
+                                      className="tagAddedDivCampaignsPage"
+                                    >
+                                      <p>{tag}</p>
+                                      {
+                                        // add comma to all tags without last tag
+                                        index !== 3 && (
+                                          <p className="tagAddedDivCampaignsPageComma">
+                                            ,
+                                          </p>
+                                        )
+                                      }
+                                      {/* now add ..... at last after adding 4 tags */}
+                                      {index === 3 && (
                                         <p className="tagAddedDivCampaignsPageComma">
-                                          ,
+                                          {" "}
+                                          ......
                                         </p>
-                                      )
-                                    }
-                                    {/* now add ..... at last after adding 4 tags */}
-                                    {index === 3 && (
-                                      <p className="tagAddedDivCampaignsPageComma">
-                                        {" "}
-                                        ......
-                                      </p>
-                                    )}
-                                  </div>
-                                ))
-                            ) : (
-                              particularAdsDetails.users.map(
-                                (user: any, index: any) => (
-                                  <div
-                                    key={index}
-                                    className="tagAddedDivCampaignsPage"
-                                  >
-                                    <p>{user}</p>
-                                    {
-                                      // add comma to all tags without last tag
-                                      index !==
-                                        particularAdsDetails.tags.length -
-                                          1 && (
-                                        <p className="tagAddedDivCampaignsPageComma">
-                                          ,
-                                        </p>
-                                      )
-                                    }
-                                  </div>
+                                      )}
+                                    </div>
+                                  ))
+                              ) : (
+                                particularAdsDetails.tags.map(
+                                  (tag: any, index: any) => (
+                                    <div
+                                      key={index}
+                                      className="tagAddedDivCampaignsPage"
+                                    >
+                                      <p>{tag}</p>
+                                      {
+                                        // add comma to all tags without last tag
+                                        index !==
+                                          particularAdsDetails.tags.length -
+                                            1 && (
+                                          <p className="tagAddedDivCampaignsPageComma">
+                                            ,
+                                          </p>
+                                        )
+                                      }
+                                    </div>
+                                  )
                                 )
                               )
-                            )
-                          ) : (
-                            <div className="notagsadded">
-                              <p>No Users Reached so no data available</p>
-                            </div>
-                          )}
-                        </p>
+                            ) : (
+                              <div className="notagsadded">
+                                <p>No Tags Added so no data available</p>
+                              </div>
+                            )}
+                          </p>
+                        </div>
+                        <div className="modalBodyCampaignsPageBottomDateSection">
+                          <div className="startDateCampaignsPage">
+                            <p className="startDateCampaignsPageTitle">
+                              Start Date:-{" "}
+                            </p>
+                            <p className="startDateCampaignsPageContent">
+                              {particularAdsDetails.startDate}
+                            </p>
+                          </div>
+                          <div className="endDateCampaignsPage">
+                            <p className="endDateCampaignsPageTitle">
+                              End Date:-{" "}
+                            </p>
+                            <p className="endDateCampaignsPageContent">
+                              {particularAdsDetails.endDate}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="modalClientDetails">
+                          <div className="bidModalHeadingDiv">
+                            <h3 className="bidsModalHeadingSno">S.No</h3>
+                            <h3 className="bidsModalHeadingClientName">
+                              Client Name
+                            </h3>
+                            <h3 className="bidsModalHeadingOption">Option 1</h3>
+                            <h3 className="bidsModalHeadingOption">Option 2</h3>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="modalBodyCampaignsPageBottomDateSection">
-                      <div className="startDateCampaignsPage">
-                        <p className="startDateCampaignsPageTitle">
-                          Start Date:-{" "}
-                        </p>
-                        <p className="startDateCampaignsPageContent">
-                          {particularAdsDetails.startDate}
-                        </p>
-                      </div>
-                      <div className="endDateCampaignsPage">
-                        <p className="endDateCampaignsPageTitle">End Date:- </p>
-                        <p className="endDateCampaignsPageContent">
-                          {particularAdsDetails.endDate}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="modalClientDetails">
-                      <div className="bidModalHeadingDiv">
-                        <h3 className="bidsModalHeadingSno">S.No</h3>
-                        <h3 className="bidsModalHeadingClientName">
-                          Client Name
-                        </h3>
-                        <h3 className="bidsModalHeadingOption">Option 1</h3>
-                        <h3 className="bidsModalHeadingOption">Option 2</h3>
-                      </div>
-                    </div>
-                  </div>
+                    )
+                  }
+
                   {!editAd && (
                     <div className="modalFooterCampaignsPage">
                       <button
@@ -579,8 +748,16 @@ export default function Campaigns() {
                       >
                         Edit Ad
                       </button>
-                      <button className="modalFooterButtonDeleteCampaignsPage">
+                      <button
+                        className="modalFooterButtonDeleteCampaignsPage"
+                        onClick={() =>
+                          deleteParticularAd(particularAdsDetails._id)
+                        }
+                      >
                         Delete Ad
+                      </button>
+                      <button className="modalFooterButtonBidsCampaignsPage">
+                        Edit Bids
                       </button>
                     </div>
                   )}
@@ -592,7 +769,10 @@ export default function Campaigns() {
                       >
                         Cancel
                       </button>
-                      <button className="modalFooterButtonEditCampaignsPage">
+                      <button
+                        className="modalFooterButtonEditCampaignsPage"
+                        onClick={() => updateParticularAd(adSelectedId)}
+                      >
                         Save Edit
                       </button>
                     </div>

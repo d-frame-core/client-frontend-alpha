@@ -292,7 +292,6 @@ const CreateSurvey = () => {
     e: React.MouseEvent<HTMLDivElement>
   ) {
     e.stopPropagation();
-    // await getParticularSurvey2(id);
     const _tokenn = token || localStorage.getItem("token");
     const clientId = _id || localStorage.getItem("id");
     localStorage.setItem("surveyId", id);
