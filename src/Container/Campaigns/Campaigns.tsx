@@ -36,6 +36,7 @@ export default function Campaigns() {
   const [adStartDate, setAdStartDate] = useState<string>("");
   const [adEndDate, setAdEndDate] = useState<string>("");
   const [inputValue, setInputValue] = useState("");
+  const [immediateAdId, setImmediateAdId] = useState<any>();
   const { _id, token } = React.useContext(MyContext);
   const [tagsExist, setTagsExist] = useState(false);
   const [allAdsDetails, setAllAdsDetails] = useState<any>([]);
@@ -48,6 +49,30 @@ export default function Campaigns() {
   const [totalDaysToRun, setTotalDaysToRun] = useState<any>();
   const [adSelectedId, setAdSelectedId] = useState<any>();
   const [editedAdData, setEditedAdData] = useState<any>();
+  const [files, setFiles] = useState<any>();
+  const [imageUrl, setImageUrl] = useState<any>();
+  const [image, setImage] = useState<any>();
+  const [particularBidDetails, setParticularBidDetails] = useState<any>();
+
+  const optionsType: any[] = [
+    {
+      value: "Awareness",
+      label: "Awareness",
+    },
+    {
+      value: "Engagement",
+      label: "Engagement",
+    },
+    {
+      value: "Traffic",
+      label: "Traffic",
+    },
+    {
+      value: "Sales",
+      label: "Sales",
+    },
+  ];
+
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
@@ -93,10 +118,35 @@ export default function Campaigns() {
         adContent: adContent,
         tags: adTags,
       })
-      .then((res) => {
-        console.log(res.data);
-        // window.location.reload();
-        getAllCampaigns();
+      .then(async (res) => {
+        // console.log("Ad Details", res.data);
+        setImmediateAdId(res.data._id);
+        await axios
+          .post("http://localhost:3000/bids", {
+            adId: res.data._id,
+            bidAmount: Number(bidAmount),
+            perDay: Number(perDayBudget),
+            totalDays: Number(totalDaysToRun),
+          })
+          .then(async (res) => {
+            // console.log("Bid Details", res.data);
+            // post image
+
+            axios
+              .post(`http://localhost:3000/ads/${immediateAdId}`, {
+                image: adImage,
+              })
+              .then((res) => {
+                console.log("image called");
+                console.log(res.data);
+              })
+              .catch((error) => {
+                console.log("image error");
+                console.error(error);
+              });
+
+            getAllCampaigns();
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -118,7 +168,7 @@ export default function Campaigns() {
       })
       // ""
       .then((res) => {
-        console.log("All Ads Details", res.data);
+        // console.log("All Ads Details", res.data);
         setAllAdsDetails(res.data);
       })
       .catch((err) => {
@@ -127,10 +177,17 @@ export default function Campaigns() {
   }
 
   async function getParticularCampaign(id: any) {
+    const clientId = _id || localStorage.getItem("id");
     await axios
       .get(`http://localhost:3000/ads/${id}`)
-      .then((res) => {
+      .then(async (res) => {
         console.log("Particular Ad Details", res.data);
+        await axios
+          .get(`http://localhost:3000/bids/${clientId}`)
+          .then((res) => {
+            // console.log("Particular Bid Details", res.data);
+            setParticularBidDetails(res.data);
+          });
         setParticularAdsDetails(res.data);
         setAdSelectedId(id);
         setEdit(true);
@@ -147,7 +204,7 @@ export default function Campaigns() {
         adContent: editedAdData.adContent,
       })
       .then((res) => {
-        console.log("Updated Ad Details", res.data);
+        // console.log("Updated Ad Details", res.data);
         setEdit(false);
         setEditAd(false);
         getAllCampaigns();
@@ -170,7 +227,7 @@ export default function Campaigns() {
     await axios
       .delete(`http://localhost:3000/ads/${id}`)
       .then((res) => {
-        console.log("Deleted Ad Details", res.data);
+        // console.log("Deleted Ad Details", res.data);
         // window.location.reload();
         setEdit(false);
         getAllCampaigns();
@@ -227,12 +284,24 @@ export default function Campaigns() {
                   <TextField
                     id="standard-basic"
                     label="Campaign Type"
+                    select
+                    SelectProps={{
+                      native: true,
+                    }}
+                    helperText="Please select the Tags"
                     variant="standard"
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
-                    {...register("campaignType")}
+                    {...register("Campaign Type")}
                     onChange={(e) => setCampaignType(e.target.value)}
                     required
-                  />
+                    onClick={() => console.log(campaignType)}
+                  >
+                    {optionsType.map((option) => (
+                      <option key={option.label} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </TextField>
                   <TextField
                     id="standard-basic"
                     label="Ad Name"
@@ -265,7 +334,17 @@ export default function Campaigns() {
                     <label className="editIcon" htmlFor="files">
                       Add File
                     </label>
-                    <input type="file" className="hidden" id="files" />
+                    <input
+                      type="file"
+                      className="hidden"
+                      id="files"
+                      onChange={(e: any) => {
+                        if (e.target.files) {
+                          setAdImage(e.target.files[0]);
+                          console.log(e.target.files[0]);
+                        }
+                      }}
+                    />
                   </div>
                   <TextField
                     id="standard-basic"
@@ -416,7 +495,7 @@ export default function Campaigns() {
           </Backdrop>
           <div className="campaignsBody">
             <div className="campaignsCategoriesBox">
-              <div className="campaignNameHeading">Campaign Name</div>
+              <div className="campaignNameHeading">Ad Name</div>
               <div className="bidStrategy">Bid Amount</div>
               <div className="budgetDFT">Budget / Day</div>
               <div className="editCampaignHeading">Edit</div>
@@ -501,7 +580,10 @@ export default function Campaigns() {
                         </p>
                         <p> </p>
                         <p className="modalBodyCampaignsPageContent">
-                          {particularAdsDetails.adContent}
+                          {particularAdsDetails.adContent.length > 100
+                            ? particularAdsDetails.adContent.slice(0, 100) +
+                              "..."
+                            : particularAdsDetails.adContent}
                         </p>
                       </div>
                       <div
@@ -512,64 +594,22 @@ export default function Campaigns() {
                             : ""
                         }
                       >
-                        <p className="modalBodyCampaignsPageBottomTitle">
-                          Ad Tags:-{" "}
-                        </p>
-
                         <p className="modalBodyCampaignsPageBottomContent">
                           {particularAdsDetails.tags.length > 0 ? (
-                            // if tags length more than 4, display 4 tags and show .... after that
-                            particularAdsDetails.tags.length > 4 ? (
-                              particularAdsDetails.tags
-                                .slice(0, 4)
-                                .map((tag: any, index: any) => (
-                                  <div
-                                    key={index}
-                                    className="tagAddedDivCampaignsPage"
-                                  >
-                                    <p>{tag}</p>
-                                    {
-                                      // add comma to all tags without last tag
-                                      index !== 3 && (
-                                        <p className="tagAddedDivCampaignsPageComma">
-                                          ,
-                                        </p>
-                                      )
-                                    }
-                                    {/* now add ..... at last after adding 4 tags */}
-                                    {index === 3 && (
-                                      <p className="tagAddedDivCampaignsPageComma">
-                                        {" "}
-                                        ......
-                                      </p>
-                                    )}
+                            // display total tags less than or equal to 10, else show ... after 10 tags
+                            particularAdsDetails.tags
+                              .slice(0, 10)
+                              .map((tag: any, index: any) => (
+                                <>
+                                  <div key={index} className="individualTag">
+                                    {tag}
                                   </div>
-                                ))
-                            ) : (
-                              particularAdsDetails.tags.map(
-                                (tag: any, index: any) => (
-                                  <div
-                                    key={index}
-                                    className="tagAddedDivCampaignsPage"
-                                  >
-                                    <p>{tag}</p>
-                                    {
-                                      // add comma to all tags without last tag
-                                      index !==
-                                        particularAdsDetails.tags.length -
-                                          1 && (
-                                        <p className="tagAddedDivCampaignsPageComma">
-                                          ,
-                                        </p>
-                                      )
-                                    }
-                                  </div>
-                                )
-                              )
-                            )
+                                  <div>{index === 9 && <span>....</span>}</div>
+                                </>
+                              ))
                           ) : (
                             <div className="notagsadded">
-                              <p>No Tags Added so no data available</p>
+                              <p>No Tags Added, so no data available</p>
                             </div>
                           )}
                         </p>
@@ -597,13 +637,30 @@ export default function Campaigns() {
                       <div className="modalClientDetails">
                         <div className="bidModalHeadingDiv">
                           <h3 className="bidsModalHeadingSno">S.No</h3>
-                          <h3 className="bidsModalHeadingClientName">
-                            Client Name
-                          </h3>
+                          <h3 className="bidsModalHeadingClientName">Ad Id</h3>
                           <h3 className="bidsModalHeadingOption">Bid Amount</h3>
                           <h3 className="bidsModalHeadingOption">
                             Users Reached
                           </h3>
+                        </div>
+                        <div className="bidModalDiv">
+                          {particularBidDetails &&
+                            particularBidDetails.map(
+                              (item: any, index: any) => (
+                                <div className="bidModalArrayDiv" key={index}>
+                                  <p className="bidsModalHeadingSno">
+                                    {index + 1}
+                                  </p>
+                                  <p className="bidsModalHeadingClientName">
+                                    {item.adId ? item.adId : "NA"}
+                                  </p>
+                                  <p className="bidsModalHeadingOption">
+                                    {item.bidAmount ? item.bidAmount : "NA"}
+                                  </p>
+                                  <p className="bidsModalHeadingOption">NA</p>
+                                </div>
+                              )
+                            )}
                         </div>
                       </div>
                     </div>
@@ -652,58 +709,21 @@ export default function Campaigns() {
                           </p>
                           <p className="modalBodyCampaignsPageBottomContent">
                             {particularAdsDetails.tags.length > 0 ? (
-                              // if tags length more than 4, display 4 tags and show .... after that
-                              particularAdsDetails.tags.length > 4 ? (
-                                particularAdsDetails.tags
-                                  .slice(0, 4)
-                                  .map((tag: any, index: any) => (
-                                    <div
-                                      key={index}
-                                      className="tagAddedDivCampaignsPage"
-                                    >
-                                      <p>{tag}</p>
-                                      {
-                                        // add comma to all tags without last tag
-                                        index !== 3 && (
-                                          <p className="tagAddedDivCampaignsPageComma">
-                                            ,
-                                          </p>
-                                        )
-                                      }
-                                      {/* now add ..... at last after adding 4 tags */}
-                                      {index === 3 && (
-                                        <p className="tagAddedDivCampaignsPageComma">
-                                          {" "}
-                                          ......
-                                        </p>
-                                      )}
-                                    </div>
-                                  ))
-                              ) : (
-                                particularAdsDetails.tags.map(
-                                  (tag: any, index: any) => (
-                                    <div
-                                      key={index}
-                                      className="tagAddedDivCampaignsPage"
-                                    >
-                                      <p>{tag}</p>
-                                      {
-                                        // add comma to all tags without last tag
-                                        index !==
-                                          particularAdsDetails.tags.length -
-                                            1 && (
-                                          <p className="tagAddedDivCampaignsPageComma">
-                                            ,
-                                          </p>
-                                        )
-                                      }
-                                    </div>
-                                  )
+                              // display total tags less than 80 characters, else show ... after 80 characters
+                              particularAdsDetails.tags.map(
+                                (tag: any, index: any) => (
+                                  <span key={index} className="individualTag">
+                                    {tag}
+                                    {index !==
+                                      particularAdsDetails.tags.length - 1 && (
+                                      <span>&nbsp;&nbsp;</span>
+                                    )}
+                                  </span>
                                 )
                               )
                             ) : (
                               <div className="notagsadded">
-                                <p>No Tags Added so no data available</p>
+                                <p>No Tags Added, so no data available</p>
                               </div>
                             )}
                           </p>
@@ -714,7 +734,7 @@ export default function Campaigns() {
                               Start Date:-{" "}
                             </p>
                             <p className="startDateCampaignsPageContent">
-                              {particularAdsDetails.startDate}
+                              {particularAdsDetails.startDate.slice(0, 10)}
                             </p>
                           </div>
                           <div className="endDateCampaignsPage">
@@ -722,7 +742,7 @@ export default function Campaigns() {
                               End Date:-{" "}
                             </p>
                             <p className="endDateCampaignsPageContent">
-                              {particularAdsDetails.endDate}
+                              {particularAdsDetails.endDate.slice(0, 10)}
                             </p>
                           </div>
                         </div>

@@ -350,11 +350,11 @@ display: flex;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 10%;
+    width: 10.5%;
     font-size: 100%;
     /* font-weight: 500; */
     height: 100%;
-    /* border-right: 1px solid blue; */
+    /* border: 1px solid blue; */
 }
 .endDateCampginDetails{
     display: flex;
@@ -587,96 +587,33 @@ display: flex;
     /* border-bottom: 1px solid blue; */
 }
 .modalBodyCampaignsPageBottom{
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
     /* border: 1px solid red; */
-    width: 100%;
-    height: 15%;
+    height: 10%;
+    display: flex;
+    align-items: center;
     cursor: pointer;
-    /* border-bottom: 1px solid blue; */
-}
-.modalBodyCampaignsPageBottomLeft{
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-    justify-content: flex-start;
-    align-items: center;
-    /* border: 1px solid rgb(99, 28, 97); */
-    width: 50%;
-    height: 100%;
-    padding-left: 5%;
-    /* border-bottom: 1px solid blue; */
-   
-}
-.modalBodyCampaignsPageBottomRight{
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-    justify-content: flex-start;
-    align-items: center;
-    /* border: 1px solid rgb(18, 63, 176); */
-    width: 50%;
-    height: 100%;
-    padding-right: 1%;
+    /* background-color: #47b5ff; */
 
-    /* border-bottom: 1px solid blue; */
-}
-.modalBodyCampaignsPageBottom2{
-        display: flex;
-            flex-direction: row;
-            text-align: center;
-            justify-content: center;
-            align-items: center;
-            /* border: 1px solid red; */
-            width: 100%;
-            height: 10%;
-            /* border-bottom: 1px solid blue; */
 }
 .modalBodyCampaignsPageBottomTitle{
     display: flex;
         justify-content: flex-start;
         align-items: center;
         /* border: 1px solid yellowgreen; */
-        width: 8%;
-        height: 90%;
-        /* border-bottom: 1px solid blue; */
-}
-.modalBodyCampaignsPageBottomTitle2{
-    display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        /* border: 1px solid yellowgreen; */
-        width: 30%;
+        width: 70px;
         height: 90%;
         /* border-bottom: 1px solid blue; */
 }
 .modalBodyCampaignsPageBottomContent{
     display: flex;
-        justify-content: flex-start;
+        justify-content: space-evenly;
         
-        align-items: flex-start;
+        align-items: center;
         /* border: 1px solid yellowgreen; */
         /* width: 8%; */
         height: 90%;
+        text-align: center;
         /* border-bottom: 1px solid blue; */
-}
-.modalBodyCampaignsPageBottomContent2{
-    display: flex;
-        justify-content: flex-start;
-    
-        align-items: center;
-        /* border: 1px solid yellowgreen; */
-        height: 90%;
-        /* border-bottom: 1px solid blue; */
-}
-.tagAddedDivCampaignsPage{
-margin: 0% 1%;
-display: flex;
-/* border: 1px solid blue; */
-            /* border-bottom: 1px solid blue; */
 }
 .modalBodyCampaignsPageBottomDateSection{
     display: flex;
@@ -722,6 +659,30 @@ display: flex;
     margin:  0;
     justify-content: space-between;
     align-items: center;
+}
+.bidModalDiv {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* border: 1px solid blue; */
+    /* border-top: 1px solid blue; */
+    padding: 2% 0;
+    margin: 0;
+    justify-content: space-between;
+    align-items: center;
+    overflow-y: auto;
+}
+.bidModalArrayDiv{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    /* border: 1px solid blue; */
+    /* border-top: 1px solid blue; */
+    padding: 2% 0;
+    margin: 0;
+    justify-content: space-between;
+    align-items: center;
+    height: 10%;
 }
 
 .bidsModalHeadingSno {
@@ -880,5 +841,25 @@ width: 25%;
     padding: 0;
     margin: 0;
     justify-content: center;
+    align-items: center;
+}
+
+.individualTag{
+    color: white;
+    background-color: #47b5ff;
+margin: 0 1%;
+padding: 1% 5%;
+border-radius: 5px;
+/* border: 1px solid red; */
+}
+.bidModalArray{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 10%;
+    /* border: 1px solid blue; */
+    padding: 0;
+    margin: 0;
+    justify-content: space-between;
     align-items: center;
 }

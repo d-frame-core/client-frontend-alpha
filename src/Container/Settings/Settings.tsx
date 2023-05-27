@@ -8,7 +8,9 @@ import { MyContext } from "../../components/context/Context";
 import axios from "axios";
 export default function Settings() {
   const [deletingAllSurveys, setdeletingAllSurveys] = useState(false);
+  const [deletingAllAds, setdeletingAllAds] = useState(false);
   const [deleteToastOpen, setDeleteToastOpen] = useState(false);
+  const [deleteAdsToastOpen, setDeleteAdsToastOpen] = useState(false);
   const [themeToastOpen, setThemeToastOpen] = useState(false);
   const { _id, token } = useContext(MyContext);
   const handleToastClose = (
@@ -20,6 +22,8 @@ export default function Settings() {
     }
 
     setThemeToastOpen(false);
+    setDeleteToastOpen(false);
+    setDeleteAdsToastOpen(false);
   };
   const style = {
     position: "absolute" as "absolute",
@@ -37,6 +41,30 @@ export default function Settings() {
   async function clearAllSurveys() {
     setdeletingAllSurveys(true);
   }
+  async function clearAllAds() {
+    setdeletingAllAds(true);
+  }
+
+  async function deleteAllExpiredAds() {
+    setDeleteAdsToastOpen(true);
+    const clientId = _id || localStorage.getItem("id");
+    const _tokenn = token || localStorage.getItem("token");
+    await axios
+      .delete(`http://localhost:3000/ads/expired/removeAll`, {
+        headers: {
+          clientid: clientId,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setdeletingAllAds(false);
+        setDeleteAdsToastOpen(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   async function deleteAllExpiredSurveys() {
     setDeleteToastOpen(true);
     const clientId = _id || localStorage.getItem("id");
@@ -84,7 +112,9 @@ export default function Settings() {
               <td className="tableData">Clear Ads History</td>
               <td className="tableDataColon">:</td>
               <td>
-                <button className="button">Clear Ads</button>
+                <button className="button" onClick={() => clearAllAds()}>
+                  Clear Ads
+                </button>
               </td>
             </tr>
 
@@ -162,6 +192,36 @@ export default function Settings() {
             </Box>
           </Modal>
         )}
+        {deletingAllAds && (
+          <Modal
+            open={deletingAllAds}
+            onClose={() => setdeletingAllAds(false)}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <div className="deleteSurveyModal">
+                <div className="deleteSurveyModalHeading">
+                  Do you want to delete all expired ads ?
+                </div>
+                <div className="deleteSurveyModalButton">
+                  <button
+                    className="deleteSurveyModalButtonYes"
+                    onClick={() => deleteAllExpiredAds()}
+                  >
+                    Yes
+                  </button>
+                  <button
+                    className="deleteSurveyModalButtonNo"
+                    onClick={() => setdeletingAllAds(false)}
+                  >
+                    No
+                  </button>
+                </div>
+              </div>
+            </Box>
+          </Modal>
+        )}
         {deleteToastOpen && (
           <Snackbar
             anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
@@ -177,6 +237,24 @@ export default function Settings() {
               sx={{ width: "20vw", height: "5vh" }}
             >
               Deleted all surveys succesfully
+            </Alert>
+          </Snackbar>
+        )}
+        {deleteAdsToastOpen && (
+          <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            open={deleteAdsToastOpen}
+            autoHideDuration={6000}
+            onClose={() => {
+              setDeleteAdsToastOpen(false);
+            }}
+          >
+            <Alert
+              onClose={handleToastClose}
+              severity="error"
+              sx={{ width: "20vw", height: "5vh" }}
+            >
+              Deleted all Ads succesfully
             </Alert>
           </Snackbar>
         )}

@@ -6,6 +6,8 @@ import { useState } from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Web3 from "web3";
+import { useContext } from "react";
+import { MyContext } from "../context/Context";
 export default function Header() {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
