@@ -119,34 +119,15 @@ export default function Campaigns() {
         tags: adTags,
       })
       .then(async (res) => {
-        // console.log("Ad Details", res.data);
-        setImmediateAdId(res.data._id);
-        await axios
-          .post("http://localhost:3000/bids", {
-            adId: res.data._id,
-            bidAmount: Number(bidAmount),
-            perDay: Number(perDayBudget),
-            totalDays: Number(totalDaysToRun),
-          })
-          .then(async (res) => {
-            // console.log("Bid Details", res.data);
-            // post image
-
-            axios
-              .post(`http://localhost:3000/ads/${immediateAdId}`, {
-                image: adImage,
-              })
-              .then((res) => {
-                console.log("image called");
-                console.log(res.data);
-              })
-              .catch((error) => {
-                console.log("image error");
-                console.error(error);
-              });
-
-            getAllCampaigns();
-          });
+        console.log("Posted Ad Details", res.data);
+        console.log("Immediate Ad Id", res.data.data._id);
+        await axios.post("http://localhost:3000/bids", {
+          adId: res.data.data._id,
+          bidAmount: Number(bidAmount),
+          perDayBudget: Number(perDayBudget),
+          totalDaysToRun: Number(totalDaysToRun),
+        });
+        getAllCampaigns();
       })
       .catch((err) => {
         console.log(err);
@@ -168,7 +149,7 @@ export default function Campaigns() {
       })
       // ""
       .then((res) => {
-        // console.log("All Ads Details", res.data);
+        console.log("All Ads Details", res.data);
         setAllAdsDetails(res.data);
       })
       .catch((err) => {
@@ -500,7 +481,7 @@ export default function Campaigns() {
               <div className="budgetDFT">Budget / Day</div>
               <div className="editCampaignHeading">Edit</div>
               <div className="typeHeading">Type</div>
-              <div className="reachHeading">Reach</div>
+              <div className="reachHeading">Users Assigned</div>
               <div className="startDateCampaign">Start Date</div>
               <div className="endDateCampgin">End Date</div>
             </div>
@@ -510,7 +491,9 @@ export default function Campaigns() {
                 allAdsDetails.map((item: any, index: any) => (
                   <div className="adDetails" key={index}>
                     <div className="campaignNameDetails">{item.adName}</div>
-                    <div className="bidStrategyDetails">Normal(S)</div>
+                    <div className="bidStrategyDetails">
+                      {item.bidAmount} DFT
+                    </div>
                     <div className="budgetDFTDetails">34(S)</div>
                     <div
                       className="editCampaignDetails"
@@ -518,8 +501,12 @@ export default function Campaigns() {
                     >
                       <EditIcon />
                     </div>
-                    <div className="typeDetails">Active(S)</div>
-                    <div className="reachDetails">5000(S)</div>
+                    <div className="typeDetails">
+                      {item.campaignType ? item.campaignType : "N.A."}
+                    </div>
+                    <div className="reachDetails">
+                      {item.assignedUsers ? item.assignedUsers : "5000"}
+                    </div>
                     <div className="startDateCampaignDetails">
                       {item.startDate.slice(0, 10)}
                     </div>
@@ -647,18 +634,21 @@ export default function Campaigns() {
                           {particularBidDetails &&
                             particularBidDetails.map(
                               (item: any, index: any) => (
-                                <div className="bidModalArrayDiv" key={index}>
-                                  <p className="bidsModalHeadingSno">
-                                    {index + 1}
-                                  </p>
-                                  <p className="bidsModalHeadingClientName">
-                                    {item.adId ? item.adId : "NA"}
-                                  </p>
-                                  <p className="bidsModalHeadingOption">
-                                    {item.bidAmount ? item.bidAmount : "NA"}
-                                  </p>
-                                  <p className="bidsModalHeadingOption">NA</p>
-                                </div>
+                                console.log("particularBidDetails", item),
+                                (
+                                  <div className="bidModalArrayDiv" key={index}>
+                                    <p className="bidsModalHeadingSno">
+                                      {index + 1}
+                                    </p>
+                                    <p className="bidsModalHeadingClientName">
+                                      {item.adId ? item.adId : "NA"}
+                                    </p>
+                                    <p className="bidsModalHeadingOption">
+                                      {item.bidAmount ? item.bidAmount : "NA"}
+                                    </p>
+                                    <p className="bidsModalHeadingOption">NA</p>
+                                  </div>
+                                )
                               )
                             )}
                         </div>
