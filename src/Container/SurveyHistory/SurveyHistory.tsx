@@ -18,7 +18,7 @@ const SurveyHistory = () => {
   const [pastSurveyData, setPastSurveyData] = useState<any[]>([]);
   const { _id, token } = useContext(MyContext);
   async function getAllPastSurveys() {
-    const id = _id || localStorage.getItem("id");
+    const id = _id || localStorage.getItem("clientId");
     const _tokenn = token || localStorage.getItem("token");
     console.log(id, _tokenn);
     await axios

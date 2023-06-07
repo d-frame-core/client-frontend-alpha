@@ -13,11 +13,14 @@ function MyContextProvider(props) {
   const [token, setToken] = useState("");
   const [_imageUrl, setImageUrl] = useState("");
   const [walletBalance, setWalletBalance] = useState("");
+  const [clientId, setClientId] = useState("");
   return (
     <MyContext.Provider
       value={{
         walletAddress,
         setWalletAddress,
+        setClientId,
+        clientId,
         _id,
         setId,
         companyAddress1,

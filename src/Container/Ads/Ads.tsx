@@ -20,7 +20,7 @@ const SurveyHistory = () => {
 
   // getting all past ads
   async function getAllPastSurveys() {
-    const id = _id || localStorage.getItem("id");
+    const id = _id || localStorage.getItem("clientId");
     const _tokenn = token || localStorage.getItem("token");
     console.log(id, _tokenn);
     await axios

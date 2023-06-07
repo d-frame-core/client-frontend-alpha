@@ -45,6 +45,7 @@ const Connect = () => {
         // console.log("token", response.data.token);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("walletAddress", address);
+        localStorage.setItem("id", _id);
         console.log("id", _id);
 
         const data = response.data.user;

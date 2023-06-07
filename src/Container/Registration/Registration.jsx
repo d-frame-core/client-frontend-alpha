@@ -88,8 +88,9 @@ const PhoneVerification = () => {
         console.log(response.data.user._id);
         // do something with response, like display a success message
         // console.log("response ID", response.data.id);
+        console.log("response", response.data.user._id);
         setId(response.data.user._id);
-        localStorage.setItem("id", response.data.user._id);
+        localStorage.setItem("clientId", response.data.user._id);
         alert("Registration Successful, Please Login");
         navigate("/");
       })

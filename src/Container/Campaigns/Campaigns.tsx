@@ -10,6 +10,7 @@ import {
   Switch,
   TextField,
 } from "@mui/material";
+import { Alert, Snackbar } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
@@ -37,7 +38,7 @@ export default function Campaigns() {
   const [adEndDate, setAdEndDate] = useState<string>("");
   const [inputValue, setInputValue] = useState("");
   const [immediateAdId, setImmediateAdId] = useState<any>();
-  const { _id, token } = React.useContext(MyContext);
+  const { _id, token, clientId } = React.useContext(MyContext);
   const [tagsExist, setTagsExist] = useState(false);
   const [allAdsDetails, setAllAdsDetails] = useState<any>([]);
   const [particularAdsDetails, setParticularAdsDetails] = useState<any>();
@@ -53,6 +54,12 @@ export default function Campaigns() {
   const [imageUrl, setImageUrl] = useState<any>();
   const [image, setImage] = useState<any>();
   const [particularBidDetails, setParticularBidDetails] = useState<any>();
+  const [editedAdToaster, setEditedAdToaster] = useState(false);
+  const [createdAdToaster, setCreatedAdToaster] = useState(false);
+
+  const handleToastClose = () => {
+    setEditedAdToaster(false);
+  };
 
   const optionsType: any[] = [
     {
@@ -103,11 +110,11 @@ export default function Campaigns() {
 
   // function to create a new Ad
   async function submitAdCampaign() {
-    const clientId = _id || localStorage.getItem("id");
-    console.log("id", clientId);
+    const id = clientId || localStorage.getItem("id");
+    console.log("id", id);
     await axios
       .post("http://localhost:3000/ads", {
-        clientId: clientId,
+        clientId: id,
         campaignName: campaignName,
         campaignType: campaignType,
         adName: adName,
@@ -140,7 +147,8 @@ export default function Campaigns() {
 
   // function to get all campaigns of a particular client
   async function getAllCampaigns() {
-    const id = _id || localStorage.getItem("id");
+    const id = clientId || localStorage.getItem("clientId");
+    console.log("id", id);
     await axios
       .get(`http://localhost:3000/ads/client/detail`, {
         headers: {
@@ -158,13 +166,13 @@ export default function Campaigns() {
   }
 
   async function getParticularCampaign(id: any) {
-    const clientId = _id || localStorage.getItem("id");
+    const idOfCilent = localStorage.getItem("clientId");
     await axios
       .get(`http://localhost:3000/ads/${id}`)
       .then(async (res) => {
         console.log("Particular Ad Details", res.data);
         await axios
-          .get(`http://localhost:3000/bids/${clientId}`)
+          .get(`http://localhost:3000/bids/${idOfCilent}`)
           .then((res) => {
             // console.log("Particular Bid Details", res.data);
             setParticularBidDetails(res.data);
@@ -188,6 +196,7 @@ export default function Campaigns() {
         // console.log("Updated Ad Details", res.data);
         setEdit(false);
         setEditAd(false);
+        setEditedAdToaster(true);
         getAllCampaigns();
       })
       .catch((err) => {
@@ -792,6 +801,24 @@ export default function Campaigns() {
             )}
           </div>
         </div>
+        {editedAdToaster && (
+          <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            open={editedAdToaster}
+            autoHideDuration={6000}
+            onClose={() => {
+              setEditedAdToaster(false);
+            }}
+          >
+            <Alert
+              onClose={handleToastClose}
+              severity="info"
+              sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
+            >
+              Ad Edited
+            </Alert>
+          </Snackbar>
+        )}
       </div>
     </>
   );
