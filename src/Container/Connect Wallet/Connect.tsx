@@ -21,6 +21,7 @@ const Connect = () => {
     setCompanyType,
     companyEmail,
     setCompanyEmail,
+    setClientId,
     _id,
   } = React.useContext(MyContext);
   const [isConnected, setIsConnected] = React.useState(false);
@@ -46,16 +47,17 @@ const Connect = () => {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("walletAddress", address);
         localStorage.setItem("id", _id);
-        console.log("id", _id);
 
         const data = response.data.user;
-        console.log(data.user);
+        console.log(response.data.user._id);
         await setCompanyName(data.companyName);
         await setCompanyType(data.companyType);
         await setCompanyEmail(data.companyEmail);
         await setCompanyAddress1(data.companyAddress1);
         await setCompanyAddress2(data.companyAddress2);
         await setWalletAddress(data.walletAddress);
+        await setClientId(data._id);
+        await localStorage.setItem("clientId", data._id);
         navigate("/profile");
       }
       // setWalletAddress(address);
