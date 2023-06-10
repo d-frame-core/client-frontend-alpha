@@ -511,7 +511,8 @@ export default function Campaigns() {
                       <EditIcon />
                     </div>
                     <div className="typeDetails">
-                      {item.type ? item.type : "N.A."}
+                      {/* {item.campaignType ? item.campaignType : "N.A."} */}
+                      {item.campaignType}
                     </div>
                     <div className="reachDetails">
                       {item.assignedUsers ? item.assignedUsers : "5000"}
