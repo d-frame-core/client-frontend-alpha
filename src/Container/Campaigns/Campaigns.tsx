@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import { Alert, Snackbar } from "@mui/material";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, set, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
@@ -174,8 +174,12 @@ export default function Campaigns() {
         await axios
           .get(`http://localhost:3000/bids/${idOfCilent}`)
           .then((res) => {
-            // console.log("Particular Bid Details", res.data);
-            setParticularBidDetails(res.data);
+            console.log("Particular Bid Details", res.data);
+            // setParticularBidDetails(res.data);
+            const sortedBidDetails = res.data.sort(
+              (a: any, b: any) => b.bidAmount - a.bidAmount
+            );
+            setParticularBidDetails(sortedBidDetails);
           });
         setParticularAdsDetails(res.data);
         setAdSelectedId(id);
@@ -203,6 +207,16 @@ export default function Campaigns() {
         console.log(err);
       });
   }
+
+  const handleBidAmount = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if ((e.target.value as any) > 0 && (e.target.value as any) < 100) {
+      setBidAmount(e.target.value);
+    } else {
+      setBidAmount("");
+      alert("Bid Amount should be between 1 and 100");
+    }
+  };
 
   useEffect(() => {
     setEditedAdData(particularAdsDetails);
@@ -405,7 +419,7 @@ export default function Campaigns() {
                   </div>
                   <TextField
                     id="standard-basic"
-                    label="Location"
+                    label="Location (Will Implement In Future Release)"
                     variant="standard"
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
                     {...register("location")}
@@ -435,16 +449,17 @@ export default function Campaigns() {
                   <Divider />
                   <TextField
                     id="standard-basic"
-                    label="Bid Amount per user"
+                    label="Bid Amount per user (DFT)"
                     variant="standard"
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
                     {...register("bidAmount")}
-                    onChange={(e) => setBidAmount(e.target.value)}
+                    value={bidAmount}
+                    onChange={handleBidAmount}
                     required
                   />
                   <TextField
                     id="standard-basic"
-                    label="Budget Amount Per Day"
+                    label="Budget Amount Per Day (DFT)"
                     variant="standard"
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
                     {...register("budgetAmountPerDay")}
@@ -503,7 +518,7 @@ export default function Campaigns() {
                     <div className="bidStrategyDetails">
                       {item.bidAmount} DFT
                     </div>
-                    <div className="budgetDFTDetails">{item.perDay}</div>
+                    <div className="budgetDFTDetails">{item.perDay} DFT</div>
                     <div
                       className="editCampaignDetails"
                       onClick={(e) => getParticularCampaign(item._id)}
@@ -563,19 +578,15 @@ export default function Campaigns() {
                     <div className="modalBodyCampaignsPage">
                       <div className="modalBodyCampaignsPageTop">
                         <h2 className="modalBodyCampaignsPageHeadingTitle">
-                          Ad Name:-{" "}
+                          Ad Name:
                         </h2>
-                        <h2> </h2>
+
                         <h2 className="modalBodyCampaignsPageHeading">
                           {" "}
                           {particularAdsDetails.adName}
                         </h2>
                       </div>
                       <div className="modalBodyCampaignsPageMiddle">
-                        <p className="modalBodyCampaignsPageContentTitle">
-                          Ad Content:-{" "}
-                        </p>
-                        <p> </p>
                         <p className="modalBodyCampaignsPageContent">
                           {particularAdsDetails.adContent.length > 100
                             ? particularAdsDetails.adContent.slice(0, 100) +
@@ -591,7 +602,7 @@ export default function Campaigns() {
                             : ""
                         }
                       >
-                        <p className="modalBodyCampaignsPageBottomContent">
+                        <div className="modalBodyCampaignsPageBottomContent">
                           {particularAdsDetails.tags.length > 0 ? (
                             // display total tags less than or equal to 10, else show ... after 10 tags
                             particularAdsDetails.tags
@@ -605,11 +616,11 @@ export default function Campaigns() {
                                 </>
                               ))
                           ) : (
-                            <div className="notagsadded">
+                            <p className="notagsadded">
                               <p>No Tags Added, so no data available</p>
-                            </div>
+                            </p>
                           )}
-                        </p>
+                        </div>
 
                         {/* users reached */}
                       </div>
@@ -644,21 +655,18 @@ export default function Campaigns() {
                           {particularBidDetails &&
                             particularBidDetails.map(
                               (item: any, index: any) => (
-                                console.log("particularBidDetails", item),
-                                (
-                                  <div className="bidModalArrayDiv" key={index}>
-                                    <p className="bidsModalHeadingSno">
-                                      {index + 1}
-                                    </p>
-                                    <p className="bidsModalHeadingClientName">
-                                      {item.adId ? item.adId : "NA"}
-                                    </p>
-                                    <p className="bidsModalHeadingOption">
-                                      {item.bidAmount ? item.bidAmount : "NA"}
-                                    </p>
-                                    <p className="bidsModalHeadingOption">NA</p>
-                                  </div>
-                                )
+                                <div className="bidModalArrayDiv" key={index}>
+                                  <p className="bidsModalHeadingSno">
+                                    {index + 1}
+                                  </p>
+                                  <p className="bidsModalHeadingClientName">
+                                    {item.adId ? item.adId : "NA"}
+                                  </p>
+                                  <p className="bidsModalHeadingOption">
+                                    {item.bidAmount ? item.bidAmount : "NA"}
+                                  </p>
+                                  <p className="bidsModalHeadingOption">NA</p>
+                                </div>
                               )
                             )}
                         </div>
@@ -671,9 +679,8 @@ export default function Campaigns() {
                       <div className="modalBodyCampaignsPage">
                         <div className="modalBodyCampaignsPageTop">
                           <h2 className="modalBodyCampaignsPageHeadingTitle">
-                            Ad Name:-{" "}
+                            Ad Name:-
                           </h2>
-                          <h2> </h2>
                           <input
                             type="text"
                             className="modalBodyCampaignsPageHeadingEdit"
@@ -687,10 +694,6 @@ export default function Campaigns() {
                           />
                         </div>
                         <div className="modalBodyCampaignsPageMiddle">
-                          <p className="modalBodyCampaignsPageContentTitle">
-                            Ad Content:-{" "}
-                          </p>
-                          <p> </p>
                           <input
                             type="text"
                             className="modalBodyCampaignsPageContentEdit"
@@ -722,9 +725,9 @@ export default function Campaigns() {
                                 )
                               )
                             ) : (
-                              <div className="notagsadded">
+                              <p className="notagsadded">
                                 <p>No Tags Added, so no data available</p>
-                              </div>
+                              </p>
                             )}
                           </p>
                         </div>
