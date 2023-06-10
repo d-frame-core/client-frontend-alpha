@@ -131,8 +131,8 @@ export default function Campaigns() {
         await axios.post("http://localhost:3000/bids", {
           adId: res.data.data._id,
           bidAmount: Number(bidAmount),
-          perDayBudget: Number(perDayBudget),
-          totalDaysToRun: Number(totalDaysToRun),
+          perDay: Number(perDayBudget),
+          totalDays: Number(totalDaysToRun),
         });
         getAllCampaigns();
       })
@@ -503,7 +503,7 @@ export default function Campaigns() {
                     <div className="bidStrategyDetails">
                       {item.bidAmount} DFT
                     </div>
-                    <div className="budgetDFTDetails">34(S)</div>
+                    <div className="budgetDFTDetails">{item.perDay}</div>
                     <div
                       className="editCampaignDetails"
                       onClick={(e) => getParticularCampaign(item._id)}
@@ -511,7 +511,7 @@ export default function Campaigns() {
                       <EditIcon />
                     </div>
                     <div className="typeDetails">
-                      {item.campaignType ? item.campaignType : "N.A."}
+                      {item.type ? item.type : "N.A."}
                     </div>
                     <div className="reachDetails">
                       {item.assignedUsers ? item.assignedUsers : "5000"}
