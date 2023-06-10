@@ -132,7 +132,7 @@ export default function Profile() {
   const handleSave = async () => {
     setEdit(!edit);
     setOpenToast(true);
-    const id = _id || localStorage.getItem("id");
+    const id = clientId || localStorage.getItem("clientId");
     console.log("id", id);
     await axios
       .patch(`http://localhost:3000/users/${id}`, {
@@ -184,7 +184,7 @@ export default function Profile() {
           const imageId = localStorage.getItem("imageID") || "defaultImageId";
 
           fetchImage().then(() => {
-            console.log("..........");
+            // console.log("..........");
           });
           axios
             .get(`http://localhost:3000/users/data/${id}`)

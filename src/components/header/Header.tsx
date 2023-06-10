@@ -9,6 +9,7 @@ import Web3 from "web3";
 import { useContext } from "react";
 import { MyContext } from "../context/Context";
 export default function Header() {
+  const { companyName } = useContext(MyContext);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -32,7 +33,15 @@ export default function Header() {
   return (
     <div className="header">
       <img src={user} alt="" className="user1" />
-      <div className="head1">Username</div>
+      {/* split and display first two words if words are small, else only first word */}
+      <div className="head1">
+        {companyName.split(" ").length > 1
+          ? (companyName.split(" ")[0] + " " + companyName.split(" ")[1]).slice(
+              0,
+              10
+            )
+          : companyName.split(" ")[0].slice(0, 10)}
+      </div>
       <div
         className="drp"
         id="basic-button"

@@ -58,6 +58,7 @@ const Connect = () => {
         await setWalletAddress(data.walletAddress);
         await setClientId(data._id);
         await localStorage.setItem("clientId", data._id);
+        console.log("id", data._id);
         navigate("/profile");
       }
       // setWalletAddress(address);
