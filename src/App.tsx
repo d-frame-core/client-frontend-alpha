@@ -31,7 +31,6 @@ import SingleClient from "./Container/admin/singleClient";
 import SingleCampaign from "./Container/admin/singleCampaign";
 import CampaignInfo from "./Container/admin/campaignInfo";
 import Register1 from "./Container/Registration/Register";
-
 function App() {
   return (
     <div>
@@ -58,12 +57,15 @@ function App() {
           <Route path="/admin/userLearn" element={<UserLearn />} />
           <Route path="/admin/clientHelp" element={<ClientHelp />} />
           <Route path="/admin/clientLearn" element={<ClientLearn />} />
-          <Route path="/admin/userAnalytics" element={<UserAnalytics />} /> 
-          <Route path="/admin/clientAnalytics" element={<ClientAnalytics />} /> 
-          <Route path="/admin/clientInfo" element={<ClientInfo />} /> 
-          <Route path="/admin/clientVerification" element={<ClientVerification />} /> 
+          <Route path="/admin/userAnalytics" element={<UserAnalytics />} />
+          <Route path="/admin/clientAnalytics" element={<ClientAnalytics />} />
+          <Route path="/admin/clientInfo" element={<ClientInfo />} />
+          <Route
+            path="/admin/clientVerification"
+            element={<ClientVerification />}
+          />
           <Route path="/admin/singleUser" element={<SingleUser />} />
-          <Route path="/admin/singleClient" element={<SingleClient />} /> 
+          <Route path="/admin/singleClient" element={<SingleClient />} />
           <Route path="/admin/singleCampaign" element={<SingleCampaign />} />
           <Route path="/admin/campaignInfo" element={<CampaignInfo />} />
           <Route path="/register1" element={<Register1 />} />

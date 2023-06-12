@@ -1,120 +1,66 @@
+// RegisterForm.tsx
+
 import React from "react";
 import "./Register.css";
-import { initializeApp } from "firebase/app";
-import {
-  getAuth,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-} from "firebase/auth";
-import image from "../../assets/dframe.png";
-const Registration = () => {
-  const firebaseConfig = {
-    apiKey: "AIzaSyA0W8Q-1GnDwxio_8kCogoa2LjVXHUhlk8",
-    authDomain: "cd-1-2759c.firebaseapp.com",
-    projectId: "cd-1-2759c",
-    storageBucket: "cd-1-2759c.appspot.com",
-    messagingSenderId: "838720677821",
-    appId: "1:838720677821:web:d6cce76367cdaaabbb14d4",
-    measurementId: "G-WQWP4HZ3W3",
-  };
-  const app = initializeApp(firebaseConfig);
-  let appVerifier = (window as any).recaptchaVerifier;
-  const auth = getAuth();
-  auth.languageCode = "en";
-  const countryId = "+91";
-  return (
-    <div>
-      <script
-        src="https://www.google.com/recaptcha/api.js"
-        async
-        defer
-      ></script>
+import logo from "../../assets/dframe.png";
 
-      <div className="dframeHeadingAndImageDiv">
-        <div className="dframeImageDivRegisterPage">
-          <img
-            src={image}
-            alt="dframe logo"
-            className="dframeImageRegisterPage"
-          />
-        </div>
-        <div className="dframeHeadingRegisterPage">
-          Welcome to D-Frame Client Registration Portal
-        </div>
+const Register: React.FC = () => {
+  return (
+    <div className="container">
+      <div className="headerRegistration">
+        <img src={logo} width={80} alt="" />
+        <h2>Welcome to D-Frame Client Registration Portal</h2>
       </div>
-      <div className="mainRegisterPage">
-        <div className="registerFormDiv">
-          <div className="registerFormOuterDiv">
-            <div className="registerFormEntryDiv">
-              <div className="registerFormHeading">Company Name</div>
-              <div className="registerFormColon">:</div>
-              <div className="registerFormInput">
-                <input type="text" className="registerFormInputField" />
-              </div>
-            </div>
-            <div className="registerFormEntryDiv">
-              <div className="registerFormHeading">Company Type</div>
-              <div className="registerFormColon">:</div>
-              <div className="registerFormInput">
-                <input type="text" className="registerFormInputField" />
-              </div>
-            </div>
-            <div className="registerFormEntryDiv">
-              <div className="registerFormHeading">Company Address1</div>
-              <div className="registerFormColon">:</div>
-              <div className="registerFormInput">
-                <input type="text" className="registerFormInputField" />
-              </div>
-            </div>
-            <div className="registerFormEntryDiv">
-              <div className="registerFormHeading">Company Address2</div>
-              <div className="registerFormColon">:</div>
-              <div className="registerFormInput">
-                <input type="text" className="registerFormInputField" />
-              </div>
-            </div>
-            <div className="registerFormEntryDiv1">
-              <div className="registerFormEntryDiv1Top">
-                <div className="registerFormHeadingVerify">Company Email</div>
-                <div className="registerFormColonVerify">:</div>
-                <div className="registerFormInputVerify">
-                  <input type="text" className="registerFormInputFieldVerify" />
-                </div>
-              </div>
-              <div className="registerFormEntryDiv1Bottom">
-                <button className="registerFormVerifyButton">
-                  Verify Email
-                </button>
-              </div>
-            </div>
-            <div className="registerFormEntryDiv1">
-              <div className="registerFormEntryDiv1Top">
-                <div className="registerFormHeadingVerify">Company Phone</div>
-                <div className="registerFormColonVerify">:</div>
-                <div className="registerFormInputVerify">
-                  <input type="text" className="registerFormInputFieldVerify" />
-                </div>
-              </div>
-              <div className="registerFormEntryDiv1Bottom">
-                <button className="registerFormVerifyButton">
-                  Verify Phone
-                </button>
-                <div className="recaptcha-container">
-                  <div id="recaptcha-container"></div>
-                </div>
-              </div>
-            </div>
-            <button
-              className="registerFormSubmitButton"
-              // onClick={handleSubmitPhoneNumber}
-            >
-              Submit
-            </button>
-          </div>
+      <form className="form">
+        <p className="title">Register</p>
+        <div className="flex">
+          <label>
+            <input
+              required
+              placeholder=""
+              type="text"
+              className="inputInFlex"
+            />
+            <span>Company Name</span>
+          </label>
+
+          <label>
+            <input
+              required
+              placeholder=""
+              type="text"
+              className="inputInFlex"
+            />
+            <span>Company Type</span>
+          </label>
         </div>
-      </div>
+
+        <label>
+          <input required placeholder="" type="text" className="input" />
+          <span>Company Address1</span>
+        </label>
+
+        <label>
+          <input required placeholder="" type="text" className="input" />
+          <span>Company Address2</span>
+        </label>
+
+        <label>
+          <input required placeholder="" type="email" className="input" />
+          <span>Company Email</span>
+          <button className="submitOTPVerify">Verify</button>
+        </label>
+
+        <label>
+          <input required placeholder="" type="text" className="input" />
+          <span>Contact Number</span>
+          <button className="submitOTPVerify">Verify</button>
+        </label>
+
+        <button className="submitButtonRegistrationPage">Submit</button>
+      </form>
     </div>
   );
 };
 
-export default Registration;
+export default Register;
