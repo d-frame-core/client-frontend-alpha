@@ -155,15 +155,6 @@ const PhoneVerification = () => {
                       placeholder="Enter Address contd."
                     />
                   )}
-                  {/* {index === 5 && (
-                    <input
-                      type="text"
-                      value={walletAddress}
-                      onChange={(e) => setWalletAddress(e.target.value)}
-                      className="detailValue"
-                      placeholder="Enter Wallet Address"
-                    />
-                  )} */}
                   {index === 5 && (
                     <>
                       {!confirmationResult ? (

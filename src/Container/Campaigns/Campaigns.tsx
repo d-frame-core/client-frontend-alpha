@@ -655,7 +655,14 @@ export default function Campaigns() {
                           {particularBidDetails &&
                             particularBidDetails.map(
                               (item: any, index: any) => (
-                                <div className="bidModalArrayDiv" key={index}>
+                                <div
+                                  className={
+                                    item.adId == particularAdsDetails._id
+                                      ? "bidModalArrayDiv"
+                                      : "bidModalArrayDiv"
+                                  }
+                                  key={index}
+                                >
                                   <p className="bidsModalHeadingSno">
                                     {index + 1}
                                   </p>
