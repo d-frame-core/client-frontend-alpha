@@ -18,6 +18,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
 import axios from "axios";
 import { MyContext } from "../../components/context/Context";
+import { useNavigate } from "react-router-dom";
 
 //  defining types of ads
 const typesofads: any[] = [
@@ -25,6 +26,7 @@ const typesofads: any[] = [
   { value: "Video", label: "Video" },
 ];
 export default function Campaigns() {
+  const navigate = useNavigate();
   //  defining states
   const [campaignName, setCampaignName] = useState<string>("");
   const [campaignType, setCampaignType] = useState<string>("");
@@ -37,8 +39,9 @@ export default function Campaigns() {
   const [adTags, setAdTags] = useState<any>([]);
   const [adLocation, setAdLocation] = useState<string>("");
   const [adBudget, setAdBudget] = useState<string>("");
-  const [adStartDate, setAdStartDate] = useState<string>("");
-  const [adEndDate, setAdEndDate] = useState<string>("");
+  const [adStartDate, setAdStartDate] = useState("");
+  const [adEndDate, setAdEndDate] = useState("");
+  const [dateError, setDateError] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [immediateAdId, setImmediateAdId] = useState<any>();
   const { _id, token, clientId } = React.useContext(MyContext);
@@ -48,7 +51,7 @@ export default function Campaigns() {
   const [edit, setEdit] = useState(false);
   const [editAd, setEditAd] = useState(false);
   const [editAdDetails, setEditAdDetails] = useState<any>([]);
-  const [bidAmount, setBidAmount] = useState<any>();
+  // const [bidAmount, setBidAmount] = useState<any>();
   const [perDayBudget, setPerDayBudget] = useState<any>();
   const [totalDaysToRun, setTotalDaysToRun] = useState<any>();
   const [adSelectedId, setAdSelectedId] = useState<any>();
@@ -137,6 +140,34 @@ export default function Campaigns() {
   const [formopen, setFormopen] = useState(false);
   const [nextpage, setNextpage] = useState(false);
 
+  // function to handle the start date change
+  const handleStartDateChange = (event: any) => {
+    const startDate = event.target.value;
+    setAdStartDate(startDate);
+
+    const currentDate = new Date().toISOString().slice(0, 10);
+    if (startDate < currentDate) {
+      setAdStartDate("");
+      setAdEndDate("");
+      setDateError("Start Date should be greater than the current date");
+    } else {
+      setDateError("");
+    }
+  };
+
+  //  function to handle the end date change
+  const handleEndDateChange = (event: any) => {
+    const endDate = event.target.value;
+    setAdEndDate(endDate);
+
+    if (endDate <= adStartDate) {
+      setAdEndDate("");
+      setDateError("End Date should be greater than the Start Date");
+    } else {
+      setDateError("");
+    }
+  };
+
   // function to create a new Ad
   async function submitAdCampaign() {
     const id = clientId || localStorage.getItem("id");
@@ -196,7 +227,11 @@ export default function Campaigns() {
   }
 
   // function to get particular campaign details
-  async function getParticularCampaign(id: any) {
+  async function getParticularCampaign(
+    id: any,
+    e: React.MouseEvent<HTMLDivElement>
+  ) {
+    e.stopPropagation();
     const idOfCilent = localStorage.getItem("clientId");
     await axios
       .get(`http://localhost:3000/ads/${id}`)
@@ -241,13 +276,17 @@ export default function Campaigns() {
   }
 
   // function to handle bid amount
-  const handleBidAmount = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if ((e.target.value as any) > 0 && (e.target.value as any) < 100) {
-      setBidAmount(e.target.value);
+  const [bidAmount, setBidAmount] = useState("");
+  const [bidAmountError, setBidAmountError] = useState("");
+
+  const handleBidAmount = (event: any) => {
+    const amount = event.target.value;
+    setBidAmount(amount);
+
+    if (amount < 1 || amount > 100) {
+      setBidAmountError("**Bid Amount should be between 1 and 100");
     } else {
-      setBidAmount("");
-      alert("Bid Amount should be between 1 and 100");
+      setBidAmountError("");
     }
   };
 
@@ -477,37 +516,53 @@ export default function Campaigns() {
                     required
                   />
                   <TextField
-                    id="standard-basic"
+                    id="start-date"
                     variant="standard"
                     label="Start Date"
                     placeholder="Start Date"
-                    type={"date"}
+                    type="date"
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
-                    {...register("startDate")}
-                    onChange={(e) => setAdStartDate(e.target.value)}
+                    value={adStartDate}
+                    onChange={handleStartDateChange}
                     required
                   />
                   <TextField
-                    id="standard-basic"
+                    id="end-date"
                     label="End Date"
                     variant="standard"
-                    type={"date"}
+                    type="date"
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
-                    {...register("endDate")}
-                    onChange={(e) => setAdEndDate(e.target.value)}
+                    value={adEndDate}
+                    onChange={handleEndDateChange}
                     required
                   />
+                  {dateError && <p style={{ color: "red" }}>{dateError}</p>}
                   <Divider />
+
                   <TextField
                     id="standard-basic"
                     label="Bid Amount per user (DFT)"
                     variant="standard"
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
-                    {...register("bidAmount")}
                     value={bidAmount}
                     onChange={handleBidAmount}
                     required
                   />
+                  {bidAmountError && (
+                    <p
+                      style={{
+                        color: "red",
+                        fontWeight: "600",
+                        fontSize: "100%",
+                        padding: 0,
+                        margin: 0,
+                      }}
+                    >
+                      {bidAmountError}
+                    </p>
+                  )}
+                  {/* Rest of your code */}
+
                   <TextField
                     id="standard-basic"
                     label="Budget Amount Per Day (DFT)"
@@ -564,7 +619,11 @@ export default function Campaigns() {
             <div className="campaignsDetails">
               {allAdsDetails &&
                 allAdsDetails.map((item: any, index: any) => (
-                  <div className="adDetails" key={index}>
+                  <div
+                    className="adDetails"
+                    key={index}
+                    onClick={() => navigate("/campaign-details")}
+                  >
                     <div className="campaignNameDetails">{item.adName}</div>
                     <div className="bidStrategyDetails">
                       {item.bidAmount} DFT
@@ -572,7 +631,7 @@ export default function Campaigns() {
                     <div className="budgetDFTDetails">{item.perDay} DFT</div>
                     <div
                       className="editCampaignDetails"
-                      onClick={(e) => getParticularCampaign(item._id)}
+                      onClick={(e) => getParticularCampaign(item._id, e)}
                     >
                       <EditIcon />
                     </div>

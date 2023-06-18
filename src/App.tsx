@@ -31,6 +31,7 @@ import SingleClient from "./Container/admin/singleClient";
 import SingleCampaign from "./Container/admin/singleCampaign";
 import CampaignInfo from "./Container/admin/campaignInfo";
 import Register1 from "./Container/Registration/Register";
+import CampaignDetails from "./Container/CampaignDetails/Details";
 function App() {
   return (
     <div>
@@ -69,6 +70,7 @@ function App() {
           <Route path="/admin/singleCampaign" element={<SingleCampaign />} />
           <Route path="/admin/campaignInfo" element={<CampaignInfo />} />
           <Route path="/register1" element={<Register1 />} />
+          <Route path="/campaign-details" element={<CampaignDetails />} />
         </Routes>
       </Router>
     </div>
