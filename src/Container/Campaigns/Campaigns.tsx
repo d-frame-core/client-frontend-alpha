@@ -1,3 +1,4 @@
+//  importing all dependencies and required components
 import { Box } from "@mui/system";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./campaigns.css";
@@ -18,11 +19,13 @@ import React from "react";
 import axios from "axios";
 import { MyContext } from "../../components/context/Context";
 
+//  defining types of ads
 const typesofads: any[] = [
   { value: "Image", label: "Image" },
   { value: "Video", label: "Video" },
 ];
 export default function Campaigns() {
+  //  defining states
   const [campaignName, setCampaignName] = useState<string>("");
   const [campaignType, setCampaignType] = useState<string>("");
   const [adName, setAdName] = useState<string>("");
@@ -56,11 +59,18 @@ export default function Campaigns() {
   const [particularBidDetails, setParticularBidDetails] = useState<any>();
   const [editedAdToaster, setEditedAdToaster] = useState(false);
   const [createdAdToaster, setCreatedAdToaster] = useState(false);
+  const [deletedAdToaster, setDeletedAdToaster] = useState(false);
+  const [editBidModal, setEditBidModal] = useState(false);
+  const [newBidAmount, setNewBidAmount] = useState("");
 
+  //  function to handle toast close
   const handleToastClose = () => {
     setEditedAdToaster(false);
+    setCreatedAdToaster(false);
+    setDeletedAdToaster(false);
   };
 
+  //  option types for campaign type
   const optionsType: any[] = [
     {
       value: "Awareness",
@@ -80,6 +90,7 @@ export default function Campaigns() {
     },
   ];
 
+  //  style for the bigger modal
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
@@ -95,6 +106,24 @@ export default function Campaigns() {
     overflow: "hidden",
     overflowY: "scroll",
   };
+
+  // style for the smaller modal
+  const style2 = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    height: 200,
+    bgcolor: "white",
+    boxShadow: 24,
+    border: "0",
+    p: 3,
+    borderRadius: "1.1vh",
+    overflow: "hidden",
+  };
+
+  //  useform compoenent
   const {
     register,
     handleSubmit,
@@ -135,6 +164,7 @@ export default function Campaigns() {
           totalDays: Number(totalDaysToRun),
         });
         getAllCampaigns();
+        setCreatedAdToaster(true);
       })
       .catch((err) => {
         console.log(err);
@@ -165,6 +195,7 @@ export default function Campaigns() {
       });
   }
 
+  // function to get particular campaign details
   async function getParticularCampaign(id: any) {
     const idOfCilent = localStorage.getItem("clientId");
     await axios
@@ -190,6 +221,7 @@ export default function Campaigns() {
       });
   }
 
+  //  function to update a particular ad
   async function updateParticularAd(id: any) {
     await axios
       .patch(`http://localhost:3000/ads/${id}`, {
@@ -208,6 +240,7 @@ export default function Campaigns() {
       });
   }
 
+  // function to handle bid amount
   const handleBidAmount = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     if ((e.target.value as any) > 0 && (e.target.value as any) < 100) {
@@ -218,6 +251,7 @@ export default function Campaigns() {
     }
   };
 
+  // useeffect to set the edited ad data
   useEffect(() => {
     setEditedAdData(particularAdsDetails);
   }, [particularAdsDetails]);
@@ -234,6 +268,23 @@ export default function Campaigns() {
         // console.log("Deleted Ad Details", res.data);
         // window.location.reload();
         setEdit(false);
+        setDeletedAdToaster(true);
+        getAllCampaigns();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  async function handleUpdateBidAmount() {
+    const id = clientId || localStorage.getItem("clientId");
+    await axios
+      .patch(`http://localhost:3000/bids/${id}`, {
+        bidAmount: Number(newBidAmount),
+      })
+      .then((res) => {
+        console.log("Updated Bid Details", res.data);
+        setEditBidModal(false);
         getAllCampaigns();
       })
       .catch((err) => {
@@ -658,7 +709,7 @@ export default function Campaigns() {
                                 <div
                                   className={
                                     item.adId == particularAdsDetails._id
-                                      ? "bidModalArrayDiv"
+                                      ? "bidModalArrayDivActive"
                                       : "bidModalArrayDiv"
                                   }
                                   key={index}
@@ -756,7 +807,7 @@ export default function Campaigns() {
                             </p>
                           </div>
                         </div>
-                        <div className="modalClientDetails">
+                        {/* <div className="modalClientDetails">
                           <div className="bidModalHeadingDiv">
                             <h3 className="bidsModalHeadingSno">S.No</h3>
                             <h3 className="bidsModalHeadingClientName">
@@ -765,7 +816,7 @@ export default function Campaigns() {
                             <h3 className="bidsModalHeadingOption">Option 1</h3>
                             <h3 className="bidsModalHeadingOption">Option 2</h3>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     )
                   }
@@ -786,8 +837,14 @@ export default function Campaigns() {
                       >
                         Delete Ad
                       </button>
-                      <button className="modalFooterButtonBidsCampaignsPage">
-                        Edit Bids
+                      <button
+                        className="modalFooterButtonBidsCampaignsPage"
+                        onClick={() => {
+                          setEdit(false);
+                          setEditBidModal(true);
+                        }}
+                      >
+                        Edit Bid for this Ad
                       </button>
                     </div>
                   )}
@@ -811,6 +868,58 @@ export default function Campaigns() {
               </Modal>
             )}
           </div>
+          {editBidModal && (
+            <Modal
+              open={editBidModal}
+              onClose={() => setEditBidModal(false)}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style2}>
+                <div className="editBidModalDiv">
+                  <div className="editBidModalDivTop">
+                    <div className="editBidModalAdName">
+                      {particularAdsDetails.adName}
+                    </div>
+                    <div className="editBidModalAdId">
+                      Ad Id: {particularAdsDetails._id}
+                    </div>
+                  </div>
+                  <div className="editBidModalDivBody">
+                    Current Bid Amount (per user) :{" "}
+                    {particularAdsDetails.bidAmount} DFT
+                  </div>
+                  <div className="editBidModalDivEdit">
+                    <div className="editBidModalDivEditLeft">
+                      New Bid Amount (per user) :{" "}
+                    </div>
+                    <div className="editBidModalDivEditRight">
+                      <input
+                        type="text"
+                        className="editBidModalDivEditInput"
+                        value={newBidAmount}
+                        onChange={(e) => setNewBidAmount(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="modalFooterCampaignsPage2">
+                    <button
+                      className="modalFooterButtonDeleteCampaignsPage2"
+                      onClick={() => setEditBidModal(false)}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      className="modalFooterButtonEditCampaignsPage2"
+                      onClick={handleUpdateBidAmount}
+                    >
+                      Update Bid
+                    </button>
+                  </div>
+                </div>
+              </Box>
+            </Modal>
+          )}
         </div>
         {editedAdToaster && (
           <Snackbar
@@ -827,6 +936,42 @@ export default function Campaigns() {
               sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
             >
               Ad Edited
+            </Alert>
+          </Snackbar>
+        )}
+        {createdAdToaster && (
+          <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            open={createdAdToaster}
+            autoHideDuration={6000}
+            onClose={() => {
+              setCreatedAdToaster(false);
+            }}
+          >
+            <Alert
+              onClose={handleToastClose}
+              severity="success"
+              sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
+            >
+              New Ad Created
+            </Alert>
+          </Snackbar>
+        )}
+        {deletedAdToaster && (
+          <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            open={deletedAdToaster}
+            autoHideDuration={6000}
+            onClose={() => {
+              setDeletedAdToaster(false);
+            }}
+          >
+            <Alert
+              onClose={handleToastClose}
+              severity="error"
+              sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
+            >
+              Ad Deleted Successfully
             </Alert>
           </Snackbar>
         )}

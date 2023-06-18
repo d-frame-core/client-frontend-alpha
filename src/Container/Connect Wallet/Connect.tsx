@@ -22,7 +22,6 @@ const Connect = () => {
     companyEmail,
     setCompanyEmail,
     setClientId,
-    _id,
   } = React.useContext(MyContext);
   const [isConnected, setIsConnected] = React.useState(false);
   async function connectWallet(): Promise<void> {
@@ -99,7 +98,7 @@ const Connect = () => {
           </p>
           <button
             className="connectClientWallet__button"
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/register1")}
           >
             Register
           </button>
