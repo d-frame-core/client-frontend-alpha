@@ -357,6 +357,8 @@ export default function Wallet() {
       "https://polygon-mainnet.g.alchemy.com/v2/Ygfvgz118Xr9j6j_F3ZIMFye6SNTgJr8"
     );
     // const web3 = new Web3((window as any).ethereum);
+    // const web3 = new Web3((window as any).ethereum);
+    // const web3 = new Web3("https://polygon-rpc.com");
 
     // set the wallet address to query
     const _walletAddress =
@@ -631,6 +633,10 @@ export default function Wallet() {
     const balanceInKFormat =
       Math.trunc((balanceInEth as any) / 1000).toString() + "K";
     setWalletBalance(balanceInKFormat);
+    const latestBlock = await (window as any).ethereum.request({
+      method: "eth_blockNumber",
+      params: [],
+    });
     // get the transfer events of the MATIC token for the specified wallet address
     const transferFromEvents = await dframeContract.getPastEvents("Transfer", {
       fromBlock: 0,
@@ -864,8 +870,7 @@ export default function Wallet() {
                       );
                     }
                   })}
-
-                  <p className="extraSpace"></p>
+                  <Divider />
                 </div>
               )
             }
