@@ -10,8 +10,13 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Web3 from "web3";
 export default function Wallet() {
   //  importing from context api
-  const { walletAddress, walletBalance, setWalletBalance } =
-    useContext(MyContext);
+  const {
+    walletAddress,
+    walletBalance,
+    setWalletBalance,
+    clientId,
+    setClientId,
+  } = useContext(MyContext);
   const _walletAddress = walletAddress || localStorage.getItem("walletAddress");
 
   //  defining state variables
@@ -686,6 +691,11 @@ export default function Wallet() {
 
   //  useeffect to get the past events of the DFRAME token
   useEffect(() => {
+    const tempId = localStorage.getItem("clientId");
+    if (tempId) {
+      setClientId(tempId);
+    }
+    console.log("cliendId wallet page", clientId);
     getPastEvents();
   }, []);
   useEffect(() => {}, [transactionEvents]);

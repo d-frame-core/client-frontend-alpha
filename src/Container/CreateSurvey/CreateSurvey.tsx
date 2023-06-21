@@ -28,7 +28,7 @@ const CreateSurvey = () => {
   const [surveyActiveToastOpen, setSurveyActiveToastOpen] = useState(false);
   const [submitToastOpen, setSubmitToastOpen] = useState(false);
   const [openToast, setOpenToast] = useState(false);
-  const { _id, token, clientId } = useContext(MyContext);
+  const { _id, token, clientId, setClientId } = useContext(MyContext);
   const [surveyName, setSurveyName] = useState("");
   const [surveyDescription, setSurveyDescription] = useState("");
   const [startDate, setStartDate] = useState<Date>(new Date());
@@ -341,6 +341,11 @@ const CreateSurvey = () => {
 
   // useEffect to fetch all surveys
   useEffect(() => {
+    const tempId = localStorage.getItem("clientId");
+    if (tempId) {
+      setClientId(tempId);
+    }
+    console.log("cliendId survey page", clientId);
     fetchAllSurveys();
   }, []);
 

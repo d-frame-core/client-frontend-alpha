@@ -10,6 +10,7 @@ const Connect = () => {
     walletAddress,
     setWalletAddress,
     token,
+    clientId,
     setToken,
     companyAddress1,
     setCompanyAddress1,
@@ -56,7 +57,8 @@ const Connect = () => {
         await setWalletAddress(data.walletAddress);
         await setClientId(data._id);
         await localStorage.setItem("clientId", data._id);
-        console.log("id", data._id);
+        console.log("id", clientId);
+        console.log(localStorage.getItem("clientId"));
         navigate("/profile");
       }
       // setWalletAddress(address);

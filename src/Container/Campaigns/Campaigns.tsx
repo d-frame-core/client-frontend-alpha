@@ -44,7 +44,7 @@ export default function Campaigns() {
   const [dateError, setDateError] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [immediateAdId, setImmediateAdId] = useState<any>();
-  const { _id, token, clientId } = React.useContext(MyContext);
+  const { _id, token, clientId, setClientId } = React.useContext(MyContext);
   const [tagsExist, setTagsExist] = useState(false);
   const [allAdsDetails, setAllAdsDetails] = useState<any>([]);
   const [particularAdsDetails, setParticularAdsDetails] = useState<any>();
@@ -292,6 +292,11 @@ export default function Campaigns() {
 
   // useeffect to set the edited ad data
   useEffect(() => {
+    const tempId = localStorage.getItem("clientId");
+    if (tempId) {
+      setClientId(tempId);
+    }
+    console.log("cliendId campaigns page", clientId);
     setEditedAdData(particularAdsDetails);
   }, [particularAdsDetails]);
 
