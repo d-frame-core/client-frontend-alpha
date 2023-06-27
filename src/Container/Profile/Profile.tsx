@@ -70,6 +70,11 @@ export default function Profile() {
   };
 
   useEffect(() => {
+    const tempId = localStorage.getItem("clientId");
+    if (tempId) {
+      setClientId(tempId);
+    }
+    console.log("cliendId profile page", clientId);
     connectToPolygonMainnet();
   }, []);
 

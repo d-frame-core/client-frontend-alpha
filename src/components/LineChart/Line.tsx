@@ -10,33 +10,33 @@ import {
 } from "recharts";
 
 const data = [
-  { x: 1, blue: 5, red: 7 },
-  { x: 2, blue: 3, red: 9 },
-  { x: 3, blue: 6, red: 5 },
-  { x: 4, blue: 4, red: 8 },
-  { x: 5, blue: 7, red: 6 },
-  { x: 1, blue: 5, red: 7 },
-  { x: 2, blue: 3, red: 9 },
-  { x: 3, blue: 6, red: 5 },
-  { x: 4, blue: 4, red: 8 },
-  { x: 5, blue: 7, red: 6 },
-  { x: 1, blue: 5, red: 7 },
-  { x: 2, blue: 3, red: 9 },
-  { x: 3, blue: 6, red: 5 },
-  { x: 4, blue: 4, red: 8 },
-  { x: 5, blue: 7, red: 6 },
-  { x: 1, blue: 5, red: 7 },
-  { x: 2, blue: 3, red: 9 },
-  { x: 3, blue: 6, red: 5 },
-  { x: 4, blue: 4, red: 8 },
-  { x: 5, blue: 7, red: 6 },
+  { x: 1, views: 5, users: 7 },
+  { x: 2, views: 3, users: 9 },
+  { x: 3, views: 6, users: 5 },
+  { x: 4, views: 4, users: 8 },
+  { x: 5, views: 7, users: 6 },
+  { x: 1, views: 5, users: 7 },
+  { x: 2, views: 3, users: 9 },
+  { x: 3, views: 6, users: 5 },
+  { x: 4, views: 4, users: 8 },
+  { x: 5, views: 7, users: 6 },
+  { x: 1, views: 5, users: 7 },
+  { x: 2, views: 3, users: 9 },
+  { x: 3, views: 6, users: 5 },
+  { x: 4, views: 4, users: 8 },
+  { x: 5, views: 7, users: 6 },
+  { x: 1, views: 5, users: 7 },
+  { x: 2, views: 3, users: 9 },
+  { x: 3, views: 6, users: 5 },
+  { x: 4, views: 4, users: 8 },
+  { x: 5, views: 7, users: 6 },
 ];
 
 const MyLineChart = () => {
   return (
     <LineChart
-      width={800}
-      height={200}
+      width={850}
+      height={250}
       data={data}
       margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
     >
@@ -45,8 +45,8 @@ const MyLineChart = () => {
       <CartesianGrid strokeDasharray="3 3" />
       <Tooltip />
       <Legend />
-      <Line type="monotone" dataKey="blue" stroke="blue" />
-      <Line type="monotone" dataKey="red" stroke="red" />
+      <Line type="monotone" dataKey="views" stroke="blue" />
+      <Line type="monotone" dataKey="users" stroke="red" />
     </LineChart>
   );
 };
