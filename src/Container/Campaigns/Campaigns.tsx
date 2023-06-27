@@ -32,8 +32,8 @@ export default function Campaigns() {
   const [campaignType, setCampaignType] = useState<string>("");
   const [adName, setAdName] = useState<string>("");
   const [adType, setAdType] = useState<string>("");
-  const [adImage, setAdImage] = useState<string>("");
-  const [adVideo, setAdVideo] = useState<string>("");
+  const [adFile, setAdFile] = useState<string | Blob>("");
+  // const [adVideo, setAdVideo] = useState<string>("");
   const [adContent, setAdContent] = useState<string>("");
   const [adLink, setAdLink] = useState<string>("");
   const [adTags, setAdTags] = useState<any>([]);
@@ -172,6 +172,16 @@ export default function Campaigns() {
   async function submitAdCampaign() {
     const id = clientId || localStorage.getItem("id");
     console.log("id", id);
+
+    const formData = new FormData();
+    formData.append("image", adFile);
+
+    // const result = await axios.post("/api/images", formData, {
+    //   headers: { "Content-Type": "multipart/form-data" },
+    // });
+
+    // console.log(result.data);
+
     await axios
       .post("http://localhost:3000/ads", {
         clientId: id,
@@ -433,8 +443,8 @@ export default function Campaigns() {
                       className="hidden"
                       id="files"
                       onChange={(e: any) => {
-                        if (e.target.files) {
-                          setAdImage(e.target.files[0]);
+                        if (e.target.files && e.target.files.length > 0) {
+                          setAdFile(e.target.files[0]);
                           console.log(e.target.files[0]);
                         }
                       }}
@@ -618,7 +628,7 @@ export default function Campaigns() {
 
             <div className="campaignsDetails">
               {allAdsDetails &&
-                allAdsDetails.map((item: any, index: any) => (
+                allAdsDetails.toReversed().map((item: any, index: any) => (
                   <div
                     className="adDetails"
                     key={index}
