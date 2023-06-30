@@ -31,6 +31,10 @@ import SingleClient from "./Container/admin/singleClient";
 import SingleCampaign from "./Container/admin/singleCampaign";
 import CampaignInfo from "./Container/admin/campaignInfo";
 import Register1 from "./Container/Registration/Register";
+import ClientCampaignVerify from "./Container/admin/clientCampaignVerify";
+import ClientSurveyVerify from "./Container/admin/clientSurveyVerification";
+import Reverification from "./Container/admin/reverification";
+import AdminWallet from "./Container/admin/adminWallet";
 
 function App() {
   return (
@@ -66,7 +70,11 @@ function App() {
           <Route path="/admin/singleClient" element={<SingleClient />} /> 
           <Route path="/admin/singleCampaign" element={<SingleCampaign />} />
           <Route path="/admin/campaignInfo" element={<CampaignInfo />} />
+          <Route path="/admin/ClientCampaignVerify" element={<ClientCampaignVerify />} />
+          <Route path="/admin/ClientSurveyVerify" element={<ClientSurveyVerify />} />
           <Route path="/register1" element={<Register1 />} />
+          <Route path="/admin/reverification" element={<Reverification />} />
+          <Route path="/admin/adminWallet" element={<AdminWallet />} />
         </Routes>
       </Router>
     </div>
