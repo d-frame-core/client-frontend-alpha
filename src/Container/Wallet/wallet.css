@@ -52,7 +52,7 @@
   /* border: 1px solid blue; */
   margin-top: 2%;
 }
-.transactionListTop{
+.transactionListTop {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -63,37 +63,36 @@
   width: 95%;
   height: 40%;
   font-weight: 500;
-
 }
-.transactionListTopLeft{
+.transactionListTopLeft {
   /* border: 1px solid blue; */
   height: 80%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.transactionListTopRight{
+.transactionListTopRight {
   /* border: 1px solid blue; */
   height: 80%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.transactionListBottomLeft{
+.transactionListBottomLeft {
   /* border: 1px solid blue; */
   height: 80%;
   display: flex;
   align-items: flex-start;
   justify-content: center;
 }
-.transactionListBottomCenter{
+.transactionListBottomCenter {
   /* border: 1px solid blue; */
   height: 80%;
-    display: flex;
-      align-items: flex-start;
-      justify-content: center;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
-.transactionListBottomRight{
+.transactionListBottomRight {
   /* border: 1px solid blue; */
   height: 80%;
   display: flex;
@@ -101,7 +100,7 @@
   justify-content: center;
 }
 
-.transactionListBottom{
+.transactionListBottom {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -114,13 +113,13 @@
   font-weight: 500;
   padding-bottom: 1%;
 }
-.transactionListBottomRightTextSent{
+.transactionListBottomRightTextSent {
   color: #f43434;
   font-weight: 600;
   font-family: "IBM Plex Sans Devanagari";
   /* border: 1px solid blue; */
 }
-.transactionListBottomRightTextreceived{
+.transactionListBottomRightTextreceived {
   color: green;
   font-weight: 600;
   font-family: "IBM Plex Sans Devanagari";
@@ -146,7 +145,6 @@
   overflow-y: auto;
   flex-direction: column;
   position: inherit;
-
 }
 .transactionBox::-webkit-scrollbar {
   border-radius: 2vh;
@@ -291,8 +289,7 @@
   top: 3vh;
 }
 .extraSpace {
-  position: relative;
-  margin-top: 5vh;
+  border: 1px solid blue;
 }
 input[type="walletPageInput"] {
   padding: 1%;
@@ -308,7 +305,7 @@ input[type="walletPageInput"] {
 .loader {
   width: 48px;
   height: 48px;
-  border: 5px solid #FFF;
+  border: 5px solid #fff;
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;
@@ -325,7 +322,7 @@ input[type="walletPageInput"] {
     transform: rotate(360deg);
   }
 }
-.transactionLoading{
+.transactionLoading {
   position: absolute;
   top: 50%;
   left: 50%;

@@ -1,9 +1,9 @@
+// importing required files and packages here.
 import { Box } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import user from "../../assets/userIcon.png";
 import Grid from "@mui/material/Grid";
-// import "./profile.css";
 import "./profilep.css";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import { MyContext } from "../../components/context/Context";
@@ -11,13 +11,17 @@ import axios from "axios";
 import { async } from "@firebase/util";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Alert, Snackbar } from "@mui/material";
+
 export default function Profile() {
+  // defining states here.
   const [openImageToast, setOpenImageToast] = useState(false);
   const [openToast, setOpenToast] = useState(false);
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
   const [files, setFiles] = useState(user);
   const [image, setImage] = useState("");
+
+  // using context here.
   const {
     _id,
     companyAddress1,
@@ -35,8 +39,59 @@ export default function Profile() {
     token,
     _imageUrl,
     setImageUrl,
+    setClientId,
+    clientId,
   } = useContext(MyContext);
 
+  // function to connect to polygon mainnet here.
+  const connectToPolygonMainnet = async () => {
+    if ((window as any).ethereum) {
+      const chainId = await (window as any).ethereum.request({
+        method: "eth_chainId",
+      });
+
+      // Check if connected to a different network (not Polygon mainnet)
+      if (chainId !== "0x89") {
+        // ChainId of Polygon mainnet is '0x89'
+        try {
+          await (window as any).ethereum.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: "0x89" }],
+          });
+        } catch (error) {
+          // Handle error
+          console.log("Error while switching to Polygon mainnet:", error);
+        }
+      }
+    } else {
+      // Handle case where window.ethereum is not available (e.g., Metamask is not installed)
+      console.log("Metamask not available");
+    }
+  };
+
+  useEffect(() => {
+    const tempId = localStorage.getItem("clientId");
+    if (tempId) {
+      setClientId(tempId);
+    }
+    console.log("cliendId profile page", clientId);
+    connectToPolygonMainnet();
+  }, []);
+
+  useEffect(() => {
+    const handleWalletDisconnect = () => {
+      if (!(window as any).ethereum?.selectedAddress) {
+        // Metamask wallet disconnected
+        navigate("/");
+      }
+    };
+
+    // Listen for changes in the selected address property
+    if ((window as any).ethereum) {
+      (window as any).ethereum.on("accountsChanged", handleWalletDisconnect);
+    }
+  }, []);
+  // function to handle file change here.
   const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setOpenImageToast(true);
@@ -73,13 +128,16 @@ export default function Profile() {
     };
   };
 
+  // function to change the edit mode here
   const handleEdit = () => {
     setEdit(!edit);
   };
+
+  // function to save the data of profile edited here
   const handleSave = async () => {
     setEdit(!edit);
     setOpenToast(true);
-    const id = _id || localStorage.getItem("id");
+    const id = clientId || localStorage.getItem("clientId");
     console.log("id", id);
     await axios
       .patch(`http://localhost:3000/users/${id}`, {
@@ -98,6 +156,8 @@ export default function Profile() {
         console.log("error in sending data to server", error);
       });
   };
+
+  // function to fetch the image here.
   const fetchImage = async () => {
     const imageUrl = _imageUrl || localStorage.getItem("imageUrl");
 
@@ -113,8 +173,9 @@ export default function Profile() {
     }
   };
 
+  //  use effect to fetch the data from the server here.
   useEffect(() => {
-    const id = _id || localStorage.getItem("id");
+    const id = clientId || localStorage.getItem("clientId");
     const _token = token || localStorage.getItem("token");
 
     axios
@@ -126,14 +187,14 @@ export default function Profile() {
       .then((response) => {
         if (response.data.message === "Welcome to protected routes") {
           const imageId = localStorage.getItem("imageID") || "defaultImageId";
-          //fetchImage();
 
           fetchImage().then(() => {
-            console.log("..........");
+            // console.log("..........");
           });
           axios
             .get(`http://localhost:3000/users/data/${id}`)
             .then((response) => {
+              console.log(response.data);
               const data = response.data.User;
               setCompanyName(data.companyName);
               setCompanyType(data.companyType);
@@ -141,6 +202,7 @@ export default function Profile() {
               setCompanyAddress1(data.companyAddress1);
               setCompanyAddress2(data.companyAddress2);
               setWalletAddress(data.walletAddress);
+              setClientId(data._id);
             })
             .catch((error) => {
               console.log(error);
@@ -154,6 +216,7 @@ export default function Profile() {
         console.error(error.response.data);
       });
   }, []);
+
   const handleToastClose = (
     event?: React.SyntheticEvent | Event,
     reason?: string

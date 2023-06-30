@@ -38,6 +38,7 @@
   margin: 0 5%;
   color: #1c1f37;
 }
+
 .surveyHistoryContent {
   display: flex;
   flex-direction: column;
@@ -50,6 +51,7 @@
   background-color: white;
   border: 1px solid blue;
 }
+
 .surveyHistoryContentTitle {
   display: flex;
   align-items: center;
@@ -62,6 +64,7 @@
   /* border: 1px solid blue; */
   border-bottom: 1px solid blue;
 }
+
 .surveyHistorySno {
   width: 10%;
   height: 100%;
@@ -72,6 +75,7 @@
   font-weight: 500;
   border-right: 1px solid blue;
 }
+
 .surveyHistorySurveyName {
   width: 27%;
   height: 100%;
@@ -81,9 +85,10 @@
   font-size: 110%;
   font-weight: 500;
   /* border: 1px solid blue; */
-    border-right: 1px solid blue;
+  border-right: 1px solid blue;
 
 }
+
 .surveyHistoryTotalQues {
   width: 15%;
   height: 100%;
@@ -93,9 +98,10 @@
   font-size: 110%;
   font-weight: 500;
   /* border: 1px solid blue; */
-    border-right: 1px solid blue;
+  border-right: 1px solid blue;
 
 }
+
 .surveyHistoryTotalRes {
   width: 18%;
   height: 100%;
@@ -105,9 +111,10 @@
   font-size: 110%;
   font-weight: 500;
   /* border: 1px solid blue; */
-    border-right: 1px solid blue;
+  border-right: 1px solid blue;
 
 }
+
 .surveyHistoryTotalReward {
   width: 15%;
   height: 100%;
@@ -117,9 +124,10 @@
   font-size: 110%;
   font-weight: 500;
   /* border: 1px solid blue; */
-    border-right: 1px solid blue;
+  border-right: 1px solid blue;
 
 }
+
 .surveyHistoryTimePeriod {
   width: 15%;
   height: 100%;
@@ -132,7 +140,8 @@
 
 
 }
-.surveyHistorySelector{
+
+.surveyHistorySelector {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -143,7 +152,8 @@
   color: white;
   border-right: 1px solid blue;
 }
-.noSurveyFound{
+
+.noSurveyFound {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,7 +163,8 @@
   font-weight: 600;
   color: #1c1f37;
 }
-.surveyHistoryContentData{
+
+.surveyHistoryContentData {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -164,7 +175,8 @@
   color: #1c1f37;
   border-bottom: 1px solid blue;
 }
-.surveyHistorySelectorIcon{
+
+.surveyHistorySelectorIcon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -174,7 +186,7 @@
   /* border: 1px solid red; */
 }
 
-.surveyHistorySnoData{
+.surveyHistorySnoData {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -184,7 +196,8 @@
   /* color:red; */
   /* border: 1px solid red; */
 }
-.surveyHistorySurveyNameData{
+
+.surveyHistorySurveyNameData {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -195,7 +208,8 @@
   /* color:red; */
   /* border: 1px solid red; */
 }
-.surveyHistoryTotalQuesData{
+
+.surveyHistoryTotalQuesData {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -205,7 +219,8 @@
   /* color:red; */
   /* border: 1px solid red; */
 }
-.surveyHistoryTotalResData{
+
+.surveyHistoryTotalResData {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -215,7 +230,8 @@
   /* color:red; */
   /* border: 1px solid red; */
 }
-.surveyHistoryTotalRewardData{
+
+.surveyHistoryTotalRewardData {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -225,7 +241,8 @@
   /* color:red; */
   /* border: 1px solid red; */
 }
-.nosurveyFoundHeading{
+
+.nosurveyFoundHeading {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -235,7 +252,8 @@
   font-weight: 500;
   color: #1c1f37;
 }
-.nosurveyFoundPara{
+
+.nosurveyFoundPara {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -245,7 +263,8 @@
   font-weight: 400;
   color: #1c1f37;
 }
-.nosurveyFoundButton{
+
+.nosurveyFoundButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -261,7 +280,8 @@
   cursor: pointer;
   background-color: #47b5ff;
 }
-.nosurveyFoundDiv{
+
+.nosurveyFoundDiv {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -273,7 +293,8 @@
   flex-direction: column;
   /* border: 1px solid red; */
 }
-.deleteSurveyModal{
+
+.deleteSurveyModal {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -285,7 +306,8 @@
   flex-direction: column;
   /* border: 1px solid red; */
 }
-.deleteSurveyModalHeading{
+
+.deleteSurveyModalHeading {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -296,7 +318,8 @@
   color: #1c1f37;
   /* border: 1px solid red; */
 }
-.deleteSurveyModalButton{
+
+.deleteSurveyModalButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -306,7 +329,8 @@
   padding: 0;
   /* border: 1px solid blue; */
 }
-.deleteSurveyModalButtonYes{
+
+.deleteSurveyModalButtonYes {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -323,7 +347,8 @@
   background-color: red;
   margin: 3%;
 }
-.deleteSurveyModalButtonNo{
+
+.deleteSurveyModalButtonNo {
   display: flex;
   align-items: center;
   justify-content: center;

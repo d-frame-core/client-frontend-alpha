@@ -1,578 +1,1010 @@
-.campaignsBox{
-    /* border: 1px solid red; */
-        position: absolute;
-        left: 16vw;
-        top: 9vh;
-        height: 90vh;
-        width: 83.8vw;
+.campaignsBox {
+  /* border: 1px solid red; */
+  position: absolute;
+  left: 16vw;
+  top: 9vh;
+  height: 90vh;
+  width: 83.8vw;
 }
-.campaignsGreyBox{
-    position: absolute;
-        top: 7vh;
-        left: 4vw;
-        height: 80vh;
-        width: 76vw;
-        background: #dde2ea;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        border-radius: 10px;
+.campaignsGreyBox {
+  position: absolute;
+  top: 7vh;
+  left: 4vw;
+  height: 80vh;
+  width: 76vw;
+  background: #dde2ea;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
 }
 .campaignsHeader {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    /* border: 1px solid red; */
-    height: 12%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  /* border: 1px solid red; */
+  height: 12%;
 }
 
 .campaignsHeaderTitleMain {
-    font-size: 250%;
-    font-weight: 600;
-    margin: 0 5%;
+  font-size: 250%;
+  font-weight: 600;
+  margin: 0 5%;
 }
 
 .campaignsHeaderButton {
-    /* display: flex;
+  /* display: flex;
   align-items: center;
   justify-content: center; */
-    margin: 8%;
-    margin-right: 3%;
-    width: 10%;
-    height: 60%;
-    font-size: 120%;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    background-color: #47b5ff;
-    color: white;
-    cursor: pointer;
+  margin: 8%;
+  margin-right: 3%;
+  width: 10%;
+  height: 60%;
+  font-size: 120%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background-color: #47b5ff;
+  color: white;
+  cursor: pointer;
 }
 
 .campaignsForm {
-    /* border: 1px solid gray; */
-    border-radius: 10px;
-    position: absolute;
-    z-index: 3;
-    height: 80vh;
-    width: 40vw;
-    background-color: white;
-    top: 50%;
-    text-align: center;
-    margin: auto;
-    left: 50%;
-    display: flex;
-    flex-direction: column;
+  /* border: 1px solid gray; */
+  border-radius: 10px;
+  position: absolute;
+  z-index: 3;
+  height: 80vh;
+  width: 40vw;
+  background-color: white;
+  top: 50%;
+  text-align: center;
+  margin: auto;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
 
-    transform: translate(-50%, -50%);
-    /* overflow-y: auto; */
+  transform: translate(-50%, -50%);
+  /* overflow-y: auto; */
 }
 
 .campaignsFormHeader {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
-    height: 10%;
-    width: 100%;
-    margin: auto;
-    background-color: #47b5ff;
-    color: white;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+  height: 10%;
+  width: 100%;
+  margin: auto;
+  background-color: #47b5ff;
+  color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .campaignsHeaderTitle {
-    font-size: 250%;
-    font-weight: 600;
-    margin: auto;
-    /* border: 1px solid red; */
-    padding-left: 4%;
+  font-size: 250%;
+  font-weight: 600;
+  margin: auto;
+  /* border: 1px solid red; */
+  padding-left: 4%;
 }
 
 .closeButtoncampaignsPage {
-    margin: 3%;
-    width: 6%;
-    height: 60%;
-    font-size: 120%;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    margin-left: 0;
+  margin: 3%;
+  width: 6%;
+  height: 60%;
+  font-size: 120%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin-left: 0;
 }
 
-.campaignsFormBody{
-    padding-top: 2%;
-        display: flex;
-        flex-direction: column;
-        row-gap: 3%;
-        height: 90%;
-        width: 100%;
-        background-color: white;
-        color: black;
-        overflow-y: auto;
-        /* border: 1px solid blue; */
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
+.campaignsFormBody {
+  padding-top: 2%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 3%;
+  height: 90%;
+  width: 100%;
+  background-color: white;
+  color: black;
+  overflow-y: auto;
+  /* border: 1px solid blue; */
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
-.nextCampaignButton{
-    width: 20%;
-        height: 9%;
-        margin: auto;
-        margin: 2% auto;
-        border-radius: 10px;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        font-size: 120%;
-        font-weight: 600;
-        background-color: #47b5ff;
-        color: white;
+.nextCampaignButton {
+  width: 20%;
+  height: 9%;
+  margin: auto;
+  margin: 2% auto;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 120%;
+  font-weight: 600;
+  background-color: #47b5ff;
+  color: white;
 }
 input[type="date"]:required:invalid::-webkit-datetime-edit {
-    color: transparent;
+  color: transparent;
 }
 
 input[type="date"]:focus::-webkit-datetime-edit {
-    color: black !important;
+  color: black !important;
 }
 .campaignsBody {
-    display: flex;
-    flex-direction: column;
-    width: 94%;
-    height: 83%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    margin-left: 3%;
-    border-radius: 10px;
-    background-color: white;
-    border: 1px solid blue;
+  display: flex;
+  flex-direction: column;
+  width: 94%;
+  height: 83%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-left: 3%;
+  border-radius: 10px;
+  background-color: white;
+  border: 1px solid blue;
 }
 
 .campaignsCategoriesBox {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 10%;
-    background-color: #47b5ff;
-    color: white;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    /* border: 1px solid blue;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+  background-color: #47b5ff;
+  color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  /* border: 1px solid blue;
   border-bottom: 0.5px solid blue; */
+  border-bottom: 1px solid blue;
 }
 
 .campaignNameHeading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 25%;
-    font-size: 110%;
-    font-weight: 500;
-    height: 100%;
-    border-right: 1px solid blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+  font-size: 110%;
+  font-weight: 500;
+  height: 100%;
+  border-right: 1px solid blue;
 }
-.bidStrategy{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 12%;
-    font-size: 110%;
-    font-weight: 500;
-    height: 100%;
-    border-right: 1px solid blue;
+.bidStrategy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 12%;
+  font-size: 110%;
+  font-weight: 500;
+  height: 100%;
+  border-right: 1px solid blue;
 }
-.budgetDFT{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 12%;
-    font-size: 110%;
-    font-weight: 500;
-    height: 100%;
-    border-right: 1px solid blue;
+.budgetDFT {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 12%;
+  font-size: 110%;
+  font-weight: 500;
+  height: 100%;
+  border-right: 1px solid blue;
 }
-.statusCampaignHeading{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 6%;
-    font-size: 110%;
-    font-weight: 500;
-    height: 100%;
-    border-right: 1px solid blue;
+.statusCampaignHeading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6%;
+  font-size: 110%;
+  font-weight: 500;
+  height: 100%;
+  border-right: 1px solid blue;
 }
-.editCampaignHeading{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 6%;
-    font-size: 110%;
-    font-weight: 500;
-    height: 100%;
-    border-right: 1px solid blue;
+.editCampaignHeading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6%;
+  font-size: 110%;
+  font-weight: 500;
+  height: 100%;
+  border-right: 1px solid blue;
 }
-.typeHeading{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 11%;
-    font-size: 110%;
-    font-weight: 500;
-    height: 100%;
-    border-right: 1px solid blue;
+.typeHeading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 11%;
+  font-size: 110%;
+  font-weight: 500;
+  height: 100%;
+  border-right: 1px solid blue;
 }
-.reachHeading{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 11%;
-    font-size: 110%;
-    font-weight: 500;
-    height: 100%;
-    border-right: 1px solid blue;
+.reachHeading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 13%;
+  font-size: 110%;
+  font-weight: 500;
+  height: 100%;
+  border-right: 1px solid blue;
 }
-.startDateCampaign{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 10%;
-    font-size: 110%;
-    font-weight: 500;
-    height: 100%;
-    border-right: 1px solid blue;
+.startDateCampaign {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+  font-size: 110%;
+  font-weight: 500;
+  height: 100%;
+  border-right: 1px solid blue;
 }
-.endDateCampgin{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 10%;
-    font-size: 110%;
-    font-weight: 500;
-    height: 100%;
-    /* border-right: 1px solid blue; */
+.endDateCampgin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+  font-size: 110%;
+  font-weight: 500;
+  height: 100%;
+  /* border-right: 1px solid blue; */
 }
-.campaignsDetails{
-display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 90%;
+.campaignsDetails {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 90%;
 }
 
-.adDetails{
-    display: flex;
-        align-items: center;
-        width: 100%;
-        min-height: 11%;
-        /* border: 0.5px solid blue; */
-        /* border-left: 1px solid blue;
+.adDetails {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 11%;
+  /* border: 0.5px solid blue; */
+  /* border-left: 1px solid blue;
       border-right: 1px solid blue; */
-        /* border: 0.5px solid green; */
-        border-top: 1px solid blue;
-        cursor: pointer;
-        border-bottom: 1px solid blue;
+  /* border: 0.5px solid green; */
+  /* border-top: 1px solid blue; */
+  cursor: pointer;
+  border-bottom: 1px solid blue;
 }
-.campaignNameDetails{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 25%;
-    font-size: 100%;
-    /* font-weight: 500; */
-    height: 100%;
-    /* border-right: 1px solid blue; */
+.campaignNameDetails {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+  font-size: 100%;
+  /* font-weight: 500; */
+  height: 100%;
+  /* border-right: 1px solid blue; */
 }
-.bidStrategyDetails{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 12%;
-    font-size: 100%;
-    /* font-weight: 500; */
-    height: 100%;
-    /* border-right: 1px solid blue; */
+.bidStrategyDetails {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 12%;
+  font-size: 100%;
+  /* font-weight: 500; */
+  height: 100%;
+  /* border-right: 1px solid blue; */
 }
-.budgetDFTDetails{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 12%;
-    font-size: 100%;
-    /* font-weight: 500; */
-    height: 100%;
-    /* border-right: 1px solid blue; */
+.budgetDFTDetails {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 12%;
+  font-size: 100%;
+  /* font-weight: 500; */
+  height: 100%;
+  /* border-right: 1px solid blue; */
 }
-.statusCampaignDetailss{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 4%;
-    font-size: 100%;
-    /* font-weight: 500; */
-    height: 100%;
-    /* border-right: 1px solid blue; */
-    padding-left: 2.5%;
+.statusCampaignDetailss {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 4%;
+  font-size: 100%;
+  /* font-weight: 500; */
+  height: 100%;
+  /* border-right: 1px solid blue; */
+  padding-left: 2.5%;
 }
-.editCampaignDetails{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 6.3%;
-    font-size: 100%;
-    /* font-weight: 500; */
-    height: 100%;
-    /* border-right: 1px solid blue; */
+.editCampaignDetails {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6.3%;
+  font-size: 100%;
+  /* font-weight: 500; */
+  height: 100%;
+  /* border-right: 1px solid blue; */
 }
-.typeDetails{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 11%;
-    font-size: 100%;
-    /* font-weight: 500; */
-    height: 100%;
-    /* border-right: 1px solid blue; */
+.typeDetails {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 11%;
+  font-size: 100%;
+  /* font-weight: 500; */
+  height: 100%;
+  /* border-right: 1px solid blue; */
 }
-.reachDetails{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 11%;
-    font-size: 100%;
-    /* font-weight: 500; */
-    height: 100%;
-    /* border: 1px solid blue; */
+.reachDetails {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 13%;
+  font-size: 100%;
+  /* font-weight: 500; */
+  height: 100%;
+  /* border: 1px solid blue; */
 }
-.startDateCampaignDetails{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 10%;
-    font-size: 100%;
-    /* font-weight: 500; */
-    height: 100%;
-    /* border-right: 1px solid blue; */
+.startDateCampaignDetails {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10.5%;
+  font-size: 100%;
+  /* font-weight: 500; */
+  height: 100%;
+  /* border: 1px solid blue; */
 }
-.endDateCampginDetails{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 10%;
-    font-size: 100%;
-    /* font-weight: 500; */
-    height: 100%;
-    /* border-right: 1px solid blue; */
+.endDateCampginDetails {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+  font-size: 100%;
+  /* font-weight: 500; */
+  height: 100%;
+  /* border-right: 1px solid blue; */
 }
-.statusSwitch{
-    display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 3%;
-        font-size: 100%;
-        font-weight: 400;
-        height: 100%;
-        text-align: center;
-        /* border: 0.5px solid blue; */
-        padding: 0;
-}
-
-.tagAddedDiv{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* width: 20%; */
-    height: 70%;
-    flex-direction: row;
-    padding: 1% 2%;
-    /* border: 1px solid red; */
-    /* border: 1px solid blue; */
-    /* border-right: 1px solid blue; */
-    /* border-left: 1px solid blue; */
-    /* border-bottom: 1px solid blue; */
-}
-.tagsOuterDivv{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    flex-direction: column;
-    height: 25%;
-}
-.tagsOuterDivvSmall{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    flex-direction: column;
-    height: 10%;
-    /* border: 1px solid blue; */
-}
-.tagsBoxx{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 90%;
-    height: 30%;
-    flex-direction: row;
-            padding: 2% 1%;
-            background-color: white;
-            font-size: 110%;
-            text-align: center;
-            border-radius: 10px;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            align-items: center;
-            align-content: flex-start;
-            overflow-y: auto;
-    /* border: 1px solid blue; */
+.statusSwitch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3%;
+  font-size: 100%;
+  font-weight: 400;
+  height: 100%;
+  text-align: center;
+  /* border: 0.5px solid blue; */
+  padding: 0;
 }
 
-.tagsBoxVisibilityHidden{
-    display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 20%;
-        margin-top: 5%;
-        flex-direction: row;
-    display: none;
+.tagAddedDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 20%; */
+  height: 70%;
+  flex-direction: row;
+  padding: 1% 2%;
+  /* border: 1px solid red; */
+  /* border: 1px solid blue; */
+  /* border-right: 1px solid blue; */
+  /* border-left: 1px solid blue; */
+  /* border-bottom: 1px solid blue; */
 }
-.addImage{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 15%;
-    height: 100%;
-    /* border: 1px solid blue; */
-    /* padding-left: 2%; */
-    margin-left: 5%;
-    border-radius: 10px;
-        outline: none;
-        color: #ffffff;
-        border: none;
-        background-color: #47b5ff;
-        cursor: pointer;
+.tagsOuterDivv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+  height: 25%;
+}
+.tagsOuterDivvSmall {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+  height: 10%;
+  /* border: 1px solid blue; */
+}
+.tagsBoxx {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 30%;
+  flex-direction: row;
+  padding: 2% 1%;
+  background-color: white;
+  font-size: 110%;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: flex-start;
+  overflow-y: auto;
+  /* border: 1px solid blue; */
+}
+
+.tagsBoxVisibilityHidden {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 20%;
+  margin-top: 5%;
+  flex-direction: row;
+  display: none;
+}
+.addImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  /* padding-left: 2%; */
+  margin-left: 5%;
+  border-radius: 10px;
+  outline: none;
+  color: #ffffff;
+  border: none;
+  background-color: #47b5ff;
+  cursor: pointer;
 }
 
 .modalHeaderCampaignsPage {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    /* border: 1px solid red; */
-    width: 100%;
-    height: 20%;
-    border-bottom: 1px solid blue;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+  width: 100%;
+  height: 20%;
+  border-bottom: 1px solid blue;
 }
-.modalHeaderCampaignName{
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    /* border: 1px solid red; */
-    width: 100%;
-    font-size: 200%;
-    font-weight: 600;
-    height: 50%;
-    padding: 0 ;
-    margin: 0%;
+.modalHeaderCampaignName {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+  width: 100%;
+  font-size: 200%;
+  font-weight: 600;
+  height: 50%;
+  padding: 0;
+  margin: 0%;
 }
 .modalCloseButtonCampaignsPage {
-    position: absolute;
-    top: 2%;
-    right: 1%;
-    width: 5%;
-    height: 9%;
-    font-size: 120%;
-    font-weight: 600;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    background-color: #47b5ff;
-    color: white;
+  position: absolute;
+  top: 2%;
+  right: 1%;
+  width: 5%;
+  height: 9%;
+  font-size: 120%;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: #47b5ff;
+  color: white;
+}
+.modalBodyCampaignsPage {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: flex-start;
+  align-items: center;
+  /* border: 1px solid red; */
+  width: 100%;
+  height: 80%;
+  /* border-bottom: 1px solid blue; */
+}
+.modalBodyCampaignsPageTop {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+  width: 100%;
+  height: 10%;
+  margin-top: 1%;
+  /* border-bottom: 1px solid blue; */
+}
+.modalBodyCampaignsPageHeadingTitle {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: flex-start;
+  /* border: 1px solid red; */
+  height: 90%;
 
+  width: 14%;
+  /* border-bottom: 1px solid blue; */
+  font-weight: 600;
 }
-.modalBodyCampaignsPage{
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content:flex-start;
-    align-items: center;
-    /* border: 1px solid red; */
-    width: 100%;
-    height: 80%;
-    /* border-bottom: 1px solid blue; */
+.modalBodyCampaignsPageHeading {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: flex-start;
+  /* border: 1px solid red; */
+  height: 20%;
+  /* border-bottom: 1px solid blue; */
+  font-weight: 600;
 }
-.modalBodyCampaignsPageTop{
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-    justify-content: center;
-    align-items: flex-start;
-    /* border: 1px solid red; */
-    width: 100%;
-    height: 10%;
-    /* border-bottom: 1px solid blue; */
+.modalBodyCampaignsPageMiddle {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+  width: 100%;
+  height: 10%;
+  /* border-bottom: 1px solid blue; */
 }
-.modalBodyCampaignsPageHeadingTitle{
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    /* border: 1px solid red; */
-    height: 20%;
-    /* border-bottom: 1px solid blue; */
-    font-weight: 600;
+.modalBodyCampaignsPageContentTitle {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  /* border: 1px solid yellowgreen; */
+  width: 11%;
+  height: 90%;
+  /* border-bottom: 1px solid blue; */
 }
-.modalBodyCampaignsPageHeading{
-    display: flex;
-        flex-direction: column;
-        text-align: center;
-        justify-content: center;
-        align-items: flex-start;
-        /* border: 1px solid red; */
-        height: 20%;
-        /* border-bottom: 1px solid blue; */
-        font-weight: 600;
+.modalBodyCampaignsPageContent {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  /* border: 1px solid yellowgreen; */
+  height: 90%;
+  /* border-bottom: 1px solid blue; */
 }
-.modalBodyCampaignsPageMiddle{
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-    justify-content: center;
-    align-items: flex-start;
-    /* border: 1px solid red; */
-    width: 100%;
-    height: 10%;
-    /* border-bottom: 1px solid blue; */
+.modalFooterCampaignsPage {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+  width: 100%;
+  height: 10%;
+  /* border-bottom: 1px solid blue; */
 }
-.modalFooterCampaignsPage{
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    /* border: 1px solid red; */
-    width: 100%;
-    height: 10%;
-    /* border-bottom: 1px solid blue; */
+.modalFooterCampaignsPage2 {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+  width: 100%;
+  height: 25%;
+  border-top: 1px solid blue;
+  padding-top: 2%;
+  padding-bottom: 0;
 }
-.modalBodyCampaignsPageBottom{
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-    justify-content: center;
-    align-items: flex-start;
-    /* border: 1px solid red; */
-    width: 100%;
-    height: 10%;
-    /* border-bottom: 1px solid blue; */
+.modalBodyCampaignsPageBottom {
+  /* border: 1px solid red; */
+  height: 10%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  /* background-color: #47b5ff; */
+}
+.modalBodyCampaignsPageBottomTitle {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  /* border: 1px solid yellowgreen; */
+  width: 70px;
+  height: 90%;
+  /* border-bottom: 1px solid blue; */
+}
+.modalBodyCampaignsPageBottomContent {
+  display: flex;
+  justify-content: space-evenly;
+
+  align-items: center;
+  /* border: 1px solid yellowgreen; */
+  /* width: 8%; */
+  height: 90%;
+  text-align: center;
+  /* border-bottom: 1px solid blue; */
+}
+.modalBodyCampaignsPageBottomDateSection {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid rgb(18, 63, 176); */
+  width: 50%;
+  height: 10%;
+  /* border-bottom: 1px solid blue; */
+}
+.startDateCampaignsPage {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid rgb(97, 168, 65); */
+  width: 50%;
+  height: 100%;
+  /* border-bottom: 1px solid blue; */
+}
+.endDateCampaignsPage {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid rgb(97, 168, 65); */
+  width: 50%;
+  height: 100%;
+  /* border-bottom: 1px solid blue; */
+}
+.bidModalHeadingDiv {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 10%;
+  /* border: 1px solid blue; */
+  /* border-top: 1px solid blue; */
+  padding: 2% 0;
+  margin: 0;
+  justify-content: space-between;
+  align-items: center;
+}
+.bidModalDiv {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* border: 1px solid blue; */
+  /* border-top: 1px solid blue; */
+  padding: 2% 0;
+  margin: 0;
+  justify-content: space-between;
+  align-items: center;
+  overflow-y: auto;
+}
+.bidModalArrayDiv {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  /* border: 1px solid blue; */
+  /* border-top: 1px solid blue; */
+  padding: 2% 0;
+  margin: 0;
+  justify-content: space-between;
+  align-items: center;
+  height: 10%;
+}
+
+.bidModalArrayDivActive {
+  display: flex;
+  flex-direction: row;
+  width: 99%;
+  /* border: 1px solid blue; */
+  /* border-top: 1px solid blue; */
+  padding: 2% 0;
+  margin: 0;
+  justify-content: space-between;
+  align-items: center;
+  height: 10%;
+  background-color: rgb(255, 255, 131);
+  border-radius: 10px;
+}
+
+.bidsModalHeadingSno {
+  display: flex;
+  flex-direction: row;
+  width: 10%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.bidsModalHeadingClientName {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.bidsModalHeadingOption {
+  display: flex;
+  flex-direction: row;
+  width: 30%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.modalClientDetails {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 60%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+}
+
+.modalFooterCampaignsPage {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  width: 100%;
+  height: 10%;
+  border-top: 1px solid blue;
+  padding: 2% 0;
+  padding-bottom: 0;
+  margin: 0;
+  margin-top: 4%;
+  justify-content: center;
+  align-items: center;
+}
+.modalFooterButtonEditCampaignsPage {
+  width: 25%;
+  height: 50%;
+  margin: 2%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  padding: 3%;
+  cursor: pointer;
+  font-size: 100%;
+  font-weight: 600;
+  background-color: #47b5ff;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.modalFooterButtonEditCampaignsPage2 {
+  width: 30%;
+  height: 80%;
+  margin: 2%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  padding: 3%;
+  cursor: pointer;
+  font-size: 100%;
+  font-weight: 600;
+  background-color: #47b5ff;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.modalFooterButtonDeleteCampaignsPage {
+  width: 25%;
+  height: 50%;
+  margin: 2%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 3%;
+  font-size: 100%;
+  font-weight: 600;
+  background-color: #ff4d4d;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.modalFooterButtonDeleteCampaignsPage2 {
+  width: 25%;
+  height: 80%;
+  margin: 2%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 3%;
+  font-size: 100%;
+  font-weight: 600;
+  background-color: #ff4d4d;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.modalFooterButtonBidsCampaignsPage {
+  width: 25%;
+  height: 50%;
+  margin: 2%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 3%;
+  font-size: 100%;
+  font-weight: 600;
+  background-color: #40bc27;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.noDataToDisplay {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.noDataToDisplayText {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  font-size: 200%;
+  /* border: 1px solid red; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.editBidModalDiv {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+.editBidModalDivTop {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 27%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  margin-bottom: 5%;
+  align-items: center;
+}
+.editBidModalAdName {
+  font-size: 130%;
+  font-weight: 600;
+  margin-bottom: 1%;
+}
+.editBidModalDivBody {
+  display: flex;
+  flex-direction: row;
+  font-weight: 400;
+  font-size: 120%;
+  width: 100%;
+  height: 10%;
+  /* border: 1px solid blue; */
+  margin: 1% 0;
+  padding: 0;
+  justify-content: center;
+  margin-bottom: 5%;
+  align-items: center;
+}
+.editBidModalDivEdit {
+  display: flex;
+  flex-direction: row;
+  font-weight: 400;
+  font-size: 110%;
+  width: 100%;
+  height: 20%;
+  /* border: 1px solid blue; */
+  margin: 1% 0;
+  padding: 0;
+  margin-bottom: 5%;
+  justify-content: center;
+  align-items: center;
+}
+.editBidModalDivEditLeft {
+  display: flex;
+  flex-direction: column;
+  font-weight: 400;
+  font-size: 110%;
+  width: 75%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+}
+.editBidModalDivEditRight {
+  display: flex;
+  flex-direction: column;
+  font-weight: 400;
+  font-size: 110%;
+  width: 20%;
+  height: 100%;
+  /* border: 1px solid blue; */
+  justify-content: center;
+  align-items: center;
+}
+.editBidModalDivEditInput {
+  width: 100%;
+  height: 80%;
+}
+.modalBodyCampaignsPageContentEdit {
+  display: flex;
+  flex-direction: column;
+  height: 10%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+}
+.modalBodyCampaignsPageHeadingEdit {
+  display: flex;
+  flex-direction: row;
+  height: 20%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.individualTag {
+  color: white;
+  background-color: #47b5ff;
+  margin: 0 1%;
+  padding: 1% 5%;
+  border-radius: 5px;
+  /* border: 1px solid red; */
+}
+.bidModalArray {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 10%;
+  /* border: 1px solid blue; */
+  padding: 0;
+  margin: 0;
+  justify-content: space-between;
+  align-items: center;
 }
