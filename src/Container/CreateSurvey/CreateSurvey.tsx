@@ -29,7 +29,7 @@ const CreateSurvey = () => {
   const [surveyActiveToastOpen, setSurveyActiveToastOpen] = useState(false);
   const [submitToastOpen, setSubmitToastOpen] = useState(false);
   const [openToast, setOpenToast] = useState(false);
-  const { _id, token } = useContext(MyContext);
+  const { _id, token, clientId, setClientId } = useContext(MyContext);
   const [surveyName, setSurveyName] = useState("");
   const [surveyDescription, setSurveyDescription] = useState("");
   const [startDate, setStartDate] = useState<Date>(new Date());
@@ -196,7 +196,7 @@ const CreateSurvey = () => {
     setEditSurvey(false);
     setOpenToast(true);
     const _tokenn = token || localStorage.getItem("token");
-    const clientId = _id || localStorage.getItem("id");
+    const id = clientId || localStorage.getItem("clientId");
     const _surveyId = surveyId || localStorage.getItem("surveyId");
 
     // axios call to edit the survey
@@ -243,7 +243,7 @@ const CreateSurvey = () => {
 
       return person;
     });
-    const cliendId = _id || localStorage.getItem("id");
+    const id = clientId || localStorage.getItem("clientId");
     resultArray[index - 1].options = [option1, option2];
 
     const _tokenn = token || localStorage.getItem("token");
@@ -256,7 +256,7 @@ const CreateSurvey = () => {
           surveyName: surveyName,
           surveyDescription: surveyDescription,
           totalQues: resultArray,
-          clientId: cliendId,
+          clientId: id,
           statusCampaign: "active",
           totalReward: parseInt(surveyResource),
           startDate: startDate,
@@ -294,7 +294,6 @@ const CreateSurvey = () => {
   ) {
     e.stopPropagation();
     const _tokenn = token || localStorage.getItem("token");
-    const clientId = _id || localStorage.getItem("id");
     localStorage.setItem("surveyId", id);
     setSurveyId(id);
 
@@ -329,7 +328,7 @@ const CreateSurvey = () => {
 
   // function to fetch all surveys from the backend
   async function fetchAllSurveys() {
-    const id = _id || localStorage.getItem("id");
+    const id = clientId || localStorage.getItem("clientId");
     const _tokenn = token || localStorage.getItem("token");
     const res = await axios.get("http://localhost:3000/survey/client/", {
       headers: {
@@ -343,6 +342,11 @@ const CreateSurvey = () => {
 
   // useEffect to fetch all surveys
   useEffect(() => {
+    const tempId = localStorage.getItem("clientId");
+    if (tempId) {
+      setClientId(tempId);
+    }
+    console.log("cliendId survey page", clientId);
     fetchAllSurveys();
   }, []);
 

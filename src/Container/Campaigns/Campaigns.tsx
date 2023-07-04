@@ -1,3 +1,4 @@
+//  importing all dependencies and required components
 import { Box } from "@mui/system";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./campaigns.css";
@@ -10,42 +11,48 @@ import {
   Switch,
   TextField,
 } from "@mui/material";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Alert, Snackbar } from "@mui/material";
+import { SubmitHandler, set, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
 import axios from "axios";
 import { MyContext } from "../../components/context/Context";
 import Drawer from "../../components/sidebar/Drawer";
+import { useNavigate } from "react-router-dom";
 
+//  defining types of ads
 const typesofads: any[] = [
   { value: "Image", label: "Image" },
   { value: "Video", label: "Video" },
 ];
 export default function Campaigns() {
+  const navigate = useNavigate();
+  //  defining states
   const [campaignName, setCampaignName] = useState<string>("");
   const [campaignType, setCampaignType] = useState<string>("");
   const [adName, setAdName] = useState<string>("");
   const [adType, setAdType] = useState<string>("");
-  const [adImage, setAdImage] = useState<string>("");
-  const [adVideo, setAdVideo] = useState<string>("");
+  const [adFile, setAdFile] = useState<string | Blob>("");
+  // const [adVideo, setAdVideo] = useState<string>("");
   const [adContent, setAdContent] = useState<string>("");
   const [adLink, setAdLink] = useState<string>("");
   const [adTags, setAdTags] = useState<any>([]);
   const [adLocation, setAdLocation] = useState<string>("");
   const [adBudget, setAdBudget] = useState<string>("");
-  const [adStartDate, setAdStartDate] = useState<string>("");
-  const [adEndDate, setAdEndDate] = useState<string>("");
+  const [adStartDate, setAdStartDate] = useState("");
+  const [adEndDate, setAdEndDate] = useState("");
+  const [dateError, setDateError] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [immediateAdId, setImmediateAdId] = useState<any>();
-  const { _id, token } = React.useContext(MyContext);
+  const { _id, token, clientId, setClientId } = React.useContext(MyContext);
   const [tagsExist, setTagsExist] = useState(false);
   const [allAdsDetails, setAllAdsDetails] = useState<any>([]);
   const [particularAdsDetails, setParticularAdsDetails] = useState<any>();
   const [edit, setEdit] = useState(false);
   const [editAd, setEditAd] = useState(false);
   const [editAdDetails, setEditAdDetails] = useState<any>([]);
-  const [bidAmount, setBidAmount] = useState<any>();
+  // const [bidAmount, setBidAmount] = useState<any>();
   const [perDayBudget, setPerDayBudget] = useState<any>();
   const [totalDaysToRun, setTotalDaysToRun] = useState<any>();
   const [adSelectedId, setAdSelectedId] = useState<any>();
@@ -54,7 +61,20 @@ export default function Campaigns() {
   const [imageUrl, setImageUrl] = useState<any>();
   const [image, setImage] = useState<any>();
   const [particularBidDetails, setParticularBidDetails] = useState<any>();
+  const [editedAdToaster, setEditedAdToaster] = useState(false);
+  const [createdAdToaster, setCreatedAdToaster] = useState(false);
+  const [deletedAdToaster, setDeletedAdToaster] = useState(false);
+  const [editBidModal, setEditBidModal] = useState(false);
+  const [newBidAmount, setNewBidAmount] = useState("");
 
+  //  function to handle toast close
+  const handleToastClose = () => {
+    setEditedAdToaster(false);
+    setCreatedAdToaster(false);
+    setDeletedAdToaster(false);
+  };
+
+  //  option types for campaign type
   const optionsType: any[] = [
     {
       value: "Awareness",
@@ -74,6 +94,7 @@ export default function Campaigns() {
     },
   ];
 
+  //  style for the bigger modal
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
@@ -89,6 +110,24 @@ export default function Campaigns() {
     overflow: "hidden",
     overflowY: "scroll",
   };
+
+  // style for the smaller modal
+  const style2 = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    height: 200,
+    bgcolor: "white",
+    boxShadow: 24,
+    border: "0",
+    p: 3,
+    borderRadius: "1.1vh",
+    overflow: "hidden",
+  };
+
+  //  useform compoenent
   const {
     register,
     handleSubmit,
@@ -102,13 +141,51 @@ export default function Campaigns() {
   const [formopen, setFormopen] = useState(false);
   const [nextpage, setNextpage] = useState(false);
 
+  // function to handle the start date change
+  const handleStartDateChange = (event: any) => {
+    const startDate = event.target.value;
+    setAdStartDate(startDate);
+
+    const currentDate = new Date().toISOString().slice(0, 10);
+    if (startDate < currentDate) {
+      setAdStartDate("");
+      setAdEndDate("");
+      setDateError("Start Date should be greater than the current date");
+    } else {
+      setDateError("");
+    }
+  };
+
+  //  function to handle the end date change
+  const handleEndDateChange = (event: any) => {
+    const endDate = event.target.value;
+    setAdEndDate(endDate);
+
+    if (endDate <= adStartDate) {
+      setAdEndDate("");
+      setDateError("End Date should be greater than the Start Date");
+    } else {
+      setDateError("");
+    }
+  };
+
   // function to create a new Ad
   async function submitAdCampaign() {
-    const clientId = _id || localStorage.getItem("id");
-    console.log("id", clientId);
+    const id = clientId || localStorage.getItem("id");
+    console.log("id", id);
+
+    const formData = new FormData();
+    formData.append("image", adFile);
+
+    // const result = await axios.post("/api/images", formData, {
+    //   headers: { "Content-Type": "multipart/form-data" },
+    // });
+
+    // console.log(result.data);
+
     await axios
       .post("http://localhost:3000/ads", {
-        clientId: clientId,
+        clientId: id,
         campaignName: campaignName,
         campaignType: campaignType,
         adName: adName,
@@ -125,10 +202,11 @@ export default function Campaigns() {
         await axios.post("http://localhost:3000/bids", {
           adId: res.data.data._id,
           bidAmount: Number(bidAmount),
-          perDayBudget: Number(perDayBudget),
-          totalDaysToRun: Number(totalDaysToRun),
+          perDay: Number(perDayBudget),
+          totalDays: Number(totalDaysToRun),
         });
         getAllCampaigns();
+        setCreatedAdToaster(true);
       })
       .catch((err) => {
         console.log(err);
@@ -141,7 +219,8 @@ export default function Campaigns() {
 
   // function to get all campaigns of a particular client
   async function getAllCampaigns() {
-    const id = _id || localStorage.getItem("id");
+    const id = clientId || localStorage.getItem("clientId");
+    console.log("id", id);
     await axios
       .get(`http://localhost:3000/ads/client/detail`, {
         headers: {
@@ -158,17 +237,26 @@ export default function Campaigns() {
       });
   }
 
-  async function getParticularCampaign(id: any) {
-    const clientId = _id || localStorage.getItem("id");
+  // function to get particular campaign details
+  async function getParticularCampaign(
+    id: any,
+    e: React.MouseEvent<HTMLDivElement>
+  ) {
+    e.stopPropagation();
+    const idOfCilent = localStorage.getItem("clientId");
     await axios
       .get(`http://localhost:3000/ads/${id}`)
       .then(async (res) => {
         console.log("Particular Ad Details", res.data);
         await axios
-          .get(`http://localhost:3000/bids/${clientId}`)
+          .get(`http://localhost:3000/bids/${idOfCilent}`)
           .then((res) => {
-            // console.log("Particular Bid Details", res.data);
-            setParticularBidDetails(res.data);
+            console.log("Particular Bid Details", res.data);
+            // setParticularBidDetails(res.data);
+            const sortedBidDetails = res.data.sort(
+              (a: any, b: any) => b.bidAmount - a.bidAmount
+            );
+            setParticularBidDetails(sortedBidDetails);
           });
         setParticularAdsDetails(res.data);
         setAdSelectedId(id);
@@ -179,6 +267,7 @@ export default function Campaigns() {
       });
   }
 
+  //  function to update a particular ad
   async function updateParticularAd(id: any) {
     await axios
       .patch(`http://localhost:3000/ads/${id}`, {
@@ -189,6 +278,7 @@ export default function Campaigns() {
         // console.log("Updated Ad Details", res.data);
         setEdit(false);
         setEditAd(false);
+        setEditedAdToaster(true);
         getAllCampaigns();
       })
       .catch((err) => {
@@ -196,7 +286,28 @@ export default function Campaigns() {
       });
   }
 
+  // function to handle bid amount
+  const [bidAmount, setBidAmount] = useState("");
+  const [bidAmountError, setBidAmountError] = useState("");
+
+  const handleBidAmount = (event: any) => {
+    const amount = event.target.value;
+    setBidAmount(amount);
+
+    if (amount < 1 || amount > 100) {
+      setBidAmountError("**Bid Amount should be between 1 and 100");
+    } else {
+      setBidAmountError("");
+    }
+  };
+
+  // useeffect to set the edited ad data
   useEffect(() => {
+    const tempId = localStorage.getItem("clientId");
+    if (tempId) {
+      setClientId(tempId);
+    }
+    console.log("cliendId campaigns page", clientId);
     setEditedAdData(particularAdsDetails);
   }, [particularAdsDetails]);
 
@@ -212,6 +323,23 @@ export default function Campaigns() {
         // console.log("Deleted Ad Details", res.data);
         // window.location.reload();
         setEdit(false);
+        setDeletedAdToaster(true);
+        getAllCampaigns();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  async function handleUpdateBidAmount() {
+    const id = clientId || localStorage.getItem("clientId");
+    await axios
+      .patch(`http://localhost:3000/bids/${id}`, {
+        bidAmount: Number(newBidAmount),
+      })
+      .then((res) => {
+        console.log("Updated Bid Details", res.data);
+        setEditBidModal(false);
         getAllCampaigns();
       })
       .catch((err) => {
@@ -323,8 +451,8 @@ export default function Campaigns() {
                       className="hidden"
                       id="files"
                       onChange={(e: any) => {
-                        if (e.target.files) {
-                          setAdImage(e.target.files[0]);
+                        if (e.target.files && e.target.files.length > 0) {
+                          setAdFile(e.target.files[0]);
                           console.log(e.target.files[0]);
                         }
                       }}
@@ -399,46 +527,63 @@ export default function Campaigns() {
                   </div>
                   <TextField
                     id="standard-basic"
-                    label="Location"
+                    label="Location (Will Implement In Future Release)"
                     variant="standard"
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
                     {...register("location")}
                     required
                   />
                   <TextField
-                    id="standard-basic"
+                    id="start-date"
                     variant="standard"
                     label="Start Date"
                     placeholder="Start Date"
-                    type={"date"}
+                    type="date"
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
-                    {...register("startDate")}
-                    onChange={(e) => setAdStartDate(e.target.value)}
+                    value={adStartDate}
+                    onChange={handleStartDateChange}
                     required
                   />
                   <TextField
-                    id="standard-basic"
+                    id="end-date"
                     label="End Date"
                     variant="standard"
-                    type={"date"}
+                    type="date"
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
-                    {...register("endDate")}
-                    onChange={(e) => setAdEndDate(e.target.value)}
+                    value={adEndDate}
+                    onChange={handleEndDateChange}
                     required
                   />
+                  {dateError && <p style={{ color: "red" }}>{dateError}</p>}
                   <Divider />
+
                   <TextField
                     id="standard-basic"
-                    label="Bid Amount per user"
+                    label="Bid Amount per user (DFT)"
                     variant="standard"
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
-                    {...register("bidAmount")}
-                    onChange={(e) => setBidAmount(e.target.value)}
+                    value={bidAmount}
+                    onChange={handleBidAmount}
                     required
                   />
+                  {bidAmountError && (
+                    <p
+                      style={{
+                        color: "red",
+                        fontWeight: "600",
+                        fontSize: "100%",
+                        padding: 0,
+                        margin: 0,
+                      }}
+                    >
+                      {bidAmountError}
+                    </p>
+                  )}
+                  {/* Rest of your code */}
+
                   <TextField
                     id="standard-basic"
-                    label="Budget Amount Per Day"
+                    label="Budget Amount Per Day (DFT)"
                     variant="standard"
                     sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
                     {...register("budgetAmountPerDay")}
@@ -491,21 +636,26 @@ export default function Campaigns() {
 
             <div className="campaignsDetails">
               {allAdsDetails &&
-                allAdsDetails.map((item: any, index: any) => (
-                  <div className="adDetails" key={index}>
+                allAdsDetails.toReversed().map((item: any, index: any) => (
+                  <div
+                    className="adDetails"
+                    key={index}
+                    onClick={() => navigate("/campaign-details")}
+                  >
                     <div className="campaignNameDetails">{item.adName}</div>
                     <div className="bidStrategyDetails">
                       {item.bidAmount} DFT
                     </div>
-                    <div className="budgetDFTDetails">34(S)</div>
+                    <div className="budgetDFTDetails">{item.perDay} DFT</div>
                     <div
                       className="editCampaignDetails"
-                      onClick={(e) => getParticularCampaign(item._id)}
+                      onClick={(e) => getParticularCampaign(item._id, e)}
                     >
                       <EditIcon />
                     </div>
                     <div className="typeDetails">
-                      {item.campaignType ? item.campaignType : "N.A."}
+                      {/* {item.campaignType ? item.campaignType : "N.A."} */}
+                      {item.campaignType}
                     </div>
                     <div className="reachDetails">
                       {item.assignedUsers ? item.assignedUsers : "5000"}
@@ -556,19 +706,15 @@ export default function Campaigns() {
                     <div className="modalBodyCampaignsPage">
                       <div className="modalBodyCampaignsPageTop">
                         <h2 className="modalBodyCampaignsPageHeadingTitle">
-                          Ad Name:-{" "}
+                          Ad Name:
                         </h2>
-                        <h2> </h2>
+
                         <h2 className="modalBodyCampaignsPageHeading">
                           {" "}
                           {particularAdsDetails.adName}
                         </h2>
                       </div>
                       <div className="modalBodyCampaignsPageMiddle">
-                        <p className="modalBodyCampaignsPageContentTitle">
-                          Ad Content:-{" "}
-                        </p>
-                        <p> </p>
                         <p className="modalBodyCampaignsPageContent">
                           {particularAdsDetails.adContent.length > 100
                             ? particularAdsDetails.adContent.slice(0, 100) +
@@ -584,7 +730,7 @@ export default function Campaigns() {
                             : ""
                         }
                       >
-                        <p className="modalBodyCampaignsPageBottomContent">
+                        <div className="modalBodyCampaignsPageBottomContent">
                           {particularAdsDetails.tags.length > 0 ? (
                             // display total tags less than or equal to 10, else show ... after 10 tags
                             particularAdsDetails.tags
@@ -598,11 +744,11 @@ export default function Campaigns() {
                                 </>
                               ))
                           ) : (
-                            <div className="notagsadded">
+                            <p className="notagsadded">
                               <p>No Tags Added, so no data available</p>
-                            </div>
+                            </p>
                           )}
-                        </p>
+                        </div>
 
                         {/* users reached */}
                       </div>
@@ -637,21 +783,25 @@ export default function Campaigns() {
                           {particularBidDetails &&
                             particularBidDetails.map(
                               (item: any, index: any) => (
-                                console.log("particularBidDetails", item),
-                                (
-                                  <div className="bidModalArrayDiv" key={index}>
-                                    <p className="bidsModalHeadingSno">
-                                      {index + 1}
-                                    </p>
-                                    <p className="bidsModalHeadingClientName">
-                                      {item.adId ? item.adId : "NA"}
-                                    </p>
-                                    <p className="bidsModalHeadingOption">
-                                      {item.bidAmount ? item.bidAmount : "NA"}
-                                    </p>
-                                    <p className="bidsModalHeadingOption">NA</p>
-                                  </div>
-                                )
+                                <div
+                                  className={
+                                    item.adId == particularAdsDetails._id
+                                      ? "bidModalArrayDivActive"
+                                      : "bidModalArrayDiv"
+                                  }
+                                  key={index}
+                                >
+                                  <p className="bidsModalHeadingSno">
+                                    {index + 1}
+                                  </p>
+                                  <p className="bidsModalHeadingClientName">
+                                    {item.adId ? item.adId : "NA"}
+                                  </p>
+                                  <p className="bidsModalHeadingOption">
+                                    {item.bidAmount ? item.bidAmount : "NA"}
+                                  </p>
+                                  <p className="bidsModalHeadingOption">NA</p>
+                                </div>
                               )
                             )}
                         </div>
@@ -664,9 +814,8 @@ export default function Campaigns() {
                       <div className="modalBodyCampaignsPage">
                         <div className="modalBodyCampaignsPageTop">
                           <h2 className="modalBodyCampaignsPageHeadingTitle">
-                            Ad Name:-{" "}
+                            Ad Name:-
                           </h2>
-                          <h2> </h2>
                           <input
                             type="text"
                             className="modalBodyCampaignsPageHeadingEdit"
@@ -680,10 +829,6 @@ export default function Campaigns() {
                           />
                         </div>
                         <div className="modalBodyCampaignsPageMiddle">
-                          <p className="modalBodyCampaignsPageContentTitle">
-                            Ad Content:-{" "}
-                          </p>
-                          <p> </p>
                           <input
                             type="text"
                             className="modalBodyCampaignsPageContentEdit"
@@ -715,9 +860,9 @@ export default function Campaigns() {
                                 )
                               )
                             ) : (
-                              <div className="notagsadded">
+                              <p className="notagsadded">
                                 <p>No Tags Added, so no data available</p>
-                              </div>
+                              </p>
                             )}
                           </p>
                         </div>
@@ -739,7 +884,7 @@ export default function Campaigns() {
                             </p>
                           </div>
                         </div>
-                        <div className="modalClientDetails">
+                        {/* <div className="modalClientDetails">
                           <div className="bidModalHeadingDiv">
                             <h3 className="bidsModalHeadingSno">S.No</h3>
                             <h3 className="bidsModalHeadingClientName">
@@ -748,7 +893,7 @@ export default function Campaigns() {
                             <h3 className="bidsModalHeadingOption">Option 1</h3>
                             <h3 className="bidsModalHeadingOption">Option 2</h3>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     )
                   }
@@ -769,8 +914,14 @@ export default function Campaigns() {
                       >
                         Delete Ad
                       </button>
-                      <button className="modalFooterButtonBidsCampaignsPage">
-                        Edit Bids
+                      <button
+                        className="modalFooterButtonBidsCampaignsPage"
+                        onClick={() => {
+                          setEdit(false);
+                          setEditBidModal(true);
+                        }}
+                      >
+                        Edit Bid for this Ad
                       </button>
                     </div>
                   )}
@@ -794,7 +945,113 @@ export default function Campaigns() {
               </Modal>
             )}
           </div>
+          {editBidModal && (
+            <Modal
+              open={editBidModal}
+              onClose={() => setEditBidModal(false)}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style2}>
+                <div className="editBidModalDiv">
+                  <div className="editBidModalDivTop">
+                    <div className="editBidModalAdName">
+                      {particularAdsDetails.adName}
+                    </div>
+                    <div className="editBidModalAdId">
+                      Ad Id: {particularAdsDetails._id}
+                    </div>
+                  </div>
+                  <div className="editBidModalDivBody">
+                    Current Bid Amount (per user) :{" "}
+                    {particularAdsDetails.bidAmount} DFT
+                  </div>
+                  <div className="editBidModalDivEdit">
+                    <div className="editBidModalDivEditLeft">
+                      New Bid Amount (per user) :{" "}
+                    </div>
+                    <div className="editBidModalDivEditRight">
+                      <input
+                        type="text"
+                        className="editBidModalDivEditInput"
+                        value={newBidAmount}
+                        onChange={(e) => setNewBidAmount(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="modalFooterCampaignsPage2">
+                    <button
+                      className="modalFooterButtonDeleteCampaignsPage2"
+                      onClick={() => setEditBidModal(false)}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      className="modalFooterButtonEditCampaignsPage2"
+                      onClick={handleUpdateBidAmount}
+                    >
+                      Update Bid
+                    </button>
+                  </div>
+                </div>
+              </Box>
+            </Modal>
+          )}
         </div>
+        {editedAdToaster && (
+          <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            open={editedAdToaster}
+            autoHideDuration={6000}
+            onClose={() => {
+              setEditedAdToaster(false);
+            }}
+          >
+            <Alert
+              onClose={handleToastClose}
+              severity="info"
+              sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
+            >
+              Ad Edited
+            </Alert>
+          </Snackbar>
+        )}
+        {createdAdToaster && (
+          <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            open={createdAdToaster}
+            autoHideDuration={6000}
+            onClose={() => {
+              setCreatedAdToaster(false);
+            }}
+          >
+            <Alert
+              onClose={handleToastClose}
+              severity="success"
+              sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
+            >
+              New Ad Created
+            </Alert>
+          </Snackbar>
+        )}
+        {deletedAdToaster && (
+          <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            open={deletedAdToaster}
+            autoHideDuration={6000}
+            onClose={() => {
+              setDeletedAdToaster(false);
+            }}
+          >
+            <Alert
+              onClose={handleToastClose}
+              severity="error"
+              sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
+            >
+              Ad Deleted Successfully
+            </Alert>
+          </Snackbar>
+        )}
       </div>
       </div>
     </>

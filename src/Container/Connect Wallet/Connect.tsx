@@ -10,6 +10,7 @@ const Connect = () => {
     walletAddress,
     setWalletAddress,
     token,
+    clientId,
     setToken,
     companyAddress1,
     setCompanyAddress1,
@@ -21,7 +22,7 @@ const Connect = () => {
     setCompanyType,
     companyEmail,
     setCompanyEmail,
-    _id,
+    setClientId,
   } = React.useContext(MyContext);
   const [isConnected, setIsConnected] = React.useState(false);
   async function connectWallet(): Promise<void> {
@@ -45,16 +46,19 @@ const Connect = () => {
         // console.log("token", response.data.token);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("walletAddress", address);
-        console.log("id", _id);
 
         const data = response.data.user;
-        console.log(data.user);
+        console.log(response.data.user._id);
         await setCompanyName(data.companyName);
         await setCompanyType(data.companyType);
         await setCompanyEmail(data.companyEmail);
         await setCompanyAddress1(data.companyAddress1);
         await setCompanyAddress2(data.companyAddress2);
         await setWalletAddress(data.walletAddress);
+        await setClientId(data._id);
+        await localStorage.setItem("clientId", data._id);
+        console.log("id", clientId);
+        console.log(localStorage.getItem("clientId"));
         navigate("/profile");
       }
       // setWalletAddress(address);
@@ -96,7 +100,7 @@ const Connect = () => {
           </p>
           <button
             className="connectClientWallet__button"
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/register1")}
           >
             Register
           </button>

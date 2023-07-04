@@ -1,211 +1,198 @@
+/* RegisterForm.css */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #f1f1f1;
+}
+.headerRegistration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-width: 350px;
+  background-color: #fff;
+  border-radius: 20px;
+  position: relative;
+  padding: 0 5%;
+  margin-bottom: 3%;
+}
+.submitOTPVerify {
+  border-radius: 10px;
+  outline: none;
+  color: #ffffff;
+  border: none;
+  background-color: #47b5ff;
+  cursor: pointer;
+  font-size: 2vh;
+  font-weight: 400;
+  padding: 2% 3%;
+  margin: 1%;
+}
+.title {
+  font-size: 28px;
+  color: royalblue;
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+}
 
-.dframeHeadingAndImageDiv{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* border: 1px solid red; */
-    
+.title::before,
+.title::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0px;
+  background-color: royalblue;
 }
-.dframeImageDivRegisterPage{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* border: 1px solid #000; */
+
+.title::before {
+  width: 18px;
+  height: 18px;
+  background-color: royalblue;
 }
-.dframeImageRegisterPage{
-    width: 12%;
-    height: 10%;
-    /* border: 1px solid #000; */
+
+.title::after {
+  width: 18px;
+  height: 18px;
+  animation: pulse 1s linear infinite;
 }
-.dframeHeadingRegisterPage{
-    font-size: 150%;
-    font-weight: 500;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* border: 1px solid #000; */
-    padding: 1%;
+
+.message,
+.signin {
+  color: rgba(88, 87, 87, 0.822);
+  font-size: 14px;
 }
-.registerFormDiv{
-    width: 50%;
-    height: 80vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* border: 1px solid #000; */
-    /* color: gray; */
-    background-color: rgb(232, 236, 239);
-    border-radius: 10px;
-    box-shadow:  0px 4px 4px rgba(0, 0, 0, 0.25);
-    margin: 2%;
+
+.signin {
+  text-align: center;
 }
-.mainRegisterPage{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+.signin a {
+  color: royalblue;
 }
-.registerFormOuterDiv{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* border: 1px solid #000; */
+
+.signin a:hover {
+  text-decoration: underline royalblue;
 }
-.registerFormEntryDiv{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    /* border: 1px solid #000; */
-    width: 100%;
-    height: 20%;
+
+.flex {
+  display: flex;
+  width: 100%;
+  gap: 2px;
 }
-.registerFormSubmitButton{
-    width: 20%;
-    height: 10%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* border: 1px solid #000; */
-    background-color: #47b5ff;
-    color: rgb(255, 255, 255);
-    border-radius: 10px;
-    font-size: 120%;
-    font-weight: 500;
-    cursor: pointer;
-    outline: none;
-    border: none;
-    margin: 4%;
-    margin-bottom: 3%;
+
+.form label {
+  position: relative;
 }
-.registerFormHeading{
-    font-size: 150%;
-    font-weight: 500;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    /* border: 1px solid red; */
-    width: 30%;
-    padding: 1%;
-    padding-left: 2%;
+
+.form label .input {
+  width: 94%;
+  padding: 10px 10px 20px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+  margin: 1.5% 0;
 }
-.registerFormInputField{
-    width: 100%;
-    height: 80%;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    margin-left: 0;
-    padding: 2% 0;
-    font-size: 120%;
-    font-weight: 400;
-    color: #1c1f37;
-    /* padding-right: 2%; */
+
+.form label .input + span {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  color: grey;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
 }
-.registerFormInput{
-    width: 55%;
-    height: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-right: 2%;
-    /* border: 1px solid #000; */
+
+.form label .input:placeholder-shown + span {
+  top: 15px;
+  font-size: 0.9em;
 }
-.registerFormColon{
-    font-size: 120%;
-    font-weight: 500;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* border: 1px solid #000; */
-    width: 3%;
+
+.form label .input:focus + span,
+.form label .input:valid + span {
+  top: 30px;
+  font-size: 0.7em;
+  font-weight: 600;
 }
-.registerFormEntryDiv1{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    /* border: 1px solid #692626; */
-    width: 100%;
-    height: 20%;
+
+/* ............................ */
+
+.form label .inputInFlex {
+  width: 88%;
+  padding: 10px 10px 20px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+  margin: 1.5% 0;
 }
-.registerFormEntryDiv1Top{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    /* border: 1px solid #d84040; */
-    width: 100%;
-    height: 50%;
+
+.form label .inputInFlex + span {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  color: grey;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
 }
-.registerFormHeadingVerify{
-    font-size: 150%;
-        font-weight: 500;
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        /* border: 1px solid red; */
-        width: 30%;
-        padding: 1%;
-        padding-left: 2%;
+
+.form label .inputInFlex:placeholder-shown + span {
+  top: 15px;
+  font-size: 0.9em;
 }
-.registerFormColonVerify{
-    font-size: 120%;
-    font-weight: 500;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* border: 1px solid #000; */
-    width: 3%;
+
+.form label .inputInFlex:focus + span,
+.form label .inputInFlex:valid + span {
+  top: 30px;
+  font-size: 0.7em;
+  font-weight: 600;
 }
-.registerFormInputVerify{
-    width: 55%;
-    height: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-right: 2%;
-    /* border: 1px solid #000; */
+
+.form label .inputInFlex:valid + span {
+  color: #47b5ff;
 }
-.registerFormInputFieldVerify{
-    width: 100%;
-    height: 150%;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    margin-left: 0;
-    padding: 2% 0;
-    font-size: 120%;
-    font-weight: 400;
-    color: #1c1f37;
-    padding-right: 2%;
+
+.submitButtonRegistrationPage {
+  border: none;
+  outline: none;
+  background-color: #47b5ff;
+  padding: 3% 3%;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transform: 0.3s ease;
+  margin: 5% auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
 }
-.registerFormVerifyButton{
-    width: 100%;
-    height: 120%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* border: 1px solid #000; */
-    background-color: #47b5ff;
-    color: rgb(255, 255, 255);
-    border-radius: 10px;
-    font-size: 100%;
-    cursor: pointer;
-    outline: none;
-    border: none;
-    margin: 2%;
+
+.submit:hover {
+  background-color: rgb(56, 90, 194);
 }
-.registerFormEntryDiv1Bottom{
-    /* border: 1px solid #d84040; */
-    margin-bottom: 2%;
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
 }

@@ -17,11 +17,11 @@ const SurveyHistory = () => {
   const navigate = useNavigate();
   const [oastSurveyExist, setPastSurveyExist] = useState(false);
   const [pastSurveyData, setPastSurveyData] = useState<any[]>([]);
-  const { _id, token } = useContext(MyContext);
+  const { _id, token, clientId, setClientId } = useContext(MyContext);
 
   // getting all past ads
   async function getAllPastSurveys() {
-    const id = _id || localStorage.getItem("id");
+    const id = _id || localStorage.getItem("clientId");
     const _tokenn = token || localStorage.getItem("token");
     console.log(id, _tokenn);
     await axios
@@ -94,6 +94,11 @@ const SurveyHistory = () => {
       });
   }
   useEffect(() => {
+    const tempId = localStorage.getItem("clientId");
+    if (tempId) {
+      setClientId(tempId);
+    }
+    console.log("cliendId ads history page", clientId);
     getAllPastSurveys();
   }, []);
   useEffect(() => {

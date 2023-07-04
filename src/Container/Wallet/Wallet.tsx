@@ -10,8 +10,13 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Web3 from "web3";
 export default function Wallet() {
   //  importing from context api
-  const { walletAddress, walletBalance, setWalletBalance } =
-    useContext(MyContext);
+  const {
+    walletAddress,
+    walletBalance,
+    setWalletBalance,
+    clientId,
+    setClientId,
+  } = useContext(MyContext);
   const _walletAddress = walletAddress || localStorage.getItem("walletAddress");
 
   //  defining state variables
@@ -357,6 +362,8 @@ export default function Wallet() {
       "https://polygon-mainnet.g.alchemy.com/v2/Ygfvgz118Xr9j6j_F3ZIMFye6SNTgJr8"
     );
     // const web3 = new Web3((window as any).ethereum);
+    // const web3 = new Web3((window as any).ethereum);
+    // const web3 = new Web3("https://polygon-rpc.com");
 
     // set the wallet address to query
     const _walletAddress =
@@ -631,6 +638,10 @@ export default function Wallet() {
     const balanceInKFormat =
       Math.trunc((balanceInEth as any) / 1000).toString() + "K";
     setWalletBalance(balanceInKFormat);
+    const latestBlock = await (window as any).ethereum.request({
+      method: "eth_blockNumber",
+      params: [],
+    });
     // get the transfer events of the MATIC token for the specified wallet address
     const transferFromEvents = await dframeContract.getPastEvents("Transfer", {
       fromBlock: 0,
@@ -680,6 +691,11 @@ export default function Wallet() {
 
   //  useeffect to get the past events of the DFRAME token
   useEffect(() => {
+    const tempId = localStorage.getItem("clientId");
+    if (tempId) {
+      setClientId(tempId);
+    }
+    console.log("cliendId wallet page", clientId);
     getPastEvents();
   }, []);
   useEffect(() => {}, [transactionEvents]);
@@ -864,8 +880,7 @@ export default function Wallet() {
                       );
                     }
                   })}
-
-                  <p className="extraSpace"></p>
+                  <Divider />
                 </div>
               )
             }

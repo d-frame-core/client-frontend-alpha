@@ -40,6 +40,8 @@ export default function Profile() {
     token,
     _imageUrl,
     setImageUrl,
+    setClientId,
+    clientId,
   } = useContext(MyContext);
 
   // function to connect to polygon mainnet here.
@@ -69,6 +71,11 @@ export default function Profile() {
   };
 
   useEffect(() => {
+    const tempId = localStorage.getItem("clientId");
+    if (tempId) {
+      setClientId(tempId);
+    }
+    console.log("cliendId profile page", clientId);
     connectToPolygonMainnet();
   }, []);
 
@@ -131,7 +138,7 @@ export default function Profile() {
   const handleSave = async () => {
     setEdit(!edit);
     setOpenToast(true);
-    const id = _id || localStorage.getItem("id");
+    const id = clientId || localStorage.getItem("clientId");
     console.log("id", id);
     await axios
       .patch(`http://localhost:3000/users/${id}`, {
@@ -169,7 +176,7 @@ export default function Profile() {
 
   //  use effect to fetch the data from the server here.
   useEffect(() => {
-    const id = _id || localStorage.getItem("id");
+    const id = clientId || localStorage.getItem("clientId");
     const _token = token || localStorage.getItem("token");
 
     axios
@@ -183,11 +190,12 @@ export default function Profile() {
           const imageId = localStorage.getItem("imageID") || "defaultImageId";
 
           fetchImage().then(() => {
-            console.log("..........");
+            // console.log("..........");
           });
           axios
             .get(`http://localhost:3000/users/data/${id}`)
             .then((response) => {
+              console.log(response.data);
               const data = response.data.User;
               setCompanyName(data.companyName);
               setCompanyType(data.companyType);
@@ -195,6 +203,7 @@ export default function Profile() {
               setCompanyAddress1(data.companyAddress1);
               setCompanyAddress2(data.companyAddress2);
               setWalletAddress(data.walletAddress);
+              setClientId(data._id);
             })
             .catch((error) => {
               console.log(error);
