@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import ModalWithLink from "../../components/ModalWithLink/ModalWithLink";
+import Drawer from "../../components/sidebar/Drawer";
 export default function LearnMore() {
   const [fetchedData, setFetchedData] = React.useState<any[]>([]);
   const [open, setOpen] = React.useState(false);
@@ -73,6 +74,7 @@ export default function LearnMore() {
   }, [faqData]);
   return (
     <div>
+      <div className="smopen">{Drawer(0)}</div>
       <>{Sidebar(0)}</>
       <div className="learnBox">
         <Box>

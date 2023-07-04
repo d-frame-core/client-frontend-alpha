@@ -165,11 +165,11 @@
 }
 
 .categories {
-  min-width: 84%;
+  position: relative;
+  min-width: 84vw;
+  left: 0vw;
   display: flex;
-  margin-bottom: 3vh;
-  /* border: 1px solid green; */
-  justify-content: space-evenly;
+  
 }
 .categoriesTitle {
   text-align: center;
@@ -206,4 +206,10 @@
 input[type="text"] {
   padding: 1%;
   padding-left: 4%;
+}
+@media only screen and (max-width:960px){
+  .categories{
+    min-width: 80vw;
+    left: 20vw;
+  }
 }

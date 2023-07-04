@@ -33,7 +33,7 @@ const BasicModal = (props: {
     <div>
       <div onClick={handleOpen}>{props.name}</div>
       <Modal open={open} onClose={handleClose}>
-        <Box sx={style}>
+        <Box className='boxmodal'>
           <div>
             <Typography id="modal-modal-title" variant="h6" component="div">
               {props.name}

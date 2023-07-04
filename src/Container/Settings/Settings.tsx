@@ -6,6 +6,7 @@ import { useState, useContext } from "react";
 import { Alert, Box, Modal, Snackbar } from "@mui/material";
 import { MyContext } from "../../components/context/Context";
 import axios from "axios";
+import Drawer from "../../components/sidebar/Drawer";
 export default function Settings() {
   const [deletingAllSurveys, setdeletingAllSurveys] = useState(false);
   const [deletingAllAds, setdeletingAllAds] = useState(false);
@@ -86,6 +87,7 @@ export default function Settings() {
   }
   return (
     <div>
+      <div className="smopen">{Drawer(8)}</div>
       <>{Sidebar(8)}</>
       <div>
         <Box className="settingsBox">

@@ -19,6 +19,7 @@ import { Box } from "@mui/system";
 import { Alert, Snackbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import SurveyAnalytics from "../SurveyAnalytics/SurveyAnalytics";
+import Drawer from "../../components/sidebar/Drawer";
 
 // default function of CreateSurvey.tsx file.
 const CreateSurvey = () => {
@@ -385,6 +386,8 @@ const CreateSurvey = () => {
   return (
     <div>
       <>{Sidebar(6)}</>
+      <div className="smopen">{Drawer(6)}</div>
+      <div className="outbox">
       <div className="createSurveyBox">
         <div className="createSurveyGreyBox">
           <div className="createSurveyHeader">
@@ -400,7 +403,7 @@ const CreateSurvey = () => {
             <div className="createSurveyCategoriesBox">
               <div className="surveyName">Survey Name</div>
               <div className="totalQues">Total Questions</div>
-              <div className="totalRes">Rewards(DFT)</div>
+              <div className="totalRes">Rewards</div>
               <div className="statusCampaign">Status</div>
               <div className="editCampaign">Edit</div>
               <div className="startDate">Start Date</div>
@@ -897,6 +900,7 @@ const CreateSurvey = () => {
           </Alert>
         </Snackbar>
       )}
+    </div>
     </div>
   );
 };

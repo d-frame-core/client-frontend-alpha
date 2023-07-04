@@ -16,6 +16,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
 import axios from "axios";
 import { MyContext } from "../../components/context/Context";
+import Drawer from "../../components/sidebar/Drawer";
 
 const typesofads: any[] = [
   { value: "Image", label: "Image" },
@@ -221,6 +222,8 @@ export default function Campaigns() {
   return (
     <>
       <>{Sidebar(4)}</>
+      <div className="smopen">{Drawer(4)}</div>
+      <div className="outbox">
       <div className="campaignsBox">
         <div className="campaignsGreyBox">
           <div className="campaignsHeader">
@@ -792,6 +795,7 @@ export default function Campaigns() {
             )}
           </div>
         </div>
+      </div>
       </div>
     </>
   );

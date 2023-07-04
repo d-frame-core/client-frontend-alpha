@@ -16,6 +16,7 @@ import {
 import ModalWithLink from "../../components/ModalWithLink/ModalWithLink";
 import BasicModal from "../../components/modal/BasicModal";
 import axios from "axios";
+import Drawer from "../../components/sidebar/Drawer";
 export default function Help() {
   const [faqData, setFaqData] = React.useState<any[]>([]);
   const [helpdata, setHelpData] = React.useState<any[]>([]);
@@ -73,6 +74,7 @@ export default function Help() {
   }, [faqData]);
   return (
     <div>
+      <div className="smopen">{Drawer(0)}</div>
       <>{Sidebar(0)}</>
       <div className="helpBox">
         <Box>

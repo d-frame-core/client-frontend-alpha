@@ -11,6 +11,7 @@ import axios from "axios";
 import { async } from "@firebase/util";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Alert, Snackbar } from "@mui/material";
+import Drawer from '../../components/sidebar/Drawer'
 
 export default function Profile() {
   // defining states here.
@@ -220,8 +221,11 @@ export default function Profile() {
     setOpenImageToast(false);
   };
   return (
-    <div>
+    <div >
+
+      <div className="smopen">{Drawer(1)}</div>
       <>{Sidebar(1)}</>
+      <div className="outerlayer">
       <div className="Profile">
         <Box>
           <div className="profileTitle">Profile</div>
@@ -247,27 +251,38 @@ export default function Profile() {
                     )}
                   </div>
                 </Grid>
-                <Grid item xs={7} sm={3}>
+                
+                
                   <div className="profileEntries">
-                    <div className="profileEntriesData">Company Name </div>
-                    <div className="profileEntriesData">Company Type </div>
-                    <div className="profileEntriesData">Company Email </div>
-                    <div className="profileEntriesData">Company Address1 </div>
-                    <div className="profileEntriesData">Company Address2 </div>
-                    <div className="profileEntriesData">Wallet Address </div>
+                    <div className="profileEntriesData">
+                      Company Name
+                                 </div>
+                    <div className="profileEntriesData">
+                      Company Type 
+                     </div>
+                    <div className="profileEntriesData">
+                      Company Email 
+                     </div>
+                    <div className="profileEntriesData">
+                      Company Address1</div>
+                    <div className="profileEntriesData">
+                      Company Address2</div>
+                    <div className="profileEntriesData">
+                      Wallet Address 
+                     </div>
+                      
                   </div>
-                </Grid>
-                <Grid item xs={0.5} sm={0.5}>
-                  <div className="semiColon">
-                    <div className="colonIcon">:</div>
-                    <div className="colonIcon">:</div>
-                    <div className="colonIcon">:</div>
-                    <div className="colonIcon">:</div>
-                    <div className="colonIcon">:</div>
-                    <div className="colonIcon">:</div>
+                
+                <div className="semiColon">
+                    <div className="secol">:</div>
+                    <div className="secol">:</div>
+                    <div className="secol">:</div>
+                    <div className="secol">:</div>
+                    <div className="secol">:</div>
+                    <div className="secol">:</div>
                   </div>
-                </Grid>
-                <Grid item xs={5} sm={5.5}>
+                
+                
                   <div className="profileDetails">
                     <div className="profileDetailsData">{companyName}</div>
                     <div className="profileDetailsData">{companyType}</div>
@@ -282,7 +297,7 @@ export default function Profile() {
                       {walletAddress.slice(0, 10)}...{walletAddress.slice(27)}
                     </div>
                   </div>
-                </Grid>
+                
               </Grid>
               <button className="editButton" onClick={() => handleEdit()}>
                 Edit
@@ -312,7 +327,7 @@ export default function Profile() {
                     </div>
                   </div>
                 </Grid>
-                <Grid item xs={7} sm={3}>
+                
                   <div className="profileEntries">
                     <div className="profileEntriesData">Company Name </div>
                     <div className="profileEntriesData">Company Type </div>
@@ -321,18 +336,17 @@ export default function Profile() {
                     <div className="profileEntriesData">Company Address2 </div>
                     <div className="profileEntriesData">Wallet Address </div>
                   </div>
-                </Grid>
-                <Grid item xs={0.5} sm={0.5}>
+                
+                
                   <div className="semiColon">
-                    <div className="colonIcon">:</div>
-                    <div className="colonIcon">:</div>
-                    <div className="colonIcon">:</div>
-                    <div className="colonIcon">:</div>
-                    <div className="colonIcon">:</div>
-                    <div className="colonIcon">:</div>
+                    <div className='secol'>:</div>
+                    <div className='secol'>:</div>
+                    <div className='secol'>:</div>
+                    <div className='secol'>:</div>
+                    <div className='secol'>:</div>
+                    <div className='secol'>:</div>
                   </div>
-                </Grid>
-                <Grid item xs={5} sm={4.2}>
+                
                   <div className="profileDetailsEdit">
                     <input
                       className="profileDetailsDataEdit1"
@@ -361,7 +375,6 @@ export default function Profile() {
                       {walletAddress.slice(0, 10)}...{walletAddress.slice(27)}
                     </div>
                   </div>
-                </Grid>
               </Grid>
               <button className="editButton" onClick={() => handleSave()}>
                 Save
@@ -406,6 +419,7 @@ export default function Profile() {
           </Alert>
         </Snackbar>
       )}
+    </div>
     </div>
   );
 }

@@ -3,6 +3,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  height: 60vh;
+  width: 80vw;
   /* border: 1px solid #000; */
   text-align: center;
 }
@@ -11,7 +13,8 @@
   outline: none;
   color: #ffffff;
   border: none;
-  padding: 3% 5%;
+  height: 10vh;
+  width: 25vw;
   border-radius: 10px;
   cursor: pointer;
   font-size: 3vh;
@@ -22,4 +25,18 @@
   font-size: 6vh;
   font-weight: 500;
   color: #000;
+}
+
+@media only screen and (max-width:600px){
+  
+  .connectClientWallet__button{
+    position: relative;
+    margin: auto;
+    top: 10vh;
+    width: 80vw;
+  }
+  .connectClientWallet__heading{
+    font-size: 4vh;
+  }
+  
 }

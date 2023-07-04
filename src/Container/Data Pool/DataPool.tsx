@@ -4,6 +4,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import "./DataPool.css";
 import AddIcon from "@mui/icons-material/Add";
 import Chart from "../../components/chart/Chart";
+import Drawer from "../../components/sidebar/Drawer";
 const DataPool = () => {
   const heading = [
     "Education",
@@ -157,6 +158,7 @@ const DataPool = () => {
   return (
     <div>
       <>{Sidebar(3)}</>
+      <div className="smopen">{Drawer(3)}</div>
       <div className="outerBox">
         <div className="categories">
           {heading.map((item, index) => {
