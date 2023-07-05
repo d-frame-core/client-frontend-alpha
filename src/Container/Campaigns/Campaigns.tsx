@@ -274,7 +274,7 @@ export default function Campaigns() {
         adContent: editedAdData.adContent,
       })
       .then((res) => {
-        // console.log("Updated Ad Details", res.data);
+        console.log("Updated Ad Details", res.data);
         setEdit(false);
         setEditAd(false);
         setEditedAdToaster(true);
