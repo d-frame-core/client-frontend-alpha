@@ -65,6 +65,8 @@ export default function Campaigns() {
   const [deletedAdToaster, setDeletedAdToaster] = useState(false);
   const [editBidModal, setEditBidModal] = useState(false);
   const [newBidAmount, setNewBidAmount] = useState("");
+  const [newPerDayAmount, setNewPerDayAmount] = useState("");
+  const [newTotalDays, setNewTotalDays] = useState("");
 
   //  function to handle toast close
   const handleToastClose = () => {
@@ -330,11 +332,15 @@ export default function Campaigns() {
       });
   }
 
+  // update bid amount
   async function handleUpdateBidAmount() {
     const id = clientId || localStorage.getItem("clientId");
+    console.log(particularAdsDetails._id);
     await axios
-      .patch(`http://localhost:3000/bids/${id}`, {
+      .patch(`http://localhost:3000/bids/${particularAdsDetails._id}`, {
         bidAmount: Number(newBidAmount),
+        perDay: Number(newPerDayAmount),
+        totalDays: Number(newTotalDays),
       })
       .then((res) => {
         console.log("Updated Bid Details", res.data);
@@ -973,6 +979,18 @@ export default function Campaigns() {
                         className="editBidModalDivEditInput"
                         value={newBidAmount}
                         onChange={(e) => setNewBidAmount(e.target.value)}
+                      />
+                      <input
+                        type="text"
+                        className="editBidModalDivEditInput"
+                        value={newPerDayAmount}
+                        onChange={(e) => setNewPerDayAmount(e.target.value)}
+                      />
+                      <input
+                        type="text"
+                        className="editBidModalDivEditInput"
+                        value={newTotalDays}
+                        onChange={(e) => setNewTotalDays(e.target.value)}
                       />
                     </div>
                   </div>
