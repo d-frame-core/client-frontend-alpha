@@ -1,3 +1,4 @@
+
 .helpBox {
   position: absolute;
   height: 80vh;
@@ -40,4 +41,26 @@
 .helpContent {
   padding-top: 1vh;
   padding-left: 2vw;
+}
+@media only screen and (max-width:960px){
+  .helpBox{
+    left: 23vw;
+    
+  }
+}
+@media only screen and (max-width:960px){
+  .helpBox{
+    left: 5vw;
+    width: 90vw;
+  }
+}
+@media only screen and (max-width:600px){
+  .helpItem{
+    width: 83%;
+    left: 5%;
+    font-size: 2.5vh;
+  }
+  .helpBox{
+    font-size: 16px;
+  }
 }

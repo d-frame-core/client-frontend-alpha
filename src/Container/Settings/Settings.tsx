@@ -8,6 +8,7 @@ import { MyContext } from "../../components/context/Context";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Drawer from "../../components/sidebar/Drawer";
 export default function Settings() {
   const [deletingAllSurveys, setdeletingAllSurveys] = useState(false);
   const [deletingAllAds, setdeletingAllAds] = useState(false);
@@ -104,6 +105,7 @@ export default function Settings() {
 
   return (
     <div>
+      <div className="smopen">{Drawer(8)}</div>
       <>{Sidebar(8)}</>
       <div>
         <Box className="settingsBox">

@@ -18,6 +18,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
 import axios from "axios";
 import { MyContext } from "../../components/context/Context";
+import Drawer from "../../components/sidebar/Drawer";
 import { useNavigate } from "react-router-dom";
 
 //  defining types of ads
@@ -413,6 +414,8 @@ export default function Campaigns() {
   return (
     <>
       <>{Sidebar(4)}</>
+      <div className="smopen">{Drawer(4)}</div>
+      <div className="outbox">
       <div className="campaignsBox">
         <div className="campaignsGreyBox">
           <div className="campaignsHeader">
@@ -1155,6 +1158,7 @@ export default function Campaigns() {
             </Alert>
           </Snackbar>
         )}
+      </div>
       </div>
     </>
   );

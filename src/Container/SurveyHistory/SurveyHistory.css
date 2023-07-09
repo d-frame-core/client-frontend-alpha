@@ -1,15 +1,5 @@
-.surveyBoxFlex {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  height: 10vh;
-  width: 100%;
 
-  /* border: 1px solid red; */
-  /* background-color: #47b5ff; */
-  border-radius: 10px 10px 0 0;
-}
+
 
 .surveyTitle {
   font-weight: 600;
@@ -24,6 +14,7 @@
   width: 75vw;
   top: 14vh;
   left: 21vw;
+  right: 5vw;
   background: #dde2ea;
   text-align: left;
   border-radius: 1vh;
@@ -41,6 +32,7 @@
 .surveyHistoryContent {
   display: flex;
   flex-direction: column;
+  text-align: center;
   width: 94%;
   height: 85%;
   overflow-y: auto;
@@ -68,7 +60,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 110%;
+  font-size: 90%;
   font-weight: 500;
   border-right: 1px solid blue;
 }
@@ -78,7 +70,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 110%;
+  font-size: 90%;
   font-weight: 500;
   /* border: 1px solid blue; */
     border-right: 1px solid blue;
@@ -90,7 +82,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 110%;
+  font-size: 90%;
   font-weight: 500;
   /* border: 1px solid blue; */
     border-right: 1px solid blue;
@@ -102,7 +94,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 110%;
+  font-size: 90%;
   font-weight: 500;
   /* border: 1px solid blue; */
     border-right: 1px solid blue;
@@ -114,7 +106,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 110%;
+  font-size: 90%;
   font-weight: 500;
   /* border: 1px solid blue; */
     border-right: 1px solid blue;
@@ -126,7 +118,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 110%;
+  font-size: 90%;
   font-weight: 500;
   /* border: 1px solid blue; */
 
@@ -136,9 +128,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 8%;
+  width: 10%;
   height: 100%;
-  font-size: 110%;
+  font-size: 90%;
   font-weight: 500;
   color: white;
   border-right: 1px solid blue;
@@ -159,7 +151,7 @@
   justify-content: center;
   width: 100%;
   height: 10%;
-  font-size: 110%;
+  font-size: 90%;
   font-weight: 500;
   color: #1c1f37;
   border-bottom: 1px solid blue;
@@ -180,7 +172,7 @@
   justify-content: center;
   width: 10%;
   height: 100%;
-  font-size: 110%;
+  font-size: 90%;
   /* color:red; */
   /* border: 1px solid red; */
 }
@@ -191,7 +183,7 @@
   text-align: center;
   width: 27.2%;
   height: 100%;
-  font-size: 110%;
+  font-size: 90%;
   /* color:red; */
   /* border: 1px solid red; */
 }
@@ -201,7 +193,7 @@
   justify-content: center;
   width: 15%;
   height: 100%;
-  font-size: 110%;
+  font-size: 90%;
   /* color:red; */
   /* border: 1px solid red; */
 }
@@ -211,7 +203,7 @@
   justify-content: center;
   width: 18%;
   height: 100%;
-  font-size: 110%;
+  font-size: 90%;
   /* color:red; */
   /* border: 1px solid red; */
 }
@@ -221,7 +213,7 @@
   justify-content: center;
   width: 15%;
   height: 100%;
-  font-size: 110%;
+  font-size: 90%;
   /* color:red; */
   /* border: 1px solid red; */
 }
@@ -339,4 +331,52 @@
   cursor: pointer;
   background-color: #47b5ff;
   margin: 3%;
+}
+.main{
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background-color: #47b5ff;
+  overflow-y: hidden;
+  z-index: -1;
+}
+@media only screen and (max-width:960px){
+  .nosurveyFoundButton{
+    width: 28%;
+  }
+  .surveyHistoryOuterBox{
+    left: 23vw;
+  }
+}
+@media only screen and (max-width:960px){
+  .surveyHistoryOuterBox{
+    left: 5vw;
+    width: 90vw;
+  }
+  .surveyHistoryContent{
+    font-size: 1.8vh;
+    text-align: center;
+  }
+}
+@media (max-width: 800px) 
+  {
+    body{
+      overflow-y: hidden;
+      overflow-x: scroll;
+    }
+ 
+    
+    .surveyHistoryOuterBox{
+      position: absolute;
+      left:20px;
+      width: 720px;
+    }
+    .outbox{
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      overflow-x: scroll;
+    }
+    
+   
 }

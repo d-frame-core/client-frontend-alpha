@@ -1,0 +1,168 @@
+.side1{
+    position: absolute;
+    left:0vw;
+    font-size: 2vh;
+    width: 200px;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background: linear-gradient(180deg, rgba(61, 6, 218, 0.76) 0%, rgba(16, 122, 225, 0.575307) 60.27%, rgba(7, 147, 227, 0.536563) 72.92%, rgba(2, 203, 216, 0.52) 100%);  left: 0vh;
+}
+.itemnew{
+    position: absolute;
+    width: 200px;
+    top: 24vh;
+    color: white;
+    background: #0A194E;
+    z-index: 5;
+    text-align: left;
+    text-indent: 18px;
+    font-size: 3vh;
+    font-weight: 400;
+    font-family: 'Alata';
+}
+
+.notActivenew{
+    position: relative;
+    width: 180px;
+    left: 10px;
+    font-size: 80%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    height: 5vh;
+    background-color: #0A194E;
+    color: white;
+    font-weight: 400;
+    
+}
+
+.rectnew3{
+    position: absolute;
+width: 180px;
+height: 14vh;
+left: 10px;
+top: 78vh;
+z-index: 1;
+color: #FFFFFF;
+background: #1B2B65;
+border-radius: 8px;
+text-align: center;
+}
+.rectnew1{
+position: relative;
+top: 4vh;
+width: 140px;
+height: 4vh;
+border: none;
+font-size: 80%;
+border-radius: 4px;
+color: #FFFFFF;
+font-family: 'Gilroy';
+background: #017EFA;
+
+}
+.dftextnew{
+    position: absolute;
+    height: 5vh;
+    width: 18vw;
+    top: 17vh;
+    font-size: 3vh;
+    left: 40px;
+    font-weight: 700;
+    z-index: 1;
+    color: #0A194E;
+  }
+.dframenew{
+    position: relative;
+    height: 15vh;
+    width: 100px;
+    top: 2vh;
+    
+   left: 40px;
+    z-index: 1;
+}
+
+
+.textnew6{
+    position: relative;
+    top: 3vh;
+    width: 140px;
+    font-size: 2vh;
+    left: 10px;
+    font-family: 'Alata';
+}
+.textnew7{
+    position: absolute;
+    width: 140px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 2vh;
+    z-index: 2;
+    
+    color: #FFFFFF;
+}
+
+.textnew9{
+    position: relative;
+    width: 140px;
+    text-align: center;
+    
+    margin: auto;
+    top: 78vh;
+    z-index: 4;
+    font-family: 'Alata';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 130%;
+    text-decoration-line: underline ;
+    color: #000;
+}
+.actnew1{
+    position: relative;
+    width: 194px;
+    left: 6px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    height: 5vh;
+    font-size: 80%;
+    background-color: white;
+    color: black;
+    font-weight: 600;
+    text-align: left;
+    text-indent: 20px;
+    border-top-left-radius: 1vh;
+    border-bottom-left-radius: 1vh;
+}
+.actnew2{
+    position: relative;
+    width: 165px;
+    left: 15px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    height: 5vh;
+    font-size: 70%;
+    background-color: white;
+    color: black;
+    font-weight: 600;
+    text-align: left;
+    text-indent: 15px;
+    border-top-left-radius: 1vh;
+    border-bottom-left-radius: 1vh;
+}
+@media only screen and (max-width:960px){
+    
+}
+
+@media only screen and (max-width:600px){
+   .actnew1{
+    height: 4vh;
+   }
+   .dftextnew{
+    width: auto;
+}
+.dframenew{
+    left: 30px;
+    width: auto;
+}
+
+}

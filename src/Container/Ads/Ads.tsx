@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { MyContext } from "../../components/context/Context";
 import { useNavigate } from "react-router-dom";
 import { Alert, Box, Modal, Snackbar } from "@mui/material";
+import Drawer from "../../components/sidebar/Drawer";
 const SurveyHistory = () => {
   const [selectedSurveyId, setSelectedSurveyId] = useState<any>(null);
   const [deletingSurvey, setDeletingSurvey] = useState(false);
@@ -120,6 +121,8 @@ const SurveyHistory = () => {
   return (
     <div>
       <>{Sidebar(5)}</>
+      <div className="smopen">{Drawer(5)}</div>
+      <div className="outbox">
       <div className="surveyHistoryOuterBox">
         <div className="surveyBoxFlex">
           <div className="surveyTitle">Ad History</div>
@@ -256,6 +259,7 @@ const SurveyHistory = () => {
           </Modal>
         )}
       </div>
+    </div>
     </div>
   );
 };

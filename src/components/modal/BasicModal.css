@@ -1,3 +1,15 @@
+.boxmodal{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 400px;
+  box-shadow: 24;
+  padding: 4vw;
+  border: 0;
+  border-radius: 1.1vh;
+}
 .btncl {
   position: relative;
   height: 6vh;
@@ -20,4 +32,25 @@
   color: white;
   font-size: 2.5vh;
   cursor: pointer;
+}
+@media only screen and (max-width:960px) {
+  .btncl{
+    width: 8vw;
+  }
+  .btncl1{
+    width: 8vw;
+  }
+}
+@media only screen and (max-width:960px) {
+  .btncl{
+    width: auto;
+
+  }
+  .btncl1{
+    width: auto;
+
+  }
+  .boxmodal{
+    width: 300px;
+  }
 }
