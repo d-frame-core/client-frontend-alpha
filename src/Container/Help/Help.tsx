@@ -13,9 +13,11 @@ import {
   Divider,
   Modal,
 } from "@mui/material";
+import { useEffect } from "react";
 import ModalWithLink from "../../components/ModalWithLink/ModalWithLink";
 import BasicModal from "../../components/modal/BasicModal";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export default function Help() {
   const [faqData, setFaqData] = React.useState<any[]>([]);
   const [helpdata, setHelpData] = React.useState<any[]>([]);
@@ -71,6 +73,22 @@ export default function Help() {
   React.useEffect(() => {
     // console.log(faqData);
   }, [faqData]);
+
+  // use effect to logout the user if wallet is disconnected
+  const navigate = useNavigate();
+  const handleWalletDisconnect = () => {
+    if (!(window as any).ethereum?.selectedAddress) {
+      // Metamask wallet disconnected
+      navigate("/");
+    }
+  };
+  useEffect(() => {
+    // Listen for changes in the selected address property
+    if ((window as any).ethereum) {
+      (window as any).ethereum.on("accountsChanged", handleWalletDisconnect);
+    }
+  }, [(window as any).ethereum]);
+
   return (
     <div>
       <>{Sidebar(0)}</>

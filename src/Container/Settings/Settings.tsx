@@ -6,6 +6,8 @@ import { useState, useContext } from "react";
 import { Alert, Box, Modal, Snackbar } from "@mui/material";
 import { MyContext } from "../../components/context/Context";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 export default function Settings() {
   const [deletingAllSurveys, setdeletingAllSurveys] = useState(false);
   const [deletingAllAds, setdeletingAllAds] = useState(false);
@@ -84,6 +86,22 @@ export default function Settings() {
         console.log(error);
       });
   }
+
+  // use effect to logout the user if wallet is disconnected
+  const navigate = useNavigate();
+  const handleWalletDisconnect = () => {
+    if (!(window as any).ethereum?.selectedAddress) {
+      // Metamask wallet disconnected
+      navigate("/");
+    }
+  };
+  useEffect(() => {
+    // Listen for changes in the selected address property
+    if ((window as any).ethereum) {
+      (window as any).ethereum.on("accountsChanged", handleWalletDisconnect);
+    }
+  }, [(window as any).ethereum]);
+
   return (
     <div>
       <>{Sidebar(8)}</>

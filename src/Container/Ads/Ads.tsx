@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./SurveyHistory.css";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import axios from "axios";
 import { useContext } from "react";
@@ -70,8 +69,8 @@ const SurveyHistory = () => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 500,
-    height: 200,
+    width: 350,
+    height: 170,
     bgcolor: "white",
     boxShadow: 24,
     border: "0",
@@ -103,6 +102,20 @@ const SurveyHistory = () => {
   useEffect(() => {
     console.log(pastSurveyData);
   }, [getAllPastSurveys]);
+
+  // use effect to logout the user if wallet is disconnected
+  const handleWalletDisconnect = () => {
+    if (!(window as any).ethereum?.selectedAddress) {
+      // Metamask wallet disconnected
+      navigate("/");
+    }
+  };
+  useEffect(() => {
+    // Listen for changes in the selected address property
+    if ((window as any).ethereum) {
+      (window as any).ethereum.on("accountsChanged", handleWalletDisconnect);
+    }
+  }, [(window as any).ethereum]);
 
   return (
     <div>

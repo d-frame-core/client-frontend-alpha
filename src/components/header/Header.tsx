@@ -34,13 +34,21 @@ export default function Header() {
     <div className="header">
       <img src={user} alt="" className="user1" />
       {/* split and display first two words if words are small, else only first word */}
-      <div className="head1">
+      <div
+        className="head1"
+        title={
+          companyName.split(" ").length > 1
+            ? companyName.split(" ")[0] + " " + companyName.split(" ")[1]
+            : companyName.split(" ")[0]
+        }
+      >
         {companyName.split(" ").length > 1
           ? (companyName.split(" ")[0] + " " + companyName.split(" ")[1]).slice(
               0,
-              10
+              8
             )
-          : companyName.split(" ")[0].slice(0, 10)}
+          : companyName.split(" ")[0].slice(0, 8)}
+        ...
       </div>
       <div
         className="drp"

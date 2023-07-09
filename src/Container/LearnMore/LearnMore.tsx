@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { Box } from "@mui/material";
 import "./learnmore.css";
@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import ModalWithLink from "../../components/ModalWithLink/ModalWithLink";
+import { useNavigate } from "react-router-dom";
 export default function LearnMore() {
   const [fetchedData, setFetchedData] = React.useState<any[]>([]);
   const [open, setOpen] = React.useState(false);
@@ -48,7 +49,19 @@ export default function LearnMore() {
         console.log(err);
       });
   }
-
+  const navigate = useNavigate();
+  const handleWalletDisconnect = () => {
+    if (!(window as any).ethereum?.selectedAddress) {
+      // Metamask wallet disconnected
+      navigate("/");
+    }
+  };
+  useEffect(() => {
+    // Listen for changes in the selected address property
+    if ((window as any).ethereum) {
+      (window as any).ethereum.on("accountsChanged", handleWalletDisconnect);
+    }
+  }, [(window as any).ethereum]);
   async function fetchFAQs() {
     await axios
       .get("http://localhost:3000/F&Q/faq/")

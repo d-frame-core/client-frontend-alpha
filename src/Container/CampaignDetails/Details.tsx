@@ -2,8 +2,26 @@ import React from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./Details.css";
 import MyLineChart from "../../components/LineChart/Line";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 const Details = () => {
   const data = [{ name: "Page A", uv: 400, pv: 2400, amt: 2400 }];
+
+  // use effect to logout the user if wallet is disconnected
+  const navigate = useNavigate();
+  const handleWalletDisconnect = () => {
+    if (!(window as any).ethereum?.selectedAddress) {
+      // Metamask wallet disconnected
+      navigate("/");
+    }
+  };
+  useEffect(() => {
+    // Listen for changes in the selected address property
+    if ((window as any).ethereum) {
+      (window as any).ethereum.on("accountsChanged", handleWalletDisconnect);
+    }
+  }, [(window as any).ethereum]);
+
   return (
     <div>
       <>{Sidebar(4)}</>

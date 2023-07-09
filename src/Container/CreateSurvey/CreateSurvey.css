@@ -78,7 +78,7 @@
   font-size: 110%;
   font-weight: 500;
   height: 100%;
-  border-right:  1px solid blue;
+  border-right: 1px solid blue;
 }
 .totalQues {
   display: flex;
@@ -113,7 +113,7 @@
   /* border: 0.5px solid blue; */
   border-right: 1px solid blue;
 }
-.editCampaign{
+.editCampaign {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -165,7 +165,6 @@
   /* border: 0.5px solid green; */
   border-bottom: 1px solid blue;
   cursor: pointer;
-
 }
 .lastEntry {
   border-bottom: 1px solid blue;
@@ -214,7 +213,7 @@
   padding: 0;
   padding-left: 4%;
 }
-.themeSwitch{
+.themeSwitch {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -380,7 +379,7 @@ input[type="text"] {
   padding: 1%;
   padding-left: 4%;
 }
-.modalHeader{
+.modalHeader {
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -403,21 +402,22 @@ input[type="text"] {
   border-bottom: 1px solid blue;
   padding: 0;
   margin: 0;
+  margin: 2%;
 }
-.modalHeaderHeading{
+.modalHeaderHeading {
   font-size: 200%;
   font-weight: 600;
   margin: 0;
   padding: 0;
 }
-.modalHeaderDescription{
+.modalHeaderDescription {
   font-size: 100%;
   font-weight: 400;
   margin: 3%;
   padding: 1%;
 }
 
-.modalBody{
+.modalBody {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -432,7 +432,7 @@ input[type="text"] {
   justify-content: center;
   align-items: center;
 }
-.modalFooter{
+.modalFooter {
   display: flex;
   flex-direction: row;
   text-align: center;
@@ -441,11 +441,11 @@ input[type="text"] {
   border-top: 1px solid blue;
   padding: 1%;
   margin: 0;
-  margin-top: 5%;
+  margin-top: 3%;
   justify-content: center;
   align-items: center;
 }
-.modalFooterButtonEdit{
+.modalFooterButtonEdit {
   width: 25%;
   height: 50%;
   margin: 2%;
@@ -463,7 +463,7 @@ input[type="text"] {
   justify-content: center;
   align-items: center;
 }
-.modalFooterButtonDelete{
+.modalFooterButtonDelete {
   width: 25%;
   height: 50%;
   margin: 2%;
@@ -476,12 +476,12 @@ input[type="text"] {
   font-weight: 600;
   background-color: #ff4d4d;
   color: white;
-    display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
-.modalFooterButtonInactive{
+.modalFooterButtonInactive {
   width: 25%;
   height: 50%;
   margin: 2%;
@@ -494,12 +494,12 @@ input[type="text"] {
   font-weight: 600;
   background-color: #20f34e;
   color: white;
-    display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
-.modalFooterButtonClose{
+.modalFooterButtonClose {
   width: 25%;
   height: 50%;
   margin: 2%;
@@ -513,24 +513,23 @@ input[type="text"] {
   background-color: #47b5ff;
   color: white;
 }
-.modalCloseButton{
-position: absolute;
-top: 2%;
-right: 1%;
-width:5%;
-height: 7%;
-font-size: 100%;
-font-weight: 600;
-border-radius: 10px;
-border: none;
-outline: none;  
-cursor: pointer;
-background-color: #47b5ff;
-color: white;
-
+.modalCloseButton {
+  position: absolute;
+  top: 2%;
+  right: 1%;
+  width: 5%;
+  height: 7%;
+  font-size: 100%;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: #47b5ff;
+  color: white;
 }
 
-.viewQuestions{
+.viewQuestions {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -539,7 +538,7 @@ color: white;
   padding: 0;
   margin: 0;
 }
-.questionsArray{
+.questionsArray {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -549,7 +548,7 @@ color: white;
   margin: 0;
   overflow-y: auto;
 }
-.questionModalHeadingDiv{
+.questionModalHeadingDiv {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -561,7 +560,7 @@ color: white;
   justify-content: space-between;
   align-items: center;
 }
-.questionsModalHeadingSno{
+.questionsModalHeadingSno {
   display: flex;
   flex-direction: row;
   width: 10%;
@@ -572,10 +571,10 @@ color: white;
   justify-content: center;
   align-items: center;
 }
-.questionsModalHeadingQuestion{
+.questionsModalHeadingQuestion {
   display: flex;
   flex-direction: row;
-  width: 80%;
+  width: 60%;
   height: 100%;
   /* border: 1px solid blue; */
   padding: 0;
@@ -583,7 +582,7 @@ color: white;
   justify-content: center;
   align-items: center;
 }
-.questionsModalHeadingOption{
+.questionsModalHeadingOption {
   display: flex;
   flex-direction: row;
   width: 30%;
@@ -594,7 +593,7 @@ color: white;
   justify-content: center;
   align-items: center;
 }
-.questionModalBodyDiv{
+.questionModalBodyDiv {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -606,7 +605,7 @@ color: white;
   justify-content: space-between;
   align-items: center;
 }
-.questionModalBodySno{
+.questionModalBodySno {
   display: flex;
   flex-direction: row;
   width: 10%;
@@ -617,12 +616,12 @@ color: white;
   justify-content: center;
   align-items: center;
 }
-.questionModalBodyQuestion{
+.questionModalBodyQuestion {
   display: flex;
   flex-direction: row;
-  width: 71%;
+  width: 60%;
   height: 100%;
-  /* border: 1px solid blue; */
+  /* border-right: 1px solid blue; */
   padding: 0;
   margin: 0;
   padding-left: 10%;
@@ -630,19 +629,19 @@ color: white;
   text-align: left;
   align-items: center;
 }
-.questionModalBodyOption{
+.questionModalBodyOption {
   display: flex;
   flex-direction: row;
-  width: 30%;
+  width: 35%;
   height: 100%;
-  /* border: 1px solid blue; */
+  /* border-right: 1px solid blue; */
   padding: 0;
   margin: 0;
   justify-content: center;
   align-items: center;
 }
 
-.questionsArrayInEdit{
+.questionsArrayInEdit {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -652,7 +651,7 @@ color: white;
   margin: 0;
   overflow-y: auto;
 }
-.questionModalBodyDivInEdit{
+.questionModalBodyDivInEdit {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -665,7 +664,7 @@ color: white;
   justify-content: space-between;
   align-items: center;
 }
-.questionModalBodySnoInEdit{
+.questionModalBodySnoInEdit {
   display: flex;
   flex-direction: row;
   width: 10%;
@@ -676,53 +675,46 @@ color: white;
   justify-content: center;
   align-items: center;
 }
-.questionModalBodyQuestionInEdit{
+.questionModalBodyQuestionInEdit {
   display: flex;
   flex-direction: row;
-  width: 71%;
+  width: 60%;
   height: 100%;
   /* border: 1px solid blue; */
   padding: 0;
-  margin: 0;
-  padding-left: 10%;
-  /* justify-content: center; */
+  margin: 0 2%;
+  justify-content: center;
   text-align: left;
   align-items: center;
 }
-.questionModalBodyQuestionInput{
-  display: flex;
-  flex-direction: row;
+.questionModalBodyQuestionInput {
   width: 100%;
   height: 50%;
-  /* border: 1px solid blue; */
-  padding: 0;
-  margin: 0;
-  justify-content: center;
-  align-items: center;
+  background-color: #dde2ea;
+  outline: none;
+  border: none;
+  border-radius: 10px;
 }
-.questionModalBodyOptionInEdit{
+.questionModalBodyOptionInEdit {
   display: flex;
   flex-direction: row;
   width: 30%;
   height: 100%;
   /* border: 1px solid blue; */
   padding: 0;
-  margin: 0;
+  margin: 0 1%;
   justify-content: center;
   align-items: center;
 }
-.questionModalBodyOptionInput{
-  display: flex;
-  flex-direction: row;
+.questionModalBodyOptionInput {
   width: 100%;
   height: 50%;
-  /* border: 1px solid blue; */
-  padding: 0;
-  margin: 0;
-  justify-content: center;
-  align-items: center;
+  background-color: #dde2ea;
+  outline: none;
+  border: none;
+  border-radius: 10px;
 }
-.modalFooterInEdit{
+.modalFooterInEdit {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -733,7 +725,7 @@ color: white;
   justify-content: center;
   align-items: center;
 }
-.modalFooterButtonEditInEdit{
+.modalFooterButtonEditInEdit {
   display: flex;
   flex-direction: row;
   width: 10%;
@@ -744,7 +736,7 @@ color: white;
   justify-content: center;
   align-items: center;
 }
-.modalFooterButtonSaveInEdit{
+.modalFooterButtonSaveInEdit {
   display: flex;
   flex-direction: row;
   width: 10%;
@@ -752,45 +744,11 @@ color: white;
   /* border: 1px solid blue; */
   padding: 0;
   margin: 0;
-  justify-content: center;
-  align-items: center;
-}
-.modalHeaderEdit{
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 25%;
-  border-bottom: 1px solid blue;
-  padding: 0;
-  margin: 0;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-.modalHeaderHeadingEdit{
-  display: flex;
-  flex-direction: row;
-  width: 70%;
-  /* border: 1px solid blue; */
-  padding: 0;
-  margin: 1%;
-  justify-content: center;
-  align-items: center;
-  font-size: 150%;
-  font-weight: 600;
-}
-.modalHeaderDescriptionEdit{
-  display: flex;
-  flex-direction: row;
-  width: 70%;
-  /* border: 1px solid blue; */
-  padding: 0;
-  margin: 1%;
   justify-content: center;
   align-items: center;
 }
 
-.noDataCreateSurvey{
+.noDataCreateSurvey {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -801,4 +759,19 @@ color: white;
   margin: 0;
   justify-content: center;
   align-items: center;
+}
+
+input[type="textSurveyPage"] {
+  padding: 2%;
+  padding-left: 5%;
+}
+.infoMsgSurvey {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding-top: 1%;
+  font-weight: bold;
+  color: black;
+  font-style: italic;
 }

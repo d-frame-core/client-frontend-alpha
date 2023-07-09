@@ -39,6 +39,9 @@ const CreateSurvey = () => {
   const [editSurveyData, setEditSurveyData] = useState<any>();
   const [surveyId, setSurveyId] = useState("");
   const [surveyDeletedToaster, setSurveyDeletedToaster] = useState(false);
+  const [adStartDate, setAdStartDate] = useState("");
+  const [adEndDate, setAdEndDate] = useState("");
+  const [dateError, setDateError] = useState("");
   let surveyQuestions = [
     {
       questionName: "",
@@ -386,6 +389,20 @@ const CreateSurvey = () => {
     fetchAllSurveys();
   }
 
+  // use effect to logout the user if wallet is disconnected
+  const handleWalletDisconnect = () => {
+    if (!(window as any).ethereum?.selectedAddress) {
+      // Metamask wallet disconnected
+      navigate("/");
+    }
+  };
+  useEffect(() => {
+    // Listen for changes in the selected address property
+    if ((window as any).ethereum) {
+      (window as any).ethereum.on("accountsChanged", handleWalletDisconnect);
+    }
+  }, [(window as any).ethereum]);
+
   return (
     <div>
       <>{Sidebar(6)}</>
@@ -627,35 +644,30 @@ const CreateSurvey = () => {
                 </div>
               )}
               {editSurvey && (
-                <div className="modalHeaderEdit">
-                  <input
-                    type="text"
-                    className="modalHeaderHeadingEdit"
-                    defaultValue={singleSurveyData.surveyName}
-                    onChange={(e) =>
-                      setEditSurveyData({
-                        ...editSurveyData,
-                        surveyName: e.target.value,
-                      })
-                    }
-                  />
+                <div
+                  className={
+                    singleSurveyData.surveyDescription.toString().length > 100
+                      ? "modalHeader"
+                      : "modalHeaderShort"
+                  }
+                >
+                  <h1 className=" modalHeaderHeading ">
+                    {singleSurveyData.surveyName}
+                  </h1>
                   <button
                     className="modalCloseButton"
                     onClick={() => setOpen(false)}
                   >
                     X
                   </button>
-                  <input
-                    type="text"
-                    className="modalHeaderDescriptionEdit"
-                    defaultValue={singleSurveyData.surveyDescription}
-                    onChange={(e) =>
-                      setEditSurveyData({
-                        ...editSurveyData,
-                        surveyDescription: e.target.value,
-                      })
-                    }
-                  />
+
+                  <p className="modalHeaderDescription">
+                    {singleSurveyData.surveyDescription.toString().length > 100
+                      ? singleSurveyData.surveyDescription
+                          .toString()
+                          .slice(0, 100) + "..."
+                      : singleSurveyData.surveyDescription}
+                  </p>
                 </div>
               )}
               <div className="modalBody">
@@ -688,7 +700,9 @@ const CreateSurvey = () => {
                             {index + 1}
                           </div>
                           <div className="questionModalBodyQuestion">
-                            {item.title}
+                            {item.title.toString().length > 44
+                              ? item.title.toString().slice(0, 44) + "..."
+                              : item.title}
                           </div>
                           <div className="questionModalBodyOption">
                             {item.options[0].toString().length > 11
@@ -716,7 +730,7 @@ const CreateSurvey = () => {
                           <div className="questionModalBodyQuestionInEdit">
                             <input
                               className="questionModalBodyQuestionInput"
-                              type="text"
+                              type="textSurveyPage"
                               defaultValue={item.title}
                               onChange={(e) => {
                                 setEditSurveyData({
@@ -733,7 +747,7 @@ const CreateSurvey = () => {
                           <div className="questionModalBodyOptionInEdit">
                             <input
                               className="questionModalBodyOptionInput"
-                              type="text"
+                              type="textSurveyPage"
                               defaultValue={item.options[0]}
                               onChange={(e) => {
                                 setEditSurveyData({
@@ -751,7 +765,7 @@ const CreateSurvey = () => {
                           <div className="questionModalBodyOptionInEdit">
                             <input
                               className="questionModalBodyOptionInput"
-                              type="text"
+                              type="textSurveyPage"
                               defaultValue={item.options[1]}
                               onChange={(e) => {
                                 setEditSurveyData({
@@ -769,6 +783,10 @@ const CreateSurvey = () => {
                         </div>
                       );
                     })}
+                    <p className="infoMsgSurvey">
+                      **Survey name, content, rewards and dates cannot be
+                      changed**
+                    </p>
                   </div>
                 )}
               </div>

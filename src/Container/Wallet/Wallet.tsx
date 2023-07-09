@@ -8,6 +8,7 @@ import { Alert, Snackbar } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CircularProgress from "@mui/material/CircularProgress";
 import Web3 from "web3";
+import { useNavigate } from "react-router-dom";
 export default function Wallet() {
   //  importing from context api
   const {
@@ -44,6 +45,10 @@ export default function Wallet() {
 
   //  function to handle the close of the snackbar
   const handleSend = async () => {
+    if (dftAmount === "" || senderAddress === "") {
+      alert("Please enter the required fields");
+      return;
+    }
     setTransactionUnderProgress(true);
     const web3 = new Web3((window as any).ethereum);
 
@@ -689,6 +694,20 @@ export default function Wallet() {
     setLoadingTransactions(false);
   }
 
+  const navigate = useNavigate();
+  const handleWalletDisconnect = () => {
+    if (!(window as any).ethereum?.selectedAddress) {
+      // Metamask wallet disconnected
+      navigate("/");
+    }
+  };
+  useEffect(() => {
+    // Listen for changes in the selected address property
+    if ((window as any).ethereum) {
+      (window as any).ethereum.on("accountsChanged", handleWalletDisconnect);
+    }
+  }, [(window as any).ethereum]);
+
   //  useeffect to get the past events of the DFRAME token
   useEffect(() => {
     const tempId = localStorage.getItem("clientId");
@@ -782,15 +801,17 @@ export default function Wallet() {
                             <div className="transactionListBottomCenter">
                               <p className="transactionListBottomCenterText">
                                 At:{" "}
-                                {new Date(event.timestamp * 1000)
-                                  .toLocaleTimeString()
-                                  .slice(0, 4) +
-                                  " " +
-                                  new Date(event.timestamp * 1000)
-                                    .toLocaleTimeString("en-US", {
-                                      timeZone: "UTC",
-                                    })
-                                    .slice(-2)}
+                                {new Date(
+                                  event.timestamp * 1000
+                                ).toLocaleTimeString(undefined, {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                  second: "2-digit",
+                                  hour12: false,
+                                  timeZone:
+                                    Intl.DateTimeFormat().resolvedOptions()
+                                      .timeZone,
+                                })}
                               </p>
                             </div>
                             <div className="transactionListBottomRight">
@@ -859,15 +880,17 @@ export default function Wallet() {
                             <div className="transactionListBottomCenter">
                               <p className="transactionListBottomCenterText">
                                 At:{" "}
-                                {new Date(event.timestamp * 1000)
-                                  .toLocaleTimeString()
-                                  .slice(0, 4) +
-                                  " " +
-                                  new Date(event.timestamp * 1000)
-                                    .toLocaleTimeString("en-US", {
-                                      timeZone: "UTC",
-                                    })
-                                    .slice(-2)}
+                                {new Date(
+                                  event.timestamp * 1000
+                                ).toLocaleTimeString(undefined, {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                  second: "2-digit",
+                                  hour12: false,
+                                  timeZone:
+                                    Intl.DateTimeFormat().resolvedOptions()
+                                      .timeZone,
+                                })}
                               </p>
                             </div>
                             <div className="transactionListBottomRight">
@@ -921,7 +944,14 @@ export default function Wallet() {
                 />
               </div>
               {!transactionUnderProgress && (
-                <button className="sendButton" onClick={handleSend}>
+                <button
+                  className={
+                    dftAmount === "" || senderAddress === ""
+                      ? "sendButtonDisable"
+                      : "sendButton"
+                  }
+                  onClick={handleSend}
+                >
                   Send
                 </button>
               )}

@@ -1,9 +1,10 @@
 import { Box } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./DataPool.css";
 import AddIcon from "@mui/icons-material/Add";
 import Chart from "../../components/chart/Chart";
+import { useNavigate } from "react-router-dom";
 const DataPool = () => {
   const heading = [
     "Education",
@@ -154,6 +155,22 @@ const DataPool = () => {
     a = Crypto;
   }
   console.log(input);
+
+  // use effect to logout the user if wallet is disconnected
+  const navigate = useNavigate();
+  const handleWalletDisconnect = () => {
+    if (!(window as any).ethereum?.selectedAddress) {
+      // Metamask wallet disconnected
+      navigate("/");
+    }
+  };
+  useEffect(() => {
+    // Listen for changes in the selected address property
+    if ((window as any).ethereum) {
+      (window as any).ethereum.on("accountsChanged", handleWalletDisconnect);
+    }
+  }, [(window as any).ethereum]);
+
   return (
     <div>
       <>{Sidebar(3)}</>

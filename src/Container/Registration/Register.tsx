@@ -80,16 +80,16 @@ const Register: React.FC = () => {
   };
 
   //  function to handle submit registration form
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
-    axios
+    await axios
       .post("http://localhost:3000/users/signup", {
-        companyName,
-        companyType,
-        companyEmail,
-        companyAddress1,
-        companyAddress2,
-        walletAddress,
+        companyName: companyName,
+        companyType: companyType,
+        companyEmail: companyEmail,
+        companyAddress1: companyAddress1,
+        companyAddress2: companyAddress2,
+        walletAddress: walletAddress,
       })
       .then((response) => {
         console.log(response.data.user._id);
@@ -119,8 +119,10 @@ const Register: React.FC = () => {
             <input
               required
               placeholder=""
-              type="text"
+              type="textInRegisterPage"
               className="inputInFlex"
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
             />
             <span>Company Name</span>
           </label>
@@ -129,25 +131,48 @@ const Register: React.FC = () => {
             <input
               required
               placeholder=""
-              type="text"
+              type="textInRegisterPage"
               className="inputInFlex"
+              value={companyType}
+              onChange={(e) => setCompanyType(e.target.value)}
             />
             <span>Company Type</span>
           </label>
         </div>
 
         <label>
-          <input required placeholder="" type="text" className="input" />
+          <input
+            required
+            placeholder=""
+            type="textInRegisterPage"
+            className="input"
+            value={companyAddress1}
+            onChange={(e) => setCompanyAddress1(e.target.value)}
+          />
           <span>Company Address1</span>
         </label>
 
         <label>
-          <input required placeholder="" type="text" className="input" />
+          <input
+            required
+            placeholder=""
+            type="textInRegisterPage"
+            className="input"
+            value={companyAddress2}
+            onChange={(e) => setCompanyAddress2(e.target.value)}
+          />
           <span>Company Address2</span>
         </label>
 
         <label>
-          <input required placeholder="" type="text" className="input" />
+          <input
+            required
+            placeholder=""
+            type="textInRegisterPage"
+            className="input"
+            value={companyEmail}
+            onChange={(e) => setCompanyEmail(e.target.value)}
+          />
           <span>Company Email</span>
           <button className="submitOTPVerify">Verify</button>
         </label>

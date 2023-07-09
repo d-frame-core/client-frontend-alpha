@@ -104,6 +104,20 @@ const SurveyHistory = () => {
     console.log(pastSurveyData);
   }, [getAllPastSurveys]);
 
+  // use effect to logout the user if wallet is disconnected
+  const handleWalletDisconnect = () => {
+    if (!(window as any).ethereum?.selectedAddress) {
+      // Metamask wallet disconnected
+      navigate("/");
+    }
+  };
+  useEffect(() => {
+    // Listen for changes in the selected address property
+    if ((window as any).ethereum) {
+      (window as any).ethereum.on("accountsChanged", handleWalletDisconnect);
+    }
+  }, [(window as any).ethereum]);
+
   return (
     <div>
       <>{Sidebar(7)}</>

@@ -78,19 +78,18 @@ export default function Profile() {
     connectToPolygonMainnet();
   }, []);
 
+  const handleWalletDisconnect = () => {
+    if (!(window as any).ethereum?.selectedAddress) {
+      // Metamask wallet disconnected
+      navigate("/");
+    }
+  };
   useEffect(() => {
-    const handleWalletDisconnect = () => {
-      if (!(window as any).ethereum?.selectedAddress) {
-        // Metamask wallet disconnected
-        navigate("/");
-      }
-    };
-
     // Listen for changes in the selected address property
     if ((window as any).ethereum) {
       (window as any).ethereum.on("accountsChanged", handleWalletDisconnect);
     }
-  }, []);
+  }, [(window as any).ethereum]);
   // function to handle file change here.
   const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
