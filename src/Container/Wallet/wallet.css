@@ -5,6 +5,33 @@
   font-weight: 600;
   font-size: 5vh;
 }
+.walletHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  /* border: 1px solid red; */
+  height: 12%;
+}
+
+.walletHeaderTitleMain {
+  font-size: 200%;
+  font-weight: 600;
+  margin: 0 5%;
+}
+
+.walletHeaderButton {
+  margin: 11%;
+  width: auto;
+  height: 60%;
+  font-size: 120%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background-color: #47b5ff;
+  color: white;
+  cursor: pointer;
+}
 .Wallet {
   position: absolute;
   height: 80vh;

@@ -722,7 +722,18 @@ export default function Wallet() {
     <div>
       <>{Sidebar(2)}</>
       <div className="Wallet">
-        <div className="head">Wallet</div>
+        <div className="walletHeader">
+          <div className="walletHeaderTitleMain">Wallet</div>
+          <button
+            className="walletHeaderButton"
+            // onclick to redirect to the buy DFT page
+            onClick={() => {
+              navigate("/buyDFT");
+            }}
+          >
+            Buy DFT
+          </button>
+        </div>
         <div className="walletBox">
           <div className="transactions">
             <div className="transactionHeader">Transactions</div>
