@@ -184,8 +184,7 @@ export default function Campaigns() {
       adContent,
       adLink,
       adTags,
-      adLocation,
-      adType
+      adLocation
     );
 
     if (
@@ -655,6 +654,7 @@ export default function Campaigns() {
                       sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
                       {...register("location")}
                       required
+                      onChange={(e) => setAdLocation(e.target.value)}
                     />
                     <TextField
                       id="start-date"
