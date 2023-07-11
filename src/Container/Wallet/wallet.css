@@ -15,7 +15,7 @@
 }
 
 .walletHeaderTitleMain {
-  font-size: 200%;
+  font-size: 5vh;
   font-weight: 600;
   margin: 0 5%;
 }
@@ -24,13 +24,14 @@
   margin: 11%;
   width: auto;
   height: 60%;
-  font-size: 120%;
+  font-size: 100%;
   border-radius: 10px;
   border: none;
   outline: none;
   background-color: #47b5ff;
   color: white;
   cursor: pointer;
+  padding: 1%;
 }
 .Wallet {
   position: absolute;

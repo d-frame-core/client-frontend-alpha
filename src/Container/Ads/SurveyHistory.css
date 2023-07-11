@@ -13,7 +13,7 @@
 
 .surveyTitle {
   font-weight: 600;
-  font-size: 300%;
+  font-size: 5vh;
   margin: 4%;
   color: #1c1f37;
 }
@@ -86,7 +86,6 @@
   font-weight: 500;
   /* border: 1px solid blue; */
   border-right: 1px solid blue;
-
 }
 
 .surveyHistoryTotalQues {
@@ -99,7 +98,6 @@
   font-weight: 500;
   /* border: 1px solid blue; */
   border-right: 1px solid blue;
-
 }
 
 .surveyHistoryTotalRes {
@@ -112,7 +110,6 @@
   font-weight: 500;
   /* border: 1px solid blue; */
   border-right: 1px solid blue;
-
 }
 
 .surveyHistoryTotalReward {
@@ -125,7 +122,6 @@
   font-weight: 500;
   /* border: 1px solid blue; */
   border-right: 1px solid blue;
-
 }
 
 .surveyHistoryTimePeriod {
@@ -137,8 +133,6 @@
   font-size: 110%;
   font-weight: 500;
   /* border: 1px solid blue; */
-
-
 }
 
 .surveyHistorySelector {
