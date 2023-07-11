@@ -181,7 +181,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 14.1%;
+  width: 16%;
   font-size: 110%;
   font-weight: 400;
   height: 100%;
@@ -191,7 +191,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 14.2%;
+  width: 16%;
   font-size: 110%;
   font-weight: 400;
   height: 100%;
@@ -201,7 +201,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 4%;
+  width: 7%;
   font-size: 100%;
   font-weight: 400;
   height: 100%;
@@ -214,7 +214,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 3%;
   font-size: 100%;
   font-weight: 400;
   height: 100%;
@@ -225,7 +224,7 @@
 .editIconCreateSurvey {
   display: flex;
   flex-direction: row;
-  width: 7%;
+  width: 9%;
   height: 100%;
   /* border: 1px solid blue; */
   padding: 0;

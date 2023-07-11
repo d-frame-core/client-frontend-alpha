@@ -11,7 +11,7 @@ import axios from "axios";
 import { async } from "@firebase/util";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Alert, Snackbar } from "@mui/material";
-import Drawer from '../../components/sidebar/Drawer'
+import Drawer from "../../components/sidebar/Drawer";
 
 export default function Profile() {
   // defining states here.
@@ -229,59 +229,46 @@ export default function Profile() {
     setOpenImageToast(false);
   };
   return (
-    <div >
-
+    <div>
       <div className="smopen">{Drawer(1)}</div>
       <>{Sidebar(1)}</>
       <div className="outerlayer">
-      <div className="Profile">
-        <Box>
-          <div className="profileTitle">Profile</div>
-          {!edit && (
-            <Box className="profileBox">
-              <Grid container spacing={1}>
-                <Grid item xs={12} sm={3}>
-                  <div className="profileImage">
-                    {image ? (
-                      <img
-                        src={image}
-                        alt="user"
-                        className="img"
-                        id="profilePicture"
-                      />
-                    ) : (
-                      <img
-                        src={files}
-                        alt="user"
-                        className="img"
-                        id="profilePicture"
-                      />
-                    )}
-                  </div>
-                </Grid>
-                
-                
+        <div className="Profile">
+          <Box>
+            <div className="profileTitle">Profile</div>
+            {!edit && (
+              <Box className="profileBox">
+                <Grid container spacing={1}>
+                  <Grid item xs={12} sm={3}>
+                    <div className="profileImage">
+                      {image ? (
+                        <img
+                          src={image}
+                          alt="user"
+                          className="img"
+                          id="profilePicture"
+                        />
+                      ) : (
+                        <img
+                          src={files}
+                          alt="user"
+                          className="img"
+                          id="profilePicture"
+                        />
+                      )}
+                    </div>
+                  </Grid>
+
                   <div className="profileEntries">
-                    <div className="profileEntriesData">
-                      Company Name
-                                 </div>
-                    <div className="profileEntriesData">
-                      Company Type 
-                     </div>
-                    <div className="profileEntriesData">
-                      Company Email 
-                     </div>
-                    <div className="profileEntriesData">
-                      Company Address1</div>
-                    <div className="profileEntriesData">
-                      Company Address2</div>
-                    <div className="profileEntriesData">
-                      Wallet Address 
-                     </div>
-                      
+                    <div className="profileEntriesData">Company Name</div>
+                    <div className="profileEntriesData">Company Type</div>
+                    <div className="profileEntriesData">Company Email</div>
+                    <div className="profileEntriesData">Company Address1</div>
+                    <div className="profileEntriesData">Company Address2</div>
+                    <div className="profileEntriesData">Wallet Address</div>
                   </div>
-                
-                <div className="semiColon">
+
+                  <div className="semiColon">
                     <div className="secol">:</div>
                     <div className="secol">:</div>
                     <div className="secol">:</div>
@@ -289,8 +276,7 @@ export default function Profile() {
                     <div className="secol">:</div>
                     <div className="secol">:</div>
                   </div>
-                
-                
+
                   <div className="profileDetails">
                     <div className="profileDetailsData">{companyName}</div>
                     <div className="profileDetailsData">{companyType}</div>
@@ -305,37 +291,40 @@ export default function Profile() {
                       {walletAddress.slice(0, 10)}...{walletAddress.slice(27)}
                     </div>
                   </div>
-                
-              </Grid>
-              <button className="editButton" onClick={() => handleEdit()}>
-                Edit
-              </button>
-            </Box>
-          )}
-          {edit && (
-            <Box className="profileBox">
-              <Grid container spacing={1}>
-                <Grid item xs={12} sm={3}>
-                  <div className="profileImage">
-                    {image ? (
-                      <img src={image} alt="Stored" className="imgInEditMode" />
-                    ) : (
-                      <img src={files} alt="user" className="imgInEditMode" />
-                    )}
-                    <div className="editIMG">
-                      <label className="editIcon" htmlFor="files">
-                        <CreateOutlinedIcon />
-                      </label>
-                      <input
-                        type="file"
-                        className="hidden"
-                        id="files"
-                        onChange={handleFileChange2}
-                      />
-                    </div>
-                  </div>
                 </Grid>
-                
+                <button className="editButton" onClick={() => handleEdit()}>
+                  Edit
+                </button>
+              </Box>
+            )}
+            {edit && (
+              <Box className="profileBox">
+                <Grid container spacing={1}>
+                  <Grid item xs={12} sm={3}>
+                    <div className="profileImage">
+                      {image ? (
+                        <img
+                          src={image}
+                          alt="Stored"
+                          className="imgInEditMode"
+                        />
+                      ) : (
+                        <img src={files} alt="user" className="imgInEditMode" />
+                      )}
+                      <div className="editIMG">
+                        <label className="editIcon" htmlFor="files">
+                          <CreateOutlinedIcon />
+                        </label>
+                        <input
+                          type="file"
+                          className="hidden"
+                          id="files"
+                          onChange={handleFileChange2}
+                        />
+                      </div>
+                    </div>
+                  </Grid>
+
                   <div className="profileEntries">
                     <div className="profileEntriesData">Company Name </div>
                     <div className="profileEntriesData">Company Type </div>
@@ -344,17 +333,16 @@ export default function Profile() {
                     <div className="profileEntriesData">Company Address2 </div>
                     <div className="profileEntriesData">Wallet Address </div>
                   </div>
-                
-                
+
                   <div className="semiColon">
-                    <div className='secol'>:</div>
-                    <div className='secol'>:</div>
-                    <div className='secol'>:</div>
-                    <div className='secol'>:</div>
-                    <div className='secol'>:</div>
-                    <div className='secol'>:</div>
+                    <div className="secol">:</div>
+                    <div className="secol">:</div>
+                    <div className="secol">:</div>
+                    <div className="secol">:</div>
+                    <div className="secol">:</div>
+                    <div className="secol">:</div>
                   </div>
-                
+
                   <div className="profileDetailsEdit">
                     <input
                       className="profileDetailsDataEdit1"
@@ -383,51 +371,51 @@ export default function Profile() {
                       {walletAddress.slice(0, 10)}...{walletAddress.slice(27)}
                     </div>
                   </div>
-              </Grid>
-              <button className="editButton" onClick={() => handleSave()}>
-                Save
-              </button>
-            </Box>
-          )}
-        </Box>
+                </Grid>
+                <button className="editButton" onClick={() => handleSave()}>
+                  Save
+                </button>
+              </Box>
+            )}
+          </Box>
+        </div>
+        {openToast && (
+          <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            open={openToast}
+            autoHideDuration={6000}
+            onClose={() => {
+              setOpenToast(false);
+            }}
+          >
+            <Alert
+              onClose={handleToastClose}
+              severity="success"
+              sx={{ width: "20vw", height: "5vh" }}
+            >
+              Profile Details edited succesfully
+            </Alert>
+          </Snackbar>
+        )}
+        {openImageToast && (
+          <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            open={openImageToast}
+            autoHideDuration={6000}
+            onClose={() => {
+              setOpenImageToast(false);
+            }}
+          >
+            <Alert
+              onClose={handleToastClose}
+              severity="info"
+              sx={{ width: "20vw", height: "5vh" }}
+            >
+              Image Edited Succesfully
+            </Alert>
+          </Snackbar>
+        )}
       </div>
-      {openToast && (
-        <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          open={openToast}
-          autoHideDuration={6000}
-          onClose={() => {
-            setOpenToast(false);
-          }}
-        >
-          <Alert
-            onClose={handleToastClose}
-            severity="success"
-            sx={{ width: "20vw", height: "5vh" }}
-          >
-            Profile Details edited succesfully
-          </Alert>
-        </Snackbar>
-      )}
-      {openImageToast && (
-        <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          open={openImageToast}
-          autoHideDuration={6000}
-          onClose={() => {
-            setOpenImageToast(false);
-          }}
-        >
-          <Alert
-            onClose={handleToastClose}
-            severity="info"
-            sx={{ width: "20vw", height: "5vh" }}
-          >
-            Image Edited Succesfully
-          </Alert>
-        </Snackbar>
-      )}
-    </div>
     </div>
   );
 }
