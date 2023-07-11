@@ -32,7 +32,7 @@ export default function Campaigns() {
   const [campaignName, setCampaignName] = useState<string>("");
   const [campaignType, setCampaignType] = useState<string>("Awareness");
   const [adName, setAdName] = useState<string>("");
-  const [adType, setAdType] = useState<string>("");
+  const [adType, setAdType] = useState<string>("Image");
   const [adFile, setAdFile] = useState<string | Blob>("");
   // const [adVideo, setAdVideo] = useState<string>("");
   const [adContent, setAdContent] = useState<string>("");
@@ -69,6 +69,7 @@ export default function Campaigns() {
   const [newTotalDays, setNewTotalDays] = useState("");
   const [bidAmount, setBidAmount] = useState("");
   const [bidAmountError, setBidAmountError] = useState("");
+  const [fileUploadedInBackend, setFileUploadedInBackend] = useState(false);
 
   //  function to handle toast close
   const handleToastClose = () => {
@@ -183,7 +184,8 @@ export default function Campaigns() {
       adContent,
       adLink,
       adTags,
-      adLocation
+      adLocation,
+      adType
     );
 
     if (
@@ -213,7 +215,7 @@ export default function Campaigns() {
         campaignName: campaignName,
         campaignType: campaignType,
         adName: adName,
-        adType: "Image",
+        adType: adType,
         startDate: adStartDate,
         endDate: adEndDate,
         adUrl: adLink,
@@ -415,6 +417,39 @@ export default function Campaigns() {
     }
   }, [(window as any).ethereum]);
 
+  // upload image in campaign
+  const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("image called");
+    event.preventDefault();
+    const file = event.target.files![0];
+    // Read the file as a buffer
+    setFiles(URL.createObjectURL(file));
+
+    const reader = new FileReader();
+    reader.readAsArrayBuffer(file);
+    reader.onload = () => {
+      // Create a new Blob object from the buffer
+      const blob = new Blob([new Uint8Array(reader.result as ArrayBuffer)]);
+
+      // Create a new FormData object and append the blob to it
+      const formData = new FormData();
+      formData.append("image", file);
+
+      // Send the image to the backend using Axios
+      axios
+        .post("http://localhost:3000/picture/uploadPicture", formData)
+        .then((response) => {
+          console.log("image called");
+          console.log(response.data);
+          setFileUploadedInBackend(true);
+        })
+        .catch((error) => {
+          console.log("image error");
+          console.error(error);
+        });
+    };
+  };
+
   return (
     <>
       <>{Sidebar(4)}</>
@@ -444,7 +479,10 @@ export default function Campaigns() {
                   <div className="campaignsHeaderTitle">Create Campaign</div>
                   <button
                     className="closeButtoncampaignsPage"
-                    onClick={() => setFormopen(false)}
+                    onClick={() => {
+                      // upon clicking X , the whole form will be closed and every variable will go back to default state
+                      setFormopen(false);
+                    }}
                   >
                     X
                   </button>{" "}
@@ -502,28 +540,47 @@ export default function Campaigns() {
                       }}
                       helperText="Please select the ad type"
                       variant="standard"
-                      onChange={(e) => setAdType(e.target.value)}
+                      onChange={(e) => {
+                        setAdType(e.target.value);
+                      }}
                     >
                       {typesofads.map((option) => (
                         <option key={option.value} value={option.value}>
-                          {option.label}
+                          {option.value}
                         </option>
                       ))}
                     </TextField>
-                    <div className="addImage">
-                      <label htmlFor="files">Add File</label>
-                      <input
-                        type="file"
-                        className="hidden"
-                        id="files"
-                        onChange={(e: any) => {
-                          if (e.target.files && e.target.files.length > 0) {
-                            setAdFile(e.target.files[0]);
-                            console.log(e.target.files[0]);
-                          }
+                    {!fileUploadedInBackend && (
+                      <div className="addImage">
+                        <label
+                          style={{
+                            cursor: "pointer",
+                          }}
+                          htmlFor="files"
+                        >
+                          Add {adType === "Image" ? "Image" : "Video"}
+                        </label>
+                        <input
+                          // accept type image if adType is image else accept video
+                          type="file"
+                          className="hidden"
+                          alt="imageUpload"
+                          id="files"
+                          accept={adType === "Image" ? "image/*" : "video/*"}
+                          onChange={handleFileChange2}
+                        />
+                      </div>
+                    )}
+                    {fileUploadedInBackend && (
+                      <div
+                        style={{
+                          color: "green",
                         }}
-                      />
-                    </div>
+                      >
+                        ✔ {adType === "Image" ? "Image" : "Video"} Uploaded in
+                        Backend Successfully
+                      </div>
+                    )}
                     <TextField
                       id="standard-basic"
                       label="Ad Url"

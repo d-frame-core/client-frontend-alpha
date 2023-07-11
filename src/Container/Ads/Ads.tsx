@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
-import "./SurveyHistory.css";
+import "./Ads.css";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import axios from "axios";
 import { useContext } from "react";
