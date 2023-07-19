@@ -24,14 +24,14 @@
   margin: 11%;
   width: auto;
   height: 60%;
-  font-size: 100%;
+  font-size: 110%;
   border-radius: 10px;
   border: none;
   outline: none;
   background-color: #47b5ff;
   color: white;
   cursor: pointer;
-  padding: 1%;
+  padding: 1% 2%;
 }
 .Wallet {
   position: absolute;

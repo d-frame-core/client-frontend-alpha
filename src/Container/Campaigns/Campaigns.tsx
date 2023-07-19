@@ -104,15 +104,14 @@ export default function Campaigns() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 900,
-    height: 500,
+    width: 650,
+    height: 630,
     bgcolor: "white",
     boxShadow: 24,
     border: "0",
     p: 3,
     borderRadius: "1.1vh",
     overflow: "hidden",
-    overflowY: "scroll",
   };
 
   // style for the smaller modal
@@ -284,8 +283,10 @@ export default function Campaigns() {
             setParticularBidDetails(sortedBidDetails);
           });
         setParticularAdsDetails(res.data);
+        setEditedAdData(res.data);
         setAdSelectedId(id);
         setEdit(true);
+        setEditAd(true);
       })
       .catch((err) => {
         console.log(err);
@@ -815,15 +816,12 @@ export default function Campaigns() {
                       <h1 className=" modalHeaderCampaignName ">
                         {particularAdsDetails.campaignName}
                       </h1>
-                      <p className="modalHeaderCampaignType">
-                        {particularAdsDetails.campaignType}
-                      </p>
-                      <button
+                      <div
                         className="modalCloseButtonCampaignsPage"
                         onClick={() => setEdit(false)}
                       >
                         X
-                      </button>
+                      </div>
                     </div>
                     {!editAd && (
                       <div className="modalBodyCampaignsPage">
@@ -942,42 +940,29 @@ export default function Campaigns() {
                       // edit ad section
                       editAd && (
                         <div className="modalBodyCampaignsPage">
-                          <div className="modalBodyCampaignsPageTop">
-                            <p
-                              style={{
-                                fontSize: "120%",
-                              }}
-                            >
-                              New Ad Name:{" "}
-                            </p>
-                            <div className="modalBodyCampaignsPageHeading">
-                              <input
-                                type="textCampaignsPage"
-                                className="modalBodyCampaignsPageHeadingEdit"
-                                value={editedAdData.adName}
-                                onChange={(e) =>
-                                  setEditedAdData({
-                                    ...editedAdData,
-                                    adName: e.target.value,
-                                  })
-                                }
-                              />
-                            </div>
-                          </div>
-                          <div className="modalBodyCampaignsPageMiddleEdit">
-                            <textarea
-                              // type="textCampaignsPage"
-                              className="modalBodyCampaignsPageContentEdit"
-                              value={editedAdData.adContent}
-                              placeholder={editedAdData.adContent}
-                              onChange={(e) =>
-                                setEditedAdData({
-                                  ...editedAdData,
-                                  adContent: e.target.value,
-                                })
-                              }
-                            />
-                          </div>
+                          <input
+                            className="modalBodyCampaignsPageHeadingEdit"
+                            value={editedAdData.adName}
+                            onChange={(e) =>
+                              setEditedAdData({
+                                ...editedAdData,
+                                adName: e.target.value,
+                              })
+                            }
+                          />
+
+                          <textarea
+                            // type="textCampaignsPage"
+                            className="modalBodyCampaignsPageContentEdit"
+                            value={editedAdData.adContent}
+                            onChange={(e) =>
+                              setEditedAdData({
+                                ...editedAdData,
+                                adContent: e.target.value,
+                              })
+                            }
+                          />
+
                           <div className="modalBodyCampaignsPageBottomContent">
                             {particularAdsDetails.tags.length > 0 ? (
                               // display total tags less than or equal to 10, else show ... after 10 tags
@@ -1021,6 +1006,46 @@ export default function Campaigns() {
                             **Campaign Name, Campaign Type, Tags and Dates
                             cannot be changed**
                           </p>
+                          <Divider style={{ marginTop: "1.5%" }} />
+                          <div className="bidModalHeadingDiv">
+                            <h4 className="bidsModalHeadingSno">S.No</h4>
+                            <h4 className="bidsModalHeadingClientNameHeading">
+                              Ad Id
+                            </h4>
+                            <h4 className="bidsModalHeadingOption">
+                              Bid Amount
+                            </h4>
+                            <h4 className="bidsModalHeadingOption">
+                              Users Reached
+                            </h4>
+                          </div>
+                          <div className="bidModalDiv">
+                            {particularBidDetails &&
+                              particularBidDetails.map(
+                                (item: any, index: any) => (
+                                  <div
+                                    className={
+                                      item.adId == particularAdsDetails._id
+                                        ? "bidModalArrayDivActive"
+                                        : "bidModalArrayDiv"
+                                    }
+                                    key={index}
+                                  >
+                                    <p className="bidsModalHeadingSno">
+                                      {index + 1}
+                                    </p>
+                                    <p className="bidsModalHeadingClientName">
+                                      {item.adId ? item.adId : "NA"}
+                                    </p>
+                                    <p className="bidsModalHeadingOption">
+                                      {item.bidAmount ? item.bidAmount : "NA"}
+                                      {item.bidAmount ? " DFT" : ""}
+                                    </p>
+                                    <p className="bidsModalHeadingOption">NA</p>
+                                  </div>
+                                )
+                              )}
+                          </div>
                         </div>
                       )
                     }
@@ -1056,15 +1081,26 @@ export default function Campaigns() {
                       <div className="modalFooterCampaignsPage">
                         <button
                           className="modalFooterButtonDeleteCampaignsPage"
-                          onClick={() => setEditAd(false)}
+                          onClick={() =>
+                            deleteParticularAd(particularAdsDetails._id)
+                          }
                         >
-                          Cancel
+                          Delete this Ad
                         </button>
                         <button
                           className="modalFooterButtonEditCampaignsPage"
                           onClick={() => updateParticularAd(adSelectedId)}
                         >
                           Save Edit
+                        </button>
+                        <button
+                          className="modalFooterButtonBidsCampaignsPage"
+                          onClick={() => {
+                            setEdit(false);
+                            setEditBidModal(true);
+                          }}
+                        >
+                          Edit Bid for this Ad
                         </button>
                       </div>
                     )}
