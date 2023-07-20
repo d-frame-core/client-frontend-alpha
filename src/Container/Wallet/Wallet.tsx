@@ -962,6 +962,11 @@ export default function Wallet() {
                       : "sendButton"
                   }
                   onClick={handleSend}
+                  title={
+                    dftAmount === "" || senderAddress === ""
+                      ? "Fill Details to Enable"
+                      : ""
+                  }
                 >
                   Send
                 </button>
