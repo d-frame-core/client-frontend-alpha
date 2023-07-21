@@ -421,6 +421,7 @@ export default function Campaigns() {
   const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log("image called");
     event.preventDefault();
+
     const file = event.target.files![0];
     // Read the file as a buffer
     setFiles(URL.createObjectURL(file));
@@ -448,6 +449,26 @@ export default function Campaigns() {
           console.error(error);
         });
     };
+  };
+
+  const handleVideoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+
+    const file = event.target.files![0];
+    // Read the file as a buffer
+    const formdata = new FormData();
+    formdata.append("video", file);
+    axios
+      .post("http://localhost:3000/video/uploadProfileVideo", formdata)
+      .then((response) => {
+        console.log("video called");
+        console.log(response.data);
+        setFileUploadedInBackend(true);
+      })
+      .catch((error) => {
+        console.log("video up error");
+        console.error(error);
+      });
   };
 
   return (
@@ -567,7 +588,11 @@ export default function Campaigns() {
                           alt="imageUpload"
                           id="files"
                           accept={adType === "Image" ? "image/*" : "video/*"}
-                          onChange={handleFileChange2}
+                          onChange={
+                            adType === "Image"
+                              ? handleFileChange2
+                              : handleVideoUpload
+                          }
                         />
                       </div>
                     )}
