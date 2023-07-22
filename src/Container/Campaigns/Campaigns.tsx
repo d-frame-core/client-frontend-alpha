@@ -503,6 +503,24 @@ export default function Campaigns() {
                     onClick={() => {
                       // upon clicking X , the whole form will be closed and every variable will go back to default state
                       setFormopen(false);
+                      setAdContent("");
+                      setAdEndDate("");
+                      setAdLink("");
+                      setAdLocation("");
+                      setAdName("");
+                      setAdStartDate("");
+                      setAdTags([]);
+                      setAdType("Image");
+                      setBidAmount("");
+                      setCampaignName("");
+                      setCampaignType("Awareness");
+                      setEdit(false);
+                      setEditAd(false);
+                      setNextpage(false);
+                      setPerDayBudget("");
+                      setTotalDaysToRun("");
+                      setTagsExist(false);
+                      setFileUploadedInBackend(false);
                     }}
                   >
                     X
@@ -602,8 +620,8 @@ export default function Campaigns() {
                           color: "green",
                         }}
                       >
-                        ✔ {adType === "Image" ? "Image" : "Video"} Uploaded in
-                        Backend Successfully
+                        ✔ {adType === "Image" ? "Image" : "Video"} Uploaded
+                        Successfully
                       </div>
                     )}
                     <TextField
