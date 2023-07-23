@@ -6,6 +6,7 @@ import Divider from "@mui/material/Divider";
 import {
   Backdrop,
   Button,
+  CircularProgress,
   FormControlLabel,
   Modal,
   Switch,
@@ -70,6 +71,7 @@ export default function Campaigns() {
   const [bidAmount, setBidAmount] = useState("");
   const [bidAmountError, setBidAmountError] = useState("");
   const [fileUploadedInBackend, setFileUploadedInBackend] = useState(false);
+  const [loaderCampaignsPage, setLoaderCampaignsPage] = useState(false);
 
   //  function to handle toast close
   const handleToastClose = () => {
@@ -206,7 +208,8 @@ export default function Campaigns() {
     }
     const id = clientId || localStorage.getItem("id");
     console.log("idCampaignPage", id);
-
+    setFormopen(false);
+    setLoaderCampaignsPage(true);
     await axios
       .post("http://localhost:3000/ads", {
         clientId: id,
@@ -223,6 +226,7 @@ export default function Campaigns() {
       .then(async (res) => {
         console.log("Posted Ad Details", res.data);
         console.log("Immediate Ad Id", res.data.data._id);
+
         await axios.post("http://localhost:3000/bids", {
           adId: res.data.data._id,
           bidAmount: Number(bidAmount),
@@ -230,6 +234,7 @@ export default function Campaigns() {
           totalDays: Number(totalDaysToRun),
         });
         getAllCampaigns();
+        setLoaderCampaignsPage(false);
         setCreatedAdToaster(true);
       })
       .catch((err) => {
@@ -626,19 +631,19 @@ export default function Campaigns() {
                     )}
                     <TextField
                       id="standard-basic"
-                      label="Ad Url"
+                      label="Ad Website"
                       variant="standard"
                       sx={{ left: "2vw", width: "90%" }}
-                      {...register("Ad URL")}
+                      {...register("Ad WEBSITE")}
                       onChange={(e) => setAdLink(e.target.value)}
                       required
                     />
                     <TextField
                       id="standard-basic"
-                      label="Ad Content"
+                      label="Ad Description"
                       variant="standard"
                       sx={{ left: "2vw", width: "90%", marginTop: "1.5vh" }}
-                      {...register("Ad Content")}
+                      {...register("Ad Description")}
                       onChange={(e) => setAdContent(e.target.value)}
                       required
                     />
@@ -801,49 +806,61 @@ export default function Campaigns() {
                 <div className="endDateCampgin">End Date</div>
               </div>
 
-              <div className="campaignsDetails">
-                {allAdsDetails &&
-                  allAdsDetails.toReversed().map((item: any, index: any) => (
-                    <div
-                      className="adDetails"
-                      key={index}
-                      onClick={() => navigate("/campaign-details")}
-                    >
-                      <div className="campaignNameDetails">{item.adName}</div>
-                      <div className="bidStrategyDetails">
-                        {item.bidAmount} DFT
-                      </div>
-                      <div className="budgetDFTDetails">{item.perDay} DFT</div>
+              {!loaderCampaignsPage && (
+                <div className="campaignsDetails">
+                  {allAdsDetails &&
+                    allAdsDetails.toReversed().map((item: any, index: any) => (
                       <div
-                        className="editCampaignDetails"
-                        onClick={(e) => getParticularCampaign(item._id, e)}
+                        className="adDetails"
+                        key={index}
+                        onClick={() => navigate("/campaign-details")}
                       >
-                        <EditIcon />
+                        <div className="campaignNameDetails">{item.adName}</div>
+                        <div className="bidStrategyDetails">
+                          {item.bidAmount} DFT
+                        </div>
+                        <div className="budgetDFTDetails">
+                          {item.perDay} DFT
+                        </div>
+                        <div
+                          className="editCampaignDetails"
+                          onClick={(e) => getParticularCampaign(item._id, e)}
+                        >
+                          <EditIcon />
+                        </div>
+                        <div className="typeDetails">
+                          {/* {item.campaignType ? item.campaignType : "N.A."} */}
+                          {item.campaignType}
+                        </div>
+                        <div className="reachDetails">
+                          {item.assignedUsers ? item.assignedUsers : "5000"}
+                        </div>
+                        <div className="startDateCampaignDetails">
+                          {item.startDate.slice(0, 10)}
+                        </div>
+                        <div className="endDateCampginDetails">
+                          {item.endDate.slice(0, 10)}
+                        </div>
                       </div>
-                      <div className="typeDetails">
-                        {/* {item.campaignType ? item.campaignType : "N.A."} */}
-                        {item.campaignType}
+                    ))}
+                  {
+                    // when all ads is empty show No DATA TO DISPLAY AT THE CENTER OF THE campaignDetails
+                    allAdsDetails.length === 0 && (
+                      <div className="noDataToDisplay">
+                        <p className="noDataToDisplayText">
+                          No Data to Display
+                        </p>
                       </div>
-                      <div className="reachDetails">
-                        {item.assignedUsers ? item.assignedUsers : "5000"}
-                      </div>
-                      <div className="startDateCampaignDetails">
-                        {item.startDate.slice(0, 10)}
-                      </div>
-                      <div className="endDateCampginDetails">
-                        {item.endDate.slice(0, 10)}
-                      </div>
-                    </div>
-                  ))}
-                {
-                  // when all ads is empty show No DATA TO DISPLAY AT THE CENTER OF THE campaignDetails
-                  allAdsDetails.length === 0 && (
-                    <div className="noDataToDisplay">
-                      <p className="noDataToDisplayText">No Data to Display</p>
-                    </div>
-                  )
-                }
-              </div>
+                    )
+                  }
+                </div>
+              )}
+              {loaderCampaignsPage && (
+                <div className="campaignsLoader">
+                  <p>Creating Campaign...</p>
+                  <CircularProgress />
+                </div>
+              )}
 
               {particularAdsDetails && (
                 <Modal

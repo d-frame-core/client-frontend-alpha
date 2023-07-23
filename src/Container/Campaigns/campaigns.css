@@ -972,3 +972,11 @@ textarea {
   margin-top: 2%;
   margin-bottom: 0;
 }
+
+.campaignsLoader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 200%;
+}
