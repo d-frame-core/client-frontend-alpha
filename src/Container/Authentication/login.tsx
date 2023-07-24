@@ -1,14 +1,40 @@
 import axios from "axios";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  getAuth,
+  RecaptchaVerifier,
+  sendSignInLinkToEmail,
+  signInWithEmailLink,
+  isSignInWithEmailLink,
+} from "firebase/auth";
+import { initializeApp } from "firebase/app";
 // import "./login.css";
+const firebaseConfig = {
+  apiKey: "AIzaSyCYpkhlVsy1eO1vVuRNpa6l1CWONEKiXU8",
+  authDomain: "client-dashboard-2.firebaseapp.com",
+  projectId: "client-dashboard-2",
+  storageBucket: "client-dashboard-2.appspot.com",
+  messagingSenderId: "578943720826",
+  appId: "1:578943720826:web:d6d52242c9743e540d0ac3",
+};
 
 const Login = () => {
-  const navigate = useNavigate();
-
   const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const app = initializeApp(firebaseConfig); // initializing firebase app
+  const auth = getAuth(); // getting auth object from firebase
+  auth.languageCode = "en"; // setting language code to english
+
+  const actionCodeSettings = {
+    url: "http://localhost:3000/dashboard",
+    // This must be true.
+    handleCodeInApp: true,
+  };
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -30,7 +56,14 @@ const Login = () => {
 
       console.log(response.data);
 
-      navigate("/dashboard");
+      sendSignInLinkToEmail(auth, email, actionCodeSettings)
+        .then(() => {
+          window.localStorage.setItem("emailForSignIn", email);
+        })
+        .catch((error) => {
+          console.log(error.code);
+          console.log(error.message);
+        });
 
       if (response.data.error) {
         setErrorMessage(response.data.error);
@@ -45,9 +78,6 @@ const Login = () => {
       if (axios.isAxiosError(error)) {
         if (error.response) {
           setErrorMessage(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.statusText);
-          console.log(error.response.headers);
         }
       } else {
         // Handle other errors

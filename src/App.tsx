@@ -36,7 +36,6 @@ import ClientSurveyVerify from "./Container/admin/clientSurveyVerification";
 import Reverification from "./Container/admin/reverification";
 import AdminWallet from "./Container/admin/adminWallet";
 import CampaignDetails from "./Container/CampaignDetails/Details";
-import AdminRegister from "./Container/Authentication/register";
 import AdminLogin from "./Container/Authentication/login";
 
 function App() {
@@ -88,7 +87,6 @@ function App() {
           <Route path="/register1" element={<Register1 />} />
           <Route path="/admin/reverification" element={<Reverification />} />
           <Route path="/admin/adminWallet" element={<AdminWallet />} />
-          <Route path="/admin/register" element={<AdminRegister />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/login" element={<AdminWallet />} />
         </Routes>

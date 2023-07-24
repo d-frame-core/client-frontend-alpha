@@ -192,7 +192,7 @@ const Register: React.FC = () => {
               className="submitOTPVerify"
               onClick={handleSubmitPhoneNumber}
             >
-              Send Otp
+              Send OTP
             </button>
           </label>
         ) : (
