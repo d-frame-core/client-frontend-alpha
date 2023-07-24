@@ -4,9 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
   getAuth,
   RecaptchaVerifier,
-  sendSignInLinkToEmail,
-  signInWithEmailLink,
-  isSignInWithEmailLink,
+  signInWithPhoneNumber,
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 // import "./login.css";
@@ -22,7 +20,13 @@ const firebaseConfig = {
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+  const [verify, setVerify] = useState(false);
+  const [recaptchaVerifier, setRecaptchaVerifier] = useState(false);
+  const [confirmationResult, setConfirmationResult] = useState(null);
+
+  let appVerifier = (window as any).recaptchaVerifier; // defining recaptcha verifier
 
   const navigate = useNavigate();
 
@@ -44,6 +48,10 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
+  const handleNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPhoneNumber(e.target.value);
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -51,25 +59,18 @@ const Login = () => {
     try {
       const response = await axios.post("http://localhost:3000/admin/login", {
         email,
-        password,
+        password: password,
+        phoneNumber,
       });
 
       console.log(response.data);
-
-      sendSignInLinkToEmail(auth, email, actionCodeSettings)
-        .then(() => {
-          window.localStorage.setItem("emailForSignIn", email);
-        })
-        .catch((error) => {
-          console.log(error.code);
-          console.log(error.message);
-        });
 
       if (response.data.error) {
         setErrorMessage(response.data.error);
       } else {
         // The login was successful, you can perform any additional actions here
         // For example, redirect the user to another page.
+        setVerify(true);
       }
     } catch (error) {
       console.error(error);
@@ -100,6 +101,13 @@ const Login = () => {
             type="password"
             onChange={handlePasswordChange}
             placeholder="Password"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            onChange={handleNumberChange}
+            placeholder="Number"
           />
         </div>
         {errorMessage && <div>{errorMessage}</div>}
