@@ -165,7 +165,14 @@ const DataPool = () => {
       navigate("/");
     }
   };
+  const checkMetamaskConnection = () => {
+    if (!(window as any).ethereum?.selectedAddress) {
+      // Metamask wallet disconnected, redirect to root route
+      navigate("/");
+    }
+  };
   useEffect(() => {
+    checkMetamaskConnection();
     // Listen for changes in the selected address property
     if ((window as any).ethereum) {
       (window as any).ethereum.on("accountsChanged", handleWalletDisconnect);

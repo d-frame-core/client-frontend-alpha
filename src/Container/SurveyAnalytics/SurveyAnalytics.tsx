@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./SurveyAnalytics.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { MyContext } from "../../components/context/Context";
 const SurveyAnalytics = () => {
+  const navigate = useNavigate();
   const [particularSurveyAnalyticsData, setParticularSurveyAnalyticsData] =
     useState<any>(null);
   const { token } = useContext(MyContext);
@@ -22,7 +23,14 @@ const SurveyAnalytics = () => {
         setParticularSurveyAnalyticsData(response.data);
       });
   }
+  const checkMetamaskConnection = () => {
+    if (!(window as any).ethereum?.selectedAddress) {
+      // Metamask wallet disconnected, redirect to root route
+      navigate("/");
+    }
+  };
   useEffect(() => {
+    checkMetamaskConnection();
     getSurveyAnalytics();
   }, []);
   useEffect(() => {

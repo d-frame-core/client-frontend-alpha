@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   getAuth,
@@ -99,6 +99,18 @@ const PhoneVerification = () => {
         // do something with error, like display an error message
       });
   };
+
+  const checkMetamaskConnection = () => {
+    if (!window.ethereum?.selectedAddress) {
+      // Metamask wallet disconnected, redirect to root route
+      navigate("/");
+    }
+  };
+
+  useEffect(() => {
+    checkMetamaskConnection();
+  }, []);
+
   return (
     <div className="body">
       <div className="container">

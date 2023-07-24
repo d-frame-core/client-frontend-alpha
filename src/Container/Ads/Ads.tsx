@@ -92,7 +92,14 @@ const SurveyHistory = () => {
         console.log(err);
       });
   }
+  const checkMetamaskConnection = () => {
+    if (!(window as any).ethereum?.selectedAddress) {
+      // Metamask wallet disconnected, redirect to root route
+      navigate("/");
+    }
+  };
   useEffect(() => {
+    checkMetamaskConnection();
     const tempId = localStorage.getItem("clientId");
     if (tempId) {
       setClientId(tempId);

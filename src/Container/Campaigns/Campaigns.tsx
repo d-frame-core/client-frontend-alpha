@@ -345,8 +345,16 @@ export default function Campaigns() {
     }
   };
 
+  const checkMetamaskConnection = () => {
+    if (!(window as any).ethereum?.selectedAddress) {
+      // Metamask wallet disconnected, redirect to root route
+      navigate("/");
+    }
+  };
+
   // useeffect to set the edited ad data
   useEffect(() => {
+    checkMetamaskConnection();
     const tempId = localStorage.getItem("clientId");
     if (tempId) {
       setClientId(tempId);
