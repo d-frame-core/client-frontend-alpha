@@ -19,7 +19,40 @@
   font-weight: 600;
   margin: 0 5%;
 }
-
+.sendMailInformation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2% 0;
+  margin-top: 3%;
+  font-weight: bold;
+  color: black;
+  font-style: italic;
+  font-size: 80%;
+  text-align: center;
+}
+.sendMailButton {
+  margin: 3% 35%;
+  width: 30%;
+  height: 15%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background-color: #47b5ff;
+  color: white;
+  cursor: pointer;
+}
+.sendMailButton2 {
+  margin: 10% 35%;
+  width: 30%;
+  height: 15%;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background-color: #47b5ff;
+  color: white;
+  cursor: pointer;
+}
 .walletHeaderButton {
   margin: 11%;
   width: auto;
@@ -332,6 +365,7 @@
   color: #1c1f37;
   top: 3vh;
 }
+
 .extraSpace {
   border: 1px solid blue;
 }
