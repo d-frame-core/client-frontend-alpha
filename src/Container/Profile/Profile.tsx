@@ -271,8 +271,8 @@ export default function Profile() {
                     <div className="profileEntriesData">Company Name</div>
                     <div className="profileEntriesData">Company Type</div>
                     <div className="profileEntriesData">Company Email</div>
-                    <div className="profileEntriesData">Company Address1</div>
-                    <div className="profileEntriesData">Company Address2</div>
+                    <div className="profileEntriesData">Company Address 1</div>
+                    <div className="profileEntriesData">Company Address 2</div>
                     <div className="profileEntriesData">Wallet Address</div>
                   </div>
 
@@ -285,7 +285,7 @@ export default function Profile() {
                     <div className="secol">:</div>
                   </div>
 
-                  <div className="profileDetails">
+                  <div className="profileDetailsEdit">
                     <div className="profileDetailsData">{companyName}</div>
                     <div className="profileDetailsData">{companyType}</div>
                     <div className="profileDetailsData">{companyEmail}</div>
@@ -337,8 +337,8 @@ export default function Profile() {
                     <div className="profileEntriesData">Company Name </div>
                     <div className="profileEntriesData">Company Type </div>
                     <div className="profileEntriesData">Company Email </div>
-                    <div className="profileEntriesData">Company Address1 </div>
-                    <div className="profileEntriesData">Company Address2 </div>
+                    <div className="profileEntriesData">Company Address 1 </div>
+                    <div className="profileEntriesData">Company Address 2 </div>
                     <div className="profileEntriesData">Wallet Address </div>
                   </div>
 
@@ -351,7 +351,7 @@ export default function Profile() {
                     <div className="secol">:</div>
                   </div>
 
-                  <div className="profileDetailsEdit">
+                  <div className="profileDetailsEdit1">
                     <input
                       className="profileDetailsDataEdit1"
                       value={companyName}
@@ -366,12 +366,12 @@ export default function Profile() {
                       {companyEmail}
                     </div>
                     <input
-                      className="profileDetailsDataEdit1"
+                      className="profileDetailsDataEdit2"
                       value={companyAddress1}
                       onChange={(e) => setCompanyAddress1(e.target.value)}
                     />
                     <input
-                      className="profileDetailsDataEdit1"
+                      className="profileDetailsDataEdit2"
                       value={companyAddress2}
                       onChange={(e) => setCompanyAddress2(e.target.value)}
                     />
@@ -386,6 +386,11 @@ export default function Profile() {
               </Box>
             )}
           </Box>
+          {edit && (
+            <div className="disclaimerProfilePage">
+              **You cannot edit Email ID and Wallet Address**
+            </div>
+          )}
         </div>
         {openToast && (
           <Snackbar

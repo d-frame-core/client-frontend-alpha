@@ -35,6 +35,7 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-family: "Roboto";
 }
+
 .img {
   position: absolute;
   width: 140px;
@@ -71,6 +72,13 @@
   position: relative;
   opacity: 0.5;
   border: 5px solid #47b5ff;
+  width: 140px;
+  height: 20vh;
+  border-radius: 50%;
+  margin-top: 20px;
+  position: relative;
+  left: 10px;
+  border: 5px solid #47b5ff;
 }
 .profileImage {
   /* border: 2px solid red; */
@@ -84,31 +92,28 @@
   flex-direction: column;
   row-gap: 2vh;
   top: 8vh;
-  width: 20vw;
+  width: 16vw;
   height: 40vh;
   font-weight: 600;
 }
 .profileEntriesData {
   /* border: 2px solid yellow; */
-  font-size: 3vh;
+  font-size: 2.5vh;
   height: 5vh;
 }
 .semiColon {
-  /* border: 2px solid purple; */
   position: relative;
   display: flex;
   flex-direction: column;
-  top: 8vh;
-
-  height: 40vh;
   row-gap: 2vh;
+  top: 7.5vh;
+  width: 1vw;
+  height: 40vh;
   font-weight: 600;
-
-  align-items: center;
-  vertical-align: middle;
   font-size: 3vh;
 }
 .secol {
+  /* border: 1px solid red; */
   height: 5vh;
 }
 
@@ -121,11 +126,11 @@
   width: 20vw;
   height: 40vh;
   font-size: 3vh;
+  border: 1px solid green;
 }
 .profileDetailsData {
   /* border: 2px solid pink; */
-  font-size: 3vh;
-
+  font-size: 2.5vh;
   height: 5vh;
 }
 .editButton {
@@ -141,32 +146,71 @@
   top: 20%;
   height: 5vh;
   width: 10vw;
-  left: 40%;
+  left: 32%;
   transform: translate(-50%);
 }
 .hidden {
   display: none;
 }
 .profileDetailsDataEdit1 {
-  height: 5vh;
+  height: 4.5vh;
   width: 20vw;
-  background-color: #dde2ea;
+  background-color: #f6f6f7;
   border-radius: 10px;
   outline: none;
   border: none;
   font-size: 2.5vh;
+  /* border: 1px solid red; */
+  padding-left: 5%;
+  margin-top: 2vh;
+}
+.profileDetailsDataEdit2 {
+  height: 4.5vh;
+  width: 20vw;
+  background-color: #f6f6f7;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  font-size: 2.5vh;
+  /* border: 1px solid red; */
+  padding-left: 5%;
+  margin-top: 2.7vh;
 }
 .profileDetailsDataEditState {
-  height: 5vh;
+  height: 3vh;
+  /* border: 1px solid blue; */
+  margin-top: 3.3vh;
 }
 .profileDetailsEdit {
   position: relative;
   display: flex;
   flex-direction: column;
   top: 8vh;
-  left: 4vw;
+  left: 0.8vw;
   height: 40vh;
-  row-gap: 2vh;
+  row-gap: 2.2vh;
+  font-size: 3vh;
+  /* border: 1px solid red; */
+}
+.profileDetailsEdit1 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  top: 5vh;
+  left: 0.8vw;
+  /* height: 40vh; */
+  /* row-gap: 2.6vh; */
+  font-size: 2.5vh;
+  /* border: 1px solid red; */
+}
+
+.disclaimerProfilePage {
+  position: relative;
+  bottom: 14vh;
+  left: 21vw;
+  font-weight: bold;
+  color: black;
+  font-style: italic;
 }
 /* .profileDetailsDataEdit2 {
   font-size: 2.5vh;

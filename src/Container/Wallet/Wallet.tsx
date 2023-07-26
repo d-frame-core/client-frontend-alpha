@@ -765,6 +765,9 @@ export default function Wallet() {
     );
     const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
     window.location.href = mailtoLink;
+    setBuyDFTModal(false);
+    setAmountToBuy("");
+    setPaymentMethod("");
   }
   const style2 = {
     position: "absolute" as "absolute",
