@@ -196,7 +196,7 @@ const CreateSurvey = () => {
 
   // function to edit the survey data in backend
   const editSurveyInBackend = async () => {
-    setEditSurvey(false);
+    setOpen(false);
     setOpenToast(true);
     const _tokenn = token || localStorage.getItem("token");
     const id = clientId || localStorage.getItem("clientId");
@@ -296,6 +296,7 @@ const CreateSurvey = () => {
     e: React.MouseEvent<HTMLDivElement>
   ) {
     e.stopPropagation();
+    setEditSurvey(true);
     const _tokenn = token || localStorage.getItem("token");
     localStorage.setItem("surveyId", id);
     setSurveyId(id);
@@ -318,15 +319,14 @@ const CreateSurvey = () => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 900,
-    height: 600,
+    width: 650,
+    height: 630,
     bgcolor: "white",
     boxShadow: 24,
     border: "0",
     p: 3,
     borderRadius: "1.1vh",
     overflow: "hidden",
-    overflowY: "scroll",
   };
 
   // function to fetch all surveys from the backend
@@ -633,34 +633,6 @@ const CreateSurvey = () => {
               aria-describedby="modal-modal-description"
             >
               <Box sx={style}>
-                {!editSurvey && (
-                  <div
-                    className={
-                      singleSurveyData.surveyDescription.toString().length > 100
-                        ? "modalHeader"
-                        : "modalHeaderShort"
-                    }
-                  >
-                    <h1 className=" modalHeaderHeading ">
-                      {singleSurveyData.surveyName}
-                    </h1>
-                    <button
-                      className="modalCloseButton"
-                      onClick={() => setOpen(false)}
-                    >
-                      X
-                    </button>
-
-                    <p className="modalHeaderDescription">
-                      {singleSurveyData.surveyDescription.toString().length >
-                      100
-                        ? singleSurveyData.surveyDescription
-                            .toString()
-                            .slice(0, 100) + "..."
-                        : singleSurveyData.surveyDescription}
-                    </p>
-                  </div>
-                )}
                 {editSurvey && (
                   <div
                     className={
@@ -710,38 +682,6 @@ const CreateSurvey = () => {
                     <h3 className="questionsModalHeadingOption">Option 2</h3>
                   </div>
 
-                  {!editSurvey && (
-                    <div className="questionsArray">
-                      {singleSurveyData.totalQues.map(
-                        (item: any, index: any) => {
-                          return (
-                            <div className="questionModalBodyDiv">
-                              <div className="questionModalBodySno">
-                                {index + 1}
-                              </div>
-                              <div className="questionModalBodyQuestion">
-                                {item.title.toString().length > 44
-                                  ? item.title.toString().slice(0, 44) + "..."
-                                  : item.title}
-                              </div>
-                              <div className="questionModalBodyOption">
-                                {item.options[0].toString().length > 11
-                                  ? item.options[0].toString().slice(0, 11) +
-                                    "..."
-                                  : item.options[0]}
-                              </div>
-                              <div className="questionModalBodyOption">
-                                {item.options[1].toString().length > 11
-                                  ? item.options[1].toString().slice(0, 11) +
-                                    "..."
-                                  : item.options[1]}
-                              </div>
-                            </div>
-                          );
-                        }
-                      )}
-                    </div>
-                  )}
                   {editSurvey && (
                     <div className="questionsArrayInEdit">
                       {singleSurveyData.totalQues.map(
@@ -808,39 +748,20 @@ const CreateSurvey = () => {
                           );
                         }
                       )}
-                      <p className="infoMsgSurvey">
-                        **Survey name, content, rewards and dates cannot be
-                        changed**
-                      </p>
                     </div>
                   )}
                 </div>
-                {!editSurvey && (
+                <p className="infoMsgSurvey">
+                  **Survey name, content, rewards and dates cannot be changed**
+                </p>
+
+                {editSurvey && (
                   <div className="modalFooter">
-                    <button
-                      className="modalFooterButtonEdit"
-                      onClick={() => {
-                        setEditSurvey(true);
-                        console.log(editSurveyData);
-                      }}
-                    >
-                      Edit Survey
-                    </button>
                     <button
                       className="modalFooterButtonDelete"
                       onClick={() => deleteParticularSurvey()}
                     >
                       Delete Survey
-                    </button>
-                  </div>
-                )}
-                {editSurvey && (
-                  <div className="modalFooter">
-                    <button
-                      className="modalFooterButtonDelete"
-                      onClick={() => setEditSurvey(false)}
-                    >
-                      Cancel
                     </button>
                     <button
                       className="modalFooterButtonEdit"
@@ -854,24 +775,24 @@ const CreateSurvey = () => {
             </Modal>
           )}
         </div>
-        {!editSurvey && (
+        {
           <Snackbar
             anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             open={openToast}
             autoHideDuration={6000}
             onClose={() => {
-              setOpenToast(false);
+              setEditSurvey(false);
             }}
           >
             <Alert
               onClose={handleToastClose}
-              severity="success"
+              severity="info"
               sx={{ width: "20vw", height: "5vh" }}
             >
               Edited Survey
             </Alert>
           </Snackbar>
-        )}
+        }
         {submitToastOpen && (
           <Snackbar
             anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
@@ -883,7 +804,7 @@ const CreateSurvey = () => {
           >
             <Alert
               onClose={handleToastClose}
-              severity="success"
+              severity="info"
               sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
             >
               Edited Survey

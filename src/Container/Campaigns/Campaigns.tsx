@@ -1115,6 +1115,7 @@ export default function Campaigns() {
                         />
                       </div>
                     </div>
+                    <Divider style={{ marginTop: "6px" }} />
                     <div className="modalFooterCampaignsPage2">
                       <button
                         className="modalFooterButtonDeleteCampaignsPage2"
