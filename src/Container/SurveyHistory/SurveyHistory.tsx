@@ -93,7 +93,14 @@ const SurveyHistory = () => {
         console.log(error);
       });
   }
+  const checkMetamaskConnection = () => {
+    if (!(window as any).ethereum?.selectedAddress) {
+      // Metamask wallet disconnected, redirect to root route
+      navigate("/");
+    }
+  };
   useEffect(() => {
+    checkMetamaskConnection();
     const tempId = localStorage.getItem("clientId");
     if (tempId) {
       setClientId(tempId);
@@ -120,155 +127,154 @@ const SurveyHistory = () => {
   }, [(window as any).ethereum]);
 
   return (
-    <div >
-      <div ></div>
+    <div>
+      <div></div>
       <>{Sidebar(7)}</>
       <div className="smopen">{Drawer(7)}</div>
-      
-      <div className="outbox">
-      <div className="surveyHistoryOuterBox">
-        <div className="surveyBoxFlex">
-          <div className="surveyTitle">Survey History</div>
-        </div>
-        <div className="surveyHistoryContent">
-          <div className="surveyHistoryContentTitle">
-            <div className="surveyHistorySelector">Delete</div>
-            <div className="surveyHistorySno">S.No</div>
-            <div className="surveyHistorySurveyName">Survey Name</div>
-            <div className="surveyHistoryTotalQues">Total Questions</div>
-            <div className="surveyHistoryTotalRes">Total Respondants</div>
-            <div className="surveyHistoryTotalReward">Total Rewards</div>
-            <div className="surveyHistoryTimePeriod">Time Period</div>
-          </div>
-          {!oastSurveyExist && (
-            <div className="noSurveyFound">
-              <div className="nosurveyFoundDiv">
-                <h2 className="nosurveyFoundHeading">
-                  No Survey History Found !!
-                </h2>
-                <button
-                  className="nosurveyFoundButton"
-                  onClick={() => navigate("/create-survey")}
-                >
-                  Create New Survey
-                </button>
-              </div>
-            </div>
-          )}
-          {!oastSurveyExist && (
-            <Snackbar
-              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-              open={openToast}
-              autoHideDuration={6000}
-              onClose={() => {
-                setOpenToast(false);
-              }}
-            >
-              <Alert
-                onClose={handleToastClose}
-                severity="error"
-                sx={{ width: "20vw", height: "5vh" }}
-              >
-                No History found for survey
-              </Alert>
-            </Snackbar>
-          )}
-          {oastSurveyExist &&
-            pastSurveyData.map((data, index) => {
-              const dateDiff = Math.ceil(
-                Math.abs(
-                  new Date(data.endDate).getTime() -
-                    new Date(data.startDate).getTime()
-                ) /
-                  (1000 * 3600 * 24)
-              );
 
-              return (
-                <div className="surveyHistoryContentData">
-                  <div
-                    className="surveyHistorySelectorIcon"
-                    onClick={() => deleteSurveyModal(data._id)}
-                  >
-                    <DeleteForeverIcon
-                      className="deleteIconPerSurvey"
-                      sx={{
-                        color: "red",
-                        fontSize: "2.5rem",
-                        cursor: "pointer",
-                        height: "2.5rem",
-                      }}
-                    />
-                  </div>
-                  <div className="surveyHistorySnoData">{index + 1}</div>
-                  <div className="surveyHistorySurveyNameData">
-                    {data.surveyName}
-                  </div>
-                  <div className="surveyHistoryTotalQuesData">
-                    {data.totalQues.length}
-                  </div>
-                  <div className="surveyHistoryTotalResData">0</div>
-                  <div className="surveyHistoryTotalRewardData">
-                    {data.totalReward}
-                  </div>
-                  <div className="surveyHistoryTimePeriod">
-                    {dateDiff === 1 ? dateDiff + " Day" : dateDiff + " Days"}
-                  </div>
-                </div>
-              );
-            })}
-          {deleteToastOpen && (
-            <Snackbar
-              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-              open={deleteToastOpen}
-              autoHideDuration={6000}
-              onClose={() => {
-                setDeleteToastOpen(false);
-              }}
-            >
-              <Alert
-                onClose={handleToastClose}
-                severity="error"
-                sx={{ width: "20vw", height: "5vh" }}
-              >
-                Deleted the Survey Succesfully
-              </Alert>
-            </Snackbar>
-          )}
-        </div>
-        {deletingSurvey && (
-          <Modal
-            open={deletingSurvey}
-            onClose={() => setDeletingSurvey(false)}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <div className="deleteSurveyModal">
-                <div className="deleteSurveyModalHeading">
-                  Do You want to delete this survey ?
-                </div>
-                <div className="deleteSurveyModalButton">
+      <div className="outbox">
+        <div className="surveyHistoryOuterBox">
+          <div className="surveyBoxFlex">
+            <div className="surveyTitle">Survey History</div>
+          </div>
+          <div className="surveyHistoryContent">
+            <div className="surveyHistoryContentTitle">
+              <div className="surveyHistorySelector">Delete</div>
+              <div className="surveyHistorySno">S.No</div>
+              <div className="surveyHistorySurveyName">Survey Name</div>
+              <div className="surveyHistoryTotalQues">Total Questions</div>
+              <div className="surveyHistoryTotalRes">Total Respondants</div>
+              <div className="surveyHistoryTotalReward">Total Rewards</div>
+              <div className="surveyHistoryTimePeriod">Time Period</div>
+            </div>
+            {!oastSurveyExist && (
+              <div className="noSurveyFound">
+                <div className="nosurveyFoundDiv">
+                  <h2 className="nosurveyFoundHeading">
+                    No Survey History Found !!
+                  </h2>
                   <button
-                    className="deleteSurveyModalButtonYes"
-                    onClick={() => deleteParticularSurvey(selectedSurveyId)}
+                    className="nosurveyFoundButton"
+                    onClick={() => navigate("/create-survey")}
                   >
-                    Yes
-                  </button>
-                  <button
-                    className="deleteSurveyModalButtonNo"
-                    onClick={() => setDeletingSurvey(false)}
-                  >
-                    No
+                    Create New Survey
                   </button>
                 </div>
               </div>
-            </Box>
-          </Modal>
-        )}
+            )}
+            {!oastSurveyExist && (
+              <Snackbar
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                open={openToast}
+                autoHideDuration={6000}
+                onClose={() => {
+                  setOpenToast(false);
+                }}
+              >
+                <Alert
+                  onClose={handleToastClose}
+                  severity="error"
+                  sx={{ width: "20vw", height: "5vh" }}
+                >
+                  No History found for survey
+                </Alert>
+              </Snackbar>
+            )}
+            {oastSurveyExist &&
+              pastSurveyData.map((data, index) => {
+                const dateDiff = Math.ceil(
+                  Math.abs(
+                    new Date(data.endDate).getTime() -
+                      new Date(data.startDate).getTime()
+                  ) /
+                    (1000 * 3600 * 24)
+                );
+
+                return (
+                  <div className="surveyHistoryContentData">
+                    <div
+                      className="surveyHistorySelectorIcon"
+                      onClick={() => deleteSurveyModal(data._id)}
+                    >
+                      <DeleteForeverIcon
+                        className="deleteIconPerSurvey"
+                        sx={{
+                          color: "red",
+                          fontSize: "2.5rem",
+                          cursor: "pointer",
+                          height: "2.5rem",
+                        }}
+                      />
+                    </div>
+                    <div className="surveyHistorySnoData">{index + 1}</div>
+                    <div className="surveyHistorySurveyNameData">
+                      {data.surveyName}
+                    </div>
+                    <div className="surveyHistoryTotalQuesData">
+                      {data.totalQues.length}
+                    </div>
+                    <div className="surveyHistoryTotalResData">0</div>
+                    <div className="surveyHistoryTotalRewardData">
+                      {data.totalReward}
+                    </div>
+                    <div className="surveyHistoryTimePeriod">
+                      {dateDiff === 1 ? dateDiff + " Day" : dateDiff + " Days"}
+                    </div>
+                  </div>
+                );
+              })}
+            {deleteToastOpen && (
+              <Snackbar
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                open={deleteToastOpen}
+                autoHideDuration={6000}
+                onClose={() => {
+                  setDeleteToastOpen(false);
+                }}
+              >
+                <Alert
+                  onClose={handleToastClose}
+                  severity="error"
+                  sx={{ width: "20vw", height: "5vh" }}
+                >
+                  Deleted the Survey Succesfully
+                </Alert>
+              </Snackbar>
+            )}
+          </div>
+          {deletingSurvey && (
+            <Modal
+              open={deletingSurvey}
+              onClose={() => setDeletingSurvey(false)}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <div className="deleteSurveyModal">
+                  <div className="deleteSurveyModalHeading">
+                    Do You want to delete this survey ?
+                  </div>
+                  <div className="deleteSurveyModalButton">
+                    <button
+                      className="deleteSurveyModalButtonYes"
+                      onClick={() => deleteParticularSurvey(selectedSurveyId)}
+                    >
+                      Yes
+                    </button>
+                    <button
+                      className="deleteSurveyModalButtonNo"
+                      onClick={() => setDeletingSurvey(false)}
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
+              </Box>
+            </Modal>
+          )}
+        </div>
       </div>
     </div>
-    </div>
-    
   );
 };
 

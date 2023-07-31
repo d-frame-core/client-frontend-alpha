@@ -196,7 +196,7 @@ const CreateSurvey = () => {
 
   // function to edit the survey data in backend
   const editSurveyInBackend = async () => {
-    setEditSurvey(false);
+    setOpen(false);
     setOpenToast(true);
     const _tokenn = token || localStorage.getItem("token");
     const id = clientId || localStorage.getItem("clientId");
@@ -296,6 +296,7 @@ const CreateSurvey = () => {
     e: React.MouseEvent<HTMLDivElement>
   ) {
     e.stopPropagation();
+    setEditSurvey(true);
     const _tokenn = token || localStorage.getItem("token");
     localStorage.setItem("surveyId", id);
     setSurveyId(id);
@@ -318,15 +319,14 @@ const CreateSurvey = () => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 900,
-    height: 600,
+    width: 650,
+    height: 630,
     bgcolor: "white",
     boxShadow: 24,
     border: "0",
     p: 3,
     borderRadius: "1.1vh",
     overflow: "hidden",
-    overflowY: "scroll",
   };
 
   // function to fetch all surveys from the backend
@@ -343,8 +343,16 @@ const CreateSurvey = () => {
     setFetchedData(res.data);
   }
 
+  const checkMetamaskConnection = () => {
+    if (!(window as any).ethereum?.selectedAddress) {
+      // Metamask wallet disconnected, redirect to root route
+      navigate("/");
+    }
+  };
+
   // useEffect to fetch all surveys
   useEffect(() => {
+    checkMetamaskConnection();
     const tempId = localStorage.getItem("clientId");
     if (tempId) {
       setClientId(tempId);
@@ -409,6 +417,7 @@ const CreateSurvey = () => {
       <>{Sidebar(6)}</>
       <div className="smopen">{Drawer(6)}</div>
       <div className="outbox">
+<<<<<<< HEAD
       <div className="createSurveyBox">
         <div className="createSurveyGreyBox">
           <div className="createSurveyHeader">
@@ -500,429 +509,457 @@ const CreateSurvey = () => {
           <div className="createSurveyForm">
             <div className="createSurveyFormHeader">
               <div className="createSurveyHeaderTitle">Create Survey</div>
+=======
+        <div className="createSurveyBox">
+          <div className="createSurveyGreyBox">
+            <div className="createSurveyHeader">
+              <div className="createSurveyHeaderTitleMain">Create Survey</div>
+>>>>>>> 3bdf2e1177fcec64e46074bcfb182d8386cf6f3d
               <button
-                className="closeButtonCreateSurveyPage"
-                onClick={() => setFormopen(false)}
+                className="createSurveyHeaderButton"
+                onClick={() => setFormopen(true)}
               >
-                X
+                + Create
               </button>
             </div>
-            <Divider />
-            <form className="createSurveyFormBody">
-              <TextField
-                id="standard-basic"
-                label="Survey Name"
-                variant="standard"
-                sx={{ left: "2vw", width: "90%" }}
-                {...register("surveyName")}
-                onChange={(e) => setSurveyName(e.target.value)}
-                required
-              />
-              <TextField
-                id="standard-basic"
-                label="Survey Description"
-                variant="standard"
-                sx={{ left: "2vw", width: "90%" }}
-                {...register("surveyDescription")}
-                onChange={(e) => setSurveyDescription(e.target.value)}
-                required
-              />
-              <TextField
-                id="standard-basic"
-                label="Rewards (DFT)"
-                variant="standard"
-                type={"number"}
-                sx={{ left: "2vw", width: "90%" }}
-                {...register("surveyResource")}
-                onChange={(e) => setSurveyResource(e.target.value)}
-                required
-              />
-              <TextField
-                id="standard-basic"
-                variant="standard"
-                label="Start Date"
-                placeholder="Start Date"
-                type={"date"}
-                sx={{ left: "2vw", width: "90%" }}
-                {...register("startDate")}
-                onChange={handleStartDateChange}
-                required
-              />
-              <TextField
-                id="standard-basic"
-                label="End Date"
-                variant="standard"
-                type={"date"}
-                sx={{ left: "2vw", width: "90%" }}
-                {...register("endDate")}
-                onChange={handleEndDateChange}
-                required
-              />
-              <TextField
-                sx={{ left: "2vw", width: "90%" }}
-                select
-                label="Total Survey Questions"
-                defaultValue={false}
-                {...register("Ad Type")}
-                SelectProps={{
-                  native: true,
-                }}
-                helperText="Please select the Number of Questions"
-                variant="standard"
-                onChange={(e) => {
-                  setNumberOfQuestionsSelected(e.target.value);
-                }}
-                onClick={() => {
-                  setNextpage(true);
-                  for (
-                    let i = 0;
-                    i < parseInt(numberOfQuestionsSelected) - 1;
-                    i++
-                  ) {
-                    surveyQuestions.push({
-                      questionName: "",
-                      questionOption1: "",
-                      questionOption2: "",
-                    });
-                  }
-                }}
-              >
-                {numberOfQuestions.map((option) => (
-                  <option
-                    className="optionsInNumberOfQuestion"
-                    key={option.label}
-                    value={option.value}
-                  >
-                    {option.label} Questions
-                  </option>
-                ))}
-              </TextField>
-              {nextpage && <div className="inputFieldOuterDiv">{fields}</div>}
-            </form>
-            <Divider />
-            <button
-              className="submitSurveyButton"
-              type="submit"
-              onClick={submitFormFunction}
-            >
-              Submit
-            </button>
-          </div>
-        </Backdrop>
-        {singleSurveyData && (
-          <Modal
-            open={open}
-            onClose={() => {
-              setOpen(false);
-            }}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              {!editSurvey && (
-                <div
-                  className={
-                    singleSurveyData.surveyDescription.toString().length > 100
-                      ? "modalHeader"
-                      : "modalHeaderShort"
-                  }
-                >
-                  <h1 className=" modalHeaderHeading ">
-                    {singleSurveyData.surveyName}
-                  </h1>
-                  <button
-                    className="modalCloseButton"
-                    onClick={() => setOpen(false)}
-                  >
-                    X
-                  </button>
-
-                  <p className="modalHeaderDescription">
-                    {singleSurveyData.surveyDescription.toString().length > 100
-                      ? singleSurveyData.surveyDescription
-                          .toString()
-                          .slice(0, 100) + "..."
-                      : singleSurveyData.surveyDescription}
-                  </p>
-                </div>
-              )}
-              {editSurvey && (
-                <div
-                  className={
-                    singleSurveyData.surveyDescription.toString().length > 100
-                      ? "modalHeader"
-                      : "modalHeaderShort"
-                  }
-                >
-                  <h1 className=" modalHeaderHeading ">
-                    {singleSurveyData.surveyName}
-                  </h1>
-                  <button
-                    className="modalCloseButton"
-                    onClick={() => setOpen(false)}
-                  >
-                    X
-                  </button>
-
-                  <p className="modalHeaderDescription">
-                    {singleSurveyData.surveyDescription.toString().length > 100
-                      ? singleSurveyData.surveyDescription
-                          .toString()
-                          .slice(0, 100) + "..."
-                      : singleSurveyData.surveyDescription}
-                  </p>
-                </div>
-              )}
-              <div className="modalBody">
-                <p>Total Questions: {singleSurveyData.totalQues.length}</p>
-                <p>Total Respondants: {"N.A"}</p>
-                <p>Status: {singleSurveyData.statusCampaign}</p>
-                <p>Total Rewards: {singleSurveyData.totalReward} DFT</p>
-                <p>
-                  Start Date:{" "}
-                  {singleSurveyData.startDate.toString().slice(0, 10)}
-                </p>
-                <p>
-                  End Date: {singleSurveyData.endDate.toString().slice(0, 10)}
-                </p>
+            <div className="createSurveyBody">
+              <div className="createSurveyCategoriesBox">
+                <div className="surveyName">Survey Name</div>
+                <div className="totalQues">Total Questions</div>
+                <div className="totalRes">Rewards</div>
+                <div className="statusCampaign">Status</div>
+                <div className="editCampaign">Edit</div>
+                <div className="startDate">Start Date</div>
+                <div className="endDate">End Date</div>
               </div>
-              <div className="viewQuestions">
-                <div className="questionModalHeadingDiv">
-                  <h3 className="questionsModalHeadingSno">S.No</h3>
-                  <h3 className="questionsModalHeadingQuestion">Question</h3>
-                  <h3 className="questionsModalHeadingOption">Option 1</h3>
-                  <h3 className="questionsModalHeadingOption">Option 2</h3>
-                </div>
 
-                {!editSurvey && (
-                  <div className="questionsArray">
-                    {singleSurveyData.totalQues.map((item: any, index: any) => {
-                      return (
-                        <div className="questionModalBodyDiv">
-                          <div className="questionModalBodySno">
-                            {index + 1}
-                          </div>
-                          <div className="questionModalBodyQuestion">
-                            {item.title.toString().length > 44
-                              ? item.title.toString().slice(0, 44) + "..."
-                              : item.title}
-                          </div>
-                          <div className="questionModalBodyOption">
-                            {item.options[0].toString().length > 11
-                              ? item.options[0].toString().slice(0, 11) + "..."
-                              : item.options[0]}
-                          </div>
-                          <div className="questionModalBodyOption">
-                            {item.options[1].toString().length > 11
-                              ? item.options[1].toString().slice(0, 11) + "..."
-                              : item.options[1]}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
+              <div className="createSurveyDetails">
+                {
+                  // no data in fetched data
+                  fetchedData.length === 0 && (
+                    <div className="noDataCreateSurvey">No Data to display</div>
+                  )
+                }
+                {fetchedData.map((item: any) => {
+                  return (
+                    <div
+                      className="surveyDetails"
+                      onClick={() => {
+                        navigate(`/survey-analytics/${item._id}`);
+                      }}
+                    >
+                      <div className="surveyNameDetails">
+                        {" "}
+                        {item.surveyName}{" "}
+                      </div>
+                      <div className="totalQuesDetails">
+                        {" "}
+                        {item.totalQues.length}{" "}
+                      </div>
+                      <div className="totalResDetails">
+                        {" "}
+                        {item.totalReward}{" "}
+                      </div>
+                      <div
+                        className="statusCampaignDetails"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {item.statusCampaign === "active" ? (
+                          <FormControlLabel
+                            label=""
+                            className="themeSwitch"
+                            onClick={(event) => setSurveyInactive(item._id)}
+                            control={<Switch defaultChecked />}
+                          />
+                        ) : (
+                          <FormControlLabel
+                            label=""
+                            className="themeSwitch"
+                            onClick={() => setSurveyActive(item._id)}
+                            control={<Switch />}
+                          />
+                        )}
+                      </div>
+                      <div
+                        className="editIconCreateSurvey"
+                        onClick={(e) => getParticularSurvey(item._id, e)}
+                      >
+                        <EditIcon />
+                      </div>
+                      <div className="startDateDetails">
+                        {" "}
+                        {item.startDate.toString().slice(0, 10)}{" "}
+                      </div>
+                      <div className="endDateDetails">
+                        {" "}
+                        {item.endDate.toString().slice(0, 10)}{" "}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+          <Backdrop
+            open={formopen}
+            sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            className="backdrop"
+          >
+            <div className="createSurveyForm">
+              <div className="createSurveyFormHeader">
+                <div className="createSurveyHeaderTitle">Create Survey</div>
+                <button
+                  className="closeButtonCreateSurveyPage"
+                  onClick={() => setFormopen(false)}
+                >
+                  X
+                </button>
+              </div>
+              <Divider />
+              <form className="createSurveyFormBody">
+                <TextField
+                  id="standard-basic"
+                  label="Survey Name"
+                  variant="standard"
+                  sx={{ left: "2vw", width: "90%" }}
+                  {...register("surveyName")}
+                  onChange={(e) => setSurveyName(e.target.value)}
+                  required
+                />
+                <TextField
+                  id="standard-basic"
+                  label="Survey Description"
+                  variant="standard"
+                  sx={{ left: "2vw", width: "90%" }}
+                  {...register("surveyDescription")}
+                  onChange={(e) => setSurveyDescription(e.target.value)}
+                  required
+                />
+                <TextField
+                  id="standard-basic"
+                  label="Rewards (DFT)"
+                  variant="standard"
+                  type={"number"}
+                  sx={{ left: "2vw", width: "90%" }}
+                  {...register("surveyResource")}
+                  onChange={(e) => setSurveyResource(e.target.value)}
+                  required
+                />
+                <TextField
+                  id="standard-basic"
+                  variant="standard"
+                  label="Start Date"
+                  placeholder="Start Date"
+                  type={"date"}
+                  sx={{ left: "2vw", width: "90%" }}
+                  {...register("startDate")}
+                  onChange={handleStartDateChange}
+                  required
+                />
+                <TextField
+                  id="standard-basic"
+                  label="End Date"
+                  variant="standard"
+                  type={"date"}
+                  sx={{ left: "2vw", width: "90%" }}
+                  {...register("endDate")}
+                  onChange={handleEndDateChange}
+                  required
+                />
+                <TextField
+                  sx={{ left: "2vw", width: "90%" }}
+                  select
+                  label="Total Survey Questions"
+                  defaultValue={false}
+                  {...register("Ad Type")}
+                  SelectProps={{
+                    native: true,
+                  }}
+                  helperText="Please select the Number of Questions"
+                  variant="standard"
+                  onChange={(e) => {
+                    setNumberOfQuestionsSelected(e.target.value);
+                  }}
+                  onClick={() => {
+                    setNextpage(true);
+                    for (
+                      let i = 0;
+                      i < parseInt(numberOfQuestionsSelected) - 1;
+                      i++
+                    ) {
+                      surveyQuestions.push({
+                        questionName: "",
+                        questionOption1: "",
+                        questionOption2: "",
+                      });
+                    }
+                  }}
+                >
+                  {numberOfQuestions.map((option) => (
+                    <option
+                      className="optionsInNumberOfQuestion"
+                      key={option.label}
+                      value={option.value}
+                    >
+                      {option.label} Questions
+                    </option>
+                  ))}
+                </TextField>
+                {nextpage && <div className="inputFieldOuterDiv">{fields}</div>}
+              </form>
+              <Divider />
+              <button
+                className="submitSurveyButton"
+                type="submit"
+                onClick={submitFormFunction}
+              >
+                Submit
+              </button>
+            </div>
+          </Backdrop>
+          {singleSurveyData && (
+            <Modal
+              open={open}
+              onClose={() => {
+                setOpen(false);
+              }}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
                 {editSurvey && (
-                  <div className="questionsArrayInEdit">
-                    {singleSurveyData.totalQues.map((item: any, index: any) => {
-                      return (
-                        <div className="questionModalBodyDivInEdit">
-                          <div className="questionModalBodySnoInEdit">
-                            {index + 1}
-                          </div>
-                          <div className="questionModalBodyQuestionInEdit">
-                            <input
-                              className="questionModalBodyQuestionInput"
-                              type="textSurveyPage"
-                              defaultValue={item.title}
-                              onChange={(e) => {
-                                setEditSurveyData({
-                                  ...editSurveyData,
-                                  totalQues: [
-                                    ...editSurveyData.totalQues,
-                                    (editSurveyData.totalQues[index].title =
-                                      e.target.value),
-                                  ],
-                                });
-                              }}
-                            />
-                          </div>
-                          <div className="questionModalBodyOptionInEdit">
-                            <input
-                              className="questionModalBodyOptionInput"
-                              type="textSurveyPage"
-                              defaultValue={item.options[0]}
-                              onChange={(e) => {
-                                setEditSurveyData({
-                                  ...editSurveyData,
-                                  totalQues: [
-                                    ...editSurveyData.totalQues,
-                                    (editSurveyData.totalQues[
-                                      index
-                                    ].options[0] = e.target.value),
-                                  ],
-                                });
-                              }}
-                            />
-                          </div>
-                          <div className="questionModalBodyOptionInEdit">
-                            <input
-                              className="questionModalBodyOptionInput"
-                              type="textSurveyPage"
-                              defaultValue={item.options[1]}
-                              onChange={(e) => {
-                                setEditSurveyData({
-                                  ...editSurveyData,
-                                  totalQues: [
-                                    ...editSurveyData.totalQues,
-                                    (editSurveyData.totalQues[
-                                      index
-                                    ].options[1] = e.target.value),
-                                  ],
-                                });
-                              }}
-                            />
-                          </div>
-                        </div>
-                      );
-                    })}
-                    <p className="infoMsgSurvey">
-                      **Survey name, content, rewards and dates cannot be
-                      changed**
+                  <div
+                    className={
+                      singleSurveyData.surveyDescription.toString().length > 100
+                        ? "modalHeader"
+                        : "modalHeaderShort"
+                    }
+                  >
+                    <h1 className=" modalHeaderHeading ">
+                      {singleSurveyData.surveyName}
+                    </h1>
+                    <button
+                      className="modalCloseButton"
+                      onClick={() => setOpen(false)}
+                    >
+                      X
+                    </button>
+
+                    <p className="modalHeaderDescription">
+                      {singleSurveyData.surveyDescription.toString().length >
+                      100
+                        ? singleSurveyData.surveyDescription
+                            .toString()
+                            .slice(0, 100) + "..."
+                        : singleSurveyData.surveyDescription}
                     </p>
                   </div>
                 )}
-              </div>
-              {!editSurvey && (
-                <div className="modalFooter">
-                  <button
-                    className="modalFooterButtonEdit"
-                    onClick={() => {
-                      setEditSurvey(true);
-                      console.log(editSurveyData);
-                    }}
-                  >
-                    Edit Survey
-                  </button>
-                  <button
-                    className="modalFooterButtonDelete"
-                    onClick={() => deleteParticularSurvey()}
-                  >
-                    Delete Survey
-                  </button>
+                <div className="modalBody">
+                  <p>Total Questions: {singleSurveyData.totalQues.length}</p>
+                  <p>Total Respondants: {"N.A"}</p>
+                  <p>Status: {singleSurveyData.statusCampaign}</p>
+                  <p>Total Rewards: {singleSurveyData.totalReward} DFT</p>
+                  <p>
+                    Start Date:{" "}
+                    {singleSurveyData.startDate.toString().slice(0, 10)}
+                  </p>
+                  <p>
+                    End Date: {singleSurveyData.endDate.toString().slice(0, 10)}
+                  </p>
                 </div>
-              )}
-              {editSurvey && (
-                <div className="modalFooter">
-                  <button
-                    className="modalFooterButtonDelete"
-                    onClick={() => setEditSurvey(false)}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    className="modalFooterButtonEdit"
-                    onClick={() => editSurveyInBackend()}
-                  >
-                    Save Edit
-                  </button>
+                <div className="viewQuestions">
+                  <div className="questionModalHeadingDiv">
+                    <h3 className="questionsModalHeadingSno">S.No</h3>
+                    <h3 className="questionsModalHeadingQuestion">Question</h3>
+                    <h3 className="questionsModalHeadingOption">Option 1</h3>
+                    <h3 className="questionsModalHeadingOption">Option 2</h3>
+                  </div>
+
+                  {editSurvey && (
+                    <div className="questionsArrayInEdit">
+                      {singleSurveyData.totalQues.map(
+                        (item: any, index: any) => {
+                          return (
+                            <div className="questionModalBodyDivInEdit">
+                              <div className="questionModalBodySnoInEdit">
+                                {index + 1}
+                              </div>
+                              <div className="questionModalBodyQuestionInEdit">
+                                <input
+                                  className="questionModalBodyQuestionInput"
+                                  type="textSurveyPage"
+                                  defaultValue={item.title}
+                                  onChange={(e) => {
+                                    setEditSurveyData({
+                                      ...editSurveyData,
+                                      totalQues: [
+                                        ...editSurveyData.totalQues,
+                                        (editSurveyData.totalQues[index].title =
+                                          e.target.value),
+                                      ],
+                                    });
+                                  }}
+                                />
+                              </div>
+                              <div className="questionModalBodyOptionInEdit">
+                                <input
+                                  className="questionModalBodyOptionInput"
+                                  type="textSurveyPage"
+                                  defaultValue={item.options[0]}
+                                  onChange={(e) => {
+                                    setEditSurveyData({
+                                      ...editSurveyData,
+                                      totalQues: [
+                                        ...editSurveyData.totalQues,
+                                        (editSurveyData.totalQues[
+                                          index
+                                        ].options[0] = e.target.value),
+                                      ],
+                                    });
+                                  }}
+                                />
+                              </div>
+                              <div className="questionModalBodyOptionInEdit">
+                                <input
+                                  className="questionModalBodyOptionInput"
+                                  type="textSurveyPage"
+                                  defaultValue={item.options[1]}
+                                  onChange={(e) => {
+                                    setEditSurveyData({
+                                      ...editSurveyData,
+                                      totalQues: [
+                                        ...editSurveyData.totalQues,
+                                        (editSurveyData.totalQues[
+                                          index
+                                        ].options[1] = e.target.value),
+                                      ],
+                                    });
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          );
+                        }
+                      )}
+                    </div>
+                  )}
                 </div>
-              )}
-            </Box>
-          </Modal>
+                <p className="infoMsgSurvey">
+                  **Survey name, content, rewards and dates cannot be changed**
+                </p>
+
+                {editSurvey && (
+                  <div className="modalFooter">
+                    <button
+                      className="modalFooterButtonDelete"
+                      onClick={() => deleteParticularSurvey()}
+                    >
+                      Delete Survey
+                    </button>
+                    <button
+                      className="modalFooterButtonEdit"
+                      onClick={() => editSurveyInBackend()}
+                    >
+                      Save Edit
+                    </button>
+                  </div>
+                )}
+              </Box>
+            </Modal>
+          )}
+        </div>
+        {
+          <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            open={openToast}
+            autoHideDuration={6000}
+            onClose={() => {
+              setEditSurvey(false);
+            }}
+          >
+            <Alert
+              onClose={handleToastClose}
+              severity="info"
+              sx={{ width: "20vw", height: "5vh" }}
+            >
+              Edited Survey
+            </Alert>
+          </Snackbar>
+        }
+        {submitToastOpen && (
+          <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            open={openToast}
+            autoHideDuration={6000}
+            onClose={() => {
+              setOpenToast(false);
+            }}
+          >
+            <Alert
+              onClose={handleToastClose}
+              severity="info"
+              sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
+            >
+              Edited Survey
+            </Alert>
+          </Snackbar>
+        )}
+        {surveyInactiveToastOpen && (
+          <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            open={surveyInactiveToastOpen}
+            autoHideDuration={6000}
+            onClose={() => {
+              setSurveyInactiveToastOpen(false);
+            }}
+          >
+            <Alert
+              onClose={handleToastClose}
+              severity="info"
+              sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
+            >
+              Survey is Inactive now
+            </Alert>
+          </Snackbar>
+        )}
+        {surveyActiveToastOpen && (
+          <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            open={surveyActiveToastOpen}
+            autoHideDuration={6000}
+            onClose={() => {
+              setSurveyActiveToastOpen(false);
+            }}
+          >
+            <Alert
+              onClose={handleToastClose}
+              severity="info"
+              sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
+            >
+              Survey is Active now
+            </Alert>
+          </Snackbar>
+        )}
+        {surveyDeletedToaster && (
+          <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            open={surveyDeletedToaster}
+            autoHideDuration={6000}
+            onClose={() => {
+              setSurveyDeletedToaster(false);
+            }}
+          >
+            <Alert
+              onClose={handleToastClose}
+              severity="error"
+              sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
+            >
+              Survey Deleted
+            </Alert>
+          </Snackbar>
         )}
       </div>
-      {!editSurvey && (
-        <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          open={openToast}
-          autoHideDuration={6000}
-          onClose={() => {
-            setOpenToast(false);
-          }}
-        >
-          <Alert
-            onClose={handleToastClose}
-            severity="success"
-            sx={{ width: "20vw", height: "5vh" }}
-          >
-            Edited Survey
-          </Alert>
-        </Snackbar>
-      )}
-      {submitToastOpen && (
-        <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          open={openToast}
-          autoHideDuration={6000}
-          onClose={() => {
-            setOpenToast(false);
-          }}
-        >
-          <Alert
-            onClose={handleToastClose}
-            severity="success"
-            sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
-          >
-            Edited Survey
-          </Alert>
-        </Snackbar>
-      )}
-      {surveyInactiveToastOpen && (
-        <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          open={surveyInactiveToastOpen}
-          autoHideDuration={6000}
-          onClose={() => {
-            setSurveyInactiveToastOpen(false);
-          }}
-        >
-          <Alert
-            onClose={handleToastClose}
-            severity="info"
-            sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
-          >
-            Survey is Inactive now
-          </Alert>
-        </Snackbar>
-      )}
-      {surveyActiveToastOpen && (
-        <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          open={surveyActiveToastOpen}
-          autoHideDuration={6000}
-          onClose={() => {
-            setSurveyActiveToastOpen(false);
-          }}
-        >
-          <Alert
-            onClose={handleToastClose}
-            severity="info"
-            sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
-          >
-            Survey is Active now
-          </Alert>
-        </Snackbar>
-      )}
-      {surveyDeletedToaster && (
-        <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          open={surveyDeletedToaster}
-          autoHideDuration={6000}
-          onClose={() => {
-            setSurveyDeletedToaster(false);
-          }}
-        >
-          <Alert
-            onClose={handleToastClose}
-            severity="error"
-            sx={{ width: "20vw", height: "5vh", fontSize: "1rem" }}
-          >
-            Survey Deleted
-          </Alert>
-        </Snackbar>
-      )}
-    </div>
     </div>
   );
 };

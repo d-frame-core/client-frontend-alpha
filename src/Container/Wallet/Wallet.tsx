@@ -1,5 +1,5 @@
 // importing the packages
-import { Box, Divider } from "@mui/material";
+import { Box, Divider, Modal, TextField } from "@mui/material";
 import { useContext, useState, useEffect } from "react";
 import { MyContext } from "../../components/context/Context";
 import Sidebar from "../../components/sidebar/Sidebar";
@@ -9,7 +9,15 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CircularProgress from "@mui/material/CircularProgress";
 import Web3 from "web3";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 export default function Wallet() {
+  //  useform compoenent
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
   //  importing from context api
   const {
     walletAddress,
@@ -17,6 +25,8 @@ export default function Wallet() {
     setWalletBalance,
     clientId,
     setClientId,
+    companyName,
+    companyEmail,
   } = useContext(MyContext);
   const _walletAddress = walletAddress || localStorage.getItem("walletAddress");
 
@@ -28,6 +38,9 @@ export default function Wallet() {
   const [transactionEvents, setTransactionEvents] = useState<any>([]);
   const [dftCA, setdftCA] = useState<any>("");
   const [loadingTransactions, setLoadingTransactions] = useState(true);
+  const [buyDFTModal, setBuyDFTModal] = useState(false);
+  const [amountToBuy, setAmountToBuy] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
 
   const [contentCopiedSuccesfully, setContentCopiedSuccesfully] =
     useState(false);
@@ -701,7 +714,16 @@ export default function Wallet() {
       navigate("/");
     }
   };
+
+  const checkMetamaskConnection = () => {
+    if (!(window as any).ethereum?.selectedAddress) {
+      // Metamask wallet disconnected, redirect to root route
+      navigate("/");
+    }
+  };
+
   useEffect(() => {
+    checkMetamaskConnection();
     // Listen for changes in the selected address property
     if ((window as any).ethereum) {
       (window as any).ethereum.on("accountsChanged", handleWalletDisconnect);
@@ -718,6 +740,52 @@ export default function Wallet() {
     getPastEvents();
   }, []);
   useEffect(() => {}, [transactionEvents]);
+  const handleChange = (e: any) => {
+    const value = e.target.value;
+    // check the if statement that the value is ONLY between 0-9, no decimals, no spaces, nothing EXCEPT 0-9
+
+    if (value.match(/^[0-9]*$/gm)) {
+      setAmountToBuy(value);
+    } else {
+      // throw alert of invalid input
+      alert("Invalid input");
+      setAmountToBuy("");
+    }
+  };
+  function buyDFTMail() {
+    // Rishabhkapoor8711@gmail.com
+    if (!amountToBuy || !paymentMethod) {
+      alert("Please enter the required fields");
+      return;
+    }
+    const email = "Rishabhkapoor8711@gmail.com";
+    const subject = encodeURIComponent("I want to buy dft");
+    const body = encodeURIComponent(
+      `Client Name:- ${companyName}\nClient Address:-${walletAddress}\nClient Balance:-${walletBalance} DFT\nClient Email:-${companyEmail}\n....................................................................\n....................................................................\nI want to buy DFT worth ${amountToBuy}$ \nMy preferred payment method(FIAT/CRYPTO) is ${paymentMethod}\n...............................`
+    );
+    const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+    window.location.href = mailtoLink;
+    setBuyDFTModal(false);
+    setAmountToBuy("");
+    setPaymentMethod("");
+  }
+  const style2 = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    height: 250,
+    bgcolor: "white",
+    boxShadow: 24,
+    border: "0",
+    p: 3,
+    borderRadius: "1.1vh",
+    overflow: "hidden",
+  };
+  const handleOptionChange = (e: any) => {
+    setPaymentMethod(e.target.value);
+  };
   return (
     <div>
       <>{Sidebar(2)}</>
@@ -727,9 +795,7 @@ export default function Wallet() {
           <button
             className="walletHeaderButton"
             // onclick to redirect to the buy DFT page
-            onClick={() => {
-              navigate("/buyDFT");
-            }}
+            onClick={() => setBuyDFTModal(true)}
           >
             Buy DFT
           </button>
@@ -962,6 +1028,11 @@ export default function Wallet() {
                       : "sendButton"
                   }
                   onClick={handleSend}
+                  title={
+                    dftAmount === "" || senderAddress === ""
+                      ? "Fill Details to Enable"
+                      : ""
+                  }
                 >
                   Send
                 </button>
@@ -998,6 +1069,72 @@ export default function Wallet() {
           </Alert>
         </Snackbar>
       )}
+      <Modal
+        open={buyDFTModal}
+        onClose={() => setBuyDFTModal(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style2}>
+          <h1 style={{ textAlign: "center", margin: 0, marginBottom: "1vh" }}>
+            1 DFT = 0.1$
+          </h1>
+          <Divider />
+          <TextField
+            id="standard-basic"
+            label="Total USD you want to BUY"
+            variant="standard"
+            sx={{ left: "2vw", width: "90%" }}
+            {...register("amountToBuy")}
+            onChange={handleChange}
+            required
+            value={amountToBuy}
+            style={{
+              margin: "1vh 0",
+            }}
+          />
+          {amountToBuy !== "" && (
+            <p
+              style={{
+                textAlign: "center",
+                margin: "1vh 0",
+              }}
+            >
+              You will get {Number(amountToBuy) * 10} DFT for ${amountToBuy}
+            </p>
+          )}
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <label>
+              <input
+                type="radio"
+                value="FIAT"
+                checked={paymentMethod === "FIAT"}
+                onChange={handleOptionChange}
+              />
+              FIAT
+            </label>
+
+            <label style={{ marginLeft: "20px" }}>
+              <input
+                type="radio"
+                value="CRYPTO"
+                checked={paymentMethod === "CRYPTO"}
+                onChange={handleOptionChange}
+              />
+              CRYPTO
+            </label>
+          </div>
+          <p className="sendMailInformation">
+            **DO NOT CHANGE any information in the mail body**
+          </p>
+          <button
+            className={amountToBuy ? "sendMailButton" : "sendMailButton2"}
+            onClick={buyDFTMail}
+          >
+            Send Mail
+          </button>
+        </Box>
+      </Modal>
     </div>
   );
 }

@@ -36,6 +36,7 @@ import ClientSurveyVerify from "./Container/admin/clientSurveyVerification";
 import Reverification from "./Container/admin/reverification";
 import AdminWallet from "./Container/admin/adminWallet";
 import CampaignDetails from "./Container/CampaignDetails/Details";
+import AdminLogin from "./Container/Authentication/login";
 
 function App() {
   return (
@@ -58,7 +59,7 @@ function App() {
           <Route path="/create-survey" element={<CreateSurvey />} />
           <Route path="/survey-history" element={<SurveyHistory />} />
           <Route path="/survey-analytics/*" element={<SurveyAnalytics />} />
-          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/admin/userKyc" element={<KycUser />} />
           <Route path="/admin/userHelp" element={<UserHelp />} />
           <Route path="/admin/userLearn" element={<UserLearn />} />
@@ -86,6 +87,8 @@ function App() {
           <Route path="/register1" element={<Register1 />} />
           <Route path="/admin/reverification" element={<Reverification />} />
           <Route path="/admin/adminWallet" element={<AdminWallet />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/login" element={<AdminWallet />} />
         </Routes>
       </Router>
     </div>
