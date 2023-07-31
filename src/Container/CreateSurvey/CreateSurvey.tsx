@@ -417,7 +417,7 @@ const CreateSurvey = () => {
               className="createSurveyHeaderButton"
               onClick={() => setFormopen(true)}
             >
-              + Create
+              Create
             </button>
           </div>
           <div className="createSurveyBody">

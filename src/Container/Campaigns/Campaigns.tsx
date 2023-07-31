@@ -465,7 +465,7 @@ export default function Campaigns() {
                   setNextpage(false);
                 }}
               >
-                + Create
+                Create
               </button>
             </div>
             <Backdrop

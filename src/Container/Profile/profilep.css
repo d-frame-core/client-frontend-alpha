@@ -84,6 +84,7 @@
   flex-direction: column;
   row-gap: 2vh;
   top: 8vh;
+  left: 2vw;
   width: 20vw;
   height: 40vh;
   font-weight: 600;
@@ -198,6 +199,7 @@ body {
   }
   .profileDetails {
     left: 9vw;
+    overflow: hidden;
   }
   .profileEntries {
     width: auto;
@@ -207,7 +209,7 @@ body {
     left: 8vw;
   }
   .semiColon {
-    left: 2vw;
+    left: 7vw;
   }
   .editIMG {
     left: 16vw;
@@ -225,11 +227,11 @@ body {
   }
   .Profile {
     top: 5vh;
-    height: 105vh;
+    height: 100vh;
     font-size: 14px;
   }
   .profileBox {
-    height: 94vh;
+    height: 84vh;
   }
   .profileEntries {
     top: 5vh;
@@ -263,5 +265,7 @@ body {
   }
   .editButton {
     top: 10vh;
+    left: 50%;
+    transform: translate(-50%);
   }
 }

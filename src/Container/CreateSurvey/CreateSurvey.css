@@ -791,12 +791,27 @@ input[type="textSurveyPage"] {
 @media only screen and (max-width: 600px) {
   .createSurveyGreyBox {
     font-size: 16px;
-    left: 20px;
-    width: 720px;
+    left: 5vw;
+    width: 90vw;
+    overflow: hidden;
+    overflow-x: scroll;
+  }
+  .createSurveyBody{
+    width: 770px;
+    font-size: 16px;
+  }
+  .createSurveyHeaderTitleMain{
+    position: fixed;
+    font-size: 20px;
   }
   .createSurveyForm {
     font-size: 14px;
     width: 80vw;
     height: 60vh;
+  }
+  .createSurveyHeaderButton{
+    position: fixed;
+    height: 5vh;
+    left: 65vw;
   }
 }
