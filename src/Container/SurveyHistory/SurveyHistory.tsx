@@ -215,9 +215,9 @@ const SurveyHistory = () => {
                     </div>
                     <div className="surveyHistoryTotalResData">0</div>
                     <div className="surveyHistoryTotalRewardData">
-                      {data.totalReward}
+                      {data.totalReward} DFT
                     </div>
-                    <div className="surveyHistoryTimePeriod">
+                    <div className="surveyHistoryTimePeriodData">
                       {dateDiff === 1 ? dateDiff + " Day" : dateDiff + " Days"}
                     </div>
                   </div>

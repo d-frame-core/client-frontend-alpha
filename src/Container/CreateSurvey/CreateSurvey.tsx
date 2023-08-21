@@ -417,104 +417,10 @@ const CreateSurvey = () => {
       <>{Sidebar(6)}</>
       <div className="smopen">{Drawer(6)}</div>
       <div className="outbox">
-<<<<<<< HEAD
-      <div className="createSurveyBox">
-        <div className="createSurveyGreyBox">
-          <div className="createSurveyHeader">
-            <div className="createSurveyHeaderTitleMain">Create Survey</div>
-            <button
-              className="createSurveyHeaderButton"
-              onClick={() => setFormopen(true)}
-            >
-              Create
-            </button>
-          </div>
-          <div className="createSurveyBody">
-            <div className="createSurveyCategoriesBox">
-              <div className="surveyName">Survey Name</div>
-              <div className="totalQues">Total Questions</div>
-              <div className="totalRes">Rewards</div>
-              <div className="statusCampaign">Status</div>
-              <div className="editCampaign">Edit</div>
-              <div className="startDate">Start Date</div>
-              <div className="endDate">End Date</div>
-            </div>
-
-            <div className="createSurveyDetails">
-              {
-                // no data in fetched data
-                fetchedData.length === 0 && (
-                  <div className="noDataCreateSurvey">No Data to display</div>
-                )
-              }
-              {fetchedData.map((item: any) => {
-                return (
-                  <div
-                    className="surveyDetails"
-                    onClick={() => {
-                      navigate(`/survey-analytics/${item._id}`);
-                    }}
-                  >
-                    <div className="surveyNameDetails"> {item.surveyName} </div>
-                    <div className="totalQuesDetails">
-                      {" "}
-                      {item.totalQues.length}{" "}
-                    </div>
-                    <div className="totalResDetails"> {item.totalReward} </div>
-                    <div
-                      className="statusCampaignDetails"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      {item.statusCampaign === "active" ? (
-                        <FormControlLabel
-                          label=""
-                          className="themeSwitch"
-                          onClick={(event) => setSurveyInactive(item._id)}
-                          control={<Switch defaultChecked />}
-                        />
-                      ) : (
-                        <FormControlLabel
-                          label=""
-                          className="themeSwitch"
-                          onClick={() => setSurveyActive(item._id)}
-                          control={<Switch />}
-                        />
-                      )}
-                    </div>
-                    <div
-                      className="editIconCreateSurvey"
-                      onClick={(e) => getParticularSurvey(item._id, e)}
-                    >
-                      <EditIcon />
-                    </div>
-                    <div className="startDateDetails">
-                      {" "}
-                      {item.startDate.toString().slice(0, 10)}{" "}
-                    </div>
-                    <div className="endDateDetails">
-                      {" "}
-                      {item.endDate.toString().slice(0, 10)}{" "}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-        <Backdrop
-          open={formopen}
-          sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          className="backdrop"
-        >
-          <div className="createSurveyForm">
-            <div className="createSurveyFormHeader">
-              <div className="createSurveyHeaderTitle">Create Survey</div>
-=======
         <div className="createSurveyBox">
           <div className="createSurveyGreyBox">
             <div className="createSurveyHeader">
               <div className="createSurveyHeaderTitleMain">Create Survey</div>
->>>>>>> 3bdf2e1177fcec64e46074bcfb182d8386cf6f3d
               <button
                 className="createSurveyHeaderButton"
                 onClick={() => setFormopen(true)}
@@ -558,7 +464,7 @@ const CreateSurvey = () => {
                       </div>
                       <div className="totalResDetails">
                         {" "}
-                        {item.totalReward}{" "}
+                        {item.totalReward} DFT
                       </div>
                       <div
                         className="statusCampaignDetails"

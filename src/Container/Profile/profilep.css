@@ -92,12 +92,7 @@
   flex-direction: column;
   row-gap: 2vh;
   top: 8vh;
-<<<<<<< HEAD
-  left: 2vw;
-  width: 20vw;
-=======
   width: 16vw;
->>>>>>> 3bdf2e1177fcec64e46074bcfb182d8386cf6f3d
   height: 40vh;
   font-weight: 600;
 }

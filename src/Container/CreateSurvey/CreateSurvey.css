@@ -40,6 +40,7 @@
   background-color: #47b5ff;
   color: white;
   cursor: pointer;
+  padding: 1% 2%;
 }
 .createSurveyBody {
   display: flex;
@@ -157,6 +158,7 @@
   width: 100%;
   height: 11%;
   font-size: 100%;
+  font-weight: 500;
   border-bottom: 1px solid blue;
   cursor: pointer;
 }
@@ -170,16 +172,13 @@
 }
 .totalQuesDetails {
   /* border: 0.5px solid blue; */
-  width: 16%;
+  width: 17%;
 }
 .totalResDetails {
   /* border-right: 1px solid red; */
   width: 16.5%;
 }
 .statusCampaignDetails {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 7%;
   font-size: 100%;
   font-weight: 400;
@@ -187,7 +186,7 @@
   text-align: center;
   /* border: 0.5px solid blue; */
   padding: 0;
-  padding-left: 4%;
+  padding-left: 3%;
 }
 .themeSwitch {
   display: flex;
@@ -422,38 +421,7 @@ input[type="text"] {
   justify-content: center;
   align-items: center;
 }
-.modalFooterButtonInactive {
-  width: 25%;
-  height: 50%;
-  margin: 2%;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  font-size: 100%;
-  padding: 3%;
-  font-weight: 600;
-  background-color: #20f34e;
-  color: white;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-.modalFooterButtonClose {
-  width: 25%;
-  height: 50%;
-  margin: 2%;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  font-size: 100%;
-  padding: 3%;
-  font-weight: 600;
-  background-color: #47b5ff;
-  color: white;
-}
+
 .modalCloseButton {
   position: absolute;
   width: 7%;
@@ -529,35 +497,6 @@ input[type="text"] {
   justify-content: center;
   align-items: center;
 }
-.questionModalBodyDiv {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  min-height: 30%;
-  /* border: 1px solid blue; */
-  padding: 0;
-  margin: 0;
-  margin-top: 2%;
-}
-.questionModalBodySno {
-}
-.questionModalBodyQuestion {
-  padding-left: 10%;
-
-  text-align: left;
-}
-.questionModalBodyOption {
-  display: flex;
-  flex-direction: row;
-  width: 35%;
-  height: 100%;
-  /* border-right: 1px solid blue; */
-  padding: 0;
-  margin: 0;
-  justify-content: center;
-  align-items: center;
-}
-
 .questionsArrayInEdit {
   display: flex;
   flex-direction: column;
@@ -716,11 +655,11 @@ input[type="textSurveyPage"] {
     overflow: hidden;
     overflow-x: scroll;
   }
-  .createSurveyBody{
+  .createSurveyBody {
     width: 770px;
     font-size: 16px;
   }
-  .createSurveyHeaderTitleMain{
+  .createSurveyHeaderTitleMain {
     position: fixed;
     font-size: 20px;
   }
@@ -729,7 +668,7 @@ input[type="textSurveyPage"] {
     width: 80vw;
     height: 60vh;
   }
-  .createSurveyHeaderButton{
+  .createSurveyHeaderButton {
     position: fixed;
     height: 5vh;
     left: 65vw;
