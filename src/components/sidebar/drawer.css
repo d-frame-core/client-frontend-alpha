@@ -119,19 +119,19 @@ background: #017EFA;
 }
 .actnew1{
     position: relative;
-    width: 194px;
-    left: 6px;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    height: 5vh;
-    font-size: 80%;
-    background-color: white;
-    color: black;
-    font-weight: 600;
-    text-align: left;
-    text-indent: 20px;
-    border-top-left-radius: 1vh;
-    border-bottom-left-radius: 1vh;
+  width: 194px;
+  left: 10px;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  height: 5vh;
+  font-size: 82%;
+  background-color: white;
+  color: black;
+  font-weight: 500;
+  text-align: left;
+  text-indent: 5vw;
+  border-top-left-radius: 1vh;
+  border-bottom-left-radius: 1vh;
 }
 .actnew2{
     position: relative;
@@ -149,14 +149,9 @@ background: #017EFA;
     border-top-left-radius: 1vh;
     border-bottom-left-radius: 1vh;
 }
-@media only screen and (max-width:960px){
-    
-}
 
 @media only screen and (max-width:600px){
-   .actnew1{
-    height: 4vh;
-   }
+   
    .dftextnew{
     width: auto;
 }
