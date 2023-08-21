@@ -230,7 +230,7 @@ const SurveyHistory = () => {
                   severity="error"
                   sx={{ width: "20vw", height: "5vh" }}
                 >
-                  Deleted the Survey Succesfully
+                  Deleted the Ad Succesfully
                 </Alert>
               </Snackbar>
             )}
