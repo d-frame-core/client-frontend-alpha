@@ -44,7 +44,7 @@ export default function Help() {
 
   async function fetchDataFromBackend() {
     await axios
-      .get("http://localhost:3000/Help")
+      .get("http://localhost:8000/Help/userHelp/getAllHelp")
       .then((res) => {
         setHelpData(res.data);
       })
@@ -54,7 +54,7 @@ export default function Help() {
   }
   async function fetchFAQs() {
     await axios
-      .get("http://localhost:3000/F&Q/faq/")
+      .get("http://localhost:8000/F&Q/userFAQ/getAllFAQ")
       .then((res) => {
         setFaqData(res.data);
       })

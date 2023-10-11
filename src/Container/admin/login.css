@@ -1,0 +1,42 @@
+/* Login.css */
+
+/* Container for the entire login page */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0; /* Gray background color */
+  }
+  
+  /* Login form */
+  .login-form {
+    background-color: rgba(173, 216, 230, 0.7); /* Light blue box with opacity */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 400px;
+  }
+  
+  /* Additional styles for form elements, e.g., input fields and buttons */
+  .login-form input {
+    width: 94%;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .login-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff; /* Blue button color */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .login-form button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  

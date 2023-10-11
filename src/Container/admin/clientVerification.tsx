@@ -17,13 +17,14 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import Typography from '@mui/material/Typography';
+import { Grid } from '@mui/material';
+import DftStat from '../../components/admin/user/dashboard/SideTabs';
+import axios from 'axios';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Button } from '@mui/material';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -34,39 +35,6 @@ interface TablePaginationActionsProps {
     newPage: number,
   ) => void;
 }
-
-interface TabPanelProps {
-    children?: React.ReactNode;
-    index: number;
-    value: number;
-  }
-
-  function TabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
-  
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box sx={{ p: 3 }}>
-            <Typography>{children}</Typography>
-          </Box>
-        )}
-      </div>
-    );
-  }
-
-  function a11yProps(index: number) {
-    return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
-    };
-  }
 
 function TablePaginationActions(props: TablePaginationActionsProps) {
   const theme = useTheme();
@@ -128,40 +96,32 @@ function createData(name: string, calories: number, fat: number) {
   return { name, calories, fat };
 }
 
-const rows = [
-  createData('Cupcake', 305, 3.7),
-  createData('Donut', 452, 25.0),
-  createData('Eclair', 262, 16.0),
-  createData('Frozen yoghurt', 159, 6.0),
-  createData('Gingerbread', 356, 16.0),
-  createData('Honeycomb', 408, 3.2),
-  createData('Ice cream sandwich', 237, 9.0),
-  createData('Jelly Bean', 375, 0.0),
-  createData('KitKat', 518, 26.0),
-  createData('Lollipop', 392, 0.2),
-  createData('Marshmallow', 318, 0),
-  createData('Nougat', 360, 19.0),
-  createData('Oreo', 437, 18.0),
-].sort((a, b) => (a.calories < b.calories ? -1 : 1));
+interface CompanyData {
+  companyAddress1: string;
+  companyAddress2: string;
+  companyEmail: string;
+  companyName: string;
+  companyType: string;
+  jwtExpire: string;
+  jwtSession: string;
+  tags: string[];
+  userId: number;
+  walletAddress: string;
+  status:boolean;
+  __v: number;
+  _id: string;
+}
 
-export default function ClientVerification() {
+export default function ClientInfo() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [value, setValue] = React.useState(0);
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+  const [selectedRowData, setSelectedRowData] = React.useState<CompanyData | null>(null);
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const [fetchedData, setFetchedData] = React.useState<CompanyData[]>([]);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - fetchedData.length) : 0;
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -177,100 +137,229 @@ export default function ClientVerification() {
     setPage(0);
   };
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+  React.useEffect(() => {
+    // Make an HTTP GET request to your API endpoint
+    axios.get('http://localhost:8000/users/admin/unverifiedAds')
+      .then((response) => {
+        setFetchedData(response.data);
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
+  const handleRowClick = (rowData: CompanyData) => {
+    setSelectedRowData(rowData);
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  const handleDeactivate = (id:any) => {
+    console.log("deactivatig the data",id)
+   axios
+      .patch(`http://localhost:8000/users/admin/updateStatus/${selectedRowData?._id}`,{status:false})
+      .then((response) => {
+        // Update the active field in the state
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error('Error deactivating client:', error);
+      });
   };
 
 
   return (
     <Box sx={{ display: 'flex'}} >
       <Sidebar/>
-      <Box style={{background:"#f3f3f3",height:"100vh"}}>
-        <Header />
-
-        <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Client Verification</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            <Box>
-                <h3>Client Details</h3>
-                <ul>
-                    <li>Organisation Name - ABC</li>
-                    <li>Address - XYZ</li>
-                    <li>Phone Number - 9090909090</li>
-                    <li>Email - abc@gamil.com</li>
-                </ul>
+      <Box style={{background:"#f3f3f3"}}>
+        <Header /> 
+        <Box sx={{padding:"20px"}}>
+          <Box sx={{display:"flex"}}>
+            <Box sx={{background:"white",padding:"16px",borderRadius:"8px",marginBottom:"16px", textAlign:"center",fontSize:"20px"}}>
+               Dframe Client Stats
+              <DftStat />
             </Box>
-          </DialogContentText>
+            <Box sx={{padding:"4px", marginLeft:"16px",height:"375px",width:"450px"}}>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#ed5151",color:"white"}}>
+                  <p>Average Active Clients</p>
+                  <p>233</p>
+                </Box>
+              </Grid>
+              <Grid item xs={6}>
+                <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#4770f5",color:"white"}}>
+                  <p>DFT current value</p>
+                  <p>15 Rs</p>
+                </Box>
+              </Grid>
+              <Grid item xs={6}>
+                <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#e6de02",color:"white"}}>
+                  <p>Dft Client Bought</p>
+                  <p>15231 DFT</p>
+                </Box>
+              </Grid>
+              <Grid item xs={6}>
+                <Box sx={{background:"white",borderRadius:"8px",padding:"4px",textAlign:"center",fontSize:"18px",backgroundColor:"#2c9e41",color:"white"}}>
+                  <p>This mmonth pridiction Of DFT use</p>
+                  <p style={{marginTop:"-12px"}}>2123 DFT</p>
+                </Box>
+              </Grid>
+              <Grid item xs={6}>
+                <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#d91cd2",color:"white"}}>
+                  <p>Total Ads watched</p>
+                  <p>2321</p>
+                </Box>
+              </Grid>
+              <Grid item xs={6}>
+                <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#f09b2b",color:"white"}}>
+                  <p>Today's Ads Queue</p>
+                  <p>151</p>
+                </Box>
+              </Grid>
+            </Grid>
+            </Box>
+          </Box>
+
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+          <TableHead>
+            <TableRow>
+                <TableCell>
+                 Company Name
+                </TableCell>
+                <TableCell>
+                 Company Type
+                </TableCell>
+                <TableCell>
+                 Email
+                </TableCell>
+                <TableCell>
+                 Address
+                </TableCell>
+                <TableCell>
+                 WalletAddress
+                </TableCell>
+                <TableCell>
+                 Tags
+                </TableCell>
+            </TableRow>
+          </TableHead>
+            <TableBody>
+              {(rowsPerPage > 0
+                ? fetchedData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : fetchedData
+              ).map((row:CompanyData,index:any) => (
+                <TableRow key={index} onClick={() => handleRowClick(row)} sx={{cursor:"pointer"}}>
+                  <TableCell component="th" scope="row" >
+                    {row.companyName}
+                  </TableCell>
+                  <TableCell  align="left">
+                    {row.companyType}
+                  </TableCell>
+                  <TableCell  align="left">
+                    {
+                      row.companyEmail
+                    }
+                  </TableCell>
+                  <TableCell  align="left">
+                    {row.companyAddress1},{row.companyAddress2}
+                  </TableCell>
+                  <TableCell  align="left">
+                    {row.walletAddress}
+                  </TableCell>
+                  <TableCell  align="left">
+                    {
+                      row.tags.map((singleTag:string,index:number)=>(
+                        <span style={{border:"1px solid black", borderRadius:"4px",padding:"4px"}}>{singleTag}</span>
+                      ))
+                    }
+                  </TableCell>
+                </TableRow>
+              ))}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 53 * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                  colSpan={3}
+                  count={fetchedData.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  SelectProps={{
+                    inputProps: {
+                      'aria-label': 'rows per page',
+                    },
+                    native: true,
+                  }}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </TableContainer>
+
+        </Box>
+
+        <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>Client Info</DialogTitle>
+        <DialogContent>
+          {selectedRowData && (
+            <div>
+              <p>Company Name: {selectedRowData.companyName}</p>
+              <p>Company Type: {selectedRowData.companyType}</p>
+              <p>Email: {selectedRowData.companyEmail}</p>
+              <p>
+                Address: {selectedRowData.companyAddress1},{' '}
+                {selectedRowData.companyAddress2}
+              </p>
+              <p>WalletAddress: {selectedRowData.walletAddress}</p>
+              <p>Status: {selectedRowData.status?"true":"flase"}</p>
+              <p>
+                Tags:{' '}
+                {selectedRowData.tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    style={{
+                      border: '1px solid black' ,
+                      borderRadius: '4px',
+                      padding: '4px', 
+                      marginLeft:"8px"
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </p>
+            </div>
+          )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Request To ReUpload Details</Button>
-          <Button onClick={handleClose}>Verify</Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={()=>handleDeactivate(selectedRowData?._id)} // Disable button if already inactive
+          >
+            Deactivate
+          </Button>
+          <Button onClick={handleCloseDialog} color="primary">
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
 
-        <Box sx={{padding:"20px"}}>
-        <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>
-                        Name
-                        </TableCell>
-                        <TableCell>
-                        Age
-                        </TableCell>
-                        <TableCell>
-                        Id
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
-                    <TableBody>
-                    {(rowsPerPage > 0
-                        ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        : rows
-                    ).map((row) => (
-                        <TableRow key={row.name}>
-                        <TableCell component="th" scope="row">
-                        <Button  variant="text" onClick={handleClickOpen}>{row.name}</Button>
-                        </TableCell>
-                        <TableCell style={{ width: 160 }} align="right">
-                            {row.calories}
-                        </TableCell>
-                        <TableCell style={{ width: 160 }} align="right">
-                            {row.fat}
-                        </TableCell>
-                        </TableRow>
-                    ))}
-                    {emptyRows > 0 && (
-                        <TableRow style={{ height: 53 * emptyRows }}>
-                        <TableCell colSpan={6} />
-                        </TableRow>
-                    )}
-                    </TableBody>
-                    <TableFooter>
-                    <TableRow>
-                        <TablePagination
-                        rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                        colSpan={3}
-                        count={rows.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        SelectProps={{
-                            inputProps: {
-                            'aria-label': 'rows per page',
-                            },
-                            native: true,
-                        }}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                        ActionsComponent={TablePaginationActions}
-                        />
-                    </TableRow>
-                    </TableFooter>
-                </Table>
-                </TableContainer>
-        </Box>
+
       </Box>
     </Box>
   );

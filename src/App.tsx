@@ -36,7 +36,7 @@ import ClientSurveyVerify from "./Container/admin/clientSurveyVerification";
 import Reverification from "./Container/admin/reverification";
 import AdminWallet from "./Container/admin/adminWallet";
 import CampaignDetails from "./Container/CampaignDetails/Details";
-import AdminLogin from "./Container/Authentication/login";
+import AdminLogin from "./Container/admin/adminLogin";
 
 function App() {
   return (
@@ -45,6 +45,7 @@ function App() {
         <Routes>
           <Route path="/sidebar" element={<Sidebar />} />
           <Route path="" element={<Connect />} />
+          <Route path="/register1" element={<Register1 />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/wallet" element={<Wallet />} />
           <Route path="/help" element={<Help />} />
@@ -59,38 +60,37 @@ function App() {
           <Route path="/create-survey" element={<CreateSurvey />} />
           <Route path="/survey-history" element={<SurveyHistory />} />
           <Route path="/survey-analytics/*" element={<SurveyAnalytics />} />
+ 
+          {/* admin dashboard  */}
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/admin/userKyc" element={<KycUser />} />
+
           <Route path="/admin/userHelp" element={<UserHelp />} />
           <Route path="/admin/userLearn" element={<UserLearn />} />
+
           <Route path="/admin/clientHelp" element={<ClientHelp />} />
           <Route path="/admin/clientLearn" element={<ClientLearn />} />
-          <Route path="/admin/userAnalytics" element={<UserAnalytics />} />
-          <Route path="/admin/clientAnalytics" element={<ClientAnalytics />} />
           <Route path="/admin/clientInfo" element={<ClientInfo />} />
-          <Route
-            path="/admin/clientVerification"
-            element={<ClientVerification />}
-          />
-          <Route path="/admin/singleUser" element={<SingleUser />} />
-          <Route path="/admin/singleClient" element={<SingleClient />} />
-          <Route path="/admin/singleCampaign" element={<SingleCampaign />} />
           <Route path="/admin/campaignInfo" element={<CampaignInfo />} />
-          <Route
-            path="/admin/ClientCampaignVerify"
-            element={<ClientCampaignVerify />}
-          />
-          <Route
-            path="/admin/ClientSurveyVerify"
-            element={<ClientSurveyVerify />}
-          />
-          <Route path="/register1" element={<Register1 />} />
-          <Route path="/admin/reverification" element={<Reverification />} />
+          <Route path="/admin/ClientSurveyVerify" element={<ClientSurveyVerify />} />
+
+          {/* willbe added later */}
+          {/* <Route path="/admin/userAnalytics" element={<UserAnalytics />} /> */}
+          {/* <Route path="/admin/clientAnalytics" element={<ClientAnalytics />} /> */}
+          {/* <Route path="/admin/singleUser" element={<SingleUser />} /> */}
+          {/* <Route path="/admin/singleCampaign" element={<SingleCampaign />} /> */}
+          {/* <Route path="/admin/singleClient" element={<SingleClient />} />  */}
+          {/* <Route path="/admin/clientVerification" element={<ClientVerification />}/> */}
+          {/* <Route path="/admin/ClientCampaignVerify" element={<ClientCampaignVerify />} /> */}
+
           <Route path="/admin/adminWallet" element={<AdminWallet />} />
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/login" element={<AdminWallet />} />
+
+          {/* after the user modal complete  */}
+          <Route path="/admin/userKyc" element={<KycUser />} />
+          <Route path="/admin/reverification" element={<Reverification />} />
+
         </Routes>
-      </Router>
+      </Router> 
     </div>
   );
 }

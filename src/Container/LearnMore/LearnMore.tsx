@@ -42,7 +42,7 @@ export default function LearnMore() {
   }, [open]);
   async function fetchDataFromBackend() {
     await axios
-      .get("http://localhost:3000/Learnmore")
+      .get("http://localhost:8000/Learnmore/readLearnMore")
       .then((res) => {
         setFetchedData(res.data);
       })
@@ -72,7 +72,7 @@ export default function LearnMore() {
   }, [(window as any).ethereum]);
   async function fetchFAQs() {
     await axios
-      .get("http://localhost:3000/F&Q/faq/")
+      .get("http://localhost:8000/F&Q/userFAQ/getAllFAQ/")
       .then((res) => {
         setFaqData(res.data);
       })

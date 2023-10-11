@@ -1,5 +1,5 @@
 //  importing all necessary dependencies and modules
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./Register.css";
 import logo from "../../assets/dframe.png";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +28,7 @@ const Register: React.FC = () => {
 
   // initializing firebase
   const app = initializeApp(firebaseConfig); // initializing firebase app
-  const auth = getAuth(); // getting auth object from firebase
+  const auth = getAuth(app); // getting auth object from firebase
   auth.languageCode = "en"; // setting language code to english
 
   //  defining state variables
@@ -42,15 +42,39 @@ const Register: React.FC = () => {
   const [companyAddress2, setCompanyAddress2] = useState("");
   const [verified, setVerified] = useState(false);
   const [recaptchaVerifier, setRecaptchaVerifier] = useState(false);
+  const [metamaskAddress, setMetamaskAddress] = useState("");
 
   let appVerifier = (window as any).recaptchaVerifier; // defining recaptcha verifier
+
+  useEffect(() => {
+    // Create the RecaptchaVerifier
+    const collectMetamaskAddress = async () => {
+      try {
+        if (window.ethereum) {
+          const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+          if (accounts[0]) {
+            const metamaskAddress = accounts[0];
+            setMetamaskAddress(metamaskAddress);
+            console.log(metamaskAddress)
+          }else{
+            console.log("cannot find the wallet address")
+          }
+        }
+      } catch (error) {
+        console.error("Error collecting Metamask address:", error);
+        // Handle error if necessary
+      }
+    };
+
+    collectMetamaskAddress();
+  }, [auth]); // Include auth in the dependency array if needed
+
 
   //  function to handle submit phone number
   const handleSubmitPhoneNumber = async (event: any) => {
     event.preventDefault();
     setRecaptchaVerifier(true);
     appVerifier = new RecaptchaVerifier("recaptcha-container", {}, auth);
-    console.log("appVerifier", appVerifier);
     try {
       const result = await signInWithPhoneNumber(
         auth,
@@ -83,13 +107,13 @@ const Register: React.FC = () => {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     await axios
-      .post("http://localhost:3000/users/signup", {
+      .post("http://localhost:8000/users/signup", {
         companyName: companyName,
         companyType: companyType,
         companyEmail: companyEmail,
         companyAddress1: companyAddress1,
         companyAddress2: companyAddress2,
-        walletAddress: walletAddress,
+        walletAddress: metamaskAddress,
       })
       .then((response) => {
         console.log(response.data.user._id);
@@ -174,7 +198,6 @@ const Register: React.FC = () => {
             onChange={(e) => setCompanyEmail(e.target.value)}
           />
           <span>Company Email</span>
-          <button className="submitOTPVerify">Verify</button>
         </label>
 
         {!confirmationResult ? (

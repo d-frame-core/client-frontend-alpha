@@ -989,7 +989,7 @@ export default function Wallet() {
             <p>Wallet Balance : {walletBalance} DFT</p>
             {/* {walletAddress} */}
             <div>
-              <p className="userAddress">{_walletAddress.slice(0, 20)}....</p>
+              <p className="userAddress">{_walletAddress.slice(0, 10)}....{_walletAddress.slice(-10, -1)}</p>
               <div
                 title="Copy your wallet address"
                 onClick={() => copyContent(_walletAddress)}

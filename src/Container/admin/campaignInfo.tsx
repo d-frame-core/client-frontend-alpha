@@ -19,6 +19,12 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import { Grid } from '@mui/material';
 import DftStat from '../../components/admin/user/dashboard/SideTabs';
+import axios from 'axios';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -29,7 +35,6 @@ interface TablePaginationActionsProps {
     newPage: number,
   ) => void;
 }
-
 
 function TablePaginationActions(props: TablePaginationActionsProps) {
   const theme = useTheme();
@@ -107,13 +112,36 @@ const rows = [
   createData('Oreo', 437, 18.0),
 ].sort((a, b) => (a.calories < b.calories ? -1 : 1));
 
-export default function CampaignInfo() {
+interface AdContent {
+  adContent: string;
+  adName: string;
+  assignedUsers: number;
+  bidAmount: number;
+  campaignName: string;
+  campaignType: string;
+  clientId: string;
+  endDate: string;
+  perDay: number;
+  startDate: string;
+  tags: string[];
+  totalDays: number;
+  type: string;
+  status:string;
+  users: any[]; // You can replace 'any' with a specific interface if you have one for users.
+  __v: number;
+  _id: string;
+}
+
+export default function ClientInfo() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [selectedRowData, setSelectedRowData] = React.useState<AdContent | null>(null);
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const [fetchedData, setFetchedData] = React.useState<AdContent[]>([]);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - fetchedData.length) : 0;
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -129,15 +157,64 @@ export default function CampaignInfo() {
     setPage(0);
   };
 
+  React.useEffect(() => {
+    // Make an HTTP GET request to your API endpoint
+    axios.get('http://localhost:8000/ads/getAllads')
+      .then((response) => {
+        setFetchedData(response.data.reverse());
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
+  const handleRowClick = (rowData: AdContent) => {
+    setSelectedRowData(rowData);
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  const handlePause = (id:any) => {
+   axios
+      .patch(`http://localhost:8000/ads/admin/pauseAd/${id}`)
+      .then((response) => {
+        // Update the active field in the state
+        console.log(response.data);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error('Error deactivating client:', error);
+      });
+  };
+
+  const handleVerify = (id:any) => {
+   axios
+      .patch(`http://localhost:8000/ads/admin/verifyAd/${id}`)
+      .then((response) => {
+        // Update the active field in the state
+        console.log(response.data);
+        window.location.reload();
+        
+      })
+      .catch((error) => {
+        console.error('Error deactivating client:', error);
+      });
+  };
+
+
   return (
     <Box sx={{ display: 'flex'}} >
       <Sidebar/>
       <Box style={{background:"#f3f3f3"}}>
-        <Header />
+        <Header /> 
         <Box sx={{padding:"20px"}}>
           <Box sx={{display:"flex"}}>
             <Box sx={{background:"white",padding:"16px",borderRadius:"8px",marginBottom:"16px", textAlign:"center",fontSize:"20px"}}>
-               Dframe Campaigns Stats
+               Dframe Client Stats
               <DftStat />
             </Box>
             <Box sx={{padding:"4px", marginLeft:"16px",height:"375px",width:"450px"}}>
@@ -168,54 +245,73 @@ export default function CampaignInfo() {
               </Grid>
               <Grid item xs={6}>
                 <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#d91cd2",color:"white"}}>
-                  <p>Ad watched</p>
+                  <p>Total Ads watched</p>
                   <p>2321</p>
                 </Box>
               </Grid>
               <Grid item xs={6}>
                 <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#f09b2b",color:"white"}}>
-                  <p>Today's Ad Queue</p>
+                  <p>Today's Ads Queue</p>
                   <p>151</p>
                 </Box>
               </Grid>
             </Grid>
             </Box>
           </Box>
+
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <TableHead>
             <TableRow>
                 <TableCell>
-                 Campaign name
+                 Campaign Name
                 </TableCell>
                 <TableCell>
-                 Type
+                Campaign Type
                 </TableCell>
                 <TableCell>
-                 Seen
+                 Ad Name
                 </TableCell>
                 <TableCell>
-                 Rewards
+                 Status
+                </TableCell>
+                <TableCell>
+                 Client ID
+                </TableCell>
+                <TableCell>
+                 Tags
                 </TableCell>
             </TableRow>
           </TableHead>
             <TableBody>
               {(rowsPerPage > 0
-                ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : rows
-              ).map((row,index) => (
-                <TableRow key={row.name}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
+                ? fetchedData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : fetchedData
+              ).map((row:AdContent,index:any) => (
+                <TableRow key={index} onClick={() => handleRowClick(row)} sx={{cursor:"pointer"}}>
+                  <TableCell component="th" scope="row" >
+                    {row.campaignName}
                   </TableCell>
-                  <TableCell style={{ width: 160 }} align="left">
-                    {index%2==0?"Ad Campaign":"survey"}
+                  <TableCell  align="left">
+                    {row.campaignType}
                   </TableCell>
-                  <TableCell style={{ width: 160 }} align="right">
-                    {row.calories}
+                  <TableCell  align="left">
+                    {
+                      row.adName
+                    }
                   </TableCell>
-                  <TableCell style={{ width: 160 }} align="right">
-                    {row.fat}
+                  <TableCell  align="left" style={{ color: row.status === 'unverified' ? 'orange' : (row.status === 'paused' ? 'red' : 'green') }}>
+                    {row.status}
+                  </TableCell>
+                  <TableCell  align="left">
+                    {row.clientId}
+                  </TableCell>
+                  <TableCell  align="left">
+                    {
+                      row.tags.map((singleTag:string,index:number)=>(
+                        <span key={index} style={{border:"1px solid black", borderRadius:"4px",padding:"4px"}}>{singleTag}</span>
+                      ))
+                    }
                   </TableCell>
                 </TableRow>
               ))}
@@ -230,7 +326,7 @@ export default function CampaignInfo() {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                   colSpan={3}
-                  count={rows.length}
+                  count={fetchedData.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   SelectProps={{
@@ -247,7 +343,95 @@ export default function CampaignInfo() {
             </TableFooter>
           </Table>
         </TableContainer>
+
         </Box>
+
+        <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>Client Info</DialogTitle>
+        <DialogContent>
+          {selectedRowData && ( 
+            <div>
+              <p>Campagin Name: {selectedRowData.campaignName}</p>
+              <p>Capaign Type: {selectedRowData.campaignType}</p>
+              <p>Ad Content: {selectedRowData.adContent}</p>
+              <p>
+                Ad Name: {selectedRowData.adName}
+              </p>
+              <p>Client Id: {selectedRowData.clientId}</p>
+              <p>Start Date: {selectedRowData.startDate}</p>
+              <p>End Date: {selectedRowData.endDate}</p>
+              <p>
+                Tags:{' '}
+                {selectedRowData.tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    style={{
+                      border: '1px solid black' ,
+                      borderRadius: '4px',
+                      padding: '4px', 
+                      marginLeft:"8px"
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </p>
+              {/* <p>
+                Users:{' '}
+                {selectedRowData.users.map((tag, index) => (
+                  <span
+                    key={index}
+                    style={{
+                      border: '1px solid black' ,
+                      borderRadius: '4px',
+                      padding: '4px', 
+                      marginLeft:"8px"
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </p> */}
+              <p>Assigned Users: {selectedRowData.assignedUsers}</p>
+              <p>Bid Amount: {selectedRowData.bidAmount}</p>
+              <p>Per Day Spending: {selectedRowData.perDay}</p>
+              <p>Type: {selectedRowData.type}</p>
+              <p >Status: <span style={{ color: selectedRowData.status === 'unverified' ? 'orange' : (selectedRowData.status === 'paused' ? 'red' : 'green') }}>{selectedRowData.status}</span></p>
+            </div>
+          )}
+        </DialogContent>
+        <DialogActions>
+        <Button
+          variant="contained"
+          style={{
+            backgroundColor:
+              selectedRowData?.status === "unverified"
+                ? "green"
+                : selectedRowData?.status === "paused"
+                ? "green"
+                : "red",
+            color: "white",
+          }}
+          onClick={() => {
+            if (selectedRowData?.status === "unverified"||selectedRowData?.status === "paused") {
+              handleVerify(selectedRowData?._id);
+            } else {
+              handlePause(selectedRowData?._id);
+            }
+          }}
+          disabled={selectedRowData?.status === "inactive"}
+        >
+          {
+            selectedRowData?.status == "unverified"? "Verify": selectedRowData?.status == "paused"? "Start": "Pause"
+          }
+        </Button>
+          <Button onClick={handleCloseDialog} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+
       </Box>
     </Box>
   );

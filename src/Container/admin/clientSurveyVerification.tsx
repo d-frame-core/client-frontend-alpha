@@ -17,15 +17,14 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';import DeleteIcon from '@mui/icons-material/Delete';
-import Button from '@mui/material/Button';
 import { Grid } from '@mui/material';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import DftStat from '../../components/admin/user/dashboard/SideTabs';
+import axios from 'axios';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -93,47 +92,40 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-function createData(name: string, lastUpdated: any) {
-  return { name, lastUpdated };
+function createData(name: string, calories: number, fat: number) {
+  return { name, calories, fat };
 }
 
-const rows = [
-  createData('What is Dframe', "11/12/22"),
-  createData('How can I use Dframe', "12/12/22"),
-  createData('What are the benefits of Dframe', "13/12/22"),
-  createData('Is my data safe with Dframe', "14/12/22"),
-  createData('How does dframe work', "15/12/22"),
-  createData('What is Dframe', "11/12/22"),
-  createData('How can I use Dframe', "12/12/22"),
-  createData('What are the benefits of Dframe', "13/12/22"),
-  createData('Is my data safe with Dframe', "14/12/22"),
-  createData('How does dframe work', "15/12/22"),
-]
+interface SurveyData {
+  clientId: string;
+  endDate: string;
+  startDate: string;
+  statusCampaign: string;
+  status: string;
+  surveyDescription: string;
+  surveyName: string;
+  totalQues: [{
+    questionNumber: number;
+    title: string;
+    options: string[];
+    userAnswers: string[][];
+  }];
+  totalRes: number;
+  totalReward: number;
+  __v: number;
+  _id: string;
+}
 
-export default function ClientSurveyVerify() {
+export default function ClientInfo() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [open, setOpen] = React.useState(false);
-  const [openEdit, setOpenEdit] = React.useState(false);
+  const [selectedRowData, setSelectedRowData] = React.useState<SurveyData | null>(null);
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const [fetchedData, setFetchedData] = React.useState<SurveyData[]>([]);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleClickOpenEdit = () => {
-    setOpenEdit(true);
-  };
-
-  const handleCloseEdit = () => {
-    setOpenEdit(false);
-  };
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - fetchedData.length) : 0;
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -149,67 +141,71 @@ export default function ClientSurveyVerify() {
     setPage(0);
   };
 
+  React.useEffect(() => {
+    // Make an HTTP GET request to your API endpoint
+    axios.get('http://localhost:8000/survey/getAll')
+      .then((response) => {
+        setFetchedData(response.data.reverse());
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
+  const handleRowClick = (rowData: SurveyData) => {
+    setSelectedRowData(rowData);
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  const handlePause = (id:any) => {
+   axios
+      .put(`http://localhost:8000/survey/stopStatus/${id}`)
+      .then((response) => {
+        // Update the active field in the state
+        console.log(response.data);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error('Error deactivating client:', error);
+      });
+  };
+
+  const handleVerify = (id:any) => {
+   axios
+      .put(`http://localhost:8000/survey/verifyStatus/${id}`)
+      .then((response) => {
+        // Update the active field in the state
+        console.log(response.data);
+        window.location.reload();
+        
+      })
+      .catch((error) => {
+        console.error('Error deactivating client:', error);
+      });
+  };
+
+
   return (
     <Box sx={{ display: 'flex'}} >
       <Sidebar/>
-      <Box style={{background:"#f3f3f3",minHeight:"100vh"}}>
-        <Header />
-
-        <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Survey Name</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            <Box>
-                <h3>Survey Description- here comes the description of the Survey</h3>
-                <p>Survey Info</p>
-                <ul>
-                    <li>Starting date-  22/1/2023</li>
-                    <li>Starting date-  26/1/2023</li>
-                    <li>Bis Stragegy- 32</li>
-                </ul>
-                <Box sx={{display:"flex"}}>
-                  <p>Tags - </p>
-                  <p style={{border:"2px #1aa5eb solid", padding:"4px 8px",background:"#1aa5eb",color:"white", borderRadius:"10px", marginLeft:"10px"}}>Men</p>
-                  <p style={{border:"2px #1aa5eb solid", padding:"4px 8px",background:"#1aa5eb",color:"white", borderRadius:"10px", marginLeft:"10px"}}>Boys</p>
-                  <p style={{border:"2px #1aa5eb solid", padding:"4px 8px",background:"#1aa5eb",color:"white", borderRadius:"10px", marginLeft:"10px"}}>Rich</p>
-                  <p style={{border:"2px #1aa5eb solid", padding:"4px 8px",background:"#1aa5eb",color:"white", borderRadius:"10px", marginLeft:"10px"}}>Iphone</p>
-                </Box>
-            </Box>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
-        </DialogActions>
-      </Dialog>
-
-      <Dialog open={openEdit} onClose={handleCloseEdit} maxWidth="md">
-        <DialogTitle>Verify Content</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            <Box>
-              Here will come the content with dft per ad and other details
-            </Box>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseEdit}>Verify</Button>
-          <Button onClick={handleCloseEdit} style={{color:"red"}}>Reject</Button>
-          <Button onClick={handleCloseEdit}>Close</Button>
-        </DialogActions>
-      </Dialog>
-        
+      <Box style={{background:"#f3f3f3"}}>
+        <Header /> 
         <Box sx={{padding:"20px"}}>
-
-        <Box sx={{display:"flex"}}>
+          <Box sx={{display:"flex"}}>
             <Box sx={{background:"white",padding:"16px",borderRadius:"8px",marginBottom:"16px", textAlign:"center",fontSize:"20px"}}>
-               Survey Stats
+               Dframe Client Stats
               <DftStat />
             </Box>
             <Box sx={{padding:"4px", marginLeft:"16px",height:"375px",width:"450px"}}>
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#ed5151",color:"white"}}>
-                  <p>Average Active Users</p>
+                  <p>Average Active Clients</p>
                   <p>233</p>
                 </Box>
               </Grid>
@@ -221,13 +217,13 @@ export default function ClientSurveyVerify() {
               </Grid>
               <Grid item xs={6}>
                 <Box sx={{background:"white",borderRadius:"8px",padding:"10px",textAlign:"center",fontSize:"18px",backgroundColor:"#e6de02",color:"white"}}>
-                  <p>Dft Distributed to Users</p>
+                  <p>Dft Client Bought</p>
                   <p>15231 DFT</p>
                 </Box>
               </Grid>
               <Grid item xs={6}>
                 <Box sx={{background:"white",borderRadius:"8px",padding:"4px",textAlign:"center",fontSize:"18px",backgroundColor:"#2c9e41",color:"white"}}>
-                  <p>To be distributed this month</p>
+                  <p>This mmonth pridiction Of DFT use</p>
                   <p style={{marginTop:"-12px"}}>2123 DFT</p>
                 </Box>
               </Grid>
@@ -246,43 +242,58 @@ export default function ClientSurveyVerify() {
             </Grid>
             </Box>
           </Box>
-            
+
         <TableContainer component={Paper}>
-        <Box sx={{padding:"10px",marginLeft:"10px",fontWeight:"500",fontSize:"180%"}}>Client Survey Verification</Box>
           <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <TableHead>
-            <TableRow >
-                <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
-                 Client Name
+            <TableRow>
+                <TableCell>
+                 Survey Name
                 </TableCell>
-                <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
-                 Survey Date
+                <TableCell>
+                Client Id
                 </TableCell>
-                <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
-                 Verify
+                <TableCell>
+                Start Date
                 </TableCell>
-                <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
-                 Delete
+                <TableCell>
+                 End Date
+                </TableCell>
+                <TableCell>
+                 Status
+                </TableCell>
+                <TableCell>
+                 Total Questions
                 </TableCell>
             </TableRow>
           </TableHead>
             <TableBody>
               {(rowsPerPage > 0
-                ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : rows
-              ).map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell width={620} onClick={handleClickOpen} sx={{cursor:"pointer",paddingX:"40px",'&:hover':{fontSize:"105%"}}}>
-                  {row.name}
+                ? fetchedData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : fetchedData
+              ).map((row:SurveyData,index:any) => (
+                <TableRow key={index} onClick={() => handleRowClick(row)} sx={{cursor:"pointer"}}>
+                  <TableCell component="th" scope="row" >
+                    {row.surveyName}
                   </TableCell>
-                  <TableCell >
-                    {row.lastUpdated}
+                  <TableCell  align="left">
+                    {row.clientId}
                   </TableCell>
-                  <TableCell onClick={handleClickOpenEdit} sx={{cursor:"pointer"}}>
-                    <LibraryAddCheckIcon sx={{color:"#ae08c4"}}/>
+                  <TableCell  align="left">
+                    {
+                      row.startDate
+                    }
                   </TableCell>
-                  <TableCell >
-                    <DeleteIcon sx={{color:"#db040f"}}/>
+                  <TableCell  align="left">
+                    {
+                      row.endDate
+                    }
+                  </TableCell>
+                  <TableCell  align="left" style={{ color: row.statusCampaign === 'unverified' ? 'orange' : (row.statusCampaign === 'stop' ? 'red' : 'green') }}>
+                    {row.statusCampaign}
+                  </TableCell>
+                  <TableCell  align="left">
+                    {row.totalQues.length}
                   </TableCell>
                 </TableRow>
               ))}
@@ -297,7 +308,7 @@ export default function ClientSurveyVerify() {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                   colSpan={3}
-                  count={rows.length}
+                  count={fetchedData.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   SelectProps={{
@@ -314,7 +325,60 @@ export default function ClientSurveyVerify() {
             </TableFooter>
           </Table>
         </TableContainer>
+
         </Box>
+
+        <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>Client Info</DialogTitle>
+        <DialogContent>
+          {selectedRowData && ( 
+            <div>
+              <p>Survey Name: {selectedRowData.surveyName}</p>
+              <p>Description: {selectedRowData.surveyDescription}</p>
+              <p>ClientId: {selectedRowData.clientId}</p>
+              <p>
+                Start Date: {selectedRowData.startDate}
+              </p>
+              <p>End Date: {selectedRowData.endDate}</p>
+              <p>Start Date: {selectedRowData.startDate}</p>
+              <p>Total Response: {selectedRowData.totalRes}</p>
+              <p>Total Rewards: {selectedRowData.totalReward}</p>
+              <p >Status: <span style={{ color: selectedRowData.statusCampaign === 'unverified' ? 'orange' : (selectedRowData.statusCampaign === 'stop' ? 'red' : 'green') }}>{selectedRowData.statusCampaign}</span></p>
+            </div>
+          )}
+        </DialogContent>
+        <DialogActions>
+        <Button
+          variant="contained"
+          style={{
+            backgroundColor:
+              selectedRowData?.statusCampaign === "unverified"
+                ? "green"
+                : selectedRowData?.statusCampaign === "stop"
+                ? "green"
+                : "red",
+            color: "white",
+          }}
+          onClick={() => {
+            if (selectedRowData?.statusCampaign === "unverified"||selectedRowData?.statusCampaign === "stop") {
+              handleVerify(selectedRowData?._id);
+            } else {
+              handlePause(selectedRowData?._id);
+            }
+          }}
+          disabled={selectedRowData?.statusCampaign === "inactive"}
+        >
+          {
+            selectedRowData?.statusCampaign == "unverified"? "Verify": selectedRowData?.statusCampaign == "stop"? "Start": "Pause"
+          }
+        </Button>
+          <Button onClick={handleCloseDialog} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+
       </Box>
     </Box>
   );

@@ -19,6 +19,12 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import { Grid } from '@mui/material';
 import DftStat from '../../components/admin/user/dashboard/SideTabs';
+import axios from 'axios';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -29,7 +35,6 @@ interface TablePaginationActionsProps {
     newPage: number,
   ) => void;
 }
-
 
 function TablePaginationActions(props: TablePaginationActionsProps) {
   const theme = useTheme();
@@ -107,13 +112,32 @@ const rows = [
   createData('Oreo', 437, 18.0),
 ].sort((a, b) => (a.calories < b.calories ? -1 : 1));
 
+interface CompanyData {
+  companyAddress1: string;
+  companyAddress2: string;
+  companyEmail: string;
+  companyName: string;
+  companyType: string;
+  jwtExpire: string;
+  jwtSession: string;
+  tags: string[];
+  userId: number;
+  walletAddress: string;
+  status:boolean;
+  __v: number;
+  _id: string;
+}
+
 export default function ClientInfo() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [selectedRowData, setSelectedRowData] = React.useState<CompanyData | null>(null);
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const [fetchedData, setFetchedData] = React.useState<CompanyData[]>([]);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - fetchedData.length) : 0;
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -129,11 +153,46 @@ export default function ClientInfo() {
     setPage(0);
   };
 
+  React.useEffect(() => {
+    // Make an HTTP GET request to your API endpoint
+    axios.get('http://localhost:8000/users/admin/getAllUsers')
+      .then((response) => {
+        setFetchedData(response.data);
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
+  const handleRowClick = (rowData: CompanyData) => {
+    setSelectedRowData(rowData);
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  const handleDeactivate = (id:any) => {
+    console.log("deactivatig the data",id)
+   axios
+      .patch(`http://localhost:8000/users/admin/updateStatus/${selectedRowData?._id}`,{status:false})
+      .then((response) => {
+        // Update the active field in the state
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error('Error deactivating client:', error);
+      });
+  };
+
+
   return (
     <Box sx={{ display: 'flex'}} >
       <Sidebar/>
       <Box style={{background:"#f3f3f3"}}>
-        <Header />
+        <Header /> 
         <Box sx={{padding:"20px"}}>
           <Box sx={{display:"flex"}}>
             <Box sx={{background:"white",padding:"16px",borderRadius:"8px",marginBottom:"16px", textAlign:"center",fontSize:"20px"}}>
@@ -181,35 +240,60 @@ export default function ClientInfo() {
             </Grid>
             </Box>
           </Box>
+
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <TableHead>
             <TableRow>
                 <TableCell>
-                 Name
+                 Company Name
                 </TableCell>
                 <TableCell>
-                 Age
+                 Company Type
                 </TableCell>
                 <TableCell>
-                 Id
+                 Email
+                </TableCell>
+                <TableCell>
+                 Address
+                </TableCell>
+                <TableCell>
+                 WalletAddress
+                </TableCell>
+                <TableCell>
+                 Tags
                 </TableCell>
             </TableRow>
           </TableHead>
             <TableBody>
               {(rowsPerPage > 0
-                ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : rows
-              ).map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
+                ? fetchedData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : fetchedData
+              ).map((row:CompanyData,index:any) => (
+                <TableRow key={index} onClick={() => handleRowClick(row)} sx={{cursor:"pointer"}}>
+                  <TableCell component="th" scope="row" >
+                    {row.companyName}
                   </TableCell>
-                  <TableCell style={{ width: 160 }} align="right">
-                    {row.calories}
+                  <TableCell  align="left">
+                    {row.companyType}
                   </TableCell>
-                  <TableCell style={{ width: 160 }} align="right">
-                    {row.fat}
+                  <TableCell  align="left">
+                    {
+                      row.companyEmail
+                    }
+                  </TableCell>
+                  <TableCell  align="left">
+                    {row.companyAddress1},{row.companyAddress2}
+                  </TableCell>
+                  <TableCell  align="left">
+                    {row.walletAddress}
+                  </TableCell>
+                  <TableCell  align="left">
+                    {
+                      row.tags.map((singleTag:string,index:number)=>(
+                        <span style={{border:"1px solid black", borderRadius:"4px",padding:"4px"}}>{singleTag}</span>
+                      ))
+                    }
                   </TableCell>
                 </TableRow>
               ))}
@@ -224,7 +308,7 @@ export default function ClientInfo() {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                   colSpan={3}
-                  count={rows.length}
+                  count={fetchedData.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   SelectProps={{
@@ -241,7 +325,57 @@ export default function ClientInfo() {
             </TableFooter>
           </Table>
         </TableContainer>
+
         </Box>
+
+        <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>Client Info</DialogTitle>
+        <DialogContent>
+          {selectedRowData && ( 
+            <div>
+              <p>Company Name: {selectedRowData.companyName}</p>
+              <p>Company Type: {selectedRowData.companyType}</p>
+              <p>Email: {selectedRowData.companyEmail}</p>
+              <p>
+                Address: {selectedRowData.companyAddress1},{' '}
+                {selectedRowData.companyAddress2}
+              </p>
+              <p>WalletAddress: {selectedRowData.walletAddress}</p>
+              <p>Status: {selectedRowData.status?"true":"flase"}</p>
+              <p>
+                Tags:{' '}
+                {selectedRowData.tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    style={{
+                      border: '1px solid black' ,
+                      borderRadius: '4px',
+                      padding: '4px', 
+                      marginLeft:"8px"
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </p>
+            </div>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={()=>handleDeactivate(selectedRowData?._id)} // Disable button if already inactive
+          >
+            Deactivate
+          </Button>
+          <Button onClick={handleCloseDialog} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+
       </Box>
     </Box>
   );

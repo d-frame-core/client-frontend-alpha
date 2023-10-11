@@ -121,7 +121,6 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
@@ -131,9 +130,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import df from "../../../assets/dframe.png";
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -247,6 +245,7 @@ export default function Sidebar() {
           >User</Box>
 
             <ListItem disablePadding sx={{ display: 'block' }}>
+            <Link to="/admin/reverification" style={{ textDecoration: "none", color: "white" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -265,9 +264,11 @@ export default function Sidebar() {
                 </ListItemIcon>
                 <ListItemText primary="User Info" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              </Link>
             </ListItem>
 
             <ListItem disablePadding sx={{ display: 'block' }}>
+            <Link to="/admin/userKyc" style={{ textDecoration: "none", color: "white" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -286,9 +287,11 @@ export default function Sidebar() {
                 </ListItemIcon>
                 <ListItemText primary="User KYC" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              </Link>
             </ListItem>
 
             <ListItem disablePadding sx={{ display: 'block' }}>
+            <Link to="/admin/userHelp" style={{ textDecoration: "none", color: "white" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -307,10 +310,12 @@ export default function Sidebar() {
                 </ListItemIcon>
                 <ListItemText primary="Analytics" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+            </Link>
             </ListItem>
           
 
             <ListItem disablePadding sx={{ display: 'block' }}>
+            <Link to="/admin/userHelp" style={{ textDecoration: "none", color: "white" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -329,9 +334,11 @@ export default function Sidebar() {
                 </ListItemIcon>
                 <ListItemText primary="Edit Help" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              </Link>
             </ListItem>
 
             <ListItem disablePadding sx={{ display: 'block' }}>
+            <Link to="/admin/userLearn" style={{ textDecoration: "none", color: "white" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -350,6 +357,7 @@ export default function Sidebar() {
                 </ListItemIcon>
                 <ListItemText primary="Edit Learn" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+            </Link>
             </ListItem>
           
         </List>
@@ -366,6 +374,7 @@ export default function Sidebar() {
           >Client</Box>
 
             <ListItem disablePadding sx={{ display: 'block' }}>
+            <Link to="/admin/clientInfo" style={{ textDecoration: "none", color: "white" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -384,9 +393,11 @@ export default function Sidebar() {
                 </ListItemIcon>
                 <ListItemText primary="Client Info" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              </Link>
             </ListItem>
 
             <ListItem disablePadding sx={{ display: 'block' }}>
+            <Link to="/admin/campaignInfo" style={{ textDecoration: "none", color: "white" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -403,11 +414,13 @@ export default function Sidebar() {
                 >
                   <GradingIcon sx={{ color: 'white' }}/>
                 </ListItemIcon>
-                <ListItemText primary="Verification" sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary="Campaign" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              </Link>
             </ListItem>
 
             <ListItem disablePadding sx={{ display: 'block' }}>
+            <Link to="/admin/campaignInfo" style={{ textDecoration: "none", color: "white" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -424,12 +437,14 @@ export default function Sidebar() {
                 >
                   <AutoGraphIcon sx={{ color: 'white' }}/>
                 </ListItemIcon>
-                <ListItemText primary="Analytics" sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary="Survey" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              </Link>
             </ListItem>
           
 
             <ListItem disablePadding sx={{ display: 'block' }}>
+            <Link to="/admin/clientHelp" style={{ textDecoration: "none", color: "white" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -448,9 +463,11 @@ export default function Sidebar() {
                 </ListItemIcon>
                 <ListItemText primary="Edit Help" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              </Link>
             </ListItem>
 
             <ListItem disablePadding sx={{ display: 'block' }}>
+            <Link to="/admin/clientLearn" style={{ textDecoration: "none", color: "white" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -469,6 +486,7 @@ export default function Sidebar() {
                 </ListItemIcon>
                 <ListItemText primary="Edit Learn" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              </Link>
             </ListItem>
           
         </List>

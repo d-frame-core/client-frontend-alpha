@@ -19,13 +19,14 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
+import EditDialog from '../../components/admin/user/learnMore/EditLearn';
+import AddLearn from '../../components/admin/user/learnMore/AddLearn';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import EditClientFaq from '../../components/admin/client/faq/EditFaq';
+import AddClientFAQ from '../../components/admin/client/faq/AddFAQ';
+import EditClientLearn from '../../components/admin/client/learnMore/EditLearn';
+import AddClientLearn from '../../components/admin/client/learnMore/AddLearn';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -35,6 +36,18 @@ interface TablePaginationActionsProps {
     event: React.MouseEvent<HTMLButtonElement>,
     newPage: number,
   ) => void;
+}
+
+interface YourDataType {
+  _id:string;
+  title: string;
+  text: string;
+}
+
+interface FAQType {
+  _id: string;
+  question: string;
+  answer: string;
 }
 
 function TablePaginationActions(props: TablePaginationActionsProps) {
@@ -97,43 +110,59 @@ function createData(name: string, lastUpdated: any) {
   return { name, lastUpdated };
 }
 
-const rows = [
-  createData('What is Dframe', "11/12/22"),
-  createData('How can I use Dframe', "12/12/22"),
-  createData('What are the benefits of Dframe', "13/12/22"),
-  createData('Is my data safe with Dframe', "14/12/22"),
-  createData('How does dframe work', "15/12/22"),
-  createData('What is Dframe', "11/12/22"),
-  createData('How can I use Dframe', "12/12/22"),
-  createData('What are the benefits of Dframe', "13/12/22"),
-  createData('Is my data safe with Dframe', "14/12/22"),
-  createData('How does dframe work', "15/12/22"),
-]
-
-export default function ClientLearn() {
+export default function UserLearn() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [open, setOpen] = React.useState(false);
+  // for learnmore
   const [openEdit, setOpenEdit] = React.useState(false);
+  const [openAdd, setOpenAdd] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  //for FAQ
+  const [openFaqEdit, setOpenFaqEdit] = React.useState(false);
+  const [openFaqAdd, setOpenFaqAdd] = React.useState(false);
+  
+  const [data, setData] = React.useState<YourDataType[]  >([]);
+  const [faq, setFaq] = React.useState<FAQType[]>([]);
+  const [oneData,setOneData] = React.useState<YourDataType>();
+  const [oneData2,setOneData2] = React.useState<FAQType>();
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleClickOpenEdit = () => {
+  //for learn more edit
+  const handleClickOpenEdit = (index:number) => {
+    setOneData(data[index]);
     setOpenEdit(true);
   };
-
   const handleCloseEdit = () => {
     setOpenEdit(false);
   };
+
+  //for learn more add
+  const handleClickOpenAdd = () => {
+    setOpenAdd(true);
+  };
+  const handleCloseAdd = () => {
+    setOpenAdd(false);
+  };
+
+  //for faq edit
+  const handleClickFaqOpenEdit = (index:number) => {
+    setOneData2(faq[index]);
+    setOpenFaqEdit(true);
+  };
+  const handleCloseFaqEdit = () => {
+    setOpenFaqEdit(false);
+  };
+
+  //for learn more add
+  const handleClickFaqAdd = () => {
+    setOpenFaqAdd(true);
+  };
+  const handleCloseFaqAdd = () => {
+    setOpenFaqAdd(false);
+  };
+
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -149,97 +178,80 @@ export default function ClientLearn() {
     setPage(0);
   };
 
+  const handleDeleteLearn= async (id:any) => {
+  try {
+      // Make an HTTP request to add the data
+      const response = await axios.delete(
+        `http://localhost:8000/LearnMore/admin/deleteSingle/${id}`,
+      );
+      console.log('Data added:', response.data);
+      window.location.reload();
+    } catch (error) {
+      console.error('Error adding data:', error);
+    }
+    
+  }
+
+  const handleDeleteFaq= async (id:any) => {
+    try {
+        // Make an HTTP request to add the data
+        const response = await axios.delete(
+          `http://localhost:8000/F&Q/admin/deleteFaq/${id}`,
+        );
+        console.log('Data added:', response.data);
+        window.location.reload();
+      } catch (error) {
+        console.error('Error adding data:', error);
+      }
+      
+    }
+
+  React.useEffect(() => {
+    // Make the API request when the component mounts
+    axios
+      .get('http://localhost:8000/LearnMore/readLearnMore')
+      .then((response) => {
+        // Assuming the response is an array of data objects
+        console.log(response.data);
+        setData(response.data);
+        setOneData(response.data[0]);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+
+      axios
+      .get('http://localhost:8000/F&Q/faq')
+      .then((response) => {
+        // Assuming the response is an array of data objects
+        console.log(response.data);
+        setFaq(response.data);
+        setOneData2(response.data[0]);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
   return (
     <Box sx={{ display: 'flex'}} >
       <Sidebar/>
       <Box style={{background:"#f3f3f3",minHeight:"100vh"}}>
         <Header />
-
-        <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Help Questions</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            <Box>
-                <h3>Question</h3>
-                <ul>
-                    <li>What is Dframe</li>
-                    <li>Dframe is a project which will help user to get rewarded for their data</li>
-                    <li>Any image</li>
-                    <li>Any pdf</li>
-                </ul>
-            </Box>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
-        </DialogActions>
-      </Dialog>
-
-      <Dialog open={openEdit} onClose={handleCloseEdit} maxWidth="md">
-        <DialogTitle>Edit Help Questions</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            <Box>
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Question"
-                    type="email"
-                    fullWidth
-                    variant="standard"
-                    value="what is dframe"
-                />
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Answer"
-                    type="email"
-                    fullWidth
-                    variant="standard"
-                    value="Dframe is way for user to get rewarded for his/her data"
-                />
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Question"
-                    type="email"
-                    fullWidth
-                    variant="standard"
-                    value="what is dframe"
-                />
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Answer"
-                    type="email"
-                    fullWidth
-                    variant="standard"
-                    value="Dframe is way for user to get rewarded for his/her data"
-                />
-            </Box>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseEdit}>Close</Button>
-        </DialogActions>
-      </Dialog>
-        
-        <Box sx={{padding:"20px"}}>
-            
+        <Box>
+        <Button variant="contained"  style={{ backgroundColor: 'black', color: 'white' }} sx={{marginTop:"20px", marginLeft:"20px"}} onClick={()=>handleClickOpenAdd()}>Add Learn</Button>
+        </Box>
+        <Box sx={{padding:"20px"}}>    
         <TableContainer component={Paper}>
-        <Box sx={{padding:"10px",marginLeft:"10px",fontWeight:"500",fontSize:"180%"}}>Client Learn More Section</Box>
+        <Box sx={{padding:"10px",marginLeft:"10px",fontWeight:"500",fontSize:"180%"}}>User Learn More Section</Box>
           <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <TableHead>
             <TableRow >
                 <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
-                 Question
+                 Query
                 </TableCell>
                 <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
-                 Last Updated
+                 Response
                 </TableCell>
                 <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
                  Edit
@@ -251,21 +263,21 @@ export default function ClientLearn() {
           </TableHead>
             <TableBody>
               {(rowsPerPage > 0
-                ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : rows
-              ).map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell width={620} onClick={handleClickOpen} sx={{cursor:"pointer",paddingX:"40px",'&:hover':{fontSize:"105%"}}}>
-                  {row.name}
+                ? data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : data
+              ).map((singleData:YourDataType,index:number) => (
+                <TableRow key={index}>
+                  <TableCell sx={{cursor:"pointer",paddingX:"40px",'&:hover':{fontSize:"105%"}}}>
+                  {singleData.title}
                   </TableCell>
-                  <TableCell >
-                    {row.lastUpdated}
+                  <TableCell > 
+                    {singleData.text}
                   </TableCell>
-                  <TableCell onClick={handleClickOpenEdit} sx={{cursor:"pointer"}}>
+                  <TableCell sx={{cursor:"pointer"}} onClick={()=>handleClickOpenEdit(index)}>
                     <EditIcon sx={{color:"#ae08c4"}}/>
                   </TableCell>
                   <TableCell >
-                    <DeleteIcon sx={{color:"#db040f"}}/>
+                    <DeleteIcon sx={{color:"#db040f"}} onClick={()=>handleDeleteLearn(singleData._id)}/>
                   </TableCell>
                 </TableRow>
               ))}
@@ -280,7 +292,7 @@ export default function ClientLearn() {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                   colSpan={3}
-                  count={rows.length}
+                  count={data.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   SelectProps={{
@@ -298,10 +310,13 @@ export default function ClientLearn() {
           </Table>
         </TableContainer>
         </Box>
-
+        <EditClientLearn open={openEdit} onClose={handleCloseEdit} oneData={oneData}/>
+        <AddClientLearn open={openAdd} onClose={handleCloseAdd} />
+        <hr style={{marginLeft:"1%",marginRight:"1%",width:"98%",marginTop:"30px"}} />
+        <Button variant="contained"  style={{ backgroundColor: 'black', color: 'white' }} sx={{marginTop:"30px", marginLeft:"20px"}} onClick={()=>handleClickFaqAdd()}>Add FAQ</Button>
         <Box sx={{padding:"20px"}}>   
         <TableContainer component={Paper}>
-        <Box sx={{padding:"10px",marginLeft:"10px",fontWeight:"500",fontSize:"180%"}}>Client Faq's</Box>
+        <Box sx={{padding:"10px",marginLeft:"10px",fontWeight:"500",fontSize:"180%"}}>User Faq's</Box>
           <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <TableHead>
             <TableRow >
@@ -309,7 +324,7 @@ export default function ClientLearn() {
                  Question
                 </TableCell>
                 <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
-                 Last Updated
+                 Answer
                 </TableCell>
                 <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
                  Edit
@@ -321,21 +336,21 @@ export default function ClientLearn() {
           </TableHead>
             <TableBody>
               {(rowsPerPage > 0
-                ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : rows
-              ).map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell width={620} onClick={handleClickOpen} sx={{cursor:"pointer",paddingX:"40px",'&:hover':{fontSize:"105%"}}}>
-                  {row.name}
+                ? faq.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : faq
+              ).map((row:FAQType,index:number) => (
+                <TableRow key={index}>
+                  <TableCell sx={{cursor:"pointer",paddingX:"40px",'&:hover':{fontSize:"105%"}}}>
+                  {row.question}
                   </TableCell>
                   <TableCell >
-                    {row.lastUpdated}
+                    {row.answer}
                   </TableCell>
-                  <TableCell onClick={handleClickOpenEdit} sx={{cursor:"pointer"}}>
+                  <TableCell sx={{cursor:"pointer"}} onClick={()=>handleClickFaqOpenEdit(index)}>
                     <EditIcon sx={{color:"#ae08c4"}}/>
                   </TableCell>
                   <TableCell >
-                    <DeleteIcon sx={{color:"#db040f"}}/>
+                    <DeleteIcon sx={{color:"#db040f"}} onClick={()=>handleDeleteFaq(row._id)}/>
                   </TableCell>
                 </TableRow>
               ))}
@@ -350,7 +365,7 @@ export default function ClientLearn() {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                   colSpan={3}
-                  count={rows.length}
+                  count={faq.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   SelectProps={{
@@ -368,8 +383,8 @@ export default function ClientLearn() {
           </Table>
         </TableContainer>
         </Box>
-
-
+        <EditClientFaq open={openFaqEdit} onClose={handleCloseFaqEdit} oneData2={oneData2}/>
+        <AddClientFAQ open={openFaqAdd} onClose={handleCloseFaqAdd} />
       </Box>
     </Box>
   );

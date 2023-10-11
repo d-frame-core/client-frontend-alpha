@@ -25,6 +25,7 @@ const Connect = () => {
     setClientId,
   } = React.useContext(MyContext);
   const [isConnected, setIsConnected] = React.useState(false);
+  
   async function connectWallet(): Promise<void> {
     try {
       const accounts: string[] = await (window as any).ethereum.request({
@@ -32,13 +33,13 @@ const Connect = () => {
       });
       const address = accounts[0];
 
-      const response = await axios.post("http://localhost:3000/users/login", {
+      const response = await axios.post("http://localhost:8000/users/login", {
         walletAddress: address,
       });
 
       // console.log(response.data);
       setWalletAddress(address);
-      if (response.data.message === "No address found please Signup") {
+      if (response.data.message === "No address found please Signup") { 
         setIsConnected(true);
       } else {
         // console.log(response.data);

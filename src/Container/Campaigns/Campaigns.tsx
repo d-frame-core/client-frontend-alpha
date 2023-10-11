@@ -211,7 +211,7 @@ export default function Campaigns() {
     setFormopen(false);
     setLoaderCampaignsPage(true);
     await axios
-      .post("http://localhost:3000/ads", {
+      .post("http://localhost:8000/ads/createAd", {
         clientId: id,
         campaignName: campaignName,
         campaignType: campaignType,
@@ -227,12 +227,12 @@ export default function Campaigns() {
         console.log("Posted Ad Details", res.data);
         console.log("Immediate Ad Id", res.data.data._id);
 
-        await axios.post("http://localhost:3000/bids", {
-          adId: res.data.data._id,
-          bidAmount: Number(bidAmount),
-          perDay: Number(perDayBudget),
-          totalDays: Number(totalDaysToRun),
-        });
+        // await axios.post("http://localhost:3000/bids", {
+        //   adId: res.data.data._id,
+        //   bidAmount: Number(bidAmount),
+        //   perDay: Number(perDayBudget),
+        //   totalDays: Number(totalDaysToRun),
+        // });
         getAllCampaigns();
         setLoaderCampaignsPage(false);
         setCreatedAdToaster(true);
@@ -248,10 +248,10 @@ export default function Campaigns() {
 
   // function to get all campaigns of a particular client
   async function getAllCampaigns() {
-    const id = clientId || localStorage.getItem("clientId");
+    const id = localStorage.getItem("clientId");
     console.log("id", id);
     await axios
-      .get(`http://localhost:3000/ads/client/detail`, {
+      .get(`http://localhost:8000/ads/clientAllAds/${id}`, {
         headers: {
           id: id,
         },

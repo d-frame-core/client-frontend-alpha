@@ -110,7 +110,7 @@ const CreateSurvey = () => {
     setSurveyInactiveToastOpen(true);
     console.log("setSurveyInactive", id);
     await axios
-      .put(`http://localhost:3000/survey/${id}/status`, {
+      .put(`http://localhost:8000/survey/${id}/status`, {
         isActive: false,
       })
       .then((res) => {
@@ -125,7 +125,7 @@ const CreateSurvey = () => {
   async function setSurveyActive(id: any) {
     setSurveyActiveToastOpen(true);
     await axios
-      .put(`http://localhost:3000/survey/${id}/status`, {
+      .put(`http://localhost:8000/survey/${id}/status`, {
         isActive: true,
       })
       .then((res) => {
@@ -205,7 +205,7 @@ const CreateSurvey = () => {
     // axios call to edit the survey
     await axios
       .put(
-        `http://localhost:3000/survey/${_surveyId}`,
+        `http://localhost:8000/survey/${_surveyId}`,
         {
           surveyName: editSurveyData.surveyName,
           surveyDescription: editSurveyData.surveyDescription,
@@ -254,7 +254,7 @@ const CreateSurvey = () => {
     // axios api call to post the survey in the backend
     await axios
       .post(
-        "http://localhost:3000/survey",
+        "http://localhost:8000/survey/addSurvey",
         {
           surveyName: surveyName,
           surveyDescription: surveyDescription,
@@ -302,7 +302,7 @@ const CreateSurvey = () => {
     setSurveyId(id);
 
     await axios
-      .get(`http://localhost:3000/survey/${id}`, {
+      .get(`http://localhost:8000/survey/${id}`, {
         headers: {
           Authorization: `Bearer ${_tokenn}`,
         },
@@ -333,7 +333,7 @@ const CreateSurvey = () => {
   async function fetchAllSurveys() {
     const id = clientId || localStorage.getItem("clientId");
     const _tokenn = token || localStorage.getItem("token");
-    const res = await axios.get("http://localhost:3000/survey/client/", {
+    const res = await axios.get(`http://localhost:8000/survey/client/${id}`, {
       headers: {
         Authorization: `Bearer ${_tokenn}`,
         clientid: id,
@@ -388,7 +388,7 @@ const CreateSurvey = () => {
   async function deleteParticularSurvey() {
     const _tokenn = token || localStorage.getItem("token");
     setSurveyDeletedToaster(true);
-    const res = await axios.delete(`http://localhost:3000/survey/${surveyId}`, {
+    const res = await axios.delete(`http://localhost:8000/survey/${surveyId}`, {
       headers: {
         Authorization: `Bearer ${_tokenn}`,
       },

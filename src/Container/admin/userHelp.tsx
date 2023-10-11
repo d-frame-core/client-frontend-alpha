@@ -19,13 +19,10 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
+import EditHelp from '../../components/admin/user/help/EditHelp';
+import AddHelp from '../../components/admin/user/help/AddHelp';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -110,27 +107,37 @@ const rows = [
   createData('How does dframe work', "15/12/22"),
 ]
 
+interface YourDataType {
+  _id:string;
+  title: string;
+  text: string;
+}
+
 export default function UserHelp() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [open, setOpen] = React.useState(false);
   const [openEdit, setOpenEdit] = React.useState(false);
+  const [data,setData] = React.useState<YourDataType[]>([]);
+  const [oneData,setOneData] = React.useState<YourDataType>();
+  const [openAdd, setOpenAdd] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleClickOpenEdit = () => {
+  const handleClickOpenEdit = (index:any) => {
+    setOneData(data[index])
     setOpenEdit(true);
   };
 
   const handleCloseEdit = () => {
     setOpenEdit(false);
   };
+
+   //for help add
+   const handleClickOpenAdd = () => {
+    setOpenAdd(true);
+  };
+  const handleCloseAdd = () => {
+    setOpenAdd(false);
+  };
+
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -149,97 +156,56 @@ export default function UserHelp() {
     setPage(0);
   };
 
+  const handleDeleteHelp= async (id:any) => {
+    try {
+        // Make an HTTP request to add the data
+        const response = await axios.delete(
+          `http://localhost:8000/Help/userHelp/deleteSingle/${id}`,
+        );
+        console.log('Data added:', response.data);
+        window.location.reload();
+      } catch (error) {
+        console.error('Error adding data:', error);
+      }
+      
+    }
+
+  React.useEffect(() => {
+    // Make the API request when the component mounts
+    axios
+      .get('http://localhost:8000/Help/userHelp/getAllHelp')
+      .then((response) => {
+        // Assuming the response is an array of data objects
+        console.log(response.data);
+        setData(response.data);
+        setOneData(response.data[0]);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+
+  }, []);
+
   return (
     <Box sx={{ display: 'flex'}} >
       <Sidebar/>
       <Box style={{background:"#f3f3f3",minHeight:"100vh"}}>
         <Header />
-
-        <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Help Questions</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            <Box>
-                <h3>Question</h3>
-                <ul>
-                    <li>What is Dframe</li>
-                    <li>Dframe is a project which will help user to get rewarded for their data</li>
-                    <li>Any image</li>
-                    <li>Any pdf</li>
-                </ul>
-            </Box>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
-        </DialogActions>
-      </Dialog>
-
-      <Dialog open={openEdit} onClose={handleCloseEdit} maxWidth="md">
-        <DialogTitle>Edit Help Questions</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            <Box>
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Question"
-                    type="email"
-                    fullWidth
-                    variant="standard"
-                    value="what is dframe"
-                />
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Answer"
-                    type="email"
-                    fullWidth
-                    variant="standard"
-                    value="Dframe is way for user to get rewarded for his/her data"
-                />
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Question"
-                    type="email"
-                    fullWidth
-                    variant="standard"
-                    value="what is dframe"
-                />
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Answer"
-                    type="email"
-                    fullWidth
-                    variant="standard"
-                    value="Dframe is way for user to get rewarded for his/her data"
-                />
-            </Box>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseEdit}>Close</Button>
-        </DialogActions>
-      </Dialog>
         
         <Box sx={{padding:"20px"}}>
-            
+        <Box>
+        <Button variant="contained"  style={{ backgroundColor: 'black', color: 'white' }} sx={{marginTop:"20px", marginBottom:"20px"}} onClick={()=>handleClickOpenAdd()}>Add Learn</Button>
+        </Box>
         <TableContainer component={Paper}>
         <Box sx={{padding:"10px",marginLeft:"10px",fontWeight:"500",fontSize:"180%"}}>User Help Section</Box>
-          <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+        <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <TableHead>
             <TableRow >
                 <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
-                 Question
+                 Query
                 </TableCell>
                 <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
-                 Last Updated
+                 Response
                 </TableCell>
                 <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
                  Edit
@@ -251,21 +217,21 @@ export default function UserHelp() {
           </TableHead>
             <TableBody>
               {(rowsPerPage > 0
-                ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : rows
-              ).map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell width={620} onClick={handleClickOpen} sx={{cursor:"pointer",paddingX:"40px",'&:hover':{fontSize:"105%"}}}>
-                  {row.name}
+                ? data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : data
+              ).map((singleData:YourDataType,index:number) => (
+                <TableRow key={index}>
+                  <TableCell sx={{cursor:"pointer",paddingX:"40px",'&:hover':{fontSize:"105%"}}}>
+                  {singleData.title}
                   </TableCell>
-                  <TableCell >
-                    {row.lastUpdated}
+                  <TableCell > 
+                    {singleData.text}
                   </TableCell>
-                  <TableCell onClick={handleClickOpenEdit} sx={{cursor:"pointer"}}>
+                  <TableCell sx={{cursor:"pointer"}} onClick={()=>handleClickOpenEdit(index)} >
                     <EditIcon sx={{color:"#ae08c4"}}/>
                   </TableCell>
                   <TableCell >
-                    <DeleteIcon sx={{color:"#db040f"}}/>
+                    <DeleteIcon sx={{color:"#db040f"}} onClick={()=>handleDeleteHelp(singleData._id)}/>
                   </TableCell>
                 </TableRow>
               ))}
@@ -280,7 +246,7 @@ export default function UserHelp() {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                   colSpan={3}
-                  count={rows.length}
+                  count={data.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   SelectProps={{
@@ -298,6 +264,8 @@ export default function UserHelp() {
           </Table>
         </TableContainer>
         </Box>
+        <EditHelp open={openEdit} onClose={handleCloseEdit} oneData={oneData}/>
+        <AddHelp open={openAdd} onClose={handleCloseAdd} />
       </Box>
     </Box>
   );

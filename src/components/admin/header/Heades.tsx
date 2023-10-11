@@ -1,8 +1,17 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
+  
 export default function Sidebar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Remove the user data from local storage
+    localStorage.removeItem("dframeAdmindata");
+    navigate("/admin/login");
+  };
+
   return (
     <Box
       style={{
@@ -24,19 +33,7 @@ export default function Sidebar() {
           fontSize: "23px",
         }}
       >
-        <span style={{ marginLeft: "8px", color: "#1f0691" }}>A</span>
-        <button
-          onClick={() => {
-            try {
-              const res = axios.get("http://localhost:3000/admin/logout");
-              console.log(res);
-            } catch (error) {
-              console.error(error);
-            }
-          }}
-        >
-          Logout
-        </button>
+        <span style={{ marginLeft: "8px", color: "#1f0691" }} onClick={handleLogout}>A</span>
       </Box>
     </Box>
   );

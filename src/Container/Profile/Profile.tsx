@@ -77,22 +77,13 @@ export default function Profile() {
     }
   };
 
-  useEffect(() => {
-    const tempId = localStorage.getItem("clientId");
-    if (tempId) {
-      setClientId(tempId);
-    }
-    console.log("cliendId profile page", clientId);
-    connectToPolygonMainnet();
-    checkMetamaskConnection();
-  }, []);
-
   const handleWalletDisconnect = () => {
     if (!(window as any).ethereum?.selectedAddress) {
       // Metamask wallet disconnected
       navigate("/");
     }
   };
+
   useEffect(() => {
     // Listen for changes in the selected address property
     if ((window as any).ethereum) {
@@ -145,10 +136,10 @@ export default function Profile() {
   const handleSave = async () => {
     setEdit(!edit);
     setOpenToast(true);
-    const id = clientId || localStorage.getItem("clientId");
+    const id = localStorage.getItem("clientId");
     console.log("id", id);
     await axios
-      .patch(`http://localhost:3000/users/${id}`, {
+      .patch(`http://localhost:8000/users/${id}`, {
         companyName,
         companyType,
         companyEmail,
@@ -183,46 +174,27 @@ export default function Profile() {
 
   //  use effect to fetch the data from the server here.
   useEffect(() => {
-    const id = clientId || localStorage.getItem("clientId");
-    const _token = token || localStorage.getItem("token");
-
+    const id = localStorage.getItem("clientId");
+    const _token =localStorage.getItem("token");
+    console.log("the details",clientId,token)
     axios
-      .get("http://localhost:3000/users/proctedroute", {
-        headers: {
-          Authorization: `Bearer ${_token}`,
-        },
-      })
+      .get(`http://localhost:8000/users/data/${id}`)
       .then((response) => {
-        if (response.data.message === "Welcome to protected routes") {
-          const imageId = localStorage.getItem("imageID") || "defaultImageId";
-
-          fetchImage().then(() => {
-            // console.log("..........");
-          });
-          axios
-            .get(`http://localhost:3000/users/data/${id}`)
-            .then((response) => {
-              console.log(response.data);
-              const data = response.data.User;
-              setCompanyName(data.companyName);
-              setCompanyType(data.companyType);
-              setCompanyEmail(data.companyEmail);
-              setCompanyAddress1(data.companyAddress1);
-              setCompanyAddress2(data.companyAddress2);
-              setWalletAddress(data.walletAddress);
-              setClientId(data._id);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        } else {
-          alert("Login Again. Session Expired");
-          navigate("/");
-        }
+        console.log(response.data);
+        const data = response.data;
+        setCompanyName(data.companyName);
+        setCompanyType(data.companyType);
+        setCompanyEmail(data.companyEmail);
+        setCompanyAddress1(data.companyAddress1);
+        setCompanyAddress2(data.companyAddress2);
+        setWalletAddress(data.walletAddress);
+        setClientId(data._id);
       })
       .catch((error) => {
-        console.error(error.response.data);
+        console.log(error);
       });
+    connectToPolygonMainnet();
+    checkMetamaskConnection();
   }, []);
 
   const handleToastClose = (
