@@ -287,7 +287,10 @@ export default function Campaigns() {
     formData.append('adUrl', adLink);
     formData.append('adContent', adContent);
     formData.append('tags', JSON.stringify(adTags));
-    formData.append('image', adImage); // Append the image file
+    formData.append('image', adImage);
+    formData.append('bidAmount', bidAmount) // Append the image file
+    formData.append('totalDays', totalDaysToRun) // Append the image file
+    formData.append('perDay', perDayBudget) // Append the image file
 
     try {
       const response = await axios.post(
