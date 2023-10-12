@@ -227,7 +227,7 @@ export default function Campaigns() {
         console.log("Posted Ad Details", res.data);
         console.log("Immediate Ad Id", res.data.data._id);
 
-        // await axios.post("http://localhost:3000/bids", {
+        // await axios.post("http://localhost:8000/bids", {
         //   adId: res.data.data._id,
         //   bidAmount: Number(bidAmount),
         //   perDay: Number(perDayBudget),
@@ -272,30 +272,36 @@ export default function Campaigns() {
     e: React.MouseEvent<HTMLDivElement>
   ) {
     e.stopPropagation();
-    const idOfCilent = localStorage.getItem("clientId");
-    await axios
-      .get(`http://localhost:3000/ads/${id}`)
-      .then(async (res) => {
-        console.log("Particular Ad Details", res.data);
-        await axios
-          .get(`http://localhost:3000/bids/${idOfCilent}`)
-          .then((res) => {
-            console.log("Particular Bid Details", res.data);
-            // setParticularBidDetails(res.data);
-            const sortedBidDetails = res.data.sort(
-              (a: any, b: any) => b.bidAmount - a.bidAmount
-            );
-            setParticularBidDetails(sortedBidDetails);
-          });
-        setParticularAdsDetails(res.data);
-        setEditedAdData(res.data);
-        setAdSelectedId(id);
-        setEdit(true);
-        setEditAd(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // const idOfCilent = localStorage.getItem("clientId");
+      const detail = allAdsDetails[id]
+      setParticularAdsDetails(detail);
+      setEditedAdData(detail);
+      setAdSelectedId(detail._id);
+      setEdit(true);
+      setEditAd(true);
+    // await axios
+    //   .get(`http://localhost:8000/ads/${id}`)
+    //   .then(async (res) => {
+    //     console.log("Particular Ad Details", res.data);
+    //     await axios
+    //       .get(`http://localhost:8000/bids/${idOfCilent}`)
+    //       .then((res) => {
+    //         console.log("Particular Bid Details", res.data);
+    //         // setParticularBidDetails(res.data);
+    //         const sortedBidDetails = res.data.sort(
+    //           (a: any, b: any) => b.bidAmount - a.bidAmount
+    //         );
+    //         setParticularBidDetails(sortedBidDetails);
+    //       });
+    //     setParticularAdsDetails(res.data);
+    //     setEditedAdData(res.data);
+    //     setAdSelectedId(id);
+    //     setEdit(true);
+    //     setEditAd(true);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }
 
   //  function to update a particular ad
@@ -305,7 +311,7 @@ export default function Campaigns() {
       return;
     }
     await axios
-      .patch(`http://localhost:3000/ads/${id}`, {
+      .patch(`http://localhost:8000/ads/${id}`, {
         adName: editedAdData.adName,
         adContent: editedAdData.adContent,
       })
@@ -370,7 +376,7 @@ export default function Campaigns() {
   // function to delete a particular Ad
   async function deleteParticularAd(id: any) {
     await axios
-      .delete(`http://localhost:3000/ads/${id}`)
+      .delete(`http://localhost:8000/ads/${id}`)
       .then((res) => {
         // console.log("Deleted Ad Details", res.data);
         // window.location.reload();
@@ -397,7 +403,7 @@ export default function Campaigns() {
     }
     console.log(particularAdsDetails._id);
     await axios
-      .patch(`http://localhost:3000/bids/${particularAdsDetails._id}`, {
+      .patch(`http://localhost:8000/bids/${particularAdsDetails._id}`, {
         bidAmount: Number(newBidAmount),
         perDay: Number(newPerDayAmount),
         totalDays: Number(newTotalDays),
@@ -451,7 +457,7 @@ export default function Campaigns() {
 
       // Send the image to the backend using Axios
       axios
-        .post("http://localhost:3000/picture/uploadPicture", formData)
+        .post("http://localhost:8000/picture/uploadPicture", formData)
         .then((response) => {
           console.log("image called");
           console.log(response.data);
@@ -472,7 +478,7 @@ export default function Campaigns() {
     const formdata = new FormData();
     formdata.append("video", file);
     axios
-      .post("http://localhost:3000/video/uploadProfileVideo", formdata)
+      .post("http://localhost:8000/video/uploadProfileVideo", formdata)
       .then((response) => {
         console.log("video called");
         console.log(response.data);
@@ -832,7 +838,7 @@ export default function Campaigns() {
                         </div>
                         <div
                           className="editCampaignDetails"
-                          onClick={(e) => getParticularCampaign(item._id, e)}
+                          onClick={(e) => getParticularCampaign(index, e)}
                         >
                           <EditIcon />
                         </div>

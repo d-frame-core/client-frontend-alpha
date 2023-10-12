@@ -110,7 +110,7 @@ export default function Profile() {
 
       // Send the image to the backend using Axios
       axios
-        .post("http://localhost:3000/uploads/uploadProfilePicture", formData)
+        .post("http://localhost:8000/uploads/uploadProfilePicture", formData)
         .then((response) => {
           console.log("image called");
           console.log(response.data.data.imageUrl);
