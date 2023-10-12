@@ -12,6 +12,7 @@
   border-radius: 10px;
   font-size: 90%;
 }
+
 .campaignsHeader {
   display: flex;
   flex-direction: row;
@@ -127,6 +128,7 @@
   background-color: #47b5ff;
   color: white;
 }
+
 input[type="date"]:required:invalid::-webkit-datetime-edit {
   color: transparent;
 }
@@ -134,6 +136,7 @@ input[type="date"]:required:invalid::-webkit-datetime-edit {
 input[type="date"]:focus::-webkit-datetime-edit {
   color: black !important;
 }
+
 .campaignsBody {
   display: flex;
   flex-direction: column;
@@ -171,6 +174,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 100%;
   border-right: 1px solid blue;
 }
+
 .bidStrategy {
   display: flex;
   justify-content: center;
@@ -181,6 +185,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 100%;
   border-right: 1px solid blue;
 }
+
 .budgetDFT {
   display: flex;
   justify-content: center;
@@ -191,6 +196,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 100%;
   border-right: 1px solid blue;
 }
+
 .statusCampaignHeading {
   display: flex;
   justify-content: center;
@@ -201,6 +207,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 100%;
   border-right: 1px solid blue;
 }
+
 .editCampaignHeading {
   display: flex;
   justify-content: center;
@@ -211,6 +218,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 100%;
   border-right: 1px solid blue;
 }
+
 .typeHeading {
   display: flex;
   justify-content: center;
@@ -221,6 +229,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 100%;
   border-right: 1px solid blue;
 }
+
 .reachHeading {
   display: flex;
   justify-content: center;
@@ -231,6 +240,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 100%;
   border-right: 1px solid blue;
 }
+
 .startDateCampaign {
   display: flex;
   justify-content: center;
@@ -241,6 +251,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 100%;
   border-right: 1px solid blue;
 }
+
 .endDateCampgin {
   display: flex;
   justify-content: center;
@@ -251,6 +262,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 100%;
   /* border-right: 1px solid blue; */
 }
+
 .campaignsDetails {
   display: flex;
   flex-direction: column;
@@ -271,6 +283,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   cursor: pointer;
   border-bottom: 1px solid blue;
 }
+
 .campaignNameDetails {
   display: flex;
   justify-content: center;
@@ -281,6 +294,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 100%;
   /* border-right: 1px solid blue; */
 }
+
 .bidStrategyDetails {
   display: flex;
   justify-content: center;
@@ -291,6 +305,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 100%;
   /* border-right: 1px solid blue; */
 }
+
 .budgetDFTDetails {
   display: flex;
   justify-content: center;
@@ -301,6 +316,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 100%;
   /* border-right: 1px solid blue; */
 }
+
 .statusCampaignDetailss {
   display: flex;
   justify-content: center;
@@ -313,6 +329,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   /* border-right: 1px solid blue; */
   padding-left: 2.5%;
 }
+
 .editCampaignDetails {
   display: flex;
   justify-content: center;
@@ -323,6 +340,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 100%;
   /* border-right: 1px solid blue; */
 }
+
 .typeDetails {
   display: flex;
   justify-content: center;
@@ -333,6 +351,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 100%;
   /* border-right: 1px solid blue; */
 }
+
 .reachDetails {
   display: flex;
   justify-content: center;
@@ -343,6 +362,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 100%;
   /* border: 1px solid blue; */
 }
+
 .startDateCampaignDetails {
   display: flex;
   justify-content: center;
@@ -353,6 +373,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 100%;
   /* border: 1px solid blue; */
 }
+
 .endDateCampginDetails {
   display: flex;
   justify-content: center;
@@ -363,6 +384,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 100%;
   /* border-right: 1px solid blue; */
 }
+
 .statusSwitch {
   display: flex;
   justify-content: center;
@@ -390,6 +412,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   /* border-left: 1px solid blue; */
   /* border-bottom: 1px solid blue; */
 }
+
 .tagsOuterDivv {
   display: flex;
   justify-content: center;
@@ -398,6 +421,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   flex-direction: column;
   height: 25%;
 }
+
 .tagsOuterDivvSmall {
   display: flex;
   justify-content: center;
@@ -407,6 +431,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 10%;
   /* border: 1px solid blue; */
 }
+
 .tagsBoxx {
   display: flex;
   justify-content: center;
@@ -439,6 +464,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   flex-direction: row;
   display: none;
 }
+
 .addImage {
   display: flex;
   justify-content: center;
@@ -485,6 +511,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   color: black;
   /* border: 1px solid black; */
 }
+
 .modalBodyCampaignsPage {
   display: flex;
   flex-direction: column;
@@ -493,7 +520,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   align-items: center;
   /* border: 1px solid red; */
   width: 100%;
-  height: 88%;
+  height: 93%;
   /* border-bottom: 1px solid blue; */
 }
 
@@ -506,6 +533,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 90%;
   /* border-bottom: 1px solid blue; */
 }
+
 .modalBodyCampaignsPageContent {
   display: flex;
   justify-content: flex-start;
@@ -514,11 +542,13 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 90%;
   /* border-bottom: 1px solid blue; */
 }
+
 .modalFooterCampaignsPage {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
+
 .modalBodyCampaignsPageBottom {
   /* border: 1px solid red; */
   height: 10%;
@@ -527,6 +557,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   cursor: pointer;
   /* background-color: #47b5ff; */
 }
+
 .modalBodyCampaignsPageBottomTitle {
   display: flex;
   justify-content: flex-start;
@@ -536,6 +567,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   height: 90%;
   /* border-bottom: 1px solid blue; */
 }
+
 .modalBodyCampaignsPageBottomContent {
   display: flex;
   justify-content: center;
@@ -544,6 +576,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   width: 90%;
   flex-wrap: wrap;
 }
+
 .modalBodyCampaignsPageBottomDateSection {
   display: flex;
   flex-direction: row;
@@ -553,6 +586,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   width: 80%;
   height: 4%;
 }
+
 .startDateCampaignsPage {
   display: flex;
   flex-direction: row;
@@ -562,6 +596,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   width: 50%;
   height: 100%;
 }
+
 .endDateCampaignsPage {
   display: flex;
   flex-direction: row;
@@ -571,6 +606,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   width: 50%;
   height: 100%;
 }
+
 .bidModalHeadingDiv {
   display: flex;
   flex-direction: row;
@@ -578,6 +614,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   /* height: 5%; */
   margin-top: 1%;
 }
+
 .bidModalDiv {
   display: flex;
   flex-direction: column;
@@ -585,7 +622,9 @@ input[type="date"]:focus::-webkit-datetime-edit {
   overflow-y: auto;
   font-size: 90%;
   border-bottom: 1px solid blue;
+  min-height: 2vh;
 }
+
 .bidModalArrayDiv {
   display: flex;
   flex-direction: row;
@@ -633,6 +672,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   align-items: center;
   padding-left: 3%;
 }
+
 .bidsModalHeadingClientNameHeading {
   display: flex;
   flex-direction: row;
@@ -644,6 +684,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   justify-content: center;
   align-items: center;
 }
+
 .bidsModalHeadingOption {
   display: flex;
   flex-direction: row;
@@ -655,6 +696,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   justify-content: center;
   align-items: center;
 }
+
 .modalClientDetails {
   display: flex;
   flex-direction: column;
@@ -718,6 +760,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   justify-content: center;
   align-items: center;
 }
+
 .noDataToDisplay {
   display: flex;
   flex-direction: row;
@@ -729,6 +772,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   justify-content: center;
   align-items: center;
 }
+
 .noDataToDisplayText {
   display: flex;
   flex-direction: column;
@@ -741,6 +785,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   justify-content: center;
   align-items: center;
 }
+
 .editBidModalDiv {
   display: flex;
   flex-direction: column;
@@ -752,6 +797,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   justify-content: center;
   align-items: center;
 }
+
 .editBidModalDivTop {
   display: flex;
   flex-direction: column;
@@ -764,11 +810,13 @@ input[type="date"]:focus::-webkit-datetime-edit {
   align-items: center;
   margin-bottom: 1%;
 }
+
 .editBidModalAdName {
   font-size: 140%;
   font-weight: 600;
   margin-bottom: 1%;
 }
+
 .editBidModalDivBody {
   display: flex;
   flex-direction: row;
@@ -782,6 +830,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   justify-content: center;
   align-items: center;
 }
+
 .editBidModalDivEdit {
   display: flex;
   flex-direction: row;
@@ -809,6 +858,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   justify-content: flex-start;
   align-items: center;
 }
+
 .editBidModalDivEditMiddle {
   display: flex;
   flex-direction: row;
@@ -822,6 +872,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   justify-content: flex-start;
   align-items: center;
 }
+
 .editBidModalDivEditRight {
   display: flex;
   flex-direction: row;
@@ -833,10 +884,12 @@ input[type="date"]:focus::-webkit-datetime-edit {
   justify-content: center;
   align-items: center;
 }
+
 .editBidModalDivEditInput {
   width: 100%;
   height: 80%;
 }
+
 .modalBodyCampaignsPageContentEdit {
   border-radius: 10px;
   background-color: #f6f6f7;
@@ -844,16 +897,16 @@ input[type="date"]:focus::-webkit-datetime-edit {
   border: none;
   width: 80%;
   font-size: 100%;
-  height: 150%;
 }
+
 .modalBodyCampaignsPageHeadingEdit {
   font-size: 120%;
   border-radius: 10px;
   background-color: #f6f6f7;
   outline: none;
   border: none;
-  padding: 3%;
-  margin: 3% 0;
+  padding: 2%;
+  margin: 2% 0;
   text-align: center;
   font-weight: 600;
 }
@@ -871,6 +924,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
   padding: 1% 2%;
   /* border: 1px solid red; */
 }
+
 .bidModalArray {
   display: flex;
   flex-direction: row;
@@ -887,6 +941,7 @@ textarea {
   padding: 3%;
   padding-left: 5%;
 }
+
 .infoMsgAds {
   display: flex;
   justify-content: center;
@@ -898,27 +953,33 @@ textarea {
   color: black;
   font-style: italic;
 }
+
 @media only screen and (max-width: 960px) {
   .campaignsGreyBox {
     left: 23vw;
   }
+
   .campaignsHeaderButton {
     width: auto;
   }
 }
+
 @media only screen and (max-width: 960px) {
   .campaignsGreyBox {
     left: 5vw;
     width: 90vw;
     font-size: 1.8vh;
   }
+
   .campaignsHeader {
     font-size: 120%;
   }
+
   .campaignsForm {
     width: 60vw;
   }
 }
+
 @media only screen and (max-width: 600px) {
   .campaignsGreyBox {
     font-size: 16px;
@@ -927,31 +988,37 @@ textarea {
     overflow: hidden;
     overflow-x: scroll;
   }
-  .campaignsBody{
+
+  .campaignsBody {
     width: 770px;
 
   }
+
   .campaignsForm {
     font-size: 14px;
     width: 80vw;
   }
-  .campaignsHeaderTitleMain{
+
+  .campaignsHeaderTitleMain {
     position: fixed;
     left: 2vw;
     font-size: 20px;
-   
+
   }
-  .campaignsHeaderButton{
+
+  .campaignsHeaderButton {
     position: fixed;
     height: 5vh;
     left: 65vw;
     width: auto;
     font-size: 16px;
   }
+
   .editIcon {
     width: auto;
   }
 }
+
 .modalFooterButtonEditCampaignsPage2Disabled {
   background: #47b5ff;
   color: white;
@@ -962,6 +1029,7 @@ textarea {
   font-size: 110%;
   cursor: not-allowed;
 }
+
 .modalFooterButtonEditCampaignsPage2 {
   background: #47b5ff;
   color: white;
@@ -972,6 +1040,7 @@ textarea {
   font-size: 110%;
   cursor: pointer;
 }
+
 .modalFooterButtonDeleteCampaignsPage2 {
   background: red;
   color: white;
@@ -982,6 +1051,7 @@ textarea {
   font-size: 110%;
   cursor: pointer;
 }
+
 .modalFooterCampaignsPage2 {
   display: flex;
   justify-content: space-around;
