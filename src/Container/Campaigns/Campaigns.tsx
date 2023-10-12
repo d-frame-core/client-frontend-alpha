@@ -188,20 +188,20 @@ export default function Campaigns() {
       adLocation
     );
 
-    if (
-      adStartDate === "" ||
-      adEndDate === "" ||
-      campaignName === "" ||
-      campaignType === "" ||
-      adName === "" ||
-      adContent === "" ||
-      adLink === "" ||
-      adTags.length === 0 ||
-      adLocation === ""
-    ) {
-      alert("Please fill all the fields");
-      return;
-    }
+    // if (
+    //   adStartDate === "" ||
+    //   adEndDate === "" ||
+    //   campaignName === "" ||
+    //   campaignType === "" ||
+    //   adName === "" ||
+    //   adContent === "" ||
+    //   adLink === "" ||
+    //   adTags.length === 0 ||
+    //   adLocation === ""
+    // ) {
+    //   alert("Please fill all the fields");
+    //   return;
+    // }
     if (bidAmountError !== "" && dateError !== "") {
       alert("Error in Bid Amount or Date");
       return;
@@ -225,7 +225,7 @@ export default function Campaigns() {
       })
       .then(async (res) => {
         console.log("Posted Ad Details", res.data);
-        console.log("Immediate Ad Id", res.data.data._id);
+        // console.log("Immediate Ad Id", res.data.data._id);
 
         // await axios.post("http://localhost:8000/bids", {
         //   adId: res.data.data._id,
@@ -823,7 +823,7 @@ export default function Campaigns() {
               {!loaderCampaignsPage && (
                 <div className="campaignsDetails">
                   {allAdsDetails &&
-                    allAdsDetails.toReversed().map((item: any, index: any) => (
+                    allAdsDetails.map((item: any, index: any) => (
                       <div
                         className="adDetails"
                         key={index}
