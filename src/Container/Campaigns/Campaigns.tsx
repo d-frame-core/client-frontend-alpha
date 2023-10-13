@@ -961,16 +961,35 @@ export default function Campaigns() {
                       // edit ad section
                       editAd && (
                         <div className='modalBodyCampaignsPage'>
-                          <img
-                            src={
-                              editedAdData.image
-                                ? editedAdData.image.replace(/ /g, '%20')
-                                : 'https://aioseo.com/wp-content/uploads/2021/04/how-to-find-and-fix-404-errors-in-wordpress.png.webp'
-                            }
-                            alt='errormage'
-                            width={200}
-                            style={{ marginTop: '20px' }}
-                          />
+                          {editedAdData.adType == 'Image' ? (
+                            <img
+                              src={
+                                editedAdData.image
+                                  ? editedAdData.image.replace(/ /g, '%20')
+                                  : 'https://aioseo.com/wp-content/uploads/2021/04/how-to-find-and-fix-404-errors-in-wordpress.png.webp'
+                              }
+                              alt='errormage'
+                              width={200}
+                              style={{ marginTop: '20px' }}
+                            />
+                          ) : (
+                            <video
+                              width={300} // Adjust the width as needed
+                              height={315} // Adjust the height as needed
+                              controls // Add controls for play, pause, etc.
+                            >
+                              <source
+                                src={
+                                  editedAdData.image
+                                    ? editedAdData.image
+                                    : 'https://www.youtube.com/embed/YKaj1HUcYt0?controls=1'
+                                }
+                                type='video/mp4'
+                              />
+                              Your browser does not support the video tag.
+                            </video>
+                          )}
+
                           <input
                             className='modalBodyCampaignsPageHeadingEdit'
                             value={editedAdData.adName}
