@@ -19,6 +19,7 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import { Grid } from '@mui/material';
 import DftStat from '../../components/admin/user/dashboard/SideTabs';
+import { useNavigate } from 'react-router-dom';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -30,6 +31,10 @@ interface TablePaginationActionsProps {
   ) => void;
 }
 
+interface AdminData {
+  token: string;
+  userAddress: string;
+}
 
 function TablePaginationActions(props: TablePaginationActionsProps) {
   const theme = useTheme();
@@ -110,6 +115,22 @@ const rows = [
 export default function CustomPaginationActionsTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    const dframeAdmindata:any = localStorage.getItem('dframeAdmindata');
+    if (!dframeAdmindata) {
+      navigate('/'); // Redirect to the login page if not found
+      return;
+    }
+    // Parse the JSON data from the localStorage string
+    const adminData:AdminData = JSON.parse(dframeAdmindata);
+
+    // Check if the token or user address is missing
+    if (!adminData.token && adminData.userAddress=="0x298ab03DD8D59f04b2Fec7BcC75849bD685eea75") {
+      navigate("/"); // Redirect to the login page if not found
+    }
+  }, []);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =

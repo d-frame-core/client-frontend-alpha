@@ -26,6 +26,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import DftStat from '../../components/admin/user/dashboard/SideTabs';
+import { useNavigate } from 'react-router-dom';
+
+interface AdminData {
+  token: string;
+  userAddress: string;
+}
 
 interface TablePaginationActionsProps {
   count: number;
@@ -115,6 +121,25 @@ export default function ClientCampaignVerify() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [open, setOpen] = React.useState(false);
   const [openEdit, setOpenEdit] = React.useState(false);
+  const navigate = useNavigate();
+  React.useEffect(() => {
+    // Check if dframeAdmindata exists in localStorage
+    const dframeAdmindata:any = localStorage.getItem('dframeAdmindata');
+    if (!dframeAdmindata) {
+      navigate('/'); // Redirect to the login page if not found
+      return;
+    }
+    // Parse the JSON data from the localStorage string
+    const adminData:AdminData = JSON.parse(dframeAdmindata);
+
+    // Check if the token or user address is missing
+    if (!adminData.token && adminData.userAddress=="0x298ab03DD8D59f04b2Fec7BcC75849bD685eea75") {
+      navigate("/"); // Redirect to the login page if not found
+    }
+    console.log("i am writing the data",adminData)
+     
+  }, []);
+
 
   const handleClickOpen = () => {
     setOpen(true);

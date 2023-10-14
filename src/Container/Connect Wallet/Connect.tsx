@@ -45,7 +45,7 @@ const Connect = () => {
         // console.log(response.data);
         setToken(response.data.token);
         // console.log("token", response.data.token);
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("tokenForClient", response.data.token);
         localStorage.setItem("walletAddress", address);
 
         const data = response.data.user;

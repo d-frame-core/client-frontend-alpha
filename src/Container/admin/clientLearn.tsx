@@ -27,6 +27,12 @@ import EditClientFaq from '../../components/admin/client/faq/EditFaq';
 import AddClientFAQ from '../../components/admin/client/faq/AddFAQ';
 import EditClientLearn from '../../components/admin/client/learnMore/EditLearn';
 import AddClientLearn from '../../components/admin/client/learnMore/AddLearn';
+import { useNavigate } from 'react-router-dom';
+
+interface AdminData {
+  token: string;
+  userAddress: string;
+}
 
 interface TablePaginationActionsProps {
   count: number;
@@ -125,6 +131,8 @@ export default function UserLearn() {
   const [faq, setFaq] = React.useState<FAQType[]>([]);
   const [oneData,setOneData] = React.useState<YourDataType>();
   const [oneData2,setOneData2] = React.useState<FAQType>();
+  const navigate = useNavigate();
+
 
   //for learn more edit
   const handleClickOpenEdit = (index:number) => {
@@ -207,6 +215,18 @@ export default function UserLearn() {
     }
 
   React.useEffect(() => {
+    const dframeAdmindata:any = localStorage.getItem('dframeAdmindata');
+    if (!dframeAdmindata) {
+      navigate('/'); // Redirect to the login page if not found
+      return;
+    }
+    // Parse the JSON data from the localStorage string
+    const adminData:AdminData = JSON.parse(dframeAdmindata);
+
+    // Check if the token or user address is missing
+    if (!adminData.token && adminData.userAddress=="0x298ab03DD8D59f04b2Fec7BcC75849bD685eea75") {
+      navigate("/"); // Redirect to the login page if not found
+    }
     // Make the API request when the component mounts
     axios
       .get('http://localhost:8000/LearnMore/readLearnMore')

@@ -352,6 +352,10 @@ const CreateSurvey = () => {
 
   // useEffect to fetch all surveys
   useEffect(() => {
+    const _token =localStorage.getItem("tokenForClient");
+    if(!_token){
+      navigate("/");
+    }
     checkMetamaskConnection();
     const tempId = localStorage.getItem("clientId");
     if (tempId) {

@@ -19,6 +19,7 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import { Grid } from "@mui/material";
 import DftStat from "../../components/admin/user/dashboard/SideTabs";
+import { useNavigate } from 'react-router-dom';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -28,6 +29,11 @@ interface TablePaginationActionsProps {
     event: React.MouseEvent<HTMLButtonElement>,
     newPage: number
   ) => void;
+}
+
+interface AdminData {
+  token: string;
+  userAddress: string;
 }
 
 function TablePaginationActions(props: TablePaginationActionsProps) {
@@ -123,6 +129,7 @@ const rows = [
 export default function AdminWallet() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const navigate = useNavigate();
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -141,6 +148,20 @@ export default function AdminWallet() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  React.useEffect(() => {
+    // Check if dframeAdmindata exists in localStorage
+    const dframeAdmindata:any = localStorage.getItem('dframeAdmindata');
+
+    // Parse the JSON data from the localStorage string
+    const adminData:AdminData = JSON.parse(dframeAdmindata);
+
+    // Check if the token or user address is missing
+    if (!adminData.token && !adminData.userAddress) {
+      navigate("/"); // Redirect to the login page if not found
+    }
+    console.log(adminData)
+  },[]);
 
   return (
     <Box sx={{ display: "flex" }}>

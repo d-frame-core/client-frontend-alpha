@@ -732,7 +732,12 @@ export default function Wallet() {
 
   //  useeffect to get the past events of the DFRAME token
   useEffect(() => {
+    const _token =localStorage.getItem("tokenForClient");
+    if(!_token){
+      navigate("/");
+    }
     const tempId = localStorage.getItem("clientId");
+    
     if (tempId) {
       setClientId(tempId);
     }

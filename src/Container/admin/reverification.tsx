@@ -27,6 +27,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
 
 interface TablePaginationActionsProps {
   count: number;
@@ -36,6 +38,11 @@ interface TablePaginationActionsProps {
     event: React.MouseEvent<HTMLButtonElement>,
     newPage: number,
   ) => void;
+}
+
+interface AdminData {
+  token: string;
+  userAddress: string;
 }
 
 interface TabPanelProps {
@@ -152,6 +159,7 @@ export default function Reverification() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -184,6 +192,20 @@ export default function Reverification() {
     setValue(newValue);
   };
 
+  React.useEffect(() => {
+    const dframeAdmindata:any = localStorage.getItem('dframeAdmindata');
+    if (!dframeAdmindata) {
+      navigate('/'); // Redirect to the login page if not found
+      return;
+    }
+    // Parse the JSON data from the localStorage string
+    const adminData:AdminData = JSON.parse(dframeAdmindata);
+
+    // Check if the token or user address is missing
+    if (!adminData.token && adminData.userAddress=="0x298ab03DD8D59f04b2Fec7BcC75849bD685eea75") {
+      navigate("/"); // Redirect to the login page if not found
+    }
+  }, []);
 
   return (
     <Box sx={{ display: 'flex'}} >

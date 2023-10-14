@@ -23,6 +23,7 @@ import axios from 'axios';
 import EditHelp from '../../components/admin/user/help/EditHelp';
 import AddHelp from '../../components/admin/user/help/AddHelp';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -113,6 +114,13 @@ interface YourDataType {
   text: string;
 }
 
+interface AdminData {
+  token: string;
+  userAddress: string;
+}
+
+
+
 export default function UserHelp() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -120,6 +128,8 @@ export default function UserHelp() {
   const [data,setData] = React.useState<YourDataType[]>([]);
   const [oneData,setOneData] = React.useState<YourDataType>();
   const [openAdd, setOpenAdd] = React.useState(false);
+  const navigate = useNavigate();
+
 
   const handleClickOpenEdit = (index:any) => {
     setOneData(data[index])
@@ -171,6 +181,18 @@ export default function UserHelp() {
     }
 
   React.useEffect(() => {
+    const dframeAdmindata:any = localStorage.getItem('dframeAdmindata');
+    if (!dframeAdmindata) {
+      navigate('/'); // Redirect to the login page if not found
+      return;
+    }
+    // Parse the JSON data from the localStorage string
+    const adminData:AdminData = JSON.parse(dframeAdmindata);
+
+    // Check if the token or user address is missing
+    if (!adminData.token && adminData.userAddress=="0x298ab03DD8D59f04b2Fec7BcC75849bD685eea75") {
+      navigate("/"); // Redirect to the login page if not found
+    }
     // Make the API request when the component mounts
     axios
       .get('http://localhost:8000/Help/userHelp/getAllHelp')

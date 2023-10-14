@@ -100,6 +100,10 @@ const SurveyHistory = () => {
     }
   };
   useEffect(() => {
+    const _token =localStorage.getItem("tokenForClient");
+    if(!_token){
+      navigate("/");
+    }
     checkMetamaskConnection();
     const tempId = localStorage.getItem("clientId");
     if (tempId) {

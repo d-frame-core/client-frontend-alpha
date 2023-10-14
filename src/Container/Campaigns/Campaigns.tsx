@@ -433,6 +433,10 @@ export default function Campaigns() {
 
   // useeffect to set the edited ad data
   useEffect(() => {
+    const _token =localStorage.getItem("tokenForClient");
+    if(!_token){
+      navigate("/");
+    }
     checkMetamaskConnection();
     const tempId = localStorage.getItem('clientId');
     if (tempId) {

@@ -85,6 +85,7 @@ export default function Profile() {
   };
 
   useEffect(() => {
+
     // Listen for changes in the selected address property
     if ((window as any).ethereum) {
       (window as any).ethereum.on("accountsChanged", handleWalletDisconnect);
@@ -175,7 +176,10 @@ export default function Profile() {
   //  use effect to fetch the data from the server here.
   useEffect(() => {
     const id = localStorage.getItem("clientId");
-    const _token =localStorage.getItem("token");
+    const _token =localStorage.getItem("tokenForClient");
+    if(!_token){
+      navigate("/");
+    }
     console.log("the details",clientId,token)
     axios
       .get(`http://localhost:8000/users/data/${id}`)

@@ -81,6 +81,10 @@ export default function LearnMore() {
       });
   }
   React.useEffect(() => {
+    const _token =localStorage.getItem("tokenForClient");
+    if(!_token){
+      navigate("/");
+    }
     fetchDataFromBackend();
   }, []);
   React.useEffect(() => {

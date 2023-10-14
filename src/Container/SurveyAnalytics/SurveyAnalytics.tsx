@@ -30,6 +30,10 @@ const SurveyAnalytics = () => {
     }
   };
   useEffect(() => {
+    const _token =localStorage.getItem("tokenForClient");
+    if(!_token){
+      navigate("/");
+    }
     checkMetamaskConnection();
     getSurveyAnalytics();
   }, []);

@@ -25,6 +25,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -115,6 +116,10 @@ interface SurveyData {
   __v: number;
   _id: string;
 }
+interface AdminData {
+  token: string;
+  userAddress: string;
+}
 
 export default function ClientInfo() {
   const [page, setPage] = React.useState(0);
@@ -122,6 +127,8 @@ export default function ClientInfo() {
   const [selectedRowData, setSelectedRowData] = React.useState<SurveyData | null>(null);
   const [openDialog, setOpenDialog] = React.useState(false);
   const [fetchedData, setFetchedData] = React.useState<SurveyData[]>([]);
+  const navigate = useNavigate();
+
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -142,6 +149,18 @@ export default function ClientInfo() {
   };
 
   React.useEffect(() => {
+    const dframeAdmindata:any = localStorage.getItem('dframeAdmindata');
+    if (!dframeAdmindata) {
+      navigate('/'); // Redirect to the login page if not found
+      return;
+    }
+    // Parse the JSON data from the localStorage string
+    const adminData:AdminData = JSON.parse(dframeAdmindata);
+
+    // Check if the token or user address is missing
+    if (!adminData.token && adminData.userAddress=="0x298ab03DD8D59f04b2Fec7BcC75849bD685eea75") {
+      navigate("/"); // Redirect to the login page if not found
+    }
     // Make an HTTP GET request to your API endpoint
     axios.get('http://localhost:8000/survey/getAll')
       .then((response) => {

@@ -172,6 +172,10 @@ const DataPool = () => {
     }
   };
   useEffect(() => {
+    const _token =localStorage.getItem("tokenForClient");
+    if(!_token){
+      navigate("/");
+    }
     checkMetamaskConnection();
     // Listen for changes in the selected address property
     if ((window as any).ethereum) {

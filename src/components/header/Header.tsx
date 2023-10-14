@@ -26,6 +26,8 @@ export default function Header() {
     }
     // Disconnect from the provider.
     console.log("Disconnecting the provider");
+    localStorage.removeItem("walletAddress");
+    localStorage.removeItem("tokenForClient");
 
     // navigate to home page
     navigate("/");

@@ -21,7 +21,7 @@ const SurveyHistory = () => {
   // getting all past ads
   async function getAllPastSurveys() {
     const id = _id || localStorage.getItem("clientId");
-    const _tokenn = token || localStorage.getItem("token");
+    const _tokenn = token || localStorage.getItem("tokenForClient");
     console.log(id, _tokenn);
     await axios
       .get("http://localhost:3000/ads/client/expireddetail", {
