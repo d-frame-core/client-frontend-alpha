@@ -170,7 +170,7 @@ export default function UserHelp() {
     try {
         // Make an HTTP request to add the data
         const response = await axios.delete(
-          `http://localhost:8000/Help/userHelp/deleteSingle/${id}`,
+          `https://client-backend-402017.el.r.appspot.com/Help/userHelp/deleteSingle/${id}`,
         );
         console.log('Data added:', response.data);
         window.location.reload();
@@ -195,7 +195,7 @@ export default function UserHelp() {
     }
     // Make the API request when the component mounts
     axios
-      .get('http://localhost:8000/Help/userHelp/getAllHelp')
+      .get('https://client-backend-402017.el.r.appspot.com/Help/userHelp/getAllHelp')
       .then((response) => {
         // Assuming the response is an array of data objects
         console.log(response.data);

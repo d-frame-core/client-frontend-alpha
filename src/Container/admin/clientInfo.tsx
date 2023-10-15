@@ -175,7 +175,7 @@ export default function ClientInfo() {
       navigate("/"); // Redirect to the login page if not found
     }
     // Make an HTTP GET request to your API endpoint
-    axios.get('http://localhost:8000/users/admin/getAllUsers')
+    axios.get('https://client-backend-402017.el.r.appspot.com/users/admin/getAllUsers')
       .then((response) => {
         setFetchedData(response.data);
         console.log(response.data)
@@ -197,7 +197,7 @@ export default function ClientInfo() {
   const handleDeactivate = (id:any) => {
     console.log("deactivatig the data",id)
    axios
-      .patch(`http://localhost:8000/users/admin/updateStatus/${selectedRowData?._id}`,{status:false})
+      .patch(`https://client-backend-402017.el.r.appspot.com/users/admin/updateStatus/${selectedRowData?._id}`,{status:false})
       .then((response) => {
         // Update the active field in the state
         console.log(response.data);

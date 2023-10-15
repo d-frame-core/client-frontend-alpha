@@ -27,7 +27,7 @@ export default function ClientAnalytics() {
       navigate("/"); // Redirect to the login page if not found
     }
     console.log("i am writing the data",adminData)
-    
+     
   }, []);
 
   return (

@@ -162,7 +162,7 @@ export default function ClientInfo() {
       navigate("/"); // Redirect to the login page if not found
     }
     // Make an HTTP GET request to your API endpoint
-    axios.get('http://localhost:8000/survey/getAll')
+    axios.get('https://client-backend-402017.el.r.appspot.com/survey/getAll')
       .then((response) => {
         setFetchedData(response.data.reverse());
         console.log(response.data)
@@ -183,7 +183,7 @@ export default function ClientInfo() {
 
   const handlePause = (id:any) => {
    axios
-      .put(`http://localhost:8000/survey/stopStatus/${id}`)
+      .put(`https://client-backend-402017.el.r.appspot.com/survey/stopStatus/${id}`)
       .then((response) => {
         // Update the active field in the state
         console.log(response.data);
@@ -196,7 +196,7 @@ export default function ClientInfo() {
 
   const handleVerify = (id:any) => {
    axios
-      .put(`http://localhost:8000/survey/verifyStatus/${id}`)
+      .put(`https://client-backend-402017.el.r.appspot.com/survey/verifyStatus/${id}`)
       .then((response) => {
         // Update the active field in the state
         console.log(response.data);

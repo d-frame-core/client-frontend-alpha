@@ -111,7 +111,7 @@ export default function Profile() {
 
       // Send the image to the backend using Axios
       axios
-        .post("http://localhost:8000/uploads/uploadProfilePicture", formData)
+        .post("https://client-backend-402017.el.r.appspot.com/uploads/uploadProfilePicture", formData)
         .then((response) => {
           console.log("image called");
           console.log(response.data.data.imageUrl);
@@ -140,7 +140,7 @@ export default function Profile() {
     const id = localStorage.getItem("clientId");
     console.log("id", id);
     await axios
-      .patch(`http://localhost:8000/users/${id}`, {
+      .patch(`https://client-backend-402017.el.r.appspot.com/users/${id}`, {
         companyName,
         companyType,
         companyEmail,
@@ -182,7 +182,7 @@ export default function Profile() {
     }
     console.log("the details",clientId,token)
     axios
-      .get(`http://localhost:8000/users/data/${id}`)
+      .get(`https://client-backend-402017.el.r.appspot.com/users/data/${id}`)
       .then((response) => {
         console.log(response.data);
         const data = response.data;

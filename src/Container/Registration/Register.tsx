@@ -107,7 +107,7 @@ const Register: React.FC = () => {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     await axios
-      .post("http://localhost:8000/users/signup", {
+      .post("https://client-backend-402017.el.r.appspot.com/users/signup", {
         companyName: companyName,
         companyType: companyType,
         companyEmail: companyEmail,

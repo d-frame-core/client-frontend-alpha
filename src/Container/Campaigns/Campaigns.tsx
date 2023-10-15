@@ -216,7 +216,7 @@ export default function Campaigns() {
   //   setFormopen(false);
   //   setLoaderCampaignsPage(true);
   //   await axios
-  //     .post("http://localhost:8000/ads/createAd", {
+  //     .post("https://client-backend-402017.el.r.appspot.com/ads/createAd", {
   //       clientId: id,
   //       campaignName: campaignName,
   //       campaignType: campaignType,
@@ -232,7 +232,7 @@ export default function Campaigns() {
   //       console.log("Posted Ad Details", res.data);
   //       // console.log("Immediate Ad Id", res.data.data._id);
 
-  //       // await axios.post("http://localhost:8000/bids", {
+  //       // await axios.post("https://client-backend-402017.el.r.appspot.com/bids", {
   //       //   adId: res.data.data._id,
   //       //   bidAmount: Number(bidAmount),
   //       //   perDay: Number(perDayBudget),
@@ -294,7 +294,7 @@ export default function Campaigns() {
 
     try {
       const response = await axios.post(
-        'http://localhost:8000/ads/test/createAd',
+        'https://client-backend-402017.el.r.appspot.com/ads/test/createAd',
         formData,
         {
           headers: {
@@ -323,7 +323,7 @@ export default function Campaigns() {
     const id = localStorage.getItem('clientId');
     console.log('id', id);
     await axios
-      .get(`http://localhost:8000/ads/clientAllAds/${id}`, {
+      .get(`https://client-backend-402017.el.r.appspot.com/ads/clientAllAds/${id}`, {
         headers: {
           id: id,
         },
@@ -353,11 +353,11 @@ export default function Campaigns() {
     setEdit(true);
     setEditAd(true);
     // await axios
-    //   .get(`http://localhost:8000/ads/${id}`)
+    //   .get(`https://client-backend-402017.el.r.appspot.com/ads/${id}`)
     //   .then(async (res) => {
     //     console.log("Particular Ad Details", res.data);
     //     await axios
-    //       .get(`http://localhost:8000/bids/${idOfCilent}`)
+    //       .get(`https://client-backend-402017.el.r.appspot.com/bids/${idOfCilent}`)
     //       .then((res) => {
     //         console.log("Particular Bid Details", res.data);
     //         // setParticularBidDetails(res.data);
@@ -384,7 +384,7 @@ export default function Campaigns() {
       return;
     }
     await axios
-      .patch(`http://localhost:8000/ads/${id}`, {
+      .patch(`https://client-backend-402017.el.r.appspot.com/ads/${id}`, {
         adName: editedAdData.adName,
         adContent: editedAdData.adContent,
       })
@@ -453,7 +453,7 @@ export default function Campaigns() {
   // function to delete a particular Ad
   async function deleteParticularAd(id: any) {
     await axios
-      .delete(`http://localhost:8000/ads/${id}`)
+      .delete(`https://client-backend-402017.el.r.appspot.com/ads/${id}`)
       .then((res) => {
         // console.log("Deleted Ad Details", res.data);
         // window.location.reload();
@@ -480,7 +480,7 @@ export default function Campaigns() {
     }
     console.log(particularAdsDetails._id);
     await axios
-      .patch(`http://localhost:8000/bids/${particularAdsDetails._id}`, {
+      .patch(`https://client-backend-402017.el.r.appspot.com/bids/${particularAdsDetails._id}`, {
         bidAmount: Number(newBidAmount),
         perDay: Number(newPerDayAmount),
         totalDays: Number(newTotalDays),
@@ -534,7 +534,7 @@ export default function Campaigns() {
 
       // Send the image to the backend using Axios
       axios
-        .post('http://localhost:8000/picture/uploadPicture', formData)
+        .post('https://client-backend-402017.el.r.appspot.com/picture/uploadPicture', formData)
         .then((response) => {
           console.log('image called');
           console.log(response.data);
@@ -555,7 +555,7 @@ export default function Campaigns() {
     const formdata = new FormData();
     formdata.append('video', file);
     axios
-      .post('http://localhost:8000/video/uploadProfileVideo', formdata)
+      .post('https://client-backend-402017.el.r.appspot.com/video/uploadProfileVideo', formdata)
       .then((response) => {
         console.log('video called');
         console.log(response.data);

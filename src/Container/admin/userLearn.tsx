@@ -189,7 +189,7 @@ export default function UserLearn() {
   try {
       // Make an HTTP request to add the data
       const response = await axios.delete(
-        `http://localhost:8000/LearnMore/userLearn/deleteOne/${id}`,
+        `https://client-backend-402017.el.r.appspot.com/LearnMore/userLearn/deleteOne/${id}`,
       );
       console.log('Data added:', response.data);
       window.location.reload();
@@ -203,7 +203,7 @@ export default function UserLearn() {
     try {
         // Make an HTTP request to add the data
         const response = await axios.delete(
-          `http://localhost:8000/F&Q/userFAQ/deleteSingle/${id}`,
+          `https://client-backend-402017.el.r.appspot.com/F&Q/userFAQ/deleteSingle/${id}`,
         );
         console.log('Data added:', response.data);
         window.location.reload();
@@ -228,7 +228,7 @@ export default function UserLearn() {
     }
     // Make the API request when the component mounts
     axios
-      .get('http://localhost:8000/LearnMore/userLearn/getAllLearn')
+      .get('https://client-backend-402017.el.r.appspot.com/LearnMore/userLearn/getAllLearn')
       .then((response) => {
         // Assuming the response is an array of data objects
         console.log(response.data);
@@ -240,7 +240,7 @@ export default function UserLearn() {
       });
 
       axios
-      .get('http://localhost:8000/F&Q/userFAQ/getAllFAQ')
+      .get('https://client-backend-402017.el.r.appspot.com/F&Q/userFAQ/getAllFAQ')
       .then((response) => {
         // Assuming the response is an array of data objects
         console.log(response.data);
