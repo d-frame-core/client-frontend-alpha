@@ -216,7 +216,7 @@ export default function Campaigns() {
   //   setFormopen(false);
   //   setLoaderCampaignsPage(true);
   //   await axios
-  //     .post("https://client-backend-402017.el.r.appspot.com/ads/createAd", {
+  //     .post("http://localhost:5000/ads/createAd", {
   //       clientId: id,
   //       campaignName: campaignName,
   //       campaignType: campaignType,
@@ -232,7 +232,7 @@ export default function Campaigns() {
   //       console.log("Posted Ad Details", res.data);
   //       // console.log("Immediate Ad Id", res.data.data._id);
 
-  //       // await axios.post("https://client-backend-402017.el.r.appspot.com/bids", {
+  //       // await axios.post("http://localhost:5000/bids", {
   //       //   adId: res.data.data._id,
   //       //   bidAmount: Number(bidAmount),
   //       //   perDay: Number(perDayBudget),
@@ -294,7 +294,7 @@ export default function Campaigns() {
 
     try {
       const response = await axios.post(
-        'https://client-backend-402017.el.r.appspot.com/ads/test/createAd',
+        'http://localhost:5000/ads/test/createAd',
         formData,
         {
           headers: {
@@ -323,7 +323,7 @@ export default function Campaigns() {
     const id = localStorage.getItem('clientId');
     console.log('id', id);
     await axios
-      .get(`https://client-backend-402017.el.r.appspot.com/ads/clientAllAds/${id}`, {
+      .get(`http://localhost:5000/ads/clientAllAds/${id}`, {
         headers: {
           id: id,
         },
@@ -353,11 +353,11 @@ export default function Campaigns() {
     setEdit(true);
     setEditAd(true);
     // await axios
-    //   .get(`https://client-backend-402017.el.r.appspot.com/ads/${id}`)
+    //   .get(`http://localhost:5000/ads/${id}`)
     //   .then(async (res) => {
     //     console.log("Particular Ad Details", res.data);
     //     await axios
-    //       .get(`https://client-backend-402017.el.r.appspot.com/bids/${idOfCilent}`)
+    //       .get(`http://localhost:5000/bids/${idOfCilent}`)
     //       .then((res) => {
     //         console.log("Particular Bid Details", res.data);
     //         // setParticularBidDetails(res.data);
@@ -384,7 +384,7 @@ export default function Campaigns() {
       return;
     }
     await axios
-      .patch(`https://client-backend-402017.el.r.appspot.com/ads/${id}`, {
+      .patch(`http://localhost:5000/ads/${id}`, {
         adName: editedAdData.adName,
         adContent: editedAdData.adContent,
       })
@@ -433,9 +433,9 @@ export default function Campaigns() {
 
   // useeffect to set the edited ad data
   useEffect(() => {
-    const _token =localStorage.getItem("tokenForClient");
-    if(!_token){
-      navigate("/");
+    const _token = localStorage.getItem('tokenForClient');
+    if (!_token) {
+      navigate('/');
     }
     checkMetamaskConnection();
     const tempId = localStorage.getItem('clientId');
@@ -453,7 +453,7 @@ export default function Campaigns() {
   // function to delete a particular Ad
   async function deleteParticularAd(id: any) {
     await axios
-      .delete(`https://client-backend-402017.el.r.appspot.com/ads/${id}`)
+      .delete(`http://localhost:5000/ads/${id}`)
       .then((res) => {
         // console.log("Deleted Ad Details", res.data);
         // window.location.reload();
@@ -480,7 +480,7 @@ export default function Campaigns() {
     }
     console.log(particularAdsDetails._id);
     await axios
-      .patch(`https://client-backend-402017.el.r.appspot.com/bids/${particularAdsDetails._id}`, {
+      .patch(`http://localhost:5000/bids/${particularAdsDetails._id}`, {
         bidAmount: Number(newBidAmount),
         perDay: Number(newPerDayAmount),
         totalDays: Number(newTotalDays),
@@ -534,7 +534,7 @@ export default function Campaigns() {
 
       // Send the image to the backend using Axios
       axios
-        .post('https://client-backend-402017.el.r.appspot.com/picture/uploadPicture', formData)
+        .post('http://localhost:5000/picture/uploadPicture', formData)
         .then((response) => {
           console.log('image called');
           console.log(response.data);
@@ -555,7 +555,7 @@ export default function Campaigns() {
     const formdata = new FormData();
     formdata.append('video', file);
     axios
-      .post('https://client-backend-402017.el.r.appspot.com/video/uploadProfileVideo', formdata)
+      .post('http://localhost:5000/video/uploadProfileVideo', formdata)
       .then((response) => {
         console.log('video called');
         console.log(response.data);

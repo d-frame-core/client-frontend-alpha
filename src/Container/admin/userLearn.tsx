@@ -1,6 +1,8 @@
+/** @format */
+
 import * as React from 'react';
-import Header from "../../components/admin/header/Heades";
-import Sidebar from "../../components/admin/sidebar/Sidebar";
+import Header from '../../components/admin/header/Heades';
+import Sidebar from '../../components/admin/sidebar/Sidebar';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -33,7 +35,7 @@ interface TablePaginationActionsProps {
   rowsPerPage: number;
   onPageChange: (
     event: React.MouseEvent<HTMLButtonElement>,
-    newPage: number,
+    newPage: number
   ) => void;
 }
 
@@ -42,9 +44,8 @@ interface AdminData {
   userAddress: string;
 }
 
-
 interface YourDataType {
-  _id:string;
+  _id: string;
   title: string;
   text: string;
 }
@@ -60,20 +61,26 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   const { count, page, rowsPerPage, onPageChange } = props;
 
   const handleFirstPageButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
+    event: React.MouseEvent<HTMLButtonElement>
   ) => {
     onPageChange(event, 0);
   };
 
-  const handleBackButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleBackButtonClick = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     onPageChange(event, page - 1);
   };
 
-  const handleNextButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleNextButtonClick = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     onPageChange(event, page + 1);
   };
 
-  const handleLastPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleLastPageButtonClick = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
 
@@ -82,29 +89,33 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
       <IconButton
         onClick={handleFirstPageButtonClick}
         disabled={page === 0}
-        aria-label="first page"
-      >
+        aria-label='first page'>
         {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
         disabled={page === 0}
-        aria-label="previous page"
-      >
-        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+        aria-label='previous page'>
+        {theme.direction === 'rtl' ? (
+          <KeyboardArrowRight />
+        ) : (
+          <KeyboardArrowLeft />
+        )}
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="next page"
-      >
-        {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+        aria-label='next page'>
+        {theme.direction === 'rtl' ? (
+          <KeyboardArrowLeft />
+        ) : (
+          <KeyboardArrowRight />
+        )}
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="last page"
-      >
+        aria-label='last page'>
         {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
     </Box>
@@ -125,16 +136,15 @@ export default function UserLearn() {
   //for FAQ
   const [openFaqEdit, setOpenFaqEdit] = React.useState(false);
   const [openFaqAdd, setOpenFaqAdd] = React.useState(false);
-  
-  const [data, setData] = React.useState<YourDataType[]  >([]);
+
+  const [data, setData] = React.useState<YourDataType[]>([]);
   const [faq, setFaq] = React.useState<FAQType[]>([]);
-  const [oneData,setOneData] = React.useState<YourDataType>();
-  const [oneData2,setOneData2] = React.useState<FAQType>();
+  const [oneData, setOneData] = React.useState<YourDataType>();
+  const [oneData2, setOneData2] = React.useState<FAQType>();
   const navigate = useNavigate();
 
-
   //for learn more edit
-  const handleClickOpenEdit = (index:number) => {
+  const handleClickOpenEdit = (index: number) => {
     setOneData(data[index]);
     setOpenEdit(true);
   };
@@ -151,7 +161,7 @@ export default function UserLearn() {
   };
 
   //for faq edit
-  const handleClickFaqOpenEdit = (index:number) => {
+  const handleClickFaqOpenEdit = (index: number) => {
     setOneData2(faq[index]);
     setOpenFaqEdit(true);
   };
@@ -173,62 +183,63 @@ export default function UserLearn() {
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number,
+    newPage: number
   ) => {
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
-  const handleDeleteLearn= async (id:any) => {
-  try {
+  const handleDeleteLearn = async (id: any) => {
+    try {
       // Make an HTTP request to add the data
       const response = await axios.delete(
-        `https://client-backend-402017.el.r.appspot.com/LearnMore/userLearn/deleteOne/${id}`,
+        `http://localhost:5000/LearnMore/userLearn/deleteOne/${id}`
       );
       console.log('Data added:', response.data);
       window.location.reload();
     } catch (error) {
       console.error('Error adding data:', error);
     }
-    
-  }
+  };
 
-  const handleDeleteFaq= async (id:any) => {
+  const handleDeleteFaq = async (id: any) => {
     try {
-        // Make an HTTP request to add the data
-        const response = await axios.delete(
-          `https://client-backend-402017.el.r.appspot.com/F&Q/userFAQ/deleteSingle/${id}`,
-        );
-        console.log('Data added:', response.data);
-        window.location.reload();
-      } catch (error) {
-        console.error('Error adding data:', error);
-      }
-      
+      // Make an HTTP request to add the data
+      const response = await axios.delete(
+        `http://localhost:5000/F&Q/userFAQ/deleteSingle/${id}`
+      );
+      console.log('Data added:', response.data);
+      window.location.reload();
+    } catch (error) {
+      console.error('Error adding data:', error);
     }
+  };
 
   React.useEffect(() => {
-    const dframeAdmindata:any = localStorage.getItem('dframeAdmindata');
+    const dframeAdmindata: any = localStorage.getItem('dframeAdmindata');
     if (!dframeAdmindata) {
       navigate('/'); // Redirect to the login page if not found
       return;
     }
     // Parse the JSON data from the localStorage string
-    const adminData:AdminData = JSON.parse(dframeAdmindata);
+    const adminData: AdminData = JSON.parse(dframeAdmindata);
 
     // Check if the token or user address is missing
-    if (!adminData.token && adminData.userAddress=="0x298ab03DD8D59f04b2Fec7BcC75849bD685eea75") {
-      navigate("/"); // Redirect to the login page if not found
+    if (
+      !adminData.token &&
+      adminData.userAddress == '0x298ab03DD8D59f04b2Fec7BcC75849bD685eea75'
+    ) {
+      navigate('/'); // Redirect to the login page if not found
     }
     // Make the API request when the component mounts
     axios
-      .get('https://client-backend-402017.el.r.appspot.com/LearnMore/userLearn/getAllLearn')
+      .get('http://localhost:5000/LearnMore/userLearn/getAllLearn')
       .then((response) => {
         // Assuming the response is an array of data objects
         console.log(response.data);
@@ -239,8 +250,8 @@ export default function UserLearn() {
         console.error('Error fetching data:', error);
       });
 
-      axios
-      .get('https://client-backend-402017.el.r.appspot.com/F&Q/userFAQ/getAllFAQ')
+    axios
+      .get('http://localhost:5000/F&Q/userFAQ/getAllFAQ')
       .then((response) => {
         // Assuming the response is an array of data objects
         console.log(response.data);
@@ -253,157 +264,242 @@ export default function UserLearn() {
   }, []);
 
   return (
-    <Box sx={{ display: 'flex'}} >
-      <Sidebar/>
-      <Box style={{background:"#f3f3f3",minHeight:"100vh"}}>
+    <Box sx={{ display: 'flex' }}>
+      <Sidebar />
+      <Box style={{ background: '#f3f3f3', minHeight: '100vh' }}>
         <Header />
         <Box>
-        <Button variant="contained"  style={{ backgroundColor: 'black', color: 'white' }} sx={{marginTop:"20px", marginLeft:"20px"}} onClick={()=>handleClickOpenAdd()}>Add Learn</Button>
+          <Button
+            variant='contained'
+            style={{ backgroundColor: 'black', color: 'white' }}
+            sx={{ marginTop: '20px', marginLeft: '20px' }}
+            onClick={() => handleClickOpenAdd()}>
+            Add Learn
+          </Button>
         </Box>
-        <Box sx={{padding:"20px"}}>    
-        <TableContainer component={Paper}>
-        <Box sx={{padding:"10px",marginLeft:"10px",fontWeight:"500",fontSize:"180%"}}>User Learn More Section</Box>
-          <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-          <TableHead>
-            <TableRow >
-                <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
-                 Query
-                </TableCell>
-                <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
-                 Response
-                </TableCell>
-                <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
-                 Edit
-                </TableCell>
-                <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
-                 Delete
-                </TableCell>
-            </TableRow>
-          </TableHead>
-            <TableBody>
-              {(rowsPerPage > 0
-                ? data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : data
-              ).map((singleData:YourDataType,index:number) => (
-                <TableRow key={index}>
-                  <TableCell sx={{cursor:"pointer",paddingX:"40px",'&:hover':{fontSize:"105%"}}}>
-                  {singleData.title}
+        <Box sx={{ padding: '20px' }}>
+          <TableContainer component={Paper}>
+            <Box
+              sx={{
+                padding: '10px',
+                marginLeft: '10px',
+                fontWeight: '500',
+                fontSize: '180%',
+              }}>
+              User Learn More Section
+            </Box>
+            <Table
+              sx={{ minWidth: 500 }}
+              aria-label='custom pagination table'>
+              <TableHead>
+                <TableRow>
+                  <TableCell sx={{ fontWeight: '500', fontSize: '140%' }}>
+                    Query
                   </TableCell>
-                  <TableCell > 
-                    {singleData.text}
+                  <TableCell sx={{ fontWeight: '500', fontSize: '140%' }}>
+                    Response
                   </TableCell>
-                  <TableCell sx={{cursor:"pointer"}} onClick={()=>handleClickOpenEdit(index)}>
-                    <EditIcon sx={{color:"#ae08c4"}}/>
+                  <TableCell sx={{ fontWeight: '500', fontSize: '140%' }}>
+                    Edit
                   </TableCell>
-                  <TableCell >
-                    <DeleteIcon sx={{color:"#db040f"}} onClick={()=>handleDeleteLearn(singleData._id)}/>
+                  <TableCell sx={{ fontWeight: '500', fontSize: '140%' }}>
+                    Delete
                   </TableCell>
                 </TableRow>
-              ))}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
+              </TableHead>
+              <TableBody>
+                {(rowsPerPage > 0
+                  ? data?.slice(
+                      page * rowsPerPage,
+                      page * rowsPerPage + rowsPerPage
+                    )
+                  : data
+                ).map((singleData: YourDataType, index: number) => (
+                  <TableRow key={index}>
+                    <TableCell
+                      sx={{
+                        cursor: 'pointer',
+                        paddingX: '40px',
+                        '&:hover': { fontSize: '105%' },
+                      }}>
+                      {singleData.title}
+                    </TableCell>
+                    <TableCell>{singleData.text}</TableCell>
+                    <TableCell
+                      sx={{ cursor: 'pointer' }}
+                      onClick={() => handleClickOpenEdit(index)}>
+                      <EditIcon sx={{ color: '#ae08c4' }} />
+                    </TableCell>
+                    <TableCell>
+                      <DeleteIcon
+                        sx={{ color: '#db040f' }}
+                        onClick={() => handleDeleteLearn(singleData._id)}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 53 * emptyRows }}>
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+              <TableFooter>
+                <TableRow>
+                  <TablePagination
+                    rowsPerPageOptions={[
+                      5,
+                      10,
+                      25,
+                      { label: 'All', value: -1 },
+                    ]}
+                    colSpan={3}
+                    count={data.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    SelectProps={{
+                      inputProps: {
+                        'aria-label': 'rows per page',
+                      },
+                      native: true,
+                    }}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    ActionsComponent={TablePaginationActions}
+                  />
                 </TableRow>
-              )}
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                  colSpan={3}
-                  count={data.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  SelectProps={{
-                    inputProps: {
-                      'aria-label': 'rows per page',
-                    },
-                    native: true,
-                  }}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={TablePaginationActions}
-                />
-              </TableRow>
-            </TableFooter>
-          </Table>
-        </TableContainer>
+              </TableFooter>
+            </Table>
+          </TableContainer>
         </Box>
-        <EditDialog open={openEdit} onClose={handleCloseEdit} oneData={oneData}/>
-        <AddLearn open={openAdd} onClose={handleCloseAdd} />
-        <hr style={{marginLeft:"1%",marginRight:"1%",width:"98%",marginTop:"30px"}} />
-        <Button variant="contained"  style={{ backgroundColor: 'black', color: 'white' }} sx={{marginTop:"30px", marginLeft:"20px"}} onClick={()=>handleClickFaqAdd()}>Add FAQ</Button>
-        <Box sx={{padding:"20px"}}>   
-        <TableContainer component={Paper}>
-        <Box sx={{padding:"10px",marginLeft:"10px",fontWeight:"500",fontSize:"180%"}}>User Faq's</Box>
-          <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-          <TableHead>
-            <TableRow >
-                <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
-                 Question
-                </TableCell>
-                <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
-                 Answer
-                </TableCell>
-                <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
-                 Edit
-                </TableCell>
-                <TableCell sx={{fontWeight:"500",fontSize:"140%"}}>
-                 Delete
-                </TableCell>
-            </TableRow>
-          </TableHead>
-            <TableBody>
-              {(rowsPerPage > 0
-                ? faq.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : faq
-              ).map((row:FAQType,index:number) => (
-                <TableRow key={index}>
-                  <TableCell sx={{cursor:"pointer",paddingX:"40px",'&:hover':{fontSize:"105%"}}}>
-                  {row.question}
+        <EditDialog
+          open={openEdit}
+          onClose={handleCloseEdit}
+          oneData={oneData}
+        />
+        <AddLearn
+          open={openAdd}
+          onClose={handleCloseAdd}
+        />
+        <hr
+          style={{
+            marginLeft: '1%',
+            marginRight: '1%',
+            width: '98%',
+            marginTop: '30px',
+          }}
+        />
+        <Button
+          variant='contained'
+          style={{ backgroundColor: 'black', color: 'white' }}
+          sx={{ marginTop: '30px', marginLeft: '20px' }}
+          onClick={() => handleClickFaqAdd()}>
+          Add FAQ
+        </Button>
+        <Box sx={{ padding: '20px' }}>
+          <TableContainer component={Paper}>
+            <Box
+              sx={{
+                padding: '10px',
+                marginLeft: '10px',
+                fontWeight: '500',
+                fontSize: '180%',
+              }}>
+              User Faq's
+            </Box>
+            <Table
+              sx={{ minWidth: 500 }}
+              aria-label='custom pagination table'>
+              <TableHead>
+                <TableRow>
+                  <TableCell sx={{ fontWeight: '500', fontSize: '140%' }}>
+                    Question
                   </TableCell>
-                  <TableCell >
-                    {row.answer}
+                  <TableCell sx={{ fontWeight: '500', fontSize: '140%' }}>
+                    Answer
                   </TableCell>
-                  <TableCell sx={{cursor:"pointer"}} onClick={()=>handleClickFaqOpenEdit(index)}>
-                    <EditIcon sx={{color:"#ae08c4"}}/>
+                  <TableCell sx={{ fontWeight: '500', fontSize: '140%' }}>
+                    Edit
                   </TableCell>
-                  <TableCell >
-                    <DeleteIcon sx={{color:"#db040f"}} onClick={()=>handleDeleteFaq(row._id)}/>
+                  <TableCell sx={{ fontWeight: '500', fontSize: '140%' }}>
+                    Delete
                   </TableCell>
                 </TableRow>
-              ))}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
+              </TableHead>
+              <TableBody>
+                {(rowsPerPage > 0
+                  ? faq.slice(
+                      page * rowsPerPage,
+                      page * rowsPerPage + rowsPerPage
+                    )
+                  : faq
+                ).map((row: FAQType, index: number) => (
+                  <TableRow key={index}>
+                    <TableCell
+                      sx={{
+                        cursor: 'pointer',
+                        paddingX: '40px',
+                        '&:hover': { fontSize: '105%' },
+                      }}>
+                      {row.question}
+                    </TableCell>
+                    <TableCell>{row.answer}</TableCell>
+                    <TableCell
+                      sx={{ cursor: 'pointer' }}
+                      onClick={() => handleClickFaqOpenEdit(index)}>
+                      <EditIcon sx={{ color: '#ae08c4' }} />
+                    </TableCell>
+                    <TableCell>
+                      <DeleteIcon
+                        sx={{ color: '#db040f' }}
+                        onClick={() => handleDeleteFaq(row._id)}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 53 * emptyRows }}>
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+              <TableFooter>
+                <TableRow>
+                  <TablePagination
+                    rowsPerPageOptions={[
+                      5,
+                      10,
+                      25,
+                      { label: 'All', value: -1 },
+                    ]}
+                    colSpan={3}
+                    count={faq.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    SelectProps={{
+                      inputProps: {
+                        'aria-label': 'rows per page',
+                      },
+                      native: true,
+                    }}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    ActionsComponent={TablePaginationActions}
+                  />
                 </TableRow>
-              )}
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                  colSpan={3}
-                  count={faq.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  SelectProps={{
-                    inputProps: {
-                      'aria-label': 'rows per page',
-                    },
-                    native: true,
-                  }}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={TablePaginationActions}
-                />
-              </TableRow>
-            </TableFooter>
-          </Table>
-        </TableContainer>
+              </TableFooter>
+            </Table>
+          </TableContainer>
         </Box>
-        <EditFaqDialog open={openFaqEdit} onClose={handleCloseFaqEdit} oneData2={oneData2}/>
-        <AddFAQ open={openFaqAdd} onClose={handleCloseFaqAdd} />
+        <EditFaqDialog
+          open={openFaqEdit}
+          onClose={handleCloseFaqEdit}
+          oneData2={oneData2}
+        />
+        <AddFAQ
+          open={openFaqAdd}
+          onClose={handleCloseFaqAdd}
+        />
       </Box>
     </Box>
   );
