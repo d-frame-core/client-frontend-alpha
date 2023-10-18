@@ -38,7 +38,7 @@ const Login = () => {
   auth.languageCode = 'en'; // setting language code to english
 
   const actionCodeSettings = {
-    url: 'http://localhost:3000/dashboard',
+    url: 'https://client-backend-402017.el.r.appspot.com/dashboard',
     // This must be true.
     handleCodeInApp: true,
   };
@@ -60,7 +60,7 @@ const Login = () => {
 
     // Handling the form submission logic
     try {
-      const response = await axios.post('http://localhost:5000/admin/login', {
+      const response = await axios.post('https://client-backend-402017.el.r.appspot.com/admin/login', {
         email,
         password: password,
         phoneNumber,

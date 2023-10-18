@@ -112,7 +112,7 @@ const CreateSurvey = () => {
     setSurveyInactiveToastOpen(true);
     console.log('setSurveyInactive', id);
     await axios
-      .put(`http://localhost:5000/survey/${id}/status`, {
+      .put(`https://client-backend-402017.el.r.appspot.com/survey/${id}/status`, {
         isActive: false,
       })
       .then((res) => {
@@ -127,7 +127,7 @@ const CreateSurvey = () => {
   async function setSurveyActive(id: any) {
     setSurveyActiveToastOpen(true);
     await axios
-      .put(`http://localhost:5000/survey/${id}/status`, {
+      .put(`https://client-backend-402017.el.r.appspot.com/survey/${id}/status`, {
         isActive: true,
       })
       .then((res) => {
@@ -209,7 +209,7 @@ const CreateSurvey = () => {
     // axios call to edit the survey
     await axios
       .put(
-        `http://localhost:5000/survey/${_surveyId}`,
+        `https://client-backend-402017.el.r.appspot.com/survey/${_surveyId}`,
         {
           surveyName: editSurveyData.surveyName,
           surveyDescription: editSurveyData.surveyDescription,
@@ -258,7 +258,7 @@ const CreateSurvey = () => {
     // axios api call to post the survey in the backend
     await axios
       .post(
-        'http://localhost:5000/survey/addSurvey',
+        'https://client-backend-402017.el.r.appspot.com/survey/addSurvey',
         {
           surveyName: surveyName,
           surveyDescription: surveyDescription,
@@ -306,7 +306,7 @@ const CreateSurvey = () => {
     setSurveyId(id);
 
     await axios
-      .get(`http://localhost:5000/survey/${id}`, {
+      .get(`https://client-backend-402017.el.r.appspot.com/survey/${id}`, {
         headers: {
           Authorization: `Bearer ${_tokenn}`,
         },
@@ -337,7 +337,7 @@ const CreateSurvey = () => {
   async function fetchAllSurveys() {
     const id = clientId || localStorage.getItem('clientId');
     const _tokenn = token || localStorage.getItem('token');
-    const res = await axios.get(`http://localhost:5000/survey/client/${id}`, {
+    const res = await axios.get(`https://client-backend-402017.el.r.appspot.com/survey/client/${id}`, {
       headers: {
         Authorization: `Bearer ${_tokenn}`,
         clientid: id,
@@ -396,7 +396,7 @@ const CreateSurvey = () => {
   async function deleteParticularSurvey() {
     const _tokenn = token || localStorage.getItem('token');
     setSurveyDeletedToaster(true);
-    const res = await axios.delete(`http://localhost:5000/survey/${surveyId}`, {
+    const res = await axios.delete(`https://client-backend-402017.el.r.appspot.com/survey/${surveyId}`, {
       headers: {
         Authorization: `Bearer ${_tokenn}`,
       },

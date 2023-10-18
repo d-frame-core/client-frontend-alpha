@@ -36,21 +36,21 @@ export default function Header() {
   };
   return (
     <div className='header'>
-      {companyImage.length > 2 ? (
+      {/* {companyImage.length > 2 ? (
         <img
           src={companyImage}
           alt='user'
           className='user1'
           id='profilePicture'
         />
-      ) : (
+      ) : ( */}
         <img
           src={user}
           alt='user'
           className='user1'
           id='profilePicture'
         />
-      )}
+      {/* )} */}
       {/* split and display first two words if words are small, else only first word */}
       <div
         className='head1'

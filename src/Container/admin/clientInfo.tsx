@@ -190,7 +190,7 @@ export default function ClientInfo() {
     }
     // Make an HTTP GET request to your API endpoint
     axios
-      .get('http://localhost:5000/users/admin/getAllUsers')
+      .get('https://client-backend-402017.el.r.appspot.com/users/admin/getAllUsers')
       .then((response) => {
         setFetchedData(response.data);
         console.log(response.data);
@@ -213,7 +213,7 @@ export default function ClientInfo() {
     console.log('deactivatig the data', id);
     axios
       .patch(
-        `http://localhost:5000/users/admin/updateStatus/${selectedRowData?._id}`,
+        `https://client-backend-402017.el.r.appspot.com/users/admin/updateStatus/${selectedRowData?._id}`,
         { status: false }
       )
       .then((response) => {

@@ -116,7 +116,7 @@ export default function Profile() {
       const id = localStorage.getItem('clientId');
       console.log('id', id);
       await axios
-        .patch(`http://localhost:5000/users/image/${id}`, formData)
+        .patch(`https://client-backend-402017.el.r.appspot.com/users/image/${id}`, formData)
         .then((response) => {
           console.log('image called');
           console.log(response.data.imageUrl);
@@ -145,7 +145,7 @@ export default function Profile() {
     const id = localStorage.getItem('clientId');
     console.log('id', id);
     await axios
-      .patch(`http://localhost:5000/users/${id}`, {
+      .patch(`https://client-backend-402017.el.r.appspot.com/users/${id}`, {
         companyName,
         companyType,
         companyEmail,
@@ -187,7 +187,7 @@ export default function Profile() {
     }
     console.log('the details', clientId, token);
     axios
-      .get(`http://localhost:5000/users/data/${id}`)
+      .get(`https://client-backend-402017.el.r.appspot.com/users/data/${id}`)
       .then((response) => {
         console.log(response.data);
         const data = response.data;
@@ -236,7 +236,7 @@ export default function Profile() {
                     xs={12}
                     sm={3}>
                     <div className='profileImage'>
-                      {companyImage.length > 2 ? (
+                      {/* {companyImage.length > 2 ? (
                         <img
                           src={companyImage}
                           alt='user'
@@ -250,7 +250,7 @@ export default function Profile() {
                           className='img'
                           id='profilePicture'
                         />
-                      )}
+                      )} */}
                     </div>
                   </Grid>
 

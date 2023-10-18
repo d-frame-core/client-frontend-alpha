@@ -34,8 +34,8 @@ const Connect = () => {
         method: 'eth_requestAccounts',
       });
       const address = accounts[0];
-
-      const response = await axios.post('http://localhost:5000/users/login', {
+ 
+      const response = await axios.post('https://client-backend-402017.el.r.appspot.com/users/login', {
         walletAddress: address,
       });
 

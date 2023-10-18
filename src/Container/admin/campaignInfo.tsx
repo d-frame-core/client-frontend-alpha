@@ -197,7 +197,7 @@ export default function ClientInfo() {
     console.log('i am writing the data', adminData);
     // Make an HTTP GET request to your API endpoint
     axios
-      .get('http://localhost:5000/ads/getAllads')
+      .get('https://client-backend-402017.el.r.appspot.com/ads/getAllads')
       .then((response) => {
         setFetchedData(response.data.reverse());
         console.log(response.data);
@@ -218,7 +218,7 @@ export default function ClientInfo() {
 
   const handlePause = (id: any) => {
     axios
-      .patch(`http://localhost:5000/ads/admin/pauseAd/${id}`)
+      .patch(`https://client-backend-402017.el.r.appspot.com/ads/admin/pauseAd/${id}`)
       .then((response) => {
         // Update the active field in the state
         console.log(response.data);
@@ -231,7 +231,7 @@ export default function ClientInfo() {
 
   const handleVerify = (id: any) => {
     axios
-      .patch(`http://localhost:5000/ads/admin/verifyAd/${id}`)
+      .patch(`https://client-backend-402017.el.r.appspot.com/ads/admin/verifyAd/${id}`)
       .then((response) => {
         // Update the active field in the state
         console.log(response.data);

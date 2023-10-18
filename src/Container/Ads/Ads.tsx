@@ -24,7 +24,7 @@ const SurveyHistory = () => {
     const _tokenn = token || localStorage.getItem("tokenForClient");
     console.log(id, _tokenn);
     await axios
-      .get("http://localhost:3000/ads/client/expireddetail", {
+      .get("https://client-backend-402017.el.r.appspot.com/ads/client/expireddetail", {
         headers: {
           id: id,
         },
@@ -81,7 +81,7 @@ const SurveyHistory = () => {
   async function deleteParticularSurvey(id: any) {
     setDeleteToastOpen(true);
     await axios
-      .delete(`http://localhost:3000/ads/${id}`)
+      .delete(`https://client-backend-402017.el.r.appspot.com/ads/${id}`)
       .then((res) => {
         console.log("Deleted Ad Details", res.data);
         // window.location.reload();
@@ -175,7 +175,7 @@ const SurveyHistory = () => {
                 </Alert>
               </Snackbar>
             )}
-            {oastSurveyExist &&
+            {/* {oastSurveyExist &&
               pastSurveyData.map((data, index) => {
                 const dateDiff = Math.ceil(
                   Math.abs(
@@ -215,7 +215,7 @@ const SurveyHistory = () => {
                     </div>
                   </div>
                 );
-              })}
+              })} */}
             {deleteToastOpen && (
               <Snackbar
                 anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
