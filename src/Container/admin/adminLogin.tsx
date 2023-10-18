@@ -1,5 +1,7 @@
-import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+/** @format */
+
+import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   getAuth,
   initializeAuth,
@@ -8,10 +10,10 @@ import {
   sendSignInLinkToEmail,
   isSignInWithEmailLink,
   signInWithEmailLink,
-} from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import axios from "axios";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+} from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import axios from 'axios';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import './login.css';
 
 const firebaseConfig = {
@@ -37,19 +39,18 @@ declare global {
 }
 
 const Login = () => {
-  const [errorMessage, setErrorMessage] = useState("");
-  const [recaptchaVerifier, setRecaptchaVerifier] = useState<RecaptchaVerifier | null>(
-    null
-  );
+  const [errorMessage, setErrorMessage] = useState('');
+  const [recaptchaVerifier, setRecaptchaVerifier] =
+    useState<RecaptchaVerifier | null>(null);
   const [confirmationResult, setConfirmationResult] = useState<any>(null);
-  const [verifyCode, setVerifyCode] = useState("");
+  const [verifyCode, setVerifyCode] = useState('');
   const [isVerifying, setIsVerifying] = useState(false);
-  const [metamaskAddress, setMetamaskAddress] = useState("");
+  const [metamaskAddress, setMetamaskAddress] = useState('');
 
   const navigate = useNavigate();
   const app = initializeApp(firebaseConfig); // Initialize Firebase
   const auth = getAuth(app); // Initialize the auth object after initializing Firebase
-  auth.languageCode = "en";
+  auth.languageCode = 'en';
 
   const generaterecaptcha = () => {
     (window as any).recaptchaVerifier = new RecaptchaVerifier(
@@ -67,32 +68,37 @@ const Login = () => {
 
   useEffect(() => {
     // Create the RecaptchaVerifier
-    const appVerifier = new RecaptchaVerifier("recaptcha-container", {
-      size: "invisible",
-    }, auth);
+    const appVerifier = new RecaptchaVerifier(
+      'recaptcha-container',
+      {
+        size: 'invisible',
+      },
+      auth
+    );
     setRecaptchaVerifier(appVerifier);
     // Collect Metamask address on page load
     const collectMetamaskAddress = async () => {
       try {
         if (window.ethereum) {
-          const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-          if (accounts[0] === "0x298ab03dd8d59f04b2fec7bcc75849bd685eea75") {
+          const accounts = await window.ethereum.request({
+            method: 'eth_requestAccounts',
+          });
+          if (accounts[0] === '0x298ab03dd8d59f04b2fec7bcc75849bd685eea75') {
             const metamaskAddress = accounts[0];
             setMetamaskAddress(metamaskAddress);
-            console.log(metamaskAddress)
-          }else{
-            navigate("/register1");
+            console.log(metamaskAddress);
+          } else {
+            navigate('/register1');
           }
         }
       } catch (error) {
-        console.error("Error collecting Metamask address:", error);
+        console.error('Error collecting Metamask address:', error);
         // Handle error if necessary
       }
     };
 
     collectMetamaskAddress();
   }, [auth]); // Include auth in the dependency array if needed
-
 
   const {
     handleSubmit,
@@ -105,34 +111,32 @@ const Login = () => {
   };
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
-    console.log(data.password,metamaskAddress)
+    console.log(data.password, metamaskAddress);
     try {
       // Create a separate RecaptchaVerifier instance
-      const response = await axios.post("https://client-backend-402017.el.r.appspot.com/admin/adminLogin", 
-      {
-        password:data.password,
-        userAddress:"0x298ab03DD8D59f04b2Fec7BcC75849bD685eea75"
-      });
+      const response = await axios.post(
+        'http://localhost:5000/admin/adminLogin',
+        {
+          password: data.password,
+          userAddress: '0x298ab03DD8D59f04b2Fec7BcC75849bD685eea75',
+        }
+      );
       console.log(response.data);
-      localStorage.setItem("dframeAdmindata", JSON.stringify(response.data));
+      localStorage.setItem('dframeAdmindata', JSON.stringify(response.data));
       navigate('/admin/clientInfo');
-      setErrorMessage("");
+      setErrorMessage('');
     } catch (error) {
       console.error(error);
-      setErrorMessage("Error sending OTP.");
+      setErrorMessage('Error sending OTP.');
     }
-    console.log("submit")
+    console.log('submit');
   };
 
   const sendOtp = (e: any) => {
     setIsVerifying(true);
     generaterecaptcha();
     let appVerifier = (window as any).recaptchaVerifier;
-    signInWithPhoneNumber(
-      auth,
-      `+918447411862`,
-      appVerifier
-    )
+    signInWithPhoneNumber(auth, `+918447411862`, appVerifier)
       .then((confirmationResult) => {
         // SMS sent. Prompt user to type the code from the message, then sign the
         // user in with confirmationResult.confirm(code).
@@ -145,7 +149,7 @@ const Login = () => {
         console.log(error);
       });
   };
- 
+
   // const sendOtp = async () => {
   //   const recaptchaVerifierInstance = recaptchaVerifier as RecaptchaVerifier;
   //       // Send the OTP to the phone number associated with the Metamask address
@@ -204,35 +208,33 @@ const Login = () => {
 
   const verifyOtp = () => {
     let confirmationResult = (window as any).confirmationResult;
-    console.log("verifyCode",verifyCode)
+    console.log('verifyCode', verifyCode);
     confirmationResult
       .confirm(verifyCode)
       .then((result: any) => {
         const user = result.user;
-        console.log(user)
+        console.log(user);
         setIsVerifying(false);
       })
       .catch((error: any) => {
-        console.log(error)
+        console.log(error);
       });
   };
 
-
   return (
-    <div className="login-container">
-      <div className="login-form">
+    <div className='login-container'>
+      <div className='login-form'>
         <h1>Admin Login</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-          
           <button onClick={sendOtp}>Verify with OTP</button>
-          <div id="recaptcha-container"></div>
+          <div id='recaptcha-container'></div>
           {isVerifying && (
             <div>
               <p>Enter the OTP sent to your phone:</p>
               <input
-                type="text"
+                type='text'
                 onChange={handleVerifyCodeChange}
-                placeholder="OTP"
+                placeholder='OTP'
               />
               <button onClick={verifyOtp}>Verify OTP</button>
             </div>
@@ -241,22 +243,25 @@ const Login = () => {
           <div>
             <label>Password</label>
             <Controller
-              name="password"
+              name='password'
               control={control}
-              defaultValue=""
-              rules={{ required: "Password is required" }}
+              defaultValue=''
+              rules={{ required: 'Password is required' }}
               render={({ field }) => (
-                <input {...field} type="password" placeholder="Password" />
+                <input
+                  {...field}
+                  type='password'
+                  placeholder='Password'
+                />
               )}
             />
             {errors.password && <span>{errors.password.message}</span>}
           </div>
-          <button type="submit">Submit</button>
+          <button type='submit'>Submit</button>
         </form>
       </div>
     </div>
   );
-  
 };
 
 export default Login;

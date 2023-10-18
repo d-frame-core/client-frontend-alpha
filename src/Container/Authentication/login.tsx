@@ -1,12 +1,14 @@
-import axios from "axios";
-import React, { useState, ChangeEvent, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+/** @format */
+
+import axios from 'axios';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   getAuth,
   RecaptchaVerifier,
   signInWithPhoneNumber,
-} from "firebase/auth";
-import { initializeApp } from "firebase/app";
+} from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
 // import "./login.css";
 const firebaseConfig = {
   apiKey: "AIzaSyDCw4HQNGgwjbR3sB_fnPGZkj6puPaRW50",
@@ -19,10 +21,10 @@ const firebaseConfig = {
 };
 
 const Login = () => {
-  const [errorMessage, setErrorMessage] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
   const [verify, setVerify] = useState(false);
   const [recaptchaVerifier, setRecaptchaVerifier] = useState(false);
   const [confirmationResult, setConfirmationResult] = useState(null);
@@ -33,10 +35,10 @@ const Login = () => {
 
   const app = initializeApp(firebaseConfig); // initializing firebase app
   const auth = getAuth(); // getting auth object from firebase
-  auth.languageCode = "en"; // setting language code to english
+  auth.languageCode = 'en'; // setting language code to english
 
   const actionCodeSettings = {
-    url: "http://localhost:3000/dashboard",
+    url: 'http://localhost:3000/dashboard',
     // This must be true.
     handleCodeInApp: true,
   };
@@ -58,7 +60,7 @@ const Login = () => {
 
     // Handling the form submission logic
     try {
-      const response = await axios.post("https://client-backend-402017.el.r.appspot.com/admin/login", {
+      const response = await axios.post('http://localhost:5000/admin/login', {
         email,
         password: password,
         phoneNumber,
@@ -83,7 +85,7 @@ const Login = () => {
         }
       } else {
         // Handle other errors
-        setErrorMessage("An error occurred while processing your request.");
+        setErrorMessage('An error occurred while processing your request.');
       }
     }
 
@@ -95,24 +97,28 @@ const Login = () => {
       <h1>Let's create your account</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <input type="text" onChange={handleEmailChange} placeholder="Email" />
-        </div>
-        <div>
           <input
-            type="password"
-            onChange={handlePasswordChange}
-            placeholder="Password"
+            type='text'
+            onChange={handleEmailChange}
+            placeholder='Email'
           />
         </div>
         <div>
           <input
-            type="text"
+            type='password'
+            onChange={handlePasswordChange}
+            placeholder='Password'
+          />
+        </div>
+        <div>
+          <input
+            type='text'
             onChange={handleNumberChange}
-            placeholder="Number"
+            placeholder='Number'
           />
         </div>
         {errorMessage && <div>{errorMessage}</div>}
-        <button type="submit">Submit</button>
+        <button type='submit'>Submit</button>
       </form>
     </div>
   );
