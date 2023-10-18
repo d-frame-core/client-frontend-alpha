@@ -1,6 +1,6 @@
 .connectClientWallet {
   position: absolute;
-  top: 50%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
   height: 60vh;
@@ -21,8 +21,8 @@
   text-align: center;
   font-weight: 100;
 }
-.connectClientWallet__heading {
-  font-size: 6vh;
+.connectClientWallet__headingMain {
+  font-size: 7vh;
   font-weight: 500;
   color: #000;
 }
@@ -37,6 +37,8 @@
   }
   .connectClientWallet__heading{
     font-size: 4vh;
+    font-weight: 300;
+
   }
   
 }

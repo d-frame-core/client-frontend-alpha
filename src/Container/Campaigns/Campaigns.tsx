@@ -567,6 +567,8 @@ export default function Campaigns() {
       });
   };
 
+
+
   return (
     <>
       <>{Sidebar(4)}</>
@@ -624,11 +626,14 @@ export default function Campaigns() {
                   <div className='campaignsFormBody'>
                     <TextField
                       id='standard-basic'
-                      label='Campaign Name'
+                      label='Campaign Name (in 30 char)'
                       variant='standard'
                       sx={{ left: '2vw', width: '90%' }}
                       {...register('campaignName')}
                       onChange={(e) => setCampaignName(e.target.value)}
+                      inputProps={{
+                        maxLength: 30,
+                      }}
                       required
                     />
                     <TextField
@@ -655,11 +660,14 @@ export default function Campaigns() {
                     </TextField>
                     <TextField
                       id='standard-basic'
-                      label='Ad Name'
+                      label='Ad Name (in 30 char)'
                       variant='standard'
                       sx={{ left: '2vw', width: '90%', marginTop: '1.5vh' }}
                       {...register('Ad Name')}
                       onChange={(e) => setAdName(e.target.value)}
+                      inputProps={{
+                        maxLength: 30,
+                      }}
                       required
                     />
                     <TextField

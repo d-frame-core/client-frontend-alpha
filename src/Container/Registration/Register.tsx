@@ -13,12 +13,13 @@ import { initializeApp } from "firebase/app";
 import axios from "axios";
 import { MyContext } from "../../components/context/Context";
 const firebaseConfig = {
-  apiKey: "AIzaSyCYpkhlVsy1eO1vVuRNpa6l1CWONEKiXU8",
-  authDomain: "client-dashboard-2.firebaseapp.com",
-  projectId: "client-dashboard-2",
-  storageBucket: "client-dashboard-2.appspot.com",
-  messagingSenderId: "578943720826",
-  appId: "1:578943720826:web:d6d52242c9743e540d0ac3",
+  apiKey: "AIzaSyDCw4HQNGgwjbR3sB_fnPGZkj6puPaRW50",
+  authDomain: "client-dashboard-alpha.firebaseapp.com",
+  projectId: "client-dashboard-alpha",
+  storageBucket: "client-dashboard-alpha.appspot.com",
+  messagingSenderId: "416114234774",
+  appId: "1:416114234774:web:99572d843e60651e9639b7",
+  measurementId: "G-PG5R9F2SCW"
 };
 
 const Register: React.FC = () => {

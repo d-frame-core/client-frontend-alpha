@@ -72,14 +72,15 @@ const Connect = () => {
     <div className="connectClientWallet">
       {!isConnected && (
         <div>
-          <h1 className="connectClientWallet__headingMain">
-            Welcome to DFrame
-          </h1>
           <img
             className="dframeLogoConnectWalletPage"
             src={dframLogo}
             alt="d frame logo"
           />
+          <h1 className="connectClientWallet__headingMain">
+            Welcome to D  Frame
+          </h1>
+          
           <h1 className="connectClientWallet__heading">
             Connect Wallet To Login
           </h1>
