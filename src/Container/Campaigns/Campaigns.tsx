@@ -268,6 +268,20 @@ export default function Campaigns() {
       alert('Error in Bid Amount or Date');
       return;
     }
+    if (!adName || !campaignName || !adContent || !adLink) {
+      alert('Enter all details');
+      return;
+    }
+
+    if (adContent.length > 40) {
+      alert('Description less than 40');
+      return;
+    }
+
+    if (adName.length > 30) {
+      alert('Title less than 30');
+      return;
+    }
 
     const id = clientId || localStorage.getItem('id');
     console.log('idCampaignPage', id);
@@ -295,7 +309,7 @@ export default function Campaigns() {
     try {
       const response = await axios.post(
         'https://client-backend-402017.el.r.appspot.com/ads/test/createAd',
-        formData, 
+        formData,
         {
           headers: {
             'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
@@ -323,11 +337,14 @@ export default function Campaigns() {
     const id = localStorage.getItem('clientId');
     console.log('id', id);
     await axios
-      .get(`https://client-backend-402017.el.r.appspot.com/ads/clientAllAds/${id}`, {
-        headers: {
-          id: id,
-        },
-      })
+      .get(
+        `https://client-backend-402017.el.r.appspot.com/ads/clientAllAds/${id}`,
+        {
+          headers: {
+            id: id,
+          },
+        }
+      )
       // ""
       .then((res) => {
         console.log('All Ads Details', res.data);
@@ -480,11 +497,14 @@ export default function Campaigns() {
     }
     console.log(particularAdsDetails._id);
     await axios
-      .patch(`https://client-backend-402017.el.r.appspot.com/bids/${particularAdsDetails._id}`, {
-        bidAmount: Number(newBidAmount),
-        perDay: Number(newPerDayAmount),
-        totalDays: Number(newTotalDays),
-      })
+      .patch(
+        `https://client-backend-402017.el.r.appspot.com/bids/${particularAdsDetails._id}`,
+        {
+          bidAmount: Number(newBidAmount),
+          perDay: Number(newPerDayAmount),
+          totalDays: Number(newTotalDays),
+        }
+      )
       .then((res) => {
         console.log('Updated Bid Details', res.data);
         setEditBidModal(false);
@@ -534,7 +554,10 @@ export default function Campaigns() {
 
       // Send the image to the backend using Axios
       axios
-        .post('https://client-backend-402017.el.r.appspot.com/picture/uploadPicture', formData)
+        .post(
+          'https://client-backend-402017.el.r.appspot.com/picture/uploadPicture',
+          formData
+        )
         .then((response) => {
           console.log('image called');
           console.log(response.data);
@@ -555,7 +578,10 @@ export default function Campaigns() {
     const formdata = new FormData();
     formdata.append('video', file);
     axios
-      .post('https://client-backend-402017.el.r.appspot.com/video/uploadProfileVideo', formdata)
+      .post(
+        'https://client-backend-402017.el.r.appspot.com/video/uploadProfileVideo',
+        formdata
+      )
       .then((response) => {
         console.log('video called');
         console.log(response.data);
@@ -566,8 +592,6 @@ export default function Campaigns() {
         console.error(error);
       });
   };
-
-
 
   return (
     <>

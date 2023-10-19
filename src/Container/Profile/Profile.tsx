@@ -116,7 +116,10 @@ export default function Profile() {
       const id = localStorage.getItem('clientId');
       console.log('id', id);
       await axios
-        .patch(`https://client-backend-402017.el.r.appspot.com/users/image/${id}`, formData)
+        .patch(
+          `https://client-backend-402017.el.r.appspot.com/users/image/${id}`,
+          formData
+        )
         .then((response) => {
           console.log('image called');
           console.log(response.data.imageUrl);
@@ -236,7 +239,7 @@ export default function Profile() {
                     xs={12}
                     sm={3}>
                     <div className='profileImage'>
-                      {/* {companyImage.length > 2 ? (
+                      {companyImage ? (
                         <img
                           src={companyImage}
                           alt='user'
@@ -250,7 +253,7 @@ export default function Profile() {
                           className='img'
                           id='profilePicture'
                         />
-                      )} */}
+                      )}
                     </div>
                   </Grid>
 
